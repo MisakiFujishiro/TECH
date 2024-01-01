@@ -162,11 +162,11 @@ html: Makefile
 ### github pagesの設定
 リポジトリの`/Setting/Pages`から、以下のように設定。
 
-![](../img/Sphinx/github_pages.png)
+![](../img/Sphinx/github_pages_setting.pngpng)
 
 設定後、SphinxをPushするとGitHub Pageが作成され、URLからアクセス可能になる。
 
-
+![](../img/Sphinx/github_pages.png)
 
 
 
