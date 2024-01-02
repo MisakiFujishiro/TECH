@@ -3,7 +3,14 @@ python製のドキュメント生成ツールでreSTやmarkdownで書かれた�
 
 github Pagesと連携することで、github上でドキュメントを公開できる。
 
+# note
+```sh
+# ローカル出力
+sphinx-autobuild -b html source build/html --port [PORT_NUM]
 
+# htmlファイルの作成
+make html
+```
 
 # Sphinxの初期設定
 ## Sphinxのインストール

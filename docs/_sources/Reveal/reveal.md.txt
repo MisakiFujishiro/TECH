@@ -1,6 +1,14 @@
 # Reveal.jsとは
 Reveal.jsとは、ウェブベースのプレゼンテーションフレームワークであり、ウェブ上にスライドを構築することができる。
 
+# note
+```sh
+# ローカル出力
+reveal-md md_docs -w --port [PORT_NUM]
+
+# htmlファイルの作成
+reveal-md md_docs --static docs
+```
 
 # Reveal.jsの初期設定
 ## ディレクトリの作成と移動
