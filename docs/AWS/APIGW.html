@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="Sphinxとは" href="../Sphinx/sphinx.html" />
+    <link rel="next" title="gitとは" href="../Git/starter.html" />
     <link rel="prev" title="IAM" href="IAM.html" /> 
 </head>
 
@@ -43,18 +43,59 @@
               <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API Gateway</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Gateway</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#note">note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rest-api">REST API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">全体像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">リソース</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">メソッド</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">メソッド設定</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">メソッドリクエスト</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">統合リクエスト</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">統合レスポンス</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">メソッドレスポンス</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">プロキシ統合</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">知見の整理:</span></p>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">エンドポイントタイプ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">デプロイ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">ステージ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">デプロイメント</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">キャッシュ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">料金</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id16">実行回数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">バージョニング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api">APIキーと使用量プラン</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id18">エラーパターン</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#websocket">WebSocket</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">note</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">note</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id8">Reveal.jsの基本的な利用方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
 </ul>
 
         </div>
@@ -83,6 +124,181 @@
              
   <section id="api-gateway">
 <h1>API Gateway<a class="headerlink" href="#api-gateway" title="この見出しへのパーマリンク">¶</a></h1>
+<p>Web APIの作成や公開、管理を行うためのフルマネージドサービス。
+サーバーレスのため、APIの実行基盤のサーバー構築や維持管理はAWSが責任を負い、開発者はAPIの開発に集中することができる。</p>
+<p>API GWでは、APIとして<code class="docutils literal notranslate"><span class="pre">REST</span> <span class="pre">API</span></code>と<code class="docutils literal notranslate"><span class="pre">WebSocket</span></code>を提供している。</p>
+<section id="note">
+<h2>note<a class="headerlink" href="#note" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/20190514_AWS-Blackbelt_APIGateway_rev.pdf">Blackbelt</a></p>
+</section>
+<section id="rest-api">
+<h2>REST API<a class="headerlink" href="#rest-api" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id1">
+<h3>全体像<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>API GWでは、<code class="docutils literal notranslate"><span class="pre">リソースとメソッド</span></code>を作成し、それぞれのメソッドに対して<code class="docutils literal notranslate"><span class="pre">メソッド設定</span></code>を行うことでAPIを開発する。</p>
+<p><img alt="" src="../_images/apige_restapi_setting.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/20190514_AWS-Blackbelt_APIGateway_rev.pdf">Blackbelt</a>から引用</p>
+</section>
+<section id="id2">
+<h3>リソース<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">リソース</span></code>とは、APIで利用される<code class="docutils literal notranslate"><span class="pre">パス</span></code>である。<br />
+<code class="docutils literal notranslate"><span class="pre">/</span></code>を最上位として、階層構造でリソースを定義する。<br />
+上記の例では「pets」や「ptes/{petId}」がリソースとして定義されている。</p>
+<p>最終的にAPI GWをデプロイすることで発行されるAPIのURLは以下のようになり、URLの末尾にリソースを付与して、各リソースに問い合わせをしていく。</p>
+<div class="highlight-url notranslate"><div class="highlight"><pre><span></span>https://{api-id}.execute-api.{region}.amazonaws.com/{stageName}/pets
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>{api-id}: AWSがAPIに割り当てる一意の識別子</p></li>
+<li><p>{stageName}: ステージ名(後述)</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>メソッド<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">メソッド</span></code>ではリソースで受け付けるHTTPのメソッドを事前に定義する。
+受け付けることができるのは以下の7メソッド</p>
+<ul class="simple">
+<li><p>GET</p></li>
+<li><p>POST</p></li>
+<li><p>PUT</p></li>
+<li><p>HEAD</p></li>
+<li><p>DELETE</p></li>
+<li><p>OPTIONS</p></li>
+<li><p>PATCH</p></li>
+<li><p>ANY</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>メソッド設定<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>リソースとメソッドの組み合わせごとに<code class="docutils literal notranslate"><span class="pre">メソッド設定</span></code>と呼ばれる処理フローを定義する。<br />
+定義は4つのセクションに分かれている</p>
+<ul class="simple">
+<li><p>メソッドリクエスト</p></li>
+<li><p>統合リクエスト</p></li>
+<li><p>統合レスポンス</p></li>
+<li><p>メソッドレスポンス</p></li>
+</ul>
+<section id="id5">
+<h4>メソッドリクエスト<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
+<p><em><strong>受け付けたリクエストに対するチェック処理</strong></em>
+以下のような処理が可能</p>
+<ul class="simple">
+<li><p>バリデーション：クエリ文字列やヘッダーなどの必須設定</p></li>
+<li><p>IAM Roleによる認証と認可</p></li>
+</ul>
+</section>
+<section id="id6">
+<h4>統合リクエスト<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<p><em><strong>受け付けたリクエストをバックエンドに渡すための処理</strong></em></p>
+<p>以下のような処理が可能</p>
+<ul class="simple">
+<li><p>バックエンドタイプの定義：受付可能なバックエンドは５つ</p>
+<ul>
+<li><p>Lambda: 作成したLambdaとの統合</p></li>
+<li><p>HTTP: 外部APIなどとの統合(HTTPプロトコルを指し、HTTP/HTTPS両方対応)</p></li>
+<li><p>Mock: プロトタイピング用</p></li>
+<li><p>AWS サービス: Lambda以外のAWSサービス(DynamoやSQS etc..)</p></li>
+<li><p>VPCリンク: VPCリンクが作成されているサービス</p></li>
+</ul>
+</li>
+<li><p>リクエストをカスタマイズして、バックエンド向けに変換</p></li>
+</ul>
+</section>
+<section id="id7">
+<h4>統合レスポンス<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
+<p><em><strong>バックエンドから帰ってきたレスポンスを整形する処理</strong></em></p>
+<p>以下のような処理が可能</p>
+<ul class="simple">
+<li><p>レスポンスをカスタマイズしてクライアント向けに変換</p></li>
+<li><p>エラーが発生していた場合のエラーハンドリング定義</p></li>
+</ul>
+</section>
+<section id="id8">
+<h4>メソッドレスポンス<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
+<p><em><strong>クライアントに渡すための最終調整処理</strong></em></p>
+<p>以下のような処理が可能</p>
+<ul class="simple">
+<li><p>クライアントに返すためのステータスコードの定義</p></li>
+<li><p>レスポンスの形式やHTTPヘッダーの追加</p></li>
+</ul>
+</section>
+<section id="id9">
+<h4>プロキシ統合<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
+<p>プロキシ統合（Lambdaプロキシ統合またはHTTPプロキシ統合）は、API Gatewayとバックエンドサービス間のリクエストとレスポンスのマッピングを簡素化するための機能。</p>
+<ul class="simple">
+<li><p>クライアントからのリクエストはほとんどそのままの形でバックエンドサービスに渡される</p></li>
+<li><p>バックエンドからのレスポンスもまた、プロキシ統合を通じて直接クライアントに返される</p></li>
+</ul>
+<p>利用時には、リクエストとレスポンスが固定のフォーマットに従っている前提の機能となる。</p>
+</section>
+</section>
+<section id="id10">
+<h3>エンドポイントタイプ<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>クライアント側から見た、アクセス先エンドポイントのタイプを3つから選択することができる</p>
+<ul class="simple">
+<li><p>エッジ最適化</p></li>
+<li><p>リージョン</p></li>
+<li><p>プライベート</p></li>
+</ul>
+<p><img alt="" src="../_images/apigw_endpoint_type.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/20190514_AWS-Blackbelt_APIGateway_rev.pdf">Blackbelt</a>から引用</p>
+</section>
+</section>
+<section id="id11">
+<h2>デプロイ<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
+<p>作成したAPIをデプロイし公開するためには、ステージとデプロイメントという概念を理解する必要がある。</p>
+<section id="id12">
+<h3>ステージ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ステージとは、API GWのバージョンのことであり同じAPIに対して異なるバージョンを設定することができる機能。
+利用方法としては以下が挙げられる</p>
+<ul class="simple">
+<li><p>バージョン管理：リリースごとにステージを分ける</p></li>
+<li><p>環境分離：dev/stg/prdのように、リリースの段階に応じてステージを分ける</p></li>
+<li><p>設定カスタマイズ：独自の設定ごとにステージを分ける</p></li>
+</ul>
+<p>発行されるURLは、ステージ名を含むこととなる</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>https://<span class="o">{</span>api-id<span class="o">}</span>.execute-api.<span class="o">{</span>region<span class="o">}</span>.amazonaws.com/<span class="o">{</span>stageName<span class="o">}</span>/...
+</pre></div>
+</div>
+</section>
+<section id="id13">
+<h3>デプロイメント<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
+<p>実際に、ステージに対してURLを発行するにはデプロイメントが必要。</p>
+</section>
+</section>
+<section id="id14">
+<h2>キャッシュ<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h2>
+<p>パフォーマンスと API 実行速度を向上させるため、オプションとしてお客様の API の各ステージに専用のキャッシュをプロビジョニングすることができる。キャッシュには費用がかかるが、その分APIGW側のリクエスト数やデータ転送量を削減できるため、トレードオフとなる。## 監視モニタリング</p>
+</section>
+<section id="id15">
+<h2>料金<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h2>
+<p>詳細は、<a class="reference external" href="https://aws.amazon.com/jp/api-gateway/pricing/">公式ドキュメント</a>参照。</p>
+<p>受信した API コール数と、転送データ量に対してのみ料金が発生する従量課金制。</p>
+<p>かかる費用の全体像としては以下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>実行回数＋データ転送料金＋キャッシュメモリ量
+</pre></div>
+</div>
+<section id="id16">
+<h3>実行回数<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
+<p>REST APIの目安としては、100万リクエスト当たり4USD</p>
+</section>
+</section>
+<section id="id17">
+<h2>バージョニング<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h2>
+<p>★★★★★Coming Soon★★★★★</p>
+</section>
+<section id="api">
+<h2>APIキーと使用量プラン<a class="headerlink" href="#api" title="この見出しへのパーマリンク">¶</a></h2>
+<p>★★★★★Coming Soon★★★★★</p>
+<section id="id18">
+<h3>エラーパターン<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h3>
+<p>★★★★★Coming Soon★★★★★</p>
+</section>
+</section>
+<section id="websocket">
+<h2>WebSocket<a class="headerlink" href="#websocket" title="この見出しへのパーマリンク">¶</a></h2>
+<p>★★★★★Coming Soon★★★★★</p>
+</section>
 </section>
 
 
@@ -90,7 +306,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="IAM.html" class="btn btn-neutral float-left" title="IAM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../Sphinx/sphinx.html" class="btn btn-neutral float-right" title="Sphinxとは" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Git/starter.html" class="btn btn-neutral float-right" title="gitとは" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
