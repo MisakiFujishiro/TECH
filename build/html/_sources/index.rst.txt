@@ -21,9 +21,16 @@
 
    Git/starter.md
 
+
+
+
+
+
+
+
 .. toctree::
    :maxdepth: 1
-   :caption: 知見の整理:
+   :caption: ドキュメント管理:
 
    Sphinx/sphinx.md
    

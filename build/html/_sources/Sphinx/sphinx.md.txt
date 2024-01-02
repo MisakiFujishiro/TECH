@@ -135,7 +135,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 ### リポジトリ設定
 github pagesで公開を行う場合は、publicとして作成を行う。
 
-初期設定を行い、リモートとローカルにリポジトリを作成する。
+[初期設定](https://misakifujishiro.github.io/TECH/Git/starter.html#id1)を行い、リモートとローカルにリポジトリを作成する。
 
 ### jekelly対応
 GitHub PagesではJekyllという静的サイトジェネレーターを使って、MarkdownやHTMLファイルを受け取り、整ったウェブサイトの形に変換する。
