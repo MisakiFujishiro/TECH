@@ -3,19 +3,31 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Sphinx 
-===================================
+技術的知見
+====================================
+
+
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
+   :caption: AWS:
 
-   Sphinx/quickstart.md
+   AWS/IAM.md
+   AWS/APIGW.md
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Git:
 
+   Git/starter.md
 
-Indices and tables
-==================
+.. toctree::
+   :maxdepth: 1
+   :caption: 知見の整理:
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   Sphinx/sphinx.md
+   
+.. toctree::
+   :maxdepth: 1
+
+   Reveal/reveal.md

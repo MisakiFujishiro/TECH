@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reveal.jsとは &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="prev" title="Sphinxとは" href="../Sphinx/sphinx.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/APIGW.html">API Gateway</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">知見の整理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id1">Reveal.jsの初期設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">ディレクトリの作成と移動</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">reveal.jsのクローン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#npm">npmのインストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">依存関係のインストール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#markdown">Markdownのための設定</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#github-pages">github pagesの設定</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">リポジトリ設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">github pagesの設定</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">トラブルシューティング</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id8">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Reveal.jsとは</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Reveal/reveal.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="reveal-js">
+<h1>Reveal.jsとは<a class="headerlink" href="#reveal-js" title="この見出しへのパーマリンク">¶</a></h1>
+<p>Reveal.jsとは、ウェブベースのプレゼンテーションフレームワークであり、ウェブ上にスライドを構築することができる。</p>
+</section>
+<section id="id1">
+<h1>Reveal.jsの初期設定<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="id2">
+<h2>ディレクトリの作成と移動<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>最初に、プレゼンテーションのプロジェクト用に新しいディレクトリを作成し、そのディレクトリに移動。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>~/github_pages_reveal/hello_reveal
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>reveal.jsのクローン<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GitHubからreveal.jsのリポジトリをクローン。
+これにより、revealに必要なファイルとフォルダ構造がローカル環境にコピーされる。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hakimel/reveal.js.git
+</pre></div>
+</div>
+</section>
+<section id="npm">
+<h2>npmのインストール<a class="headerlink" href="#npm" title="この見出しへのパーマリンク">¶</a></h2>
+<p>reveal.jsはnpmを使用して依存関係を管理しているため、npmがシステムにインストールされていることを確認する。
+npmはNode.jsのパッケージマネージャーで、Node.jsをインストールすることで利用できるようになるので、次のコマンドを使用してNode.js（およびnpm）をインストール。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>node
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h2>依存関係のインストール<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<p>reveal.jsの<code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">i</span></code>コマンドでカレントディレクトリのpackage.jsonを利用して、依存関係をインストールする</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">reveal</span><span class="o">.</span><span class="n">js</span> <span class="o">&amp;&amp;</span> <span class="n">npm</span> <span class="n">i</span>
+</pre></div>
+</div>
+</section>
+<section id="markdown">
+<h2>Markdownのための設定<a class="headerlink" href="#markdown" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
+<section id="github-pages">
+<h2>github pagesの設定<a class="headerlink" href="#github-pages" title="この見出しへのパーマリンク">¶</a></h2>
+<p>作成したhtmlをgithub pagesで公開することができる。
+また、githubで公開することで、どの環境からも修正を加えることができる。</p>
+<section id="id5">
+<h3>リポジトリ設定<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>github pagesで公開を行う場合は、publicとして作成を行う。Readmeは作らなくて良い。</p>
+<p>初期設定を行い、リモートとローカルにリポジトリを作成する。</p>
+</section>
+<section id="id6">
+<h3>github pagesの設定<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p><a class="reference external" href="https://misakifujishiro.github.io/TECH/Sphinx/quickstart.html#github-pages">sphinx</a>の設定と同様</p>
+</section>
+</section>
+<section id="id7">
+<h2>トラブルシューティング<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
+<p>以下のエラーが出た場合は</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fetching</span> <span class="n">submodules</span>
+  <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">git</span> <span class="n">submodule</span> <span class="n">sync</span> <span class="o">--</span><span class="n">recursive</span>
+  <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">git</span> <span class="o">-</span><span class="n">c</span> <span class="n">protocol</span><span class="o">.</span><span class="n">version</span><span class="o">=</span><span class="mi">2</span> <span class="n">submodule</span> <span class="n">update</span> <span class="o">--</span><span class="n">init</span> <span class="o">--</span><span class="n">force</span> <span class="o">--</span><span class="n">depth</span><span class="o">=</span><span class="mi">1</span> <span class="o">--</span><span class="n">recursive</span>
+  <span class="n">Error</span><span class="p">:</span> <span class="n">fatal</span><span class="p">:</span> <span class="n">No</span> <span class="n">url</span> <span class="n">found</span> <span class="k">for</span> <span class="n">submodule</span> <span class="n">path</span> <span class="s1">&#39;reveal.js&#39;</span> <span class="ow">in</span> <span class="o">.</span><span class="n">gitmodules</span>
+  <span class="n">Error</span><span class="p">:</span> <span class="n">The</span> <span class="n">process</span> <span class="s1">&#39;/usr/bin/git&#39;</span> <span class="n">failed</span> <span class="k">with</span> <span class="n">exit</span> <span class="n">code</span> <span class="mi">128</span>
+</pre></div>
+</div>
+<p>以下の内容を<code class="docutils literal notranslate"><span class="pre">.gitmodules</span></code>という名前にして、ルートディレクトリに保存してpushする</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">submodule</span> <span class="s2">&quot;reveal.js&quot;</span><span class="p">]</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">reveal</span><span class="o">.</span><span class="n">js</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">hakimel</span><span class="o">/</span><span class="n">reveal</span><span class="o">.</span><span class="n">js</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>これが完了してから、サーバーを立ち上げると、サンプルスライドがlocalhost:8080で起動している</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">8080</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id8">
+<h1>Reveal.jsの基本的な利用方法<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h1>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../Sphinx/sphinx.html" class="btn btn-neutral float-left" title="Sphinxとは" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

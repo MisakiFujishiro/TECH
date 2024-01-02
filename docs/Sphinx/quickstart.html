@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="ja" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sphinxとは &mdash; project  documentation</title>
+  <title>Sphinxとは &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -17,9 +17,10 @@
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
     <script src="../_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
     <link rel="prev" title="Sphinx" href="../index.html" /> 
 </head>
 
@@ -86,14 +87,14 @@
            <div itemprop="articleBody">
              
   <section id="sphinx">
-<h1>Sphinxとは<a class="headerlink" href="#sphinx" title="Permalink to this heading">¶</a></h1>
+<h1>Sphinxとは<a class="headerlink" href="#sphinx" title="この見出しへのパーマリンク">¶</a></h1>
 <p>python製のドキュメント生成ツールでreSTやmarkdownで書かれたファイルをHTMLなどに変換することが可能。</p>
 <p>github Pagesと連携することで、github上でドキュメントを公開できる。</p>
 </section>
 <section id="id1">
-<h1>Sphinxの初期設定<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1>Sphinxの初期設定<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="id2">
-<h2>Sphinxのインストール<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<h2>Sphinxのインストール<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
 <p>python環境がインストールされていることが前提となる。
 以下のコマンドでインストールされているか確認して、されていなければインストールする。</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-V
@@ -105,7 +106,7 @@
 </div>
 </section>
 <section id="id3">
-<h2>Sphinxのクイックスタート<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<h2>Sphinxのクイックスタート<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
 <p>クイックスタートコマンドを実行し、SphinxのProjectを作成する。対話形式での設定例は以下。</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sphinx-quickstart
 
@@ -122,7 +123,7 @@
 </div>
 </section>
 <section id="id4">
-<h2>バックグラウンドでビルドし続ける<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2>バックグラウンドでビルドし続ける<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
 <p>毎回、make htmlを実行するのは手間なので、autobuildをさせる。</p>
 <p>ライブラリのインストール</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>sphinx-autobuild
@@ -134,7 +135,7 @@
 </div>
 </section>
 <section id="markdown">
-<h2>Markdownのための設定<a class="headerlink" href="#markdown" title="Permalink to this heading">¶</a></h2>
+<h2>Markdownのための設定<a class="headerlink" href="#markdown" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Sphinxをドキュメント化するにあたって、Markdownを利用するためには以下の設定が必要。</p>
 <p>myst-parserをインストール</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>myst-parser
@@ -168,7 +169,7 @@
 </div>
 </section>
 <section id="id5">
-<h2>テーマの変更<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<h2>テーマの変更<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Sphinxで作成するドキュメントにはいくつかのテーマが準備されている。
 conf.pyを修正することによって、簡単にテーマを変更することが可能。</p>
 <p><code class="docutils literal notranslate"><span class="pre">readthedocs</span></code>というテーマが見やすくておすすめ。</p>
@@ -196,16 +197,16 @@ import<span class="w"> </span>sphinx_rtd_theme
 </div>
 </section>
 <section id="github-pages">
-<h2>github pagesの設定<a class="headerlink" href="#github-pages" title="Permalink to this heading">¶</a></h2>
+<h2>github pagesの設定<a class="headerlink" href="#github-pages" title="この見出しへのパーマリンク">¶</a></h2>
 <p>作成したhtmlをgithub pagesで公開することができる。
 また、githubで公開することで、どの環境からも修正を加えることができる。</p>
 <section id="id6">
-<h3>リポジトリ設定<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
+<h3>リポジトリ設定<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
 <p>github pagesで公開を行う場合は、publicとして作成を行う。</p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>により、ローカルにリポジトリをクローンして、そのリポジトリ上でSphinxの設定を行う。</p>
 </section>
 <section id="id7">
-<h3>出力先の変更<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
+<h3>出力先の変更<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <p>github pagesでは、<code class="docutils literal notranslate"><span class="pre">docs/index.html</span></code>というパスを固定で参照しにいくので、docsというフォルダにも出力する必要がある。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Makefile</span></code>を修正して、docsにも出力する設定を行う。</p>
 <p>修正前</p>
@@ -227,7 +228,7 @@ html:<span class="w"> </span>Makefile
 </div>
 </section>
 <section id="id8">
-<h3>github pagesの設定<a class="headerlink" href="#id8" title="Permalink to this heading">¶</a></h3>
+<h3>github pagesの設定<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
 <p>リポジトリの<code class="docutils literal notranslate"><span class="pre">/Setting/Pages</span></code>から、以下のように設定。</p>
 <p><img alt="" src="../_images/github_pages_setting.png" /></p>
 <p>設定後、SphinxをPushするとGitHub Pageが作成され、URLからアクセス可能になる。</p>
@@ -236,12 +237,12 @@ html:<span class="w"> </span>Makefile
 </section>
 </section>
 <section id="id9">
-<h1>Sphinxの基本的な利用方法<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h1>
+<h1>Sphinxの基本的な利用方法<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="id10">
-<h2>階層構造<a class="headerlink" href="#id10" title="Permalink to this heading">¶</a></h2>
+<h2>階層構造<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h2>
 </section>
 <section id="id11">
-<h2>ファイル出力<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h2>
+<h2>ファイル出力<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
 </section>
 </section>
 

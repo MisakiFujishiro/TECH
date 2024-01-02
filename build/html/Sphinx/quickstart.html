@@ -44,11 +44,12 @@
 <li class="toctree-l1"><a class="reference internal" href="#id1">Sphinxの初期設定</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">Sphinxのインストール</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">Sphinxのクイックスタート</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">バックグラウンドでビルドし続ける</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">ローカルホストでのホスティング</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#markdown">Markdownのための設定</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id5">テーマの変更</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#github-pages">github pagesの設定</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id6">リポジトリ設定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jekelly">jekelly対応</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">出力先の変更</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id8">github pagesの設定</a></li>
 </ul>
@@ -56,8 +57,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#id9">Sphinxの基本的な利用方法</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id10">階層構造</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">ファイル出力</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#index-rst">index.rst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#md">mdファイル</a></li>
 </ul>
 </li>
 </ul>
@@ -88,7 +89,7 @@
              
   <section id="sphinx">
 <h1>Sphinxとは<a class="headerlink" href="#sphinx" title="この見出しへのパーマリンク">¶</a></h1>
-<p>python製のドキュメント生成ツールでreSTやmarkdownで書かれたファイルをHTMLなどに変換することが可能。</p>
+<p>python製のドキュメント生成ツールでreSTやmarkdownで書かれたファイルをHTMLなどに変換する。</p>
 <p>github Pagesと連携することで、github上でドキュメントを公開できる。</p>
 </section>
 <section id="id1">
@@ -117,19 +118,21 @@
 &gt;<span class="w"> </span>プロジェクトの言語<span class="w"> </span><span class="o">[</span>en<span class="o">]</span>:<span class="w"> </span>ja
 </pre></div>
 </div>
-<p>動作確認コマンド実行後に<code class="docutils literal notranslate"><span class="pre">build/html/index.html</span></code>のindex.htmlを開いてページの確認をする</p>
+<p>以下の動作確認コマンド実行する。</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>make<span class="w"> </span>html
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">build/html/index.html</span></code>のindex.htmlを開いてサンプルページが正しく作成されているか確認をする</p>
 </section>
 <section id="id4">
-<h2>バックグラウンドでビルドし続ける<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
-<p>毎回、make htmlを実行するのは手間なので、autobuildをさせる。</p>
+<h2>ローカルホストでのホスティング<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<p>毎回、make htmlを実行するのは手間なので、autobuildをさせる。
+autobuildを設定することで、localホストでホスティングされ、ファイルをsaveするたびに自動更新される。</p>
 <p>ライブラリのインストール</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>sphinx-autobuild
 </pre></div>
 </div>
-<p>以下のコマンドを実行すると、localホストでビルドしてくれる。PORT_NUMを指定しない場合は8080で起動する。</p>
+<p>autobuildの実行は以下コマンド。PORT_NUMを指定しない場合は8080で起動する。</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sphinx-autobuild<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span><span class="nb">source</span><span class="w"> </span>build/html<span class="w"> </span>--port<span class="w"> </span><span class="o">[</span>PORT_NUM<span class="o">]</span>
 </pre></div>
 </div>
@@ -205,6 +208,16 @@ import<span class="w"> </span>sphinx_rtd_theme
 <p>github pagesで公開を行う場合は、publicとして作成を行う。</p>
 <p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>により、ローカルにリポジトリをクローンして、そのリポジトリ上でSphinxの設定を行う。</p>
 </section>
+<section id="jekelly">
+<h3>jekelly対応<a class="headerlink" href="#jekelly" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GitHub PagesではJekyllという静的サイトジェネレーターを使って、MarkdownやHTMLファイルを受け取り、整ったウェブサイトの形に変換する。</p>
+<p>しかし、SphinxではJekyllによって画面が正しく表記されなくなってしまう。
+そこで、Jekyllを無効化させるための<code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code>というからのファイルを配置する必要がある。このファイルがあると、GitHub PagesはJekyllによる処理をスキップし、ファイルをそのままの形でホスティングします。つまり、Jekyllの変換機能を使わずに純粋な静的ホスティングを利用できるようになります。</p>
+<p><code class="docutils literal notranslate"><span class="pre">docs/.nojekyll</span></code>という配置になるようにdocs/配下に移動して、以下を実行する。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>touch<span class="w"> </span>.nojekyll
+</pre></div>
+</div>
+</section>
 <section id="id7">
 <h3>出力先の変更<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <p>github pagesでは、<code class="docutils literal notranslate"><span class="pre">docs/index.html</span></code>というパスを固定で参照しにいくので、docsというフォルダにも出力する必要がある。</p>
@@ -230,7 +243,7 @@ html:<span class="w"> </span>Makefile
 <section id="id8">
 <h3>github pagesの設定<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
 <p>リポジトリの<code class="docutils literal notranslate"><span class="pre">/Setting/Pages</span></code>から、以下のように設定。</p>
-<p><img alt="" src="img/Sphinx/github_pages_setting.pngpng" /></p>
+<p><img alt="" src="../_images/github_pages_setting.png" /></p>
 <p>設定後、SphinxをPushするとGitHub Pageが作成され、URLからアクセス可能になる。</p>
 <p><img alt="" src="../_images/github_pages.png" /></p>
 </section>
@@ -238,11 +251,27 @@ html:<span class="w"> </span>Makefile
 </section>
 <section id="id9">
 <h1>Sphinxの基本的な利用方法<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h1>
-<section id="id10">
-<h2>階層構造<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="index-rst">
+<h2>index.rst<a class="headerlink" href="#index-rst" title="この見出しへのパーマリンク">¶</a></h2>
+<p>作成するファイルの階層構造を<code class="docutils literal notranslate"><span class="pre">source/index.rst</span></code>で記述しておく。</p>
+<ul class="simple">
+<li><p>【カテゴリー名】: 黄色い枠部分のカテゴリー</p></li>
+<li><p>【maxdepth】: 紫色の枠部分の各ファイルのセクションをどこまで表示するかの設定</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">カテゴリー名</span><span class="p">]</span> 
+<span class="o">===================================</span>
+
+<span class="o">..</span> <span class="n">toctree</span><span class="p">::</span>
+   <span class="p">:</span><span class="n">maxdepth</span><span class="p">:</span> <span class="mi">2</span>
+
+   <span class="n">Sphinx</span><span class="o">/</span><span class="n">quickstart</span><span class="o">.</span><span class="n">md</span>
+</pre></div>
+</div>
+<p><img alt="" src="../_images/github_pages_sample.png" /></p>
 </section>
-<section id="id11">
-<h2>ファイル出力<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="md">
+<h2>mdファイル<a class="headerlink" href="#md" title="この見出しへのパーマリンク">¶</a></h2>
+<p>index.rstで定義したものと同じファイル構成でmdファイルを作成する。</p>
 </section>
 </section>
 
