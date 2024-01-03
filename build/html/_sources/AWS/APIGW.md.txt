@@ -154,3 +154,132 @@ REST APIの目安としては、100万リクエスト当たり4USD
 
 ## WebSocket
 ★★★★★Coming Soon★★★★★
+
+
+
+## Cloudformationのテンプレートファイル
+### RestAPI
+[参考サイト](https://blog.usize-tech.com/integration-apigateway-and-lambda/)
+```yaml
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFormation template that creates API Gateways and relevant IAM roles.
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------#
+Parameters:
+  EnvID:
+    Type: String
+
+
+Resources:
+
+  # ------------------------------------------------------------#
+  # IAM Role
+  # ------------------------------------------------------------#
+  # API GWの実行Role
+  RoleApiGwExecRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "role-${EnvID}-ApiGwExecRole"
+      Description: API Gateways Exec Role.
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - 
+            Effect: Allow
+            Principal:
+              Service:
+                - apigateway.amazonaws.com
+            Action:
+                - sts:AssumeRole
+      MaxSessionDuration: 3600
+      Path: /
+      ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
+          - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+          - arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
+      Tags:
+        - 
+          Key: CreatedBy
+          Value: !Ref "AWS::StackName"
+
+
+  # ------------------------------------------------------------#
+  # API Gateway
+  # ------------------------------------------------------------#
+
+  # RestApiのベース
+  ApiGwRestBase:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub ApiGw-${EnvID}
+      Description: REST API Gateway
+      EndpointConfiguration: #エンドポイント設定
+        Types:
+          - REGIONAL
+      Tags:
+        - 
+          Key: CreatedBy
+          Value: !Ref "AWS::StackName"
+
+
+
+  # リソース(パス設定)
+  RestApiResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref ApiGwRestBase                   #リソースが所属するRest
+      ParentId: !GetAtt ApiGwRestBase.RootResourceId  #リソースが所属するRestのID
+      PathPart: GetExampledata                        #リソースのパス
+
+
+
+  # Postメソッド
+  RestApiMethodPost:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref ApiGwRestBase                   #メソッドが所属するRest API
+      ResourceId: !Ref RestApiResource                #メソッドが所属するリソース
+      HttpMethod: POST                                #メソッドのタイプ
+      AuthorizationType: NONE                         #認証を利用する場合のタイプ
+      Integration: # バックエンドの指定
+        Type: AWS_PROXY                               #統合タイプ
+        IntegrationHttpMethod: POST 
+        Credentials: !GetAtt RoleApiGwExecRole.Arn    #APIGWに付与するRole
+        #バックエンドの参照
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:ここにLambda関数名を記載/invocations
+        PassthroughBehavior: WHEN_NO_MATCH
+      MethodResponses: #メソッドレスポンス
+        - StatusCode: 200
+          ResponseModels:
+            application/json: Empty
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+
+
+
+  # デプロイメント
+  RestApiDeployment:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref ApiGwRestBase
+    DependsOn:
+      - RestApiMethodPost
+
+
+  # ステージ
+  RestApiStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      StageName: prod #stage名
+      Description: production stage
+      RestApiId: !Ref ApiGwRestBase           #対象のRest
+      DeploymentId: !Ref RestApiDeployment    #対象のデプロイメント
+      TracingEnabled: true
+      Tags:
+        - 
+          Key: CreatedBy
+          Value: !Ref "AWS::StackName"
+
+```

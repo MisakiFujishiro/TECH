@@ -76,6 +76,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#websocket">WebSocket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloudformation">Cloudformationのテンプレートファイル</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#restapi">RestAPI</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -298,6 +302,135 @@
 <section id="websocket">
 <h2>WebSocket<a class="headerlink" href="#websocket" title="この見出しへのパーマリンク">¶</a></h2>
 <p>★★★★★Coming Soon★★★★★</p>
+</section>
+<section id="cloudformation">
+<h2>Cloudformationのテンプレートファイル<a class="headerlink" href="#cloudformation" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="restapi">
+<h3>RestAPI<a class="headerlink" href="#restapi" title="この見出しへのパーマリンク">¶</a></h3>
+<p><a class="reference external" href="https://blog.usize-tech.com/integration-apigateway-and-lambda/">参考サイト</a></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2010-09-09</span>
+<span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CloudFormation template that creates API Gateways and relevant IAM roles.</span>
+
+<span class="c1"># ------------------------------------------------------------#</span>
+<span class="c1"># Input Parameters</span>
+<span class="c1"># ------------------------------------------------------------#</span>
+<span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">EnvID</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+
+
+<span class="nt">Resources</span><span class="p">:</span>
+
+<span class="w">  </span><span class="c1"># ------------------------------------------------------------#</span>
+<span class="w">  </span><span class="c1"># IAM Role</span>
+<span class="w">  </span><span class="c1"># ------------------------------------------------------------#</span>
+<span class="w">  </span><span class="c1"># API GWの実行Role</span>
+<span class="w">  </span><span class="nt">RoleApiGwExecRole</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::IAM::Role</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">RoleName</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&quot;role-${EnvID}-ApiGwExecRole&quot;</span>
+<span class="w">      </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">API Gateways Exec Role.</span>
+<span class="w">      </span><span class="nt">AssumeRolePolicyDocument</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2012-10-17</span>
+<span class="w">        </span><span class="nt">Statement</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">Effect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Allow</span>
+<span class="w">            </span><span class="nt">Principal</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">Service</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apigateway.amazonaws.com</span>
+<span class="w">            </span><span class="nt">Action</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sts:AssumeRole</span>
+<span class="w">      </span><span class="nt">MaxSessionDuration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3600</span>
+<span class="w">      </span><span class="nt">Path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="w">      </span><span class="nt">ManagedPolicyArns</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:iam::aws:policy/service-role/AWSLambdaRole</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:iam::aws:policy/CloudWatchLogsFullAccess</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess</span>
+<span class="w">      </span><span class="nt">Tags</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">Key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CreatedBy</span>
+<span class="w">          </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="s">&quot;AWS::StackName&quot;</span>
+
+
+<span class="w">  </span><span class="c1"># ------------------------------------------------------------#</span>
+<span class="w">  </span><span class="c1"># API Gateway</span>
+<span class="w">  </span><span class="c1"># ------------------------------------------------------------#</span>
+
+<span class="w">  </span><span class="c1"># RestApiのベース</span>
+<span class="w">  </span><span class="nt">ApiGwRestBase</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::ApiGateway::RestApi</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ApiGw-${EnvID}</span>
+<span class="w">      </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REST API Gateway</span>
+<span class="w">      </span><span class="nt">EndpointConfiguration</span><span class="p">:</span><span class="w"> </span><span class="c1">#エンドポイント設定</span>
+<span class="w">        </span><span class="nt">Types</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">REGIONAL</span>
+<span class="w">      </span><span class="nt">Tags</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">Key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CreatedBy</span>
+<span class="w">          </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="s">&quot;AWS::StackName&quot;</span>
+
+
+
+<span class="w">  </span><span class="c1"># リソース(パス設定)</span>
+<span class="w">  </span><span class="nt">RestApiResource</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::ApiGateway::Resource</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">RestApiId</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ApiGwRestBase</span><span class="w">                   </span><span class="c1">#リソースが所属するRest</span>
+<span class="w">      </span><span class="nt">ParentId</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ApiGwRestBase.RootResourceId</span><span class="w">  </span><span class="c1">#リソースが所属するRestのID</span>
+<span class="w">      </span><span class="nt">PathPart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GetExampledata</span><span class="w">                        </span><span class="c1">#リソースのパス</span>
+
+
+
+<span class="w">  </span><span class="c1"># Postメソッド</span>
+<span class="w">  </span><span class="nt">RestApiMethodPost</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::ApiGateway::Method</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">RestApiId</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ApiGwRestBase</span><span class="w">                   </span><span class="c1">#メソッドが所属するRest API</span>
+<span class="w">      </span><span class="nt">ResourceId</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RestApiResource</span><span class="w">                </span><span class="c1">#メソッドが所属するリソース</span>
+<span class="w">      </span><span class="nt">HttpMethod</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span><span class="w">                                </span><span class="c1">#メソッドのタイプ</span>
+<span class="w">      </span><span class="nt">AuthorizationType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NONE</span><span class="w">                         </span><span class="c1">#認証を利用する場合のタイプ</span>
+<span class="w">      </span><span class="nt">Integration</span><span class="p">:</span><span class="w"> </span><span class="c1"># バックエンドの指定</span>
+<span class="w">        </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS_PROXY</span><span class="w">                               </span><span class="c1">#統合タイプ</span>
+<span class="w">        </span><span class="nt">IntegrationHttpMethod</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">POST</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">Credentials</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RoleApiGwExecRole.Arn</span><span class="w">    </span><span class="c1">#APIGWに付与するRole</span>
+<span class="w">        </span><span class="c1">#バックエンドの参照</span>
+<span class="w">        </span><span class="nt">Uri</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:ここにLambda関数名を記載/invocations</span>
+<span class="w">        </span><span class="nt">PassthroughBehavior</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WHEN_NO_MATCH</span>
+<span class="w">      </span><span class="nt">MethodResponses</span><span class="p">:</span><span class="w"> </span><span class="c1">#メソッドレスポンス</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">StatusCode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class="w">          </span><span class="nt">ResponseModels</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">application/json</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Empty</span>
+<span class="w">          </span><span class="nt">ResponseParameters</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">method.response.header.Access-Control-Allow-Origin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+
+
+<span class="w">  </span><span class="c1"># デプロイメント</span>
+<span class="w">  </span><span class="nt">RestApiDeployment</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::ApiGateway::Deployment</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">RestApiId</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ApiGwRestBase</span>
+<span class="w">    </span><span class="nt">DependsOn</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RestApiMethodPost</span>
+
+
+<span class="w">  </span><span class="c1"># ステージ</span>
+<span class="w">  </span><span class="nt">RestApiStage</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::ApiGateway::Stage</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">StageName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span><span class="w"> </span><span class="c1">#stage名</span>
+<span class="w">      </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production stage</span>
+<span class="w">      </span><span class="nt">RestApiId</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ApiGwRestBase</span><span class="w">           </span><span class="c1">#対象のRest</span>
+<span class="w">      </span><span class="nt">DeploymentId</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RestApiDeployment</span><span class="w">    </span><span class="c1">#対象のデプロイメント</span>
+<span class="w">      </span><span class="nt">TracingEnabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">Tags</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">Key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CreatedBy</span>
+<span class="w">          </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="s">&quot;AWS::StackName&quot;</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
