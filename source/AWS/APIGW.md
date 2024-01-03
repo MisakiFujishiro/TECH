@@ -22,7 +22,7 @@ API GWでは、`リソースとメソッド`を作成し、それぞれのメソ
 上記の例では「pets」や「ptes/{petId}」がリソースとして定義されている。
 
 最終的にAPI GWをデプロイすることで発行されるAPIのURLは以下のようになり、URLの末尾にリソースを付与して、各リソースに問い合わせをしていく。
-```url
+```
 https://{api-id}.execute-api.{region}.amazonaws.com/{stageName}/pets
 ```
 - {api-id}: AWSがAPIに割り当てる一意の識別子
@@ -159,7 +159,6 @@ REST APIの目安としては、100万リクエスト当たり4USD
 
 ## Cloudformationのテンプレートファイル
 ### RestAPI
-[参考サイト](https://blog.usize-tech.com/integration-apigateway-and-lambda/)
 ```yaml
 AWSTemplateFormatVersion: 2010-09-09
 Description: CloudFormation template that creates API Gateways and relevant IAM roles.
@@ -173,9 +172,56 @@ Parameters:
 
 
 Resources:
+  # ------------------------------------------------------------#
+  # Lambda
+  # ------------------------------------------------------------#
+  # Lambda用のRole
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: "/"
+      RoleName: "role-lambda-apigw"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: 'sts:AssumeRole'
+      Policies:
+      - PolicyName: policy-lambda-apigw
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: '*'
+      Tags:
+        - 
+          Key: CreatedBy
+          Value: !Ref "AWS::StackName"
+  
+  # Lambda
+  MyLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub "lambda-${EnvID}-MyLambdaFunction"
+      Handler: index.handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code:
+        ZipFile: |
+          def handler(event, context):
+              print("Hello World!")
+              return "Hello World"
+      Runtime: python3.8
+
+
 
   # ------------------------------------------------------------#
-  # IAM Role
+  # API Gateway
   # ------------------------------------------------------------#
   # API GWの実行Role
   RoleApiGwExecRole:
@@ -205,9 +251,7 @@ Resources:
           Value: !Ref "AWS::StackName"
 
 
-  # ------------------------------------------------------------#
-  # API Gateway
-  # ------------------------------------------------------------#
+
 
   # RestApiのベース
   ApiGwRestBase:
@@ -223,8 +267,6 @@ Resources:
           Key: CreatedBy
           Value: !Ref "AWS::StackName"
 
-
-
   # リソース(パス設定)
   RestApiResource:
     Type: AWS::ApiGateway::Resource
@@ -232,8 +274,6 @@ Resources:
       RestApiId: !Ref ApiGwRestBase                   #リソースが所属するRest
       ParentId: !GetAtt ApiGwRestBase.RootResourceId  #リソースが所属するRestのID
       PathPart: GetExampledata                        #リソースのパス
-
-
 
   # Postメソッド
   RestApiMethodPost:
@@ -248,7 +288,7 @@ Resources:
         IntegrationHttpMethod: POST 
         Credentials: !GetAtt RoleApiGwExecRole.Arn    #APIGWに付与するRole
         #バックエンドの参照
-        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:ここにLambda関数名を記載/invocations
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${MyLambdaFunction.Arn}/invocations
         PassthroughBehavior: WHEN_NO_MATCH
       MethodResponses: #メソッドレスポンス
         - StatusCode: 200
@@ -256,8 +296,6 @@ Resources:
             application/json: Empty
           ResponseParameters:
             method.response.header.Access-Control-Allow-Origin: true
-
-
 
   # デプロイメント
   RestApiDeployment:
@@ -267,12 +305,11 @@ Resources:
     DependsOn:
       - RestApiMethodPost
 
-
   # ステージ
   RestApiStage:
     Type: AWS::ApiGateway::Stage
     Properties:
-      StageName: prod #stage名
+      StageName: prod #stage
       Description: production stage
       RestApiId: !Ref ApiGwRestBase           #対象のRest
       DeploymentId: !Ref RestApiDeployment    #対象のデプロイメント
@@ -281,5 +318,4 @@ Resources:
         - 
           Key: CreatedBy
           Value: !Ref "AWS::StackName"
-
 ```
