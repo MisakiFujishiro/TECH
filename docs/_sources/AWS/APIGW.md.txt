@@ -12,7 +12,7 @@ API GWでは、APIとして`REST API`と`WebSocket`を提供している。
 ### 全体像
 API GWでは、`リソースとメソッド`を作成し、それぞれのメソッドに対して`メソッド設定`を行うことでAPIを開発する。
 
-![](../img/AWS/apige_restapi_setting.png)
+![](../img/AWS/apigw/apigw_restapi_setting.png)
 [Blackbelt](https://pages.awscloud.com/rs/112-TZM-766/images/20190514_AWS-Blackbelt_APIGateway_rev.pdf)から引用
 
 
@@ -97,7 +97,7 @@ https://{api-id}.execute-api.{region}.amazonaws.com/{stageName}/pets
 - リージョン
 - プライベート
 
-![](../img/AWS/apigw_endpoint_type.png)
+![](../img/AWS/apigw/apigw_endpoint_type.png)
 [Blackbelt](https://pages.awscloud.com/rs/112-TZM-766/images/20190514_AWS-Blackbelt_APIGateway_rev.pdf)から引用
 
 

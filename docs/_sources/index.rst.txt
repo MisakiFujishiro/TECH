@@ -14,6 +14,9 @@
 
    AWS/IAM.md
    AWS/APIGW.md
+   AWS/WAF.md
+   AWS/CloudFront.md
+
 
 .. toctree::
    :maxdepth: 1
