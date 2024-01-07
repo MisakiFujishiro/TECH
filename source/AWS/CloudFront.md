@@ -1,7 +1,14 @@
 # CloudFront
+
 ## note
 - [blackbelt](https://pages.awscloud.com/rs/112-TZM-766/images/20190730_AWS-BlackBelt_Amazon_CloudFront.pdf)
 - [HandsOn](https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html)
+
+```
+CloudFrontはCDN（Contents Delivery Netwoerk）の機能を持つマネージドサービスであり、クライアントへのコンテンツ配信について、エッジサービスのメリットを享受し、ユーザーエクスペリエンスを向上させる。
+
+CloudFrontではオリジンとビヘイビアを定義して、ディストリビューションと呼ばれる配信設定を作成する。
+```
 
 
 ## エッジサービスについて
@@ -31,7 +38,7 @@ CDNの構成は、コンテンツを所持し配信する`オリジンサーバ�
 [HandsOn](https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html)より引用
 
 
-#### 配信対象について
+### 配信対象について
 ウェブアプリケーションについては、動的コンテンツと静的コンテンツが存在する。
 - 動的コンテンツ：ユーザーのリクエストによって変わるコンテンツ
 - 静的コンテンツ：ユーザーのリクエストによって変わらないコンテンツ

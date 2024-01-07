@@ -1,11 +1,13 @@
 # API Gateway
+## note
+[Blackbelt](https://pages.awscloud.com/rs/112-TZM-766/images/20190514_AWS-Blackbelt_APIGateway_rev.pdf)
+
+```
 Web APIの作成や公開、管理を行うためのフルマネージドサービス。
 サーバーレスのため、APIの実行基盤のサーバー構築や維持管理はAWSが責任を負い、開発者はAPIの開発に集中することができる。
 
 API GWでは、APIとして`REST API`と`WebSocket`を提供している。
-
-## note
-[Blackbelt](https://pages.awscloud.com/rs/112-TZM-766/images/20190514_AWS-Blackbelt_APIGateway_rev.pdf)
+```
 
 
 ## REST API
