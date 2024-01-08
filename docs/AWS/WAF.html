@@ -112,7 +112,7 @@ AWSのサービスに通信が届く前にAWS WAFがルールに従ってフィ�
 
 CloudFront・APIGW・ALB・AppSync・Cognitoユーザープールなどに対するリクエストに対応することができる。 
 
-それぞれのサービスに対してWebACLと呼ばれるルールセットを作成し、アタッチすることでAppに影響なく開始することができる。
+WebACLと呼ばれるルールセットを作成し、サービスに対してアタッチすることでAppに影響なく開始することができる。
 </pre></div>
 </div>
 <p><img alt="waf_image" src="../_images/waf_image.png" />
@@ -120,13 +120,13 @@ CloudFront・APIGW・ALB・AppSync・Cognitoユーザープールなどに対す
 </section>
 <section id="acl-access-control-list">
 <h2>ACL(Access Control List)<a class="headerlink" href="#acl-access-control-list" title="この見出しへのパーマリンク">¶</a></h2>
-<p>WAFで定義するアクセス制御に関するルールは、<code class="docutils literal notranslate"><span class="pre">ACL（Access</span> <span class="pre">Control</span> <span class="pre">List）</span></code>と呼ばれるルールセットを作成して、ACLを対象サービスにアタッチする。</p>
-<p>Web ACLは一つ以上のルールの集合体であり、保護するAWSリソースに関連付けられる。
-複数のルールが存在する場合、それらは設定された優先順位に従って評価され、どのルールにも該当しない場合は、デフォルトのアクションが適用される。</p>
+<p>WAFで定義するアクセス制御に関するルールは、<code class="docutils literal notranslate"><span class="pre">ACL（Access</span> <span class="pre">Control</span> <span class="pre">List）</span></code>と呼ばれるルールセットにまとめ、保護するAWSリソースに関連付ける。
+WebACLに複数のルールを設定する場合、設定されたルールの優先順位に従って評価されどのルールにも該当しない場合は、デフォルトのアクションが適用される。</p>
 <section id="id1">
 <h3>キャパシティユニット<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ACLにどれだけのルールを設定することができるかは<code class="docutils literal notranslate"><span class="pre">キャパシティユニット</span></code>によって決まる。
 ルールごとに消費するキャパシティユニットの値が決まっており、ACLで設定したルールの合計値がACLのキャパシティユニットを超えるとルール追加ができなくなってしまう。</p>
+<p>wafの基本料金には1500のキャパシティユニットが含まれており、課金することで最大で5000キャパシティユニットまで拡張できる。</p>
 </section>
 </section>
 <section id="id2">
