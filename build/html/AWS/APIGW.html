@@ -54,7 +54,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#id6">統合リクエスト</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id7">統合レスポンス</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id8">メソッドレスポンス</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">プロキシ統合</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">プロキシ統合</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#http">統合方法ごとのHTTPレスポンスの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lambda">Lambdaのプロキシ統合</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id10">エンドポイントタイプ</a></li>
@@ -65,14 +69,22 @@
 <li class="toctree-l3"><a class="reference internal" href="#id13">デプロイメント</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id14">キャッシュ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id15">料金</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id16">実行回数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">バージョニング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">キャッシュ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">料金</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id17">実行回数</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id17">バージョニング</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#api">APIキーと使用量プラン</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id18">エラーパターン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api">APIキーと使用量プラン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">Lambda統合</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id19">エラーハンドリング</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id20">エラーの種別</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id21">プロキシ統合を利用する場合</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id22">カスタム統合を利用する際の注意</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">カスタムエラーのハンドリング</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">標準エラーのハンドリング</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#websocket">WebSocket</a></li>
@@ -231,14 +243,50 @@ API GWでは、APIとして`REST API`と`WebSocket`を提供している。
 <li><p>レスポンスの形式やHTTPヘッダーの追加</p></li>
 </ul>
 </section>
+</section>
 <section id="id9">
-<h4>プロキシ統合<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
+<h3>プロキシ統合<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
 <p>プロキシ統合（Lambdaプロキシ統合またはHTTPプロキシ統合）は、API Gatewayとバックエンドサービス間のリクエストとレスポンスのマッピングを簡素化するための機能。</p>
 <ul class="simple">
 <li><p>クライアントからのリクエストはほとんどそのままの形でバックエンドサービスに渡される</p></li>
 <li><p>バックエンドからのレスポンスもまた、プロキシ統合を通じて直接クライアントに返される</p></li>
 </ul>
-<p>利用時には、リクエストとレスポンスが固定のフォーマットに従っている前提の機能となる。</p>
+<section id="http">
+<h4>統合方法ごとのHTTPレスポンスの作成<a class="headerlink" href="#http" title="この見出しへのパーマリンク">¶</a></h4>
+<p>プロキシ統合とカスタム統合の違いとして、バックエンドが返すデータをHTTPのレスポンスとして変換するのが誰になるのかという点がある。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>統合方法</p></th>
+<th class="text-left head"><p>バックエンドの役割</p></th>
+<th class="text-left head"><p>HTTPレスポンスとしてデータを変換する場所</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>プロキシ統合</p></td>
+<td class="text-left"><p>データの生成と、クライアントに返すHTTPレスポンスの作成</p></td>
+<td class="text-left"><p>バックエンド</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>カスタム統合</p></td>
+<td class="text-left"><p>データを統合レスポンスに返す</p></td>
+<td class="text-left"><p>統合レスポンス</p></td>
+</tr>
+</tbody>
+</table>
+<p>プロキシ統合を利用すると、バックエンド側でHTTPレスポンス形式（ステータスコード、ヘッダー、ボディなど）を直接制御することが可能となる。</p>
+<p>一方で、カスタム統合を利用すると、バックエンドからのレスポンスはAPI Gatewayによって解釈され、API GatewayがHTTPレスポンスを生成します。この場合、バックエンドはは単にデータを返すだけで、HTTPステータスコードやヘッダーなどはAPI Gatewayの設定によって決定される。</p>
+</section>
+<section id="lambda">
+<h4>Lambdaのプロキシ統合<a class="headerlink" href="#lambda" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Lambdaをバックエンドとして利用する場合、プロキシ統合を利用することができる。</p>
+<p>プロキシ統合では、Lambdaの返却値は以下の所定の形式に従う必要がある。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;isBase64Encoded&quot;</span> <span class="p">:</span> <span class="s2">&quot;boolean&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;statusCode&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+  <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="s2">&quot;JSON string&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="id10">
@@ -276,32 +324,95 @@ API GWでは、APIとして`REST API`と`WebSocket`を提供している。
 </section>
 </section>
 <section id="id14">
-<h2>キャッシュ<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h2>
-<p>パフォーマンスと API 実行速度を向上させるため、オプションとしてお客様の API の各ステージに専用のキャッシュをプロビジョニングすることができる。キャッシュには費用がかかるが、その分APIGW側のリクエスト数やデータ転送量を削減できるため、トレードオフとなる。## 監視モニタリング</p>
+<h2>バージョニング<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h2>
+<p>★★★★★Coming Soon★★★★★</p>
 </section>
 <section id="id15">
-<h2>料金<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h2>
+<h2>キャッシュ<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h2>
+<p>パフォーマンスと API 実行速度を向上させるため、オプションとしてお客様の API の各ステージに専用のキャッシュをプロビジョニングすることができる。キャッシュには費用がかかるが、その分APIGW側のリクエスト数やデータ転送量を削減できるため、トレードオフとなる。## 監視モニタリング</p>
+</section>
+<section id="id16">
+<h2>料金<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h2>
 <p>詳細は、<a class="reference external" href="https://aws.amazon.com/jp/api-gateway/pricing/">公式ドキュメント</a>参照。</p>
 <p>受信した API コール数と、転送データ量に対してのみ料金が発生する従量課金制。</p>
 <p>かかる費用の全体像としては以下</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>実行回数＋データ転送料金＋キャッシュメモリ量
 </pre></div>
 </div>
-<section id="id16">
-<h3>実行回数<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id17">
+<h3>実行回数<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h3>
 <p>REST APIの目安としては、100万リクエスト当たり4USD</p>
 </section>
-</section>
-<section id="id17">
-<h2>バージョニング<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h2>
-<p>★★★★★Coming Soon★★★★★</p>
 </section>
 <section id="api">
 <h2>APIキーと使用量プラン<a class="headerlink" href="#api" title="この見出しへのパーマリンク">¶</a></h2>
 <p>★★★★★Coming Soon★★★★★</p>
-<section id="id18">
-<h3>エラーパターン<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h3>
 <p>★★★★★Coming Soon★★★★★</p>
+</section>
+<section id="id18">
+<h2>Lambda統合<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id19">
+<h3>エラーハンドリング<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h3>
+<p>詳細は、<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/apigateway/latest/developerguide/handle-errors-in-lambda-integration.html">API Gateway で Lambda エラーを処理する</a>参照</p>
+<p>結論としては、以下</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>統合方法/エラータイプ</p></th>
+<th class="text-left head"><p>標準エラー</p></th>
+<th class="text-left head"><p>カスタムエラー</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>プロキシ統合</p></td>
+<td class="text-left"><p>AWSが自動処理</p></td>
+<td class="text-left"><p>Lambda側でStatusCodeなどの定義をしておく</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>カスタム統合</p></td>
+<td class="text-left"><p>AWSが自動処理</p></td>
+<td class="text-left"><p>LambdaのレスポンスとStatusCodeの変換をマッピングに定義する</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id20">
+<h4>エラーの種別<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Lmabdaから返却されるエラーは2つの種類に分類することができ、これらを異なる方法で処理する必要がある。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>エラーの種類</p></th>
+<th class="text-left head"><p>詳細</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>カスタムエラー</p></td>
+<td class="text-left"><p>開発者が定義したり、アプリケーション固有のビジネスロジックに基づいて生成されるエラー。<br>これらは標準的なエラーコードには含まれておらず、アプリケーションの特定のニーズや要件に合わせてカスタマイズされる。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>標準エラー</p></td>
+<td class="text-left"><p>システムやプラットフォームによって定義され、一般的に認識されているエラーコードやメッセージ。<br>これらはAPI GWやLambdaなどのAWSサービスによって自動的に生成され、標準的なHTTPエラーコードに従う。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id21">
+<h4>プロキシ統合を利用する場合<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h4>
+<p>プロキシ統合を利用する場合、エラーハンドリングをして、HTTPレスポンスを構築する責任はLambdaが負う。
+なのでカスタムエラーが発生した場合は、Lambda関数の定義の中でStatusCodeやbodyを定義しておく。</p>
+<p>標準エラーが発生した場合は、Lambdaのデフォルトとして、所定の形でエラーが発行される。</p>
+</section>
+<section id="id22">
+<h4>カスタム統合を利用する際の注意<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h4>
+<p>カスタム統合を利用する場合、バックエンドは処理を行い、データを返すだけになる。
+そのため、統合レスポンスのマッピング処理によって、データをHTTPレスポンスとして変換することをしないと、APIGWからクライアントへの返却値のステータスコートはすべて200になってしまう点に注意。</p>
+<p>カスタム統合を利用する場合、カスタムエラーおよび標準エラーそれぞれでどのような対応が必要か整理する。</p>
+</section>
+<section id="id23">
+<h4>カスタムエラーのハンドリング<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ビジネスロジックとして定義したエラー情報をAPIGWがHTTPレスポンスとして変換する必要がある。
+そのため、統合レスポンスにおいて、カスタムエラーに対するマッピングテンプレートが必要になる。</p>
+</section>
+<section id="id24">
+<h4>標準エラーのハンドリング<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h4>
+<p>AWSシステムによって生成され、API Gatewayはこれらを自動的に適切なHTTPステータスコードでクライアントに伝達する。そのため開発者ハンドリングなどを意識する必要はない。</p>
+</section>
 </section>
 </section>
 <section id="websocket">
