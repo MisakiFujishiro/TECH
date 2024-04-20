@@ -14,5 +14,7 @@ iam
 
     AWS/IAM/basic.md
     AWS/IAM/policy.md
+    AWS/IAM/role.md
+    AWS/IAM/crossaccount.md
 
 

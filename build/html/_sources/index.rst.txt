@@ -12,6 +12,7 @@
    :maxdepth: 2
    :caption: AWS:
 
+   AWS/AWS.md
    IAM
    AWS/APIGW.md
    AWS/WAF.md

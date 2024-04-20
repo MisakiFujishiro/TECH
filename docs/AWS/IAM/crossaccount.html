@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IAMの基本 &mdash; project  ドキュメント</title>
+  <title>クロスアカウントについて &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,8 +21,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="policyについて" href="policy.html" />
-    <link rel="prev" title="iam" href="../../IAM.html" /> 
+    <link rel="next" title="API Gateway" href="../APIGW.html" />
+    <link rel="prev" title="Roleについて" href="role.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,13 +44,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../AWS.html">AWSについて</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../IAM.html">iam</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">IAMの基本</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#aws">AWSのアカウント</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">IAMのリソース</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">AWSリソースへのアクセスイメージ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html">IAMの基本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policy.html">Policyについて</a></li>
+<li class="toctree-l2"><a class="reference internal" href="role.html">Roleについて</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">クロスアカウントについて</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">リソースにアクセスする</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">スイッチロールする</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="policy.html">policyについて</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../APIGW.html">API Gateway</a></li>
@@ -91,9 +92,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="../../IAM.html">iam</a></li>
-      <li class="breadcrumb-item active">IAMの基本</li>
+      <li class="breadcrumb-item active">クロスアカウントについて</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/AWS/IAM/basic.md.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/AWS/IAM/crossaccount.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -101,34 +102,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="iam">
-<h1>IAMの基本<a class="headerlink" href="#iam" title="この見出しへのパーマリンク">¶</a></h1>
-<p>AWS Identity and Access Management（IAM）はAWSに関する認証と認可を扱い、リソースへのアクセスを安全に管理するためのウェブサービスである。</p>
-<section id="aws">
-<h2>AWSのアカウント<a class="headerlink" href="#aws" title="この見出しへのパーマリンク">¶</a></h2>
-<p>AWSのアカウントには２種類存在する</p>
-<ul class="simple">
-<li><p>Root User アカウント<br />
-全ての権限を持つユーザーのアカウント：基本的に利用しない</p></li>
-<li><p>IAM User アカウント
-IAMで作成されるユーザーのアカウント：利用者に応じた権限を付与して利用する</p></li>
-</ul>
-</section>
-<section id="id1">
-<h2>IAMのリソース<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
-<p>IAMのリソースには以下の4つがある。</p>
-<ul class="simple">
-<li><p>IAM Policy：認可に関する設定を行う</p></li>
-<li><p>IAM Role：許可されたPrincipalに引き受けられる</p></li>
-<li><p>IAM User：人に対して払い出される</p></li>
-<li><p>IAM Group：Userが所属できる。所属UserにはGroupに付与されたPolicyが引き継がれる。</p></li>
-</ul>
-<p>基本的な考え方としては認可情報が定義されたPolicyをRoleやUser、Groupに対して付与する。
-Roleは引き受けることができる相手をPrincipalとして定義しており、Userは認証がされた人間と紐づいている。</p>
-</section>
+  <section id="id1">
+<h1>クロスアカウントについて<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="id2">
-<h2>AWSリソースへのアクセスイメージ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
-<p><img alt="" src="../../_images/iam_whole_access_image.png" /></p>
+<h2>リソースにアクセスする<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
+<section id="id3">
+<h2>スイッチロールする<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
 </section>
 </section>
 
@@ -136,8 +116,8 @@ Roleは引き受けることができる相手をPrincipalとして定義して�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../../IAM.html" class="btn btn-neutral float-left" title="iam" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="policy.html" class="btn btn-neutral float-right" title="policyについて" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="role.html" class="btn btn-neutral float-left" title="Roleについて" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../APIGW.html" class="btn btn-neutral float-right" title="API Gateway" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
