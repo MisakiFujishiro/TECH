@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>policyについて &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="API Gateway" href="../APIGW.html" />
+    <link rel="prev" title="IAMの基本" href="basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../IAM.html">iam</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">IAMの基本</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">policyについて</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">読み解き方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#effect">Effectについて</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#principal">Principalについて</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#notprincipal">NotPrincipal</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#action">Actionについて</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#notaction">NotAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#notactiondeny">NotActionとDeny</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#resource">Resourceについて</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#notresouce">NotResouce</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#condition">Conditionについて</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">比較演算子</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">キー</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../APIGW.html">API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../WAF.html">WAF</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFront.html">CloudFront</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">gitとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../IAM.html">iam</a></li>
+      <li class="breadcrumb-item active">policyについて</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/AWS/IAM/policy.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="policy">
+<h1>policyについて<a class="headerlink" href="#policy" title="この見出しへのパーマリンク">¶</a></h1>
+<p>詳細は<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies.html">ユーザーガイド</a>を参照</p>
+<section id="id1">
+<h2>読み解き方<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>セクションでみると、以下の順番で読み解く</p>
+<ol class="arabic simple">
+<li><p>Conditon:この条件を満たしている場合、</p></li>
+<li><p>Resource:このリソースを対象として、</p></li>
+<li><p>Action/Effect: このアクションを許可する</p></li>
+</ol>
+<p>※Effectが&quot;Deny&quot;であったり、Actionが&quot;NotAction&quot;であったとしても、上記に当てはまるように考えると読み解きしやすくなる。</p>
+<p>最終的に文面に書き起こす時は以下の穴を埋める形で考えると良い</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[Condition]を満たしている場合、[Resource]を対象とした[Action]を[Allow]している。
+※[Condition]を満たしていない場合何も許可していない
+※[Resource]の対象外のリソースには何も許可されていない
+※[Action]に指定されていないアクションは許可されていない
+</pre></div>
+</div>
+</section>
+<section id="effect">
+<h2>Effectについて<a class="headerlink" href="#effect" title="この見出しへのパーマリンク">¶</a></h2>
+<p>許可をする&quot;Allow&quot;もしくは&quot;Deny&quot;を指定する。<br />
+&quot;何をAllow&quot;しているかを意識するとpolicyを読み解きやすい。</p>
+</section>
+<section id="principal">
+<h2>Principalについて<a class="headerlink" href="#principal" title="この見出しへのパーマリンク">¶</a></h2>
+<p>対象のポリシーが適用される主体を指定する。<br />
+&quot;誰にAllow&quot;しているかを意識するとpolicyを読み解きやすい。</p>
+<p>principalを利用するユースケースは以下の2つがほとんどであり、許可ポリシーの中では指定されない</p>
+<ul class="simple">
+<li><p>クロスアカウントのための信頼ポリシーでの指定</p></li>
+<li><p>リソースベースポリシーでの指定</p></li>
+</ul>
+<section id="notprincipal">
+<h3>NotPrincipal<a class="headerlink" href="#notprincipal" title="この見出しへのパーマリンク">¶</a></h3>
+<p>principalで指定された対象以外を対象とする。<br />
+かなり広範囲を対象とするため、利用には慎重になる必要がある。</p>
+</section>
+</section>
+<section id="action">
+<h2>Actionについて<a class="headerlink" href="#action" title="この見出しへのパーマリンク">¶</a></h2>
+<p>アクションセクションでは、リソースに対するアクションを指定することで、対象のリソースに対する認可の指定ができる。<br />
+&quot;何のアクション&quot;が対象かを意識するとpolicyを読み解きやすい。</p>
+<section id="notaction">
+<h3>NotAction<a class="headerlink" href="#notaction" title="この見出しへのパーマリンク">¶</a></h3>
+<p>NotActionで指定した場合、指定されたアクション以外を対象とする。
+以下の例では、S3のGetObjectとListBucket以外を許可している。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;NotAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:ListBucket&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="notactiondeny">
+<h3>NotActionとDeny<a class="headerlink" href="#notactiondeny" title="この見出しへのパーマリンク">¶</a></h3>
+<p>NotActionとDenyを組み合わせることで、指定されたアクション以外を拒否する制御になるため、結果的に指定されたアクションだけを許可することになる。
+以下の例では、S3のGetObjectとListBucket以外を拒否することで結果的に、2つのアクションだけが許可されている。</p>
+<p>Allowと同じような制御となっているが、NotActionとDenyの組み合わせは「対象のアクションのみを例外的に許可している」というニュアンスになる。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Deny&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;NotAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:ListBucket&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="resource">
+<h2>Resourceについて<a class="headerlink" href="#resource" title="この見出しへのパーマリンク">¶</a></h2>
+<p>アクションを実行する対象のAWSリソースを指し示す。<br />
+以下の例では、特定のS3だけが対象となっている</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;NotAction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;s3:DeleteBucket&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutBucketPolicy&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:s3:::examplebucket/*&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="notresouce">
+<h3>NotResouce<a class="headerlink" href="#notresouce" title="この見出しへのパーマリンク">¶</a></h3>
+<p>指定されたリソース以外のリソースを対象とする。</p>
+</section>
+</section>
+<section id="condition">
+<h2>Conditionについて<a class="headerlink" href="#condition" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Policyで指定された許可を付与する対象を制限を行うことができる。<br />
+例えば以下の例では、s3のアクション全てを実行できるが、特定のIP経由でないと実行できない</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3:*&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:s3:::examplebucket/*&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Condition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;IpAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;aws:SourceIp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.100.0/24&quot;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Conditionのセクションは以下で構成される</p>
+<ul class="simple">
+<li><p>比較演算子：EX)IpAddress</p></li>
+<li><p>キー：EX)aws:SourceIp</p></li>
+<li><p>値：EX)192.168.100.0/24</p></li>
+</ul>
+<section id="id2">
+<h3>比較演算子<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>比較演算子の一覧は<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html">ユーザーガイド</a>を参照されたい。</p>
+<p>いくつか代表的なものについて解説する。</p>
+<section id="stringequals">
+<h4>StringEquals<a class="headerlink" href="#stringequals" title="この見出しへのパーマリンク">¶</a></h4>
+<p>対象の条件の文字列と条件が完全に一致するか</p>
+</section>
+<section id="stringlike">
+<h4>StringLike<a class="headerlink" href="#stringlike" title="この見出しへのパーマリンク">¶</a></h4>
+<p>対象の条件の文字列と条件が一致するか。ワイルドカードなどを利用することができる</p>
+</section>
+<section id="ifexists">
+<h4>IfExists<a class="headerlink" href="#ifexists" title="この見出しへのパーマリンク">¶</a></h4>
+<p>他の比較演算子と組み合わせることができ、&quot;StringLikeIfExists&quot;のように利用できる。
+対象のキーが存在した場合に適用されるが、もし対象のキーが存在しない場合は、対象のCondition自体が無視される点に注意。</p>
+</section>
+<section id="ipaddress">
+<h4>IpAddress<a class="headerlink" href="#ipaddress" title="この見出しへのパーマリンク">¶</a></h4>
+<p>IPアドレスと一致するか。CIDR形式に対応することができる点がStringLikeとの違い。</p>
+</section>
+</section>
+<section id="id3">
+<h3>キー<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ポリシーのキーで指定できるコンテキストキーは、グローバル条件コンテキストキーまたはサービス固有のコンテキストキーとなる。</p>
+<ul class="simple">
+<li><p>グローバル条件コンテキストキーは&quot;aws:&quot;というプレフィックスがついている<br />
+条件キーの詳細は<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_condition-keys.html">AWS グローバル条件コンテキストキー</a>を参照されたい。</p></li>
+<li><p>サービス固有の条件では例えば&quot;iam:&quot;や&quot;ec2&quot;というプレフィックスがついている<br />
+条件キーの詳細は<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html">サービス認証リファレンス</a>を参照されたい。</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="basic.html" class="btn btn-neutral float-left" title="IAMの基本" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../APIGW.html" class="btn btn-neutral float-right" title="API Gateway" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

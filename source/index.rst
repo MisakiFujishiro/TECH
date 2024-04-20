@@ -9,10 +9,10 @@
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: AWS:
 
-   AWS/IAM.md
+   IAM
    AWS/APIGW.md
    AWS/WAF.md
    AWS/CloudFront.md
