@@ -106,6 +106,9 @@
 <h1>Roleについて<a class="headerlink" href="#role" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="id1">
 <h2>信頼ポリシー<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>信頼ポリシーはRoleに付与され、対象のRoleを引き受けることができる対象を指定する。
+これは、RoleがAWSリソースに紐づけられることを前提にしており、Roleを誰に付与することができるかの定義をする必要があるために利用される。</p>
+<p>Conditionをりようすることで、許可される対象を絞ることができるので、信頼ポリシーで許可された対象からさらに絞り込みを行うこともできる。</p>
 </section>
 <section id="stsassumerole">
 <h2>STSとAssumeRole<a class="headerlink" href="#stsassumerole" title="この見出しへのパーマリンク">¶</a></h2>

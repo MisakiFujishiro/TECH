@@ -47,13 +47,13 @@
 <li class="toctree-l2"><a class="reference internal" href="basic.html">IAMの基本</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Policyについて</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">Policyの構成要素</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Policyの種類</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Policyの種類と評価理論</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id3">リソースベースポリシー</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id4">アイデンティティベースポリシー</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">許可ポリシーの読み解き方</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id8">読み解き方</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">許可ポリシーの読み解き方</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">読み解き方</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#effect">Effectについて</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#principal">Principalについて</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#action">Actionについて</a></li>
@@ -117,7 +117,8 @@
              
   <section id="policy">
 <h1>Policyについて<a class="headerlink" href="#policy" title="この見出しへのパーマリンク">¶</a></h1>
-<p>詳細は<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies.html">ユーザーガイド</a>を参照</p>
+<p>IAMではポリシーにより、アクセスの許可や拒否の定義を行なっている。</p>
+<p>詳細は<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies.html">IAMのユーザーガイドのポリシーリファレンス</a>を参照</p>
 <section id="id1">
 <h2>Policyの構成要素<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>ポリシーは以下の構成要素で成り立っている</p>
@@ -160,7 +161,7 @@
 </tr>
 <tr class="row-odd"><td class="text-left"><p>④</p></td>
 <td class="text-left"><p>Principal</p></td>
-<td class="text-left"><p>ポリシーにより認可される対象を定義する。</br>どのAWSアカウント、ユーザー、ロール、またはサービスがポリシーによって許可されるかを指定される。</br>リソースベースのポリシーで使用されることが多い。Roleの場合は信頼ポリシーで対象を指定するので通常は必要ない。</p></td>
+<td class="text-left"><p>ポリシーにより認可される対象を定義する。</br>どのAWSアカウント、ユーザー、ロール、またはサービスがポリシーによって許可されるかを指定される。</br>リソースベースポリシーやRoleの信頼ポリシーで定義され、アイデンティティベースポリシーで指定されることは少ない</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>⑤</p></td>
 <td class="text-left"><p>Condition</p></td>
@@ -182,13 +183,17 @@
 </table>
 </section>
 <section id="id2">
-<h2>Policyの種類<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<h2>Policyの種類と評価理論<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
 <p>認可の視点で考えるとアイデンティティベースとリソースベースの２種類がある。</p>
 <ul class="simple">
 <li><p>リソースベースポリシーは各AWSリソース側で指定するポリシー</p></li>
 <li><p>アイデンティティベースポリシーはIAM側で設定するポリシー</p></li>
 </ul>
-<p>どちらかで許可のポリシーが記述されていれば、アクセスの許可がされる。</p>
+<p>どちらかで許可のポリシーが記述されていれば、アクセスの許可がされる。
+一方で明示的な拒否がある場合は、許可に優先して拒否されるので、明示的な拒否が一番強い。</p>
+<blockquote>
+<div><p>明示的な拒否 &gt; 明示的な許可 &gt; 暗黙的な拒否</p>
+</div></blockquote>
 <section id="id3">
 <h3>リソースベースポリシー<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>対象のAWSリソースでアクセスの権限付与を行う。</p>
@@ -198,28 +203,14 @@
 </section>
 <section id="id4">
 <h3>アイデンティティベースポリシー<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
-<p>IAMで指定するポリシーである。
-アイデンティティベースポリシーでは以下の二つがあることを意識すると良い</p>
-<ul class="simple">
-<li><p>許可ポリシー</p></li>
-<li><p>信頼ポリシー</p></li>
-</ul>
+<p>IAMで指定するポリシーであり、
+許可ポリシーと呼ばれるポリシーで、ポリシーを引き受けた対象がどのようなアクションを実行することができるかを指定する。</p>
+</section>
+</section>
 <section id="id5">
-<h4>信頼ポリシー<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
-<p>信頼ポリシーはRoleに付与され、対象のRoleを引き受けることができる対象を指定する。
-これは、RoleがAWSリソースに紐づけられることを前提にしており、Roleを誰に付与することができるかの定義をする必要があるために利用される。</p>
-</section>
+<h2>許可ポリシーの読み解き方<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id6">
-<h4>許可ポリシー<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
-<p>許可ポリシーはポリシーを引き受けた対象がどのようなアクションを実行することができるかを指定する。
-また、Conditionをりようすることで、許可される対象を絞ることができるので、信頼ポリシーで許可された対象からさらに絞り込みを行うこともできる。</p>
-</section>
-</section>
-</section>
-<section id="id7">
-<h2>許可ポリシーの読み解き方<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id8">
-<h3>読み解き方<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>読み解き方<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
 <p>セクションでみると、以下の順番で読み解く</p>
 <ol class="arabic simple">
 <li><p>Conditon:この条件を満たしている場合、</p></li>
@@ -229,9 +220,9 @@
 <p>※Effectが&quot;Deny&quot;であったり、Actionが&quot;NotAction&quot;であったとしても、上記に当てはまるように考えると読み解きしやすくなる。</p>
 <p>最終的に文面に書き起こす時は以下の穴を埋める形で考えると良い</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[Condition]を満たしている場合、[Resource]を対象とした[Action]を[Allow]している。
-※[Condition]を満たしていない場合何も許可していない
-※[Resource]の対象外のリソースには何も許可されていない
-※[Action]に指定されていないアクションは許可されていない
+※[Condition]を満たしていない場合何も許可していない（暗黙的）
+※[Resource]の対象外のリソースには何も許可されていない（暗黙的or明示的）
+※[Action]に指定されていないアクションは許可されていない（暗黙的or明示的）
 </pre></div>
 </div>
 </section>
@@ -244,10 +235,11 @@
 <h3>Principalについて<a class="headerlink" href="#principal" title="この見出しへのパーマリンク">¶</a></h3>
 <p>対象のポリシーが適用される主体を指定する。<br />
 &quot;誰にAllow&quot;しているかを意識するとpolicyを読み解きやすい。</p>
-<p>principalを利用するユースケースは以下の2つがほとんどであり、許可ポリシーの中では指定されない</p>
+<p>principalを利用するユースケースは以下がほとんどである</p>
 <ul class="simple">
-<li><p>クロスアカウントのための信頼ポリシーでの指定</p></li>
 <li><p>リソースベースポリシーでの指定</p></li>
+<li><p>信頼ポリシーでの指定</p></li>
+<li><p>クロスアカウントのための指定</p></li>
 </ul>
 <section id="notprincipal">
 <h4>NotPrincipal<a class="headerlink" href="#notprincipal" title="この見出しへのパーマリンク">¶</a></h4>
@@ -259,10 +251,7 @@
 <h3>Actionについて<a class="headerlink" href="#action" title="この見出しへのパーマリンク">¶</a></h3>
 <p>アクションセクションでは、リソースに対するアクションを指定することで、対象のリソースに対する認可の指定ができる。<br />
 &quot;何のアクション&quot;が対象かを意識するとpolicyを読み解きやすい。</p>
-<section id="notaction">
-<h4>NotAction<a class="headerlink" href="#notaction" title="この見出しへのパーマリンク">¶</a></h4>
-<p>NotActionで指定した場合、指定されたアクション以外を対象とする。
-以下の例では、S3のGetObjectとListBucket以外を許可している。</p>
+<p>以下の例では、S3のGetObjectとListBucketのみを許可していて、他のActionは暗黙的なDenyとなっている。</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -278,12 +267,12 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="notactiondeny">
-<h4>NotActionとDeny<a class="headerlink" href="#notactiondeny" title="この見出しへのパーマリンク">¶</a></h4>
-<p>NotActionとDenyを組み合わせることで、指定されたアクション以外を拒否する制御になるため、結果的に指定されたアクションだけを許可することになる。
-以下の例では、S3のGetObjectとListBucket以外を拒否することで結果的に、2つのアクションだけが許可されている。</p>
-<p>Allowと同じような制御となっているが、NotActionとDenyの組み合わせは「対象のアクションのみを例外的に許可している」というニュアンスになる。</p>
+<section id="notaction">
+<h4>NotAction<a class="headerlink" href="#notaction" title="この見出しへのパーマリンク">¶</a></h4>
+<p>NotActionで指定した場合、指定されたアクション以外を対象とする。</p>
+<p>以下の例では、NotActionとDenyを組み合わせることで、S3のGetObjectとListBucket以外は禁止している。
+言い換えるとS3のGetObjectとListBucketだけを許可しているともいえる。ただし、明示的な拒否を含む設定になっている点がActionとAllowの許可と明確に異なる点である。</p>
+<p>このルールをリソースベース側に設定すると対象のアクション以外には明示的に拒否され、他のアイデンティティベースのポリシーで誤ってPutの許可をされていたとしてもリソースを守ることができる。</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -352,8 +341,8 @@
 <li><p>キー：EX)aws:SourceIp</p></li>
 <li><p>値：EX)192.168.100.0/24</p></li>
 </ul>
-<section id="id9">
-<h4>比較演算子<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id7">
+<h4>比較演算子<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
 <p>比較演算子の一覧は<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html">ユーザーガイド</a>を参照されたい。</p>
 <p>いくつか代表的なものについて解説する。</p>
 <section id="stringequals">
@@ -374,8 +363,8 @@
 <p>IPアドレスと一致するか。CIDR形式に対応することができる点がStringLikeとの違い。</p>
 </section>
 </section>
-<section id="id10">
-<h4>キー<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id8">
+<h4>キー<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
 <p>ポリシーのキーで指定できるコンテキストキーは、グローバル条件コンテキストキーまたはサービス固有のコンテキストキーとなる。</p>
 <ul class="simple">
 <li><p>グローバル条件コンテキストキーは&quot;aws:&quot;というプレフィックスがついている<br />
