@@ -13,6 +13,7 @@ iam
     :caption: AWS Identity and Access Management:
 
     AWS/IAM/basic.md
+    AWS/IAM/user.md
     AWS/IAM/policy.md
     AWS/IAM/role.md
     AWS/IAM/crossaccount.md
