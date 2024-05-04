@@ -3,7 +3,7 @@
     You can adapt this file completely to your liking, but it should at least
     contain the root `toctree` directive.
 
-iam
+IAM
 ====================================
 
 
@@ -13,8 +13,8 @@ iam
     :caption: AWS Identity and Access Management:
 
     AWS/IAM/basic.md
-    AWS/IAM/user.md
     AWS/IAM/policy.md
+    AWS/IAM/user.md
     AWS/IAM/role.md
     AWS/IAM/crossaccount.md
 

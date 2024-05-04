@@ -19,7 +19,7 @@ AWSでは33のリージョンと105のAZが利用可能であるが、これら�
 - 地理的距離による遅延の削減
 - 大量アクセス（DDos）への対応
 
-![](../img/AWS/cloudfront/cloudfront_image.png)
+![](../../img/AWS/Front/cloudfront_image.png)
 [HandsOn](https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html)より引用
 
 
@@ -34,7 +34,7 @@ CDN（Contents Delivery Netwoerk）とは、各地に配置されたエッジサ
 
 CDNの構成は、コンテンツを所持し配信する`オリジンサーバー`(S3,API GW etc..)と、一時的にコンテンツをキャッシュする`エッジサーバー`（CloufFront etc..）で構成されている
 
-![](../img/AWS/cloudfront/cloudfront_merit.png)
+![](../../img/AWS/Front/cloudfront_merit.png)
 [HandsOn](https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html)より引用
 
 
@@ -47,7 +47,7 @@ CDNは、静的コンテンツを対象としてキャッシュをすること�
 
 以下の例では、cloud frontで、拡張子に応じてパスを変更するとともに、キャッシュするか否かを指定している。
 
-![](../img/AWS/cloudfront/cloudfront_path.png)
+![](../../img/AWS/Front/cloudfront_path.png)
 [HandsOn](https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html)より引用
 
 
@@ -100,7 +100,7 @@ ALBがオリジンの場合に利用すると有効。
 ### 署名付きURLとの組み合わせ
 上記の3つとは異なり、ログイン後のユーザーだけが特定のリソースにアクセスできるようにするようなユースケースで利用する。 例えばS3へのアクセスをログインユーザーに絞る場合は、CloufFrontのビヘイビアの設定で署名付きURLだけの許可に絞り、インスタンスでログイン処理をした後に、署名付きURLを発行する。
 
-![cloudfront_singedurl](../img/AWS/cloudfront/cloudfront_signedurl.png)
+![cloudfront_singedurl](../../img/AWS/Front/cloudfront_signedurl.png)
 [CloudFront の署名付きURL を使ったコンテンツの配信方法](https://www.aws-room.com/entry/presigned-cloudfront)より引用
 
 
@@ -116,7 +116,7 @@ CloudFrontのエッジで動作するLambda関数を設定する機能で、ク�
 ビューワー側のリクエストとレスポンス、オリジン側のリクエストとレスポンスに対して処理を定義することが可能。
 (API GWのメソッド側と統合側とイメージは同じ)
 
-![lambdaEdge](../img/AWS/cloudfront/lambdaEdge_image.png)
+![lambdaEdge](../../img/AWS/Front/lambdaEdge_image.png)
 [AWSブログ](https://aws.amazon.com/jp/blogs/news/lambdaedge-design-best-practices/)から引用
 
 |処理タイミング|代表的な利用方法|詳細|

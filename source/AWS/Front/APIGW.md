@@ -14,7 +14,7 @@ API GWでは、APIとして`REST API`と`WebSocket`を提供している。
 ### 全体像
 API GWでは、`リソースとメソッド`を作成し、それぞれのメソッドに対して`メソッド設定`を行うことでAPIを開発する。
 
-![](../img/AWS/apigw/apigw_restapi_setting.png)
+![](../../img/AWS/Front/apigw_restapi_setting.png)
 [Blackbelt](https://pages.awscloud.com/rs/112-TZM-766/images/20190514_AWS-Blackbelt_APIGateway_rev.pdf)から引用
 
 
@@ -125,7 +125,7 @@ Lambdaをバックエンドとして利用する場合、プロキシ統合を�
 - リージョン
 - プライベート
 
-![](../img/AWS/apigw/apigw_endpoint_type.png)
+![](../../img/AWS/Front/apigw_endpoint_type.png)
 [Blackbelt](https://pages.awscloud.com/rs/112-TZM-766/images/20190514_AWS-Blackbelt_APIGateway_rev.pdf)から引用
 
 

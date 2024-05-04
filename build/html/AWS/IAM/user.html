@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Userについて &mdash; project  ドキュメント</title>
+  <title>User &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,9 @@
         <script src="../../_static/translations.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
-    <link rel="search" title="検索" href="../../search.html" /> 
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="Policy" href="policy.html" />
+    <link rel="prev" title="IAMの基本" href="basic.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,12 +41,22 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../AWS.html">AWSについて</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">iam</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../APIGW.html">API Gateway</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../WAF.html">WAF</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CloudFront.html">CloudFront</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../IAM.html">IAM</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">IAMの基本</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">User</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aws-user">AWSのアカウント(User)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">アクセスキー</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="policy.html">Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="role.html">Role</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crossaccount.html">クロスアカウント</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Front.html">Front</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -79,7 +91,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Userについて</li>
+          <li class="breadcrumb-item"><a href="../../IAM.html">IAM</a></li>
+      <li class="breadcrumb-item active">User</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/AWS/IAM/user.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,7 +103,7 @@
            <div itemprop="articleBody">
              
   <section id="user">
-<h1>Userについて<a class="headerlink" href="#user" title="この見出しへのパーマリンク">¶</a></h1>
+<h1>User<a class="headerlink" href="#user" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="aws-user">
 <h2>AWSのアカウント(User)<a class="headerlink" href="#aws-user" title="この見出しへのパーマリンク">¶</a></h2>
 <p>AWSのアカウントには２種類存在する。このアカウントを通じてGUIにログインすることができる。</p>
@@ -115,7 +128,10 @@ IAMで作成されるユーザーのアカウント：利用者に応じた権�
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="basic.html" class="btn btn-neutral float-left" title="IAMの基本" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="policy.html" class="btn btn-neutral float-right" title="Policy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WAF &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="gitとは" href="../../Git/starter.html" />
+    <link rel="prev" title="CloudFront" href="CloudFront.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../AWS.html">AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../Front.html">Front</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="APIGW.html">API Gateway</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFront.html">CloudFront</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">WAF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#note">note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#acl-access-control-list">ACL(Access Control List)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">キャパシティユニット</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">ルール</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">マネージドルールとルールグループ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">カスタムルール</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">gitとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../Front.html">Front</a></li>
+      <li class="breadcrumb-item active">WAF</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/AWS/Front/WAF.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="waf">
+<h1>WAF<a class="headerlink" href="#waf" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="note">
+<h2>note<a class="headerlink" href="#note" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">Hands-on for Beginners</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>AWSが提供しているWeb Application Firewall。
+AWSのサービスに通信が届く前にAWS WAFがルールに従ってフィルタリングをする機能を提供する。
+
+CloudFront・APIGW・ALB・AppSync・Cognitoユーザープールなどに対するリクエストに対応することができる。 
+
+WebACLと呼ばれるルールセットを作成し、サービスに対してアタッチすることでAppに影響なく開始することができる。
+</pre></div>
+</div>
+<p><img alt="waf_image" src="../../_images/waf_image.png" />
+<a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">Hands-on for Beginners</a>より引用</p>
+</section>
+<section id="acl-access-control-list">
+<h2>ACL(Access Control List)<a class="headerlink" href="#acl-access-control-list" title="この見出しへのパーマリンク">¶</a></h2>
+<p>WAFで定義するアクセス制御に関するルールは、<code class="docutils literal notranslate"><span class="pre">ACL（Access</span> <span class="pre">Control</span> <span class="pre">List）</span></code>と呼ばれるルールセットにまとめ、保護するAWSリソースに関連付ける。
+WebACLに複数のルールを設定する場合、設定されたルールの優先順位に従って評価されどのルールにも該当しない場合は、デフォルトのアクションが適用される。</p>
+<section id="id1">
+<h3>キャパシティユニット<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ACLにどれだけのルールを設定することができるかは<code class="docutils literal notranslate"><span class="pre">キャパシティユニット</span></code>によって決まる。
+ルールごとに消費するキャパシティユニットの値が決まっており、ACLで設定したルールの合計値がACLのキャパシティユニットを超えるとルール追加ができなくなってしまう。</p>
+<p>wafの基本料金には1500のキャパシティユニットが含まれており、課金することで最大で5000キャパシティユニットまで拡張できる。</p>
+</section>
+</section>
+<section id="id2">
+<h2>ルール<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>ACLで利用されるルールでは、不正アクセスを防ぐための定義を記載する。</p>
+<p>ルールには、AWSが提供しアップデートする<code class="docutils literal notranslate"><span class="pre">マネージドルール</span></code>とユーザーが自身で定義する<code class="docutils literal notranslate"><span class="pre">カスタマイズルール</span></code>がある。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>ルール名</p></th>
+<th class="text-left head"><p>設定内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>マネージドルール</p></td>
+<td class="text-left"><p>マネージドルールはよくある攻撃パターンに対する対策として、AWSが提供しているプリセットルール。<br>マネージドルールはカテゴリに基づいていくつかのグループに分類されている</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>AWS WAFカスタムルール</p></td>
+<td class="text-left"><p>カスタムルールでは、ユーザーが特定の保護要件に合わせて独自のルールを作成できます。<br>これにより、豊富なプロパティを使用して、特定の攻撃やパターンに対応する高度なルールを設計できます。</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id3">
+<h3>マネージドルールとルールグループ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>マネージドルールはよくある攻撃パターンに対する対策として、AWSが提供しているプリセットルール。</p>
+<p>マネージドルールはカテゴリに基づいていくつかのグループに分類されている</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>ルールグループ名</p></th>
+<th class="text-left head"><p>設定内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>ベースラインルールグループ</p></td>
+<td class="text-left"><p>ベースラインルールグループは、一般的なWebアプリケーションの脅威に対応するための基本的なセキュリティルールを提供します。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>IP評価ルールグループ</p></td>
+<td class="text-left"><p>IP評価ルールグループは、botや不正アクセスと識別されたIPアドレスからのトラフィックを識別し、適切に対応するためのルールを含みます。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>AWS WAFボットコントロールルールグループ</p></td>
+<td class="text-left"><p>AWS WAFボットコントロールルールグループは、自動化されたトラフィックと思われるリクエスト（ボットからのもの）を特定し、これをブロックまたは許可するためのルールを提供します。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<h3>カスタムルール<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>カスタムルールでは、以下の2つを組み合わせて記述することで柔軟なルールを作成することが可能</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>カテゴリ</p></th>
+<th class="text-left head"><p>定義内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Statement</p></td>
+<td class="text-left"><p>検査対象となる条件を設定し、複数のルールを「AND」または「OR」で結合する<br>HTTPヘッダーの情報などを条件にすることができる</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Rate-based rule</p></td>
+<td class="text-left"><p>通信の頻度に基づいてルールを定義することができる</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Action</p></td>
+<td class="text-left"><p>Statementの条件に基づいて、アクセスの許可または拒否を設定する</p></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CloudFront.html" class="btn btn-neutral float-left" title="CloudFront" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../Git/starter.html" class="btn btn-neutral float-right" title="gitとは" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

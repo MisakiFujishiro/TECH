@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>クロスアカウントについて &mdash; project  ドキュメント</title>
+  <title>クロスアカウント &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,8 +21,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="API Gateway" href="../APIGW.html" />
-    <link rel="prev" title="Roleについて" href="role.html" /> 
+    <link rel="next" title="S3" href="../../S3.html" />
+    <link rel="prev" title="Role" href="role.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,11 +43,12 @@
               <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../AWS.html">AWSについて</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../IAM.html">iam</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../IAM.html">IAM</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="basic.html">IAMの基本</a></li>
-<li class="toctree-l2"><a class="reference internal" href="policy.html">Policyについて</a></li>
-<li class="toctree-l2"><a class="reference internal" href="role.html">Roleについて</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">クロスアカウントについて</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="policy.html">Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user.html">User</a></li>
+<li class="toctree-l2"><a class="reference internal" href="role.html">Role</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">クロスアカウント</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">基本的な考え方</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">リソースベースポリシーを利用したクロスアカウント</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id4">設定イメージ</a></li>
@@ -59,13 +60,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#id7">設定方法</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">混乱した代理問題</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../APIGW.html">API Gateway</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../WAF.html">WAF</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CloudFront.html">CloudFront</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Front.html">Front</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -100,8 +101,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../../IAM.html">iam</a></li>
-      <li class="breadcrumb-item active">クロスアカウントについて</li>
+          <li class="breadcrumb-item"><a href="../../IAM.html">IAM</a></li>
+      <li class="breadcrumb-item active">クロスアカウント</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/AWS/IAM/crossaccount.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -112,7 +113,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>クロスアカウントについて<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<h1>クロスアカウント<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
 <p>別AWSアカウントのリソースの操作をすることをクロスアカウントと呼ぶ。
 公式ドキュメントの<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html">IAM でのクロスアカウントのリソースへのアクセス</a>参考。</p>
 <p>クロスアカウントには、以下の2つの方法がある</p>
@@ -261,14 +262,29 @@
 </section>
 </section>
 </section>
+<section id="id9">
+<h2>混乱した代理問題<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
+<p>サードパーティに対して、自分のAWSのIAM Roleを伝えることで、サードパーティのAWSユーザーやRoleがスイッチロールをして、自分のAWSを利用することが可能になる。</p>
+<p>自分のAWSに対してサードパーティのAWSがアクセスすることを考える。一般的なクロスアカウント設定を行うと以下の設定をする。</p>
+<ul class="simple">
+<li><p>外部のAWSのIDを受領</p></li>
+<li><p>IAM Roleを作成し、許可ポリシーを付与</p></li>
+<li><p>信頼ポリシーにPrincipalに外部のAWS IDを設定</p></li>
+</ul>
+<p>ただしこれには、混乱した代理問題という問題が発生する。</p>
+<p>このままだと、サードパーティを利用しようとする別の第三者が、自分のIAM RoleのARNを予測することで、自分のIAM Role権限を利用してしまうという問題。
+これに対しては、サードパーティに対してIAM Roleを登録する際に、ランダム文字列などを発行して自分のAWSの信頼ポリシーの中のConditionにその文字列を追加することによって、対応する。</p>
+<p><img alt="" src="../../_images/iam_cossaccount_confuseddeputyproblem.png" />
+公式ドキュメント<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html">混乱する代理問題</a></p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="role.html" class="btn btn-neutral float-left" title="Roleについて" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../APIGW.html" class="btn btn-neutral float-right" title="API Gateway" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="role.html" class="btn btn-neutral float-left" title="Role" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../S3.html" class="btn btn-neutral float-right" title="S3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

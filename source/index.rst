@@ -14,9 +14,8 @@
 
    AWS/AWS.md
    IAM
-   AWS/APIGW.md
-   AWS/WAF.md
-   AWS/CloudFront.md
+   S3
+   Front
 
 
 .. toctree::

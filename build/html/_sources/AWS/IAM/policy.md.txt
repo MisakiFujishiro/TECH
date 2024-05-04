@@ -1,4 +1,4 @@
-# Policyについて
+# Policy
 IAMではポリシーにより、アクセスの許可や拒否の定義を行なっている。
 
 詳細は[IAMのユーザーガイドのポリシーリファレンス](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/reference_policies.html)を参照

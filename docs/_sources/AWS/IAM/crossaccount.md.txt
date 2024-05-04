@@ -1,4 +1,4 @@
-# クロスアカウントについて
+# クロスアカウント
 別AWSアカウントのリソースの操作をすることをクロスアカウントと呼ぶ。
 公式ドキュメントの[IAM でのクロスアカウントのリソースへのアクセス](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html)参考。
 
@@ -140,3 +140,19 @@
      ]
  }
 ```
+
+## 混乱した代理問題
+サードパーティに対して、自分のAWSのIAM Roleを伝えることで、サードパーティのAWSユーザーやRoleがスイッチロールをして、自分のAWSを利用することが可能になる。
+
+自分のAWSに対してサードパーティのAWSがアクセスすることを考える。一般的なクロスアカウント設定を行うと以下の設定をする。
+- 外部のAWSのIDを受領
+- IAM Roleを作成し、許可ポリシーを付与
+- 信頼ポリシーにPrincipalに外部のAWS IDを設定
+
+ただしこれには、混乱した代理問題という問題が発生する。
+
+このままだと、サードパーティを利用しようとする別の第三者が、自分のIAM RoleのARNを予測することで、自分のIAM Role権限を利用してしまうという問題。
+これに対しては、サードパーティに対してIAM Roleを登録する際に、ランダム文字列などを発行して自分のAWSの信頼ポリシーの中のConditionにその文字列を追加することによって、対応する。
+
+![](../../img/AWS/iam/iam_cossaccount_confuseddeputyproblem.png)
+公式ドキュメント[混乱する代理問題](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html)

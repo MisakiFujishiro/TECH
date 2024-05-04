@@ -11,7 +11,7 @@ CloudFront・APIGW・ALB・AppSync・Cognitoユーザープールなどに対す
 WebACLと呼ばれるルールセットを作成し、サービスに対してアタッチすることでAppに影響なく開始することができる。
 ```
 
-![waf_image](../img/AWS/waf/waf_image.png)
+![waf_image](../../img/AWS/Front/waf_image.png)
 [Hands-on for Beginners](https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html)より引用
 
 
