@@ -17,5 +17,6 @@ IAM
     AWS/IAM/user.md
     AWS/IAM/role.md
     AWS/IAM/crossaccount.md
+    AWS/IAM/iam_format.md
 
 
