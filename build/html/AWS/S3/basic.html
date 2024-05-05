@@ -53,10 +53,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#id5">バージョン</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">耐久性と可用性</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">ストレージの種類</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">S3のコスト</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id9">S3リクエスタ支払い</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">S3内のフォルダの扱い</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">空フォルダについて</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">S3上でのオブジェクトの管理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">耐久性と可用性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">ストレージの種類</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">S3のコスト</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">S3リクエスタ支払い</a></li>
 </ul>
 </li>
 </ul>
@@ -70,6 +75,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">gitとは</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/security.html">セキュリティ系の基本知識</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -139,12 +148,88 @@ AWSが用意しているファイルシステム定義とユーザーが任意�
 </section>
 </section>
 <section id="id6">
-<h2>耐久性と可用性<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
+<h2>S3内のフォルダの扱い<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
+<p>クラスメソッドの<a class="reference external" href="https://dev.classmethod.jp/articles/amazon-s3-folders/">Amazon S3における「フォルダ」という幻想をぶち壊し、その実体を明らかにする</a>は読んでおきたい。</p>
+<p>ポイントは、S3はkey-valueとしてオブジェクトを管理しており、フォルダという概念はない。
+以下の例では、あくまで&quot;foo/&quot;はキーの一部である。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(ルート)
+ └ foo/
+    └ hoge.txt
+</pre></div>
+</div>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>キー（フルパス名）</p></th>
+<th class="text-left head"><p>バリュー（ファイルの内容）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>foo/hoge.txt</p></td>
+<td class="text-left"><p>hogehoge</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id7">
+<h3>空フォルダについて<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GUIやCLIでもS3に対してからのフォルダ&quot;baz/&quot;は作成することができる。
+その場合は、ファイルサイズが0の&quot;baz/&quot;というオブジェクトが作成される。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(ルート)
+ └ baz/
+</pre></div>
+</div>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>キー（フルパス名）</p></th>
+<th class="text-left head"><p>バリュー（ファイルの内容）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>baz/</p></td>
+<td class="text-left"><p>-</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id8">
+<h3>S3上でのオブジェクトの管理<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>空のファイル&quot;baz/&quot;を作成してからその配下にファイル&quot;fuga.txt&quot;を作成した場合と&quot;foo/hoge.txt&quot;を一気に作成した場合、フォルダ構成上は以下となるので同じような構成が2つあるように見える</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(ルート)
+ ├ foo/
+ │  ├ hoge.txt
+ ├ baz/
+ │  ├ fuga.txt
+</pre></div>
+</div>
+<p>一方で、AWS上の管理は以下のようになっている。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>キー（フルパス名）</p></th>
+<th class="text-left head"><p>バリュー（ファイルの内容）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>foo/</p></td>
+<td class="text-left"><p>-</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>foo/hoge.txt</p></td>
+<td class="text-left"><p>hogehoge</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>baz/fuga.txt</p></td>
+<td class="text-left"><p>fugafuga</p></td>
+</tr>
+</tbody>
+</table>
+<p>どのように作成されていたのかに依存して、AWS上の管理が異なる点に注意したい。
+また、上記の管理上&quot;fuga.txt&quot;が削除された場合、同時に&quot;baz/&quot;も削除されてしまう。</p>
+</section>
+</section>
+<section id="id9">
+<h2>耐久性と可用性<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
 <p>S3は耐久性（どれだけデータをロストしないか）について、イレブンナインを補償しており、データのロストは限りなく低い。
 また、可用性についても自動で複数のAZに配置されるため、99.9％を補償している。</p>
 </section>
-<section id="id7">
-<h2>ストレージの種類<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id10">
+<h2>ストレージの種類<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h2>
 <p>S3はイレブンナインを補償するなど高い可用性を担保しており、データの取り出しに関しても秒単位での取り出しが可能である。
 ユースケースに応じては過剰なスペックとなっているため、耐久性や取り出し時間を犠牲にすることで、費用を低減するようなストレージが準備されている。</p>
 <table class="colwidths-auto docutils align-default">
@@ -194,12 +279,12 @@ AWSが用意しているファイルシステム定義とユーザーが任意�
 </tbody>
 </table>
 </section>
-<section id="id8">
-<h2>S3のコスト<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id11">
+<h2>S3のコスト<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
 <p>正確には、公式ドキュメントの<a class="reference external" href="https://aws.amazon.com/jp/s3/pricing/">Amazon S3 の料金</a>参照。</p>
 <p>ざっくり理解したい場合には<a class="reference external" href="https://zenn.dev/mryhryki/articles/2020-10-09-hatena-aws-s3-pricing">AWS S3 の料金をざっくり10GB単位で見る</a>が参考になる。</p>
-<section id="id9">
-<h3>S3リクエスタ支払い<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id12">
+<h3>S3リクエスタ支払い<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 <p>S3へのリクエストした側にリクエスト料金とデータ転送料金を請求することができる。</p>
 <p>支払いが関連するのでAWSアカウントからしかアクセスできなくなる。
 リクエストヘッダーに必ず<code class="docutils literal notranslate"><span class="pre">x-amz-request-payer</span></code>を追加する必要があり、このリクエストヘッダーを持って支払いに了承したとして扱う。</p>
