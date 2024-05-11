@@ -10,7 +10,7 @@ Front
 
 .. toctree::
     :maxdepth: 1
-    :caption: AWS Identity and Access Management:
+    :caption: AWS Frontside
 
     AWS/Front/APIGW.md
     AWS/Front/CloudFront.md

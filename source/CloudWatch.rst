@@ -3,17 +3,15 @@
     You can adapt this file completely to your liking, but it should at least
     contain the root `toctree` directive.
 
-Front
+CloudWatch
 ====================================
 
 
 
 .. toctree::
     :maxdepth: 1
-    :caption: AWS Frontside
+    :caption: AWS CloudWatch
 
-    AWS/Front/APIGW.md
-    AWS/Front/CloudFront.md
-    AWS/Front/WAF.md
+    AWS/CloudWatch/CloudWatchAlarm.md
 
 
