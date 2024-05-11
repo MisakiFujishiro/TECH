@@ -21,7 +21,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="S3" href="../../S3.html" />
+    <link rel="next" title="IAMのフォーマット" href="iam_format.html" />
     <link rel="prev" title="Role" href="role.html" /> 
 </head>
 
@@ -60,18 +60,29 @@
 <li class="toctree-l4"><a class="reference internal" href="#id7">設定方法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">混乱した代理問題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">混乱した代理問題</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">正規利用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">不正利用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">対策</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="iam_format.html">IAMのフォーマット</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">CloudWatch</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">gitとは</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/security.html">セキュリティ系の基本知識</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -123,11 +134,12 @@
 </ul>
 <section id="id2">
 <h2>基本的な考え方<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
-<p>基本的にクロスアカウントでは、どちらの方法を利用するにしても、以下の2つを準備すればよい</p>
+<p>基本的にクロスアカウントでは、どちらの方法を利用するにしても、以下の2つを準備すればよい。<br />
+アカウントAがリソースを公開する側、アカウントBが外部からリソースにアクセスする側とする。</p>
 <ul class="simple">
-<li><p>アカウントAのPrincipalにアカウントBのIAMプリンシパルの情報を記述</p></li>
-<li><p>アカウントAのActionに許可したいアクションのみを記述</p></li>
-<li><p>アカウントBのIAMプリンシパルの許可ポリシーにアカウントAのリソースに対する操作を記述</p></li>
+<li><p>アカウントAのPolicyのPrincipalにアカウントBのIAMプリンシパルの情報を記述</p></li>
+<li><p>アカウントAのPolicyのActionに許可したいアクションのみを記述</p></li>
+<li><p>アカウントBのPolicyにアカウントAのリソースに対するアクションを記述</p></li>
 </ul>
 </section>
 <section id="id3">
@@ -156,7 +168,7 @@
 <span class="w">        </span><span class="p">{</span>
 <span class="w">            </span><span class="nt">&quot;Sid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;Principal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;AWS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:iam::AccountB:root&quot;</span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;Principal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;AWS&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:iam::AccountB:[Role名など]&quot;</span><span class="p">},</span>
 <span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[許可したいアクション]&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[許可したい対象リソース(リソース自身)]&quot;</span>
 <span class="w">            </span><span class="p">}</span>
@@ -204,7 +216,7 @@
 <h3>設定方法<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="arole">
 <h4>アカウントAのRoleの信頼ポリシー設定<a class="headerlink" href="#arole" title="この見出しへのパーマリンク">¶</a></h4>
-<p>以下のようにアカウントAではスイッチロールを許可するために、信頼ポリシーにrole-YYYをprincipalに記述する。</p>
+<p>以下のようにアカウントAではスイッチロールを許可するために、信頼ポリシーにrole-BBBをprincipalに記述する。</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -212,7 +224,7 @@
 <span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">&quot;Principal&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="nt">&quot;AWS&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                    </span><span class="s2">&quot;arn:aws:iam::AccountB:role/role-YYY&quot;</span>
+<span class="w">                    </span><span class="s2">&quot;arn:aws:iam::AccountB:role/role-BBB&quot;</span>
 <span class="w">                </span><span class="p">]</span>
 <span class="w">            </span><span class="p">},</span>
 <span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sts:AssumeRole&quot;</span>
@@ -243,7 +255,7 @@
 </section>
 <section id="biam">
 <h4>アカウントBのIAMプリンシパルの許可ポリシー設定<a class="headerlink" href="#biam" title="この見出しへのパーマリンク">¶</a></h4>
-<p>以下のようにアカウントBではスイッチロール先のRole-XXXに対してのassumeRoleの許可ポリシーを記述する。</p>
+<p>以下のようにアカウントBではスイッチロール先のRole-AAAに対してのassumeRoleの許可ポリシーを記述する。</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">     </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
 <span class="w">     </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -252,7 +264,7 @@
 <span class="w">             </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
 <span class="w">             </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sts:AssumeRole&quot;</span><span class="p">,</span>
 <span class="w">             </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                 </span><span class="s2">&quot;arn:aws:iam::AccountA:role/role-XXX&quot;</span>
+<span class="w">                 </span><span class="s2">&quot;arn:aws:iam::AccountA:role/role-AAA&quot;</span>
 <span class="w">             </span><span class="p">]</span>
 <span class="w">         </span><span class="p">}</span>
 <span class="w">     </span><span class="p">]</span>
@@ -264,18 +276,33 @@
 </section>
 <section id="id9">
 <h2>混乱した代理問題<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
-<p>サードパーティに対して、自分のAWSのIAM Roleを伝えることで、サードパーティのAWSユーザーやRoleがスイッチロールをして、自分のAWSを利用することが可能になる。</p>
-<p>自分のAWSに対してサードパーティのAWSがアクセスすることを考える。一般的なクロスアカウント設定を行うと以下の設定をする。</p>
-<ul class="simple">
-<li><p>外部のAWSのIDを受領</p></li>
-<li><p>IAM Roleを作成し、許可ポリシーを付与</p></li>
-<li><p>信頼ポリシーにPrincipalに外部のAWS IDを設定</p></li>
-</ul>
-<p>ただしこれには、混乱した代理問題という問題が発生する。</p>
-<p>このままだと、サードパーティを利用しようとする別の第三者が、自分のIAM RoleのARNを予測することで、自分のIAM Role権限を利用してしまうという問題。
-これに対しては、サードパーティに対してIAM Roleを登録する際に、ランダム文字列などを発行して自分のAWSの信頼ポリシーの中のConditionにその文字列を追加することによって、対応する。</p>
+<p>サードパーティサービスのAWSから、自分のアカウントのAWSリソースへの操作をすることを考える時に混乱した代理問題という問題に気をつける必要がある。</p>
+<p>混乱した代理問題とは、サードパーティからのアクセスを許可するためにIAM Roleベースのスイッチロールを利用すると、サードパーティを利用しようとする別の第三者が、自分のIAM RoleのARNを予測することで、自分のIAM Role権限を利用してしまうという問題である。</p>
 <p><img alt="" src="../../_images/iam_cossaccount_confuseddeputyproblem.png" />
 公式ドキュメント<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/confused-deputy.html">混乱する代理問題</a></p>
+<section id="id10">
+<h3>正規利用<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>自分のAWSアカウントAとサードパーティのAWSアカウントXとすると、スイッチロールのために以下の設定を行う</p>
+<ol class="arabic simple">
+<li><p>アカウントAでRoleAを作成する</p></li>
+<li><p>RoleAの信頼ポリシーでアカウントXを信頼する旨を記載</p></li>
+<li><p>サードパーティサービスで、RoleAのARNを登録</p>
+<ul class="simple">
+<li><p>内部ではアカウントXでRoleAにassumeRoleする旨を記載</p></li>
+</ul>
+</li>
+</ol>
+<p>これによりサードパーティを利用してアカウントRoleAの持つ権限を利用したサービスを享受することができる。</p>
+</section>
+<section id="id11">
+<h3>不正利用<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ここで悪い人Zは、サードパーティサービスを利用したさいにRoleAのARNを予測して登録してしまうと、Aさんの情報を見れてしまうというのが混乱した代理問題のポイント。</p>
+</section>
+<section id="id12">
+<h3>対策<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>External IDとよばれるランダム文字列をサードパーティの登録時に発行する。
+アカウントAの信頼ポリシーでアカウントXを信頼する手順２において、ExternalIDをAWSの信頼ポリシーの中のConditionにその文字列を追加することによって、対応する。</p>
+</section>
 </section>
 </section>
 
@@ -284,7 +311,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="role.html" class="btn btn-neutral float-left" title="Role" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../../S3.html" class="btn btn-neutral float-right" title="S3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="iam_format.html" class="btn btn-neutral float-right" title="IAMのフォーマット" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
