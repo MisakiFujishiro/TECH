@@ -1,10 +1,7 @@
 # CloudWatchAlarm
 CloudWatchのメトリクスを監視する、または複数のCloudWatchメトリクスに基づく数式結果を監視するアラームを作成することができる。アラームでは設定した閾値を超えた際にアクションを実行することができる。アクションの例としては、例えばSNSトピックを設定して通知を送ったり、AutoScalingの設定により処理性能を上げたりすることができる。
 
-
-
-
-[ユーザーガイド](https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html)
+[CloudWatch Alarmのユーザーガイド](https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html)
 
 
 ## メトリクスアラームの状態
@@ -50,12 +47,7 @@ OK/ALARM/INSUFFICIENT_DATA城田の間で状態が変わった時全てに対し
 ## メトリクスの作成
 ### 単独のメトリクスを利用したアラーム
 アラーム作成に必要な設定をCloudFormationのリファレンスを見ながら解説していく。
-- [CloudFormationのリファレンス](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html)
-
-最終的に作成されるアラームのイメージは以下。こちらと照らし合わせて設定値を確認すると理解しやすい。
-
-![](../../img/AWS/cloudwatch/cloudwatch_alarm_setting.png)
-
+[CloudFormationのリファレンス](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html)
 
 重要なものに抜粋すると以下
 ```yaml
@@ -101,13 +93,17 @@ Properties:
 |Statistic※|アラームに関連付けられたメトリックの統計方法（MaxやAverageなど）|
 |Metrics|複数のメトリクスを利用して数式の結果に基づいてアラームを作成する。<br>上記の※がついているプロパティはMetricsを利用する場合定義せず、Metrics配下のそれぞれのメトリクス配列の中で定義する。|
 
+最終的に作成されるアラームのイメージは以下。こちらと照らし合わせて設定値を確認すると理解しやすい。
+
+![](../../img/AWS/cloudwatch/cloudwatch_alarm_setting.png)
+
 
 
 
 
 ### 複数のメトリクスの数式（Metrics）を利用したアラーム
 複数のメトリクスを数式で組み合わせて一つのメトリクスとして定義し、アラートに利用することができる。
-以下の例では、m1とm2としてSQSのApproximateNumberOfMessagesVisibleとApproximateNumberOfMessagesNotVisibleを定義して、その合計を一つのアラームにしている。
+以下の例では、m1とm2としてSQSのApproximateNumberOfMessagesVisibleとApproximateNumberOfMessagesNotVisibleを定義して、その合計を一つのメトリクスとして、定義してその値をアラームにしている。
 
 ![](../../img/AWS/cloudwatch/cloudwatch_alarm_metrics.png)
 
@@ -158,7 +154,7 @@ MetricStatを利用して、計算に利用するメトリクスの定義を行�
 
 |プロパティ名|内容|
 |:----|:----|
-|Metric|メトリクス名|
+|Metric|利用するメトリクスの定義|
 |Period|統計が適用される期間(sec)|
 |Stat|アラームに関連付けられたメトリックの統計方法（SumやAverageなど）|
 

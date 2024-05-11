@@ -119,7 +119,7 @@
   <section id="cloudwatchalarm">
 <h1>CloudWatchAlarm<a class="headerlink" href="#cloudwatchalarm" title="この見出しへのパーマリンク">¶</a></h1>
 <p>CloudWatchのメトリクスを監視する、または複数のCloudWatchメトリクスに基づく数式結果を監視するアラームを作成することができる。アラームでは設定した閾値を超えた際にアクションを実行することができる。アクションの例としては、例えばSNSトピックを設定して通知を送ったり、AutoScalingの設定により処理性能を上げたりすることができる。</p>
-<p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html">ユーザーガイド</a></p>
+<p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html">CloudWatch Alarmのユーザーガイド</a></p>
 <section id="id1">
 <h2>メトリクスアラームの状態<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>メトリクスアラームには大きく3つの状態がある</p>
@@ -171,12 +171,8 @@
 <h2>メトリクスの作成<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id5">
 <h3>単独のメトリクスを利用したアラーム<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
-<p>アラーム作成に必要な設定をCloudFormationのリファレンスを見ながら解説していく。</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html">CloudFormationのリファレンス</a></p></li>
-</ul>
-<p>最終的に作成されるアラームのイメージは以下。こちらと照らし合わせて設定値を確認すると理解しやすい。</p>
-<p><img alt="" src="../../_images/cloudwatch_alarm_setting.png" /></p>
+<p>アラーム作成に必要な設定をCloudFormationのリファレンスを見ながら解説していく。
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html">CloudFormationのリファレンス</a></p>
 <p>重要なものに抜粋すると以下</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::CloudWatch::Alarm</span>
 <span class="nt">Properties</span><span class="p">:</span>
@@ -256,11 +252,13 @@
 </tr>
 </tbody>
 </table>
+<p>最終的に作成されるアラームのイメージは以下。こちらと照らし合わせて設定値を確認すると理解しやすい。</p>
+<p><img alt="" src="../../_images/cloudwatch_alarm_setting.png" /></p>
 </section>
 <section id="metrics">
 <h3>複数のメトリクスの数式（Metrics）を利用したアラーム<a class="headerlink" href="#metrics" title="この見出しへのパーマリンク">¶</a></h3>
 <p>複数のメトリクスを数式で組み合わせて一つのメトリクスとして定義し、アラートに利用することができる。
-以下の例では、m1とm2としてSQSのApproximateNumberOfMessagesVisibleとApproximateNumberOfMessagesNotVisibleを定義して、その合計を一つのアラームにしている。</p>
+以下の例では、m1とm2としてSQSのApproximateNumberOfMessagesVisibleとApproximateNumberOfMessagesNotVisibleを定義して、その合計を一つのメトリクスとして、定義してその値をアラームにしている。</p>
 <p><img alt="" src="../../_images/cloudwatch_alarm_metrics.png" /></p>
 <p>複数のメトリクスを組み合わせてアラームを作成する場合プロパティに&quot;Metrics&quot;を定義する。
 &quot;Metrics&quot;を利用すると、その配下に利用するメトリクスの定義を行うため、アラームのプロパティでは&quot;Period&quot;/&quot;Namespace&quot;/&quot;MetricName&quot;/&quot;Dimentions&quot;/&quot;Statistic&quot;を定義しなくなる。</p>
@@ -328,7 +326,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-left"><p>Metric</p></td>
-<td class="text-left"><p>メトリクス名</p></td>
+<td class="text-left"><p>利用するメトリクスの定義</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Period</p></td>
 <td class="text-left"><p>統計が適用される期間(sec)</p></td>
