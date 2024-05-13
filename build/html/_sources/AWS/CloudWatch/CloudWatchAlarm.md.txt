@@ -198,7 +198,7 @@ Resources:
                   Name: "QueueName"
                   Value: !GetAtt SQSTestQueue.QueueName
             Period: 60
-            Stat: "MMaximumax"
+            Stat: "Maximum"
         - 
           Id: "m2"
           ReturnData: false
