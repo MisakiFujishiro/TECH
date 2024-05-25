@@ -16,6 +16,7 @@
    IAM
    S3
    Front
+   CloudFormation
    CloudWatch
 
 
