@@ -65,14 +65,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#sub">Sub詳細</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#findinmap">FindInMap詳細</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#importvalut">ImportValut詳細</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id11">疑似パラメータ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">条件関数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">疑似パラメータ</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="CloudFormation_template.html">CloudFormationのテンプレートファイルの書き方</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CloudFormation_parameter.html">CloudFormationのパラメータ参照</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CloudFormation_condition.html">CloudFormationの条件関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_control.html">CloudFormationの条件関数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CloudFormation_Automation.html">CloudFormationのGitOps</a></li>
 </ul>
 </li>
@@ -156,20 +157,29 @@
 スタックによって作成されたAWSのサービスひとつひとつはリソースと呼ばれる。</p>
 <p>テンプレートファイルを実行する際に、リソース間の依存関係などは解決される。
 例えば、リソースAの値をリソースBで参照するような記述をしておけば、自動でCloudFormationはリソースAを作成してからリソースBを作成してくれる。</p>
+<p><img alt="" src="../../_images/cloudformation_stack.png" /></p>
 </section>
 <section id="id4">
 <h2>ネステッドスタック<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<p>CloudFormationで作成するリソースとして、CloudFormationを指定することで、親スタックと子スタックの関係性を定義することができる。親スタックのことをRootStack、子スタックのことをNestedStackと呼ぶ。</p>
+<p><img alt="" src="../../_images/cloudformation_nestedstack.png" /></p>
 </section>
 <section id="id5">
 <h2>CloudFormationの実行と更新<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id6">
 <h3>実行<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CloudFormationの実行は、テンプレートファイルを使用してスタックの作成や更新を行います。テンプレートファイルのアップロード時には、Amazon S3バケットを指定するか、直接アップロードするかを選択できます。直接アップロードした場合でも、テンプレートは自動的にS3に保存される点に注意してください。</p>
+<p>初回実行時にはスタックが作成され、2回目以降は更新処理が行われます。更新処理の際には、変更内容を反映するチェンジセットが作成されます。</p>
 </section>
 <section id="id7">
 <h3>チェンジセット<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>チェンジセットでは、現在のスタックの構成と新しいテンプレートファイルとの間の差分を確認できます。具体的には、リソースの変更（Modify）、削除（Remove）、追加（Add）などの差分が確認できます。しかし、詳細な変更内容の把握は難しい場合があります。</p>
+<p>注意点として、チェンジセットは前回実行したテンプレートファイルとの差分を表示するため、実際のリソースに手動で行われた変更は反映されません。このため、新しいテンプレートファイルで上書きされます。実際のリソースとテンプレートファイルとの差分を確認するには、ドリフト検出を利用します。</p>
 </section>
 <section id="id8">
 <h3>ドリフト検出<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ドリフト検出は、現在のテンプレートファイルと実際のリソース構成を比較し、差分を確認する機能です。ドリフト検出により、リソースのプロパティや設定がテンプレートと一致しているかどうかを確認できます。ただし、ドリフト検出がサポートされているリソースに対してのみ有効である点に注意が必要です。</p>
+<p>詳細については、<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html">公式ドキュメント</a>で確認。</p>
 </section>
 </section>
 <section id="id9">
@@ -241,7 +251,11 @@
 <h3>ImportValut詳細<a class="headerlink" href="#importvalut" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 <section id="id11">
-<h3>疑似パラメータ<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>条件関数<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>条件関数については、<a class="reference external" href="https://misakifujishiro.github.io/TECH/AWS/CloudFormation/CloudFormation_control.html">別ページ</a>に整理しているので参照。</p>
+</section>
+<section id="id12">
+<h3>疑似パラメータ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 <p>AWSが事前に定義したパラメータであり、アカウントIDやリージョンが準備されており、実行環境によって参照してくれる。
 組み込み関数の&quot;Sub&quot;や&quot;Ref&quot;で利用することができる。</p>
 <table class="colwidths-auto docutils align-default">

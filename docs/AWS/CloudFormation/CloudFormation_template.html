@@ -55,11 +55,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#condition">Condition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mapping">Mapping</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#resources">Resources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#output">Output</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">具体例</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="CloudFormation_parameter.html">CloudFormationのパラメータ参照</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_control.html">CloudFormationの条件関数</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CloudFormation_Automation.html">CloudFormationのGitOps</a></li>
 </ul>
 </li>
@@ -119,19 +122,154 @@
 <h2>テンプレートの書き方<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id2">
 <h3>おまじない<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>テンプレートファイルの最初に記載する部分で、AWS CloudFormationがテンプレートを正しく認識するために必要な情報を記述。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2010-09-09&#39;</span>
+<span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">  </span><span class="no">This is a sample CloudFormation template.</span>
+<span class="w">  </span><span class="no">It creates a simple S3 bucket.</span>
+</pre></div>
+</div>
 </section>
 <section id="parameter">
 <h3>Parameter<a class="headerlink" href="#parameter" title="この見出しへのパーマリンク">¶</a></h3>
+<p>スタック作成時にユーザーから入力を受け取るためのパラメータを定義</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># --------------------</span>
+<span class="c1"># Parameters</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">EnvironmentType</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Specify</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">environment</span><span class="nv"> </span><span class="s">type</span><span class="nv"> </span><span class="s">(e.g.,</span><span class="nv"> </span><span class="s">dev,</span><span class="nv"> </span><span class="s">prod).&quot;</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">Default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class="w">    </span><span class="nt">AllowedValues</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+<span class="w">    </span><span class="nt">ConstraintDescription</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">environment</span><span class="nv"> </span><span class="s">type</span><span class="nv"> </span><span class="s">must</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">either</span><span class="nv"> </span><span class="s">&#39;dev&#39;</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">&#39;prod&#39;.&quot;</span>
+</pre></div>
+</div>
 </section>
 <section id="condition">
 <h3>Condition<a class="headerlink" href="#condition" title="この見出しへのパーマリンク">¶</a></h3>
+<p>リソースの作成を条件付きで行うための条件を定義</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># --------------------</span>
+<span class="c1"># Conditions</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Conditions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">IsProdEnvironment</span><span class="p">:</span><span class="w"> </span><span class="kt">!Equals</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="nv">EnvironmentType</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">prod</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
 </section>
 <section id="mapping">
 <h3>Mapping<a class="headerlink" href="#mapping" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Mapping定義で利用するMapの設定を定義</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># --------------------</span>
+<span class="c1"># Mappings</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Mappings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">RegionMap</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">us-west-1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">S3Endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;s3-us-west-1.amazonaws.com&quot;</span>
+<span class="w">    </span><span class="nt">ap-northeast-1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">S3Endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;s3-ap-northeast-1.amazonaws.com&quot;</span>
+</pre></div>
+</div>
 </section>
 <section id="resources">
 <h3>Resources<a class="headerlink" href="#resources" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Resourcesセクションは必須項目であり、作成するリソースの定義を行う</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># --------------------</span>
+<span class="c1"># Resources</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyS3Bucket</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AWS::S3::Bucket&quot;</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">BucketName</span><span class="p">:</span><span class="w"> </span><span class="kt">!If</span><span class="w"> </span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IsProdEnvironment</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&quot;my-s3-bucket-${EnvironmentType}&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::NoValue</span>
+</pre></div>
+</div>
 </section>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="この見出しへのパーマリンク">¶</a></h3>
+<p>スタックの出力値を定義します。これにより、他のスタックや外部のシステムがこれらの値を参照できるようになります。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># --------------------</span>
+<span class="c1"># Outputs</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Outputs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">BucketName</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">bucket&quot;</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyS3Bucket</span>
+<span class="w">  </span><span class="nt">BucketEndpoint</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">endpoint</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">bucket&quot;</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!FindInMap</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RegionMap</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="s">&quot;AWS::Region&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">S3Endpoint</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h2>具体例<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>上記をまとめると以下のようなテンプレートとなる。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2010-09-09&#39;</span>
+<span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">  </span><span class="no">This is a sample CloudFormation template.</span>
+<span class="w">  </span><span class="no">It creates a simple S3 bucket.</span>
+<span class="c1"># --------------------</span>
+<span class="c1"># Parameters</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">EnvironmentType</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Specify</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">environment</span><span class="nv"> </span><span class="s">type</span><span class="nv"> </span><span class="s">(e.g.,</span><span class="nv"> </span><span class="s">dev,</span><span class="nv"> </span><span class="s">prod).&quot;</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">Default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class="w">    </span><span class="nt">AllowedValues</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod</span>
+<span class="w">    </span><span class="nt">ConstraintDescription</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">environment</span><span class="nv"> </span><span class="s">type</span><span class="nv"> </span><span class="s">must</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">either</span><span class="nv"> </span><span class="s">&#39;dev&#39;</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">&#39;prod&#39;.&quot;</span>
+<span class="c1"># --------------------</span>
+<span class="c1"># Conditions</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Conditions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">IsProdEnvironment</span><span class="p">:</span><span class="w"> </span><span class="kt">!Equals</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="nv">EnvironmentType</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">prod</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="c1"># --------------------</span>
+<span class="c1"># Mappings</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Mappings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">RegionMap</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">us-west-1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">S3Endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;s3-us-west-1.amazonaws.com&quot;</span>
+<span class="w">    </span><span class="nt">ap-northeast-1</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">S3Endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;s3-ap-northeast-1.amazonaws.com&quot;</span>
+<span class="c1"># --------------------</span>
+<span class="c1"># Resources</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyS3Bucket</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AWS::S3::Bucket&quot;</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">BucketName</span><span class="p">:</span><span class="w"> </span><span class="kt">!If</span><span class="w"> </span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IsProdEnvironment</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&quot;my-s3-bucket-${EnvironmentType}&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::NoValue</span>
+<span class="c1"># --------------------</span>
+<span class="c1"># Outputs</span>
+<span class="c1"># --------------------</span>
+<span class="nt">Outputs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">BucketName</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">bucket&quot;</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyS3Bucket</span>
+<span class="w">  </span><span class="nt">BucketEndpoint</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">endpoint</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">bucket&quot;</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!FindInMap</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RegionMap</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="s">&quot;AWS::Region&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">S3Endpoint</span>
+</pre></div>
+</div>
 </section>
 </section>
 
