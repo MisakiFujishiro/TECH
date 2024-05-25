@@ -7,6 +7,7 @@
 これにより、複雑な条件ロジックを構築することが可能です。
 
 以下の例では、ConditionセクションでEqualsを利用して条件設定を行い、Environmentがproductionの場合のみTrueを返します。
+
 ```yaml
 Conditions:
   IsProduction:

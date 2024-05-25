@@ -15,7 +15,7 @@ CloudFormation
     AWS/CloudFormation/CloudFormation.md
     AWS/CloudFormation/CloudFormation_template.md
     AWS/CloudFormation/CloudFormation_parameter.md
-    AWS/CloudFormation/CloudFormation_condition.md
+    AWS/CloudFormation/CloudFormation_control.md
     AWS/CloudFormation/CloudFormation_Automation.md
 
 
