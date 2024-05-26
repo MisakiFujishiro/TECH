@@ -197,38 +197,26 @@
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-left"><p>Ref</p></td>
-<td class="text-left"><p>指定したパラメータやリソースの物理名を参照することができる。リソースの物理名は名前だったり、ARNだったりするが、</p></td>
+<td class="text-left"><p>指定したパラメータやリソースの物理名を参照することができる。リソースの物理名は名前だったり、ARNだったりする点に注意</p></td>
 <td class="text-left"><p>!Ref logicalName</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>組み込み関数名</p></td>
-<td class="text-left"><p>説明</p></td>
-<td class="text-left"><p>利用例</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>:----</p></td>
-<td class="text-left"><p>:----</p></td>
-<td class="text-left"><p>:----</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Ref</p></td>
-<td class="text-left"><p>指定したパラメータやリソースの物理名を参照することができる。リソースの物理名は名前だったり、ARNだったりするが、</p></td>
-<td class="text-left"><p>!Ref logicalName</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>Fn::GetAtt</p></td>
+<tr class="row-odd"><td class="text-left"><p>Fn::GetAtt</p></td>
 <td class="text-left"><p>論理名で指定したAWSリソースの属性を参照することができる。どのような属性が定義されているかは参照先のAWSのリソースに依存</p></td>
 <td class="text-left"><p>!GetAtt logicalNameOfResource.attributeName</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>Fn::Sub</p></td>
+<tr class="row-even"><td class="text-left"><p>Fn::Sub</p></td>
 <td class="text-left"><p>入力文字列の変数を、指定した値に置き換える</p></td>
 <td class="text-left"><p>!Sub 'arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:vpc/${vpc}'</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>Fn::FindInMap</p></td>
+<tr class="row-odd"><td class="text-left"><p>Fn::FindInMap</p></td>
 <td class="text-left"><p>Mappingセクションと合わせて利用して、Mappingセクションで指定された値を参照することができる。</p></td>
 <td class="text-left"><p>!FindInMap [ MapName, TopLevelKey, SecondLevelKey ]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>Fn::ImportValue</p></td>
+<tr class="row-even"><td class="text-left"><p>Fn::ImportValue</p></td>
 <td class="text-left"><p>クロススタック参照を利用して、別スタックの出力を参照する場合に利用する</p></td>
 <td class="text-left"><p>!ImportValue sharedValueToImport</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>条件関数</p></td>
+<tr class="row-odd"><td class="text-left"><p>条件関数</p></td>
 <td class="text-left"><p>Fn::If、Fn::Equals、Fn::Not などの組み込み関数を使用して、条件付きでスタックリソースを作成</p></td>
 <td class="text-left"><p>ConditionとFn::If、Fn::Equals、Fn::Notの組み合わせ</p></td>
 </tr>
@@ -237,18 +225,178 @@
 </section>
 <section id="ref">
 <h3>Ref詳細<a class="headerlink" href="#ref" title="この見出しへのパーマリンク">¶</a></h3>
+<p>指定したパラメータやリソース、組み込み関数に応じた値を返却する</p>
+<ul class="simple">
+<li><p>パラメータの論理名を指定すると、それはパラメータの値を返します。</p></li>
+<li><p>リソースの論理名を指定すると、それはそのリソースを参照するために通常使用できる値を返します (物理 ID)。</p></li>
+<li><p>組み込み関数を指定すると、その関数の出力を返します。</p></li>
+</ul>
+<p>リソース名を指定した場合、参照されるものは物理IDであり、リソースの種別によってARNや名前になるため、公式ドキュメントの<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">リソースリファレンス</a>を確認する。</p>
+<p>以下の例ではEC2InstacneのインスタンスIDがRefで返却される。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">MyEIP</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AWS::EC2::EIP&quot;</span>
+<span class="w">  </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">InstanceId</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyEC2Instance</span>
+</pre></div>
+</div>
+<p>Refを利用すると、CloudFormation側で自動で作成順序を制御してくれる。
+参照されるリソースを作成してから参照する側のリソースを作成してくれる。</p>
 </section>
 <section id="getatt">
 <h3>GetAtt詳細<a class="headerlink" href="#getatt" title="この見出しへのパーマリンク">¶</a></h3>
+<p>テンプレートのリソースから属性の値を返却する。</p>
+<p>GetAttを利用した際に参照できる属性の値についてはリソースごとに異なるため、公式ドキュメントの<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">リソースリファレンス</a>を確認する。</p>
+<p>例えば、LoadBalancerの公式ドキュメントを確認すると、5つの属性が定義されている。
+<img alt="" src="../../_images/cloudformation_getatt_ex.png" /></p>
+<p>上記を利用したテンプレートの例は以下。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2010-09-09</span>
+<span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">myELB</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::ElasticLoadBalancing::LoadBalancer</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">AvailabilityZones</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1a</span>
+<span class="w">      </span><span class="nt">Listeners</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LoadBalancerPort</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;80&#39;</span>
+<span class="w">          </span><span class="nt">InstancePort</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;80&#39;</span>
+<span class="w">          </span><span class="nt">Protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HTTP</span>
+<span class="w">  </span><span class="nt">myELBIngressGroup</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::SecurityGroup</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">GroupDescription</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ELB ingress group</span>
+<span class="w">      </span><span class="nt">SecurityGroupIngress</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">IpProtocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tcp</span>
+<span class="w">          </span><span class="nt">FromPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">          </span><span class="nt">ToPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">          </span><span class="nt">SourceSecurityGroupOwnerId</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myELB.SourceSecurityGroup.OwnerAlias</span>
+<span class="w">          </span><span class="nt">SourceSecurityGroupName</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myELB.SourceSecurityGroup.GroupName</span>
+</pre></div>
+</div>
+<p>GetAttを利用すると、CloudFormation側で自動で作成順序を制御してくれる。
+参照されるリソースを作成してから参照する側のリソースを作成してくれる。</p>
 </section>
 <section id="sub">
 <h3>Sub詳細<a class="headerlink" href="#sub" title="この見出しへのパーマリンク">¶</a></h3>
+<p>対象のStringに対して、パラメータの埋め込みをしてくれる。</p>
+<p>記述方法としては以下のように、指定したStringに対して、埋め込むパラメータを定義する。
+定義するパラメータには疑似パラメータやRef、GetAttも利用可能</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;www.${Domain}&#39;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Domain</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RootDomainName</span>
+</pre></div>
+</div>
+<p>省略形を利用した記述だと以下になり、疑似パラメータとvpcに対してのRefをパラメータとして埋め込む</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:vpc/${vpc}&#39;</span>
+</pre></div>
+</div>
+<p>長い文字列の場合リテラルブロックを使用することができる</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="kt">!Sub</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:vpc/${vpc}</span>
+</pre></div>
+</div>
+<p>Subは単純に文字列操作として利用されるため、!Refや!GetAttを利用しないで、!SubだけでARNを組み立てるとCloudFormationで自動で作成順序を制御してくれない点に注意。
+例えば以下のIAM Roleを!Subだけで組み立てると、作成順序は制御されない。</p>
+<p>以下の例では、IAMを作成して、BucketPolicyでその値を!Subで参照しているため、作成順序は担保されない。
+BucketPolicy作成時に、ROleがないためエラーになる可能性がある。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyRole</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::IAM::Role</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">RoleName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role-for-my-bucket</span>
+<span class="w">      </span><span class="nt">AssumeRolePolicyDocument</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2012-10-17&#39;</span>
+<span class="w">        </span><span class="nt">Statement</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Effect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Allow</span>
+<span class="w">            </span><span class="nt">Principal</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">Service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3.amazonaws.com</span>
+<span class="w">            </span><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sts:AssumeRole</span>
+
+<span class="w">  </span><span class="nt">MyBucket</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::S3::Bucket</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">BucketName</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;my-bucket-${AWS::Region}-${AWS::AccountId}&#39;</span>
+<span class="w">      </span><span class="nt">LifecycleConfiguration</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">BucketPolicy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">PolicyDocument</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2012-10-17&#39;</span>
+<span class="w">          </span><span class="nt">Statement</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Effect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Allow</span>
+<span class="w">              </span><span class="nt">Principal</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">AWS</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;arn:aws:iam::${AWS::AccountId}:role/role-for-my-bucket&#39;</span>
+<span class="w">              </span><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;s3:*&#39;</span>
+<span class="w">              </span><span class="nt">Resource</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;arn:aws:s3:::my-bucket-${AWS::Region}-${AWS::AccountId}/*&#39;</span>
+</pre></div>
+</div>
 </section>
 <section id="findinmap">
 <h3>FindInMap詳細<a class="headerlink" href="#findinmap" title="この見出しへのパーマリンク">¶</a></h3>
+<p>組み込み関数 Fn::FindInMap は、CloudFormationのテンプレートでマッピングを使用して、キーと値のペアを検索するための関数です。</p>
+<p>構文としては以下</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="kt">!FindInMap</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">マップ名</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">トップレベルキー</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">セカンドレベルキー</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>マップ名: Mappingsセクションで定義されたマップの名前</p></li>
+<li><p>トップレベルキー: マップの最初のキー</p></li>
+<li><p>セカンドレベルキー: トップレベルキーの下にある具体的なキー</p></li>
+</ul>
+<p>まずは、Mappingセクションでマップとキーを設定する</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Mappings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">RegionMap</span><span class="p">:</span><span class="w">                        </span><span class="c1"># マップ名</span>
+<span class="w">    </span><span class="nt">us-east-1</span><span class="p">:</span><span class="w">                      </span><span class="c1"># トップレベルキー</span>
+<span class="w">      </span><span class="nt">AMI</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ami-0abcdef1234567890</span><span class="w">    </span><span class="c1"># セカンドレベルキー: Value</span>
+<span class="w">    </span><span class="nt">us-west-1</span><span class="p">:</span><span class="w">                      </span><span class="c1"># トップレベルキー</span>
+<span class="w">      </span><span class="nt">AMI</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ami-1abcdef1234567890</span><span class="w">    </span><span class="c1"># セカンドレベルキー: Value</span>
+<span class="w">    </span><span class="nt">eu-west-1</span><span class="p">:</span><span class="w">                      </span><span class="c1"># トップレベルキー</span>
+<span class="w">      </span><span class="nt">AMI</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ami-2abcdef1234567890</span><span class="w">    </span><span class="c1"># セカンドレベルキー: Value</span>
+</pre></div>
+</div>
+<p>参照時には、構文を利用して値を取得する</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyEC2Instance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::Instance</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">t2.micro</span>
+<span class="w">      </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="kt">!FindInMap</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">RegionMap</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="s">&#39;AWS::Region&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">AMI</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">Tags</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name</span>
+<span class="w">          </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyEC2Instance</span>
+</pre></div>
+</div>
 </section>
 <section id="importvalut">
 <h3>ImportValut詳細<a class="headerlink" href="#importvalut" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ImportValueは、CloudFormationのスタック間でリソースや値を共有するために使用される関数です。あるスタックでエクスポートされた値を他のスタックでインポートして使用することができます。
+スタック間でパラメータをやり取りすることをクロススタックリファレンスと呼ぶ。</p>
+<p>構文としては以下</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="kt">!ImportValue</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">エクスポート名</span>
+</pre></div>
+</div>
+<p>具体例としては、出力側でエクスポート（Output）の定義を行う。<code class="docutils literal notranslate"><span class="pre">MyVPCId</span></code>という値で、VPCのIDがエクスポートされている。注意点として、エクスポートする際のエクスポート名はアカウント内のリージョンでユニークになる必要がある。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyVPC</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::VPC</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
+
+<span class="nt">Outputs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">VPCId</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;VPC</span><span class="nv"> </span><span class="s">ID&quot;</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPC</span>
+<span class="w">    </span><span class="nt">Export</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPCId</span>
+</pre></div>
+</div>
+<p>Import側では先ほどのImportValueの構文を利用する。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MySubnet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::Subnet</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">VpcId</span><span class="p">:</span><span class="w"> </span><span class="kt">!ImportValue</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPCId</span>
+<span class="w">      </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.1.0/24</span>
+</pre></div>
+</div>
+<p>注意点として、ExportとImportをしている場合、Export側のスタックを削除しようとするとエラーが出る。先にImport側を削除して依存関係を取り除かないといけない。</p>
 </section>
 <section id="id11">
 <h3>条件関数<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
