@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="iam" href="../IAM.html" />
+    <link rel="next" title="IAM" href="../IAM.html" />
     <link rel="prev" title="技術ノート" href="../index.html" /> 
 </head>
 
@@ -45,17 +45,29 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AWSについて</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id1">ドキュメント</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">解説資料</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">AWSのインフラ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">リージョン</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#az">AZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">エッジロケーション</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../IAM.html">iam</a></li>
-<li class="toctree-l1"><a class="reference internal" href="APIGW.html">API Gateway</a></li>
-<li class="toctree-l1"><a class="reference internal" href="WAF.html">WAF</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudFront.html">CloudFront</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitとは</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/security.html">セキュリティ系の基本知識</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -111,6 +123,34 @@
 <h2>解説資料<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
 <p>ドキュメントをもう少し噛み砕いて、理解したい場合は<a class="reference external" href="https://aws.amazon.com/jp/events/aws-event-resource/archive/?cards.sort-by=item.additionalFields.SortDate&amp;amp;cards.sort-order=desc&amp;amp;awsf.tech-category=*all">blackbelt</a>が参考になる。</p>
 </section>
+<section id="id3">
+<h2>AWSのインフラ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>AWSは世界中の多数のデータセンターから200のサービスを提供している。
+莫大なリソースを活用して、必要なときに必要な場所でアプリケーションを構築できる。</p>
+<p>AWSで提供している拠点はリージョン、アベイラビリティーゾーン（AZ）、エッジロケーションに分類できる。</p>
+<section id="id4">
+<h3>リージョン<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>AWSがサービスを展開している国や拠点であり、リージョン間は地理的に離れた場所に配置されており、独立している。
+リージョン間は、高速広帯域のネットワークで接続され、自動で暗号化されている。</p>
+</section>
+<section id="az">
+<h3>AZ<a class="headerlink" href="#az" title="この見出しへのパーマリンク">¶</a></h3>
+<p>各リージョンは複数のAZで構成されている。
+AZは1つ以上のデータセンターで構成される、AZ同士は地理的、電源的、ネットワーク的に他のAZからは独立している。
+具体的には、数十キロほどの地理的に離れているデータセンターをイメージすると良い。
+数十キロ離れているものの、リージョン内のAZは高速な専用線で接続されており、ネットワーク遅延はほとんど考えなくて良い。
+シングルAZだと、単体のデータセンターと同様の耐障害性を得られるが、複数のAZを利用したマルチAZ構成とすることで高い信頼性を確保する事ができる。</p>
+<p>AZは「AZ ID」によってどのアカウトから見ても同じAZを表す識別子によって「apne-1-az4」のように表記される。
+一方で「ap-northeast-1a」のようにリージョンコード+英字1文字の表記はアカウントごとにどの「AZ ID」に紐づいているかが決まっている点に注意。</p>
+</section>
+<section id="id5">
+<h3>エッジロケーション<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>AWSはリージョンとは別に200以上のエッジロケーションを持つ。
+リージョンよりもエンドユーザーに物理的に近い場所でコンテンツ配信が可能である。
+CloudFrontのようなエッジサービスが提供される。</p>
+<p>エッジロケーションとリージョンはAWSの高速なバックボーンで接続され、低遅延で安定したAWSリソースへの接続を提供する。</p>
+</section>
+</section>
 </section>
 
 
@@ -118,7 +158,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="技術ノート" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../IAM.html" class="btn btn-neutral float-right" title="iam" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../IAM.html" class="btn btn-neutral float-right" title="IAM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
