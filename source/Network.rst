@@ -13,4 +13,6 @@ Network
     :caption: AWS Network
 
     AWS/Network/VPC
+    AWS/Network/Firewall
+    AWS/Network/Gateway
     AWS/Network/Endpoint

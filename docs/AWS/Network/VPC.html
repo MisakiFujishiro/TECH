@@ -21,7 +21,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="S3" href="../../S3.html" />
+    <link rel="next" title="ファイヤーウォール" href="Firewall.html" />
     <link rel="prev" title="Network" href="../../Network.html" /> 
 </head>
 
@@ -60,17 +60,16 @@
 <li class="toctree-l4"><a class="reference internal" href="#dns">DNS</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#eni">ENI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#igw">IGW</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#nat">NAT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">ルートテーブル</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">ファイヤーウォール</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id6">セキュリティグループ</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#acl">ネットワークACL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#eni-elastic-network-interface">ENI（Elastic Network Interface）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#eni">ENIの設定項目</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ec2eni">EC2とENI</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="Firewall.html">ファイヤーウォール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Gateway.html">Gatewayとルートテーブル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Endpoint.html">VPC Endpoint</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
@@ -256,7 +255,7 @@ AWSでは、VPCごとにDHCPオプションを作成、適用する事ができ�
 <td class="text-left"><p>規定ではVPCが提供するRoute53Resolver(Amazon Provided NDS)が指定される</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>カスタムドメイン名</p></td>
-<td class="text-left"><p>EC2インスタンスに付与されるDNSドメイン名</p></td>
+<td class="text-left"><p>EC2インスタンスに付与されるDNSドメイン名(ap-northeast-1.compute.internal)</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>NTPサーバーのIPアドレス</p></td>
 <td class="text-left"><p>時刻同期用のNTPサーバーへのIPが設定可能。規定では設定されない</p></td>
@@ -280,25 +279,25 @@ AWSでは、VPCごとにDHCPオプションを作成、適用する事ができ�
 <p>DHCPオプションとしてもAmazon Provided DNSが設定されており、このDNSサーバーによりサブネット場のリソースはVPC内やインターネット上の名前解決を行う事ができる。</p>
 </section>
 </section>
+<section id="eni-elastic-network-interface">
+<h2>ENI（Elastic Network Interface）<a class="headerlink" href="#eni-elastic-network-interface" title="この見出しへのパーマリンク">¶</a></h2>
+<p>物理サーバーにおけるNIC（Network Interface Card）をAWSではENIが担う。
+ENIはプライベートIPやパブリックIP、セキュリティグループの情報などを持つ。
+ENIをサーバーに紐づけることで、サーバーをネットワークに参加させる事ができる。</p>
 <section id="eni">
-<h2>ENI<a class="headerlink" href="#eni" title="この見出しへのパーマリンク">¶</a></h2>
+<h3>ENIの設定項目<a class="headerlink" href="#eni" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ENIで設定可能な主要な項目は以下</p>
+<ul class="simple">
+<li><p>プライマリプライベートIP</p></li>
+<li><p>セカンダリプライベートIP(複数可能)</p></li>
+<li><p>EIP(プライベートIPに対応づけ)</p></li>
+<li><p>セキュリティグループ</p></li>
+<li><p>MACアドレス</p></li>
+</ul>
 </section>
-<section id="igw">
-<h2>IGW<a class="headerlink" href="#igw" title="この見出しへのパーマリンク">¶</a></h2>
-</section>
-<section id="nat">
-<h2>NAT<a class="headerlink" href="#nat" title="この見出しへのパーマリンク">¶</a></h2>
-</section>
-<section id="id4">
-<h2>ルートテーブル<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
-</section>
-<section id="id5">
-<h2>ファイヤーウォール<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id6">
-<h3>セキュリティグループ<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
-</section>
-<section id="acl">
-<h3>ネットワークACL<a class="headerlink" href="#acl" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="ec2eni">
+<h3>EC2とENI<a class="headerlink" href="#ec2eni" title="この見出しへのパーマリンク">¶</a></h3>
+<p>EC2インスタンスには複数のENIを設定することが可能。EC2インスタンス作成時にはデフォルトでプライマリENI（eth0）が設定され、必要に応じて手動でセカンダリENIを付与することが可能。</p>
 </section>
 </section>
 </section>
@@ -308,7 +307,7 @@ AWSでは、VPCごとにDHCPオプションを作成、適用する事ができ�
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../Network.html" class="btn btn-neutral float-left" title="Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../../S3.html" class="btn btn-neutral float-right" title="S3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Firewall.html" class="btn btn-neutral float-right" title="ファイヤーウォール" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
