@@ -20,7 +20,9 @@
         <script src="../../_static/translations.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
-    <link rel="search" title="検索" href="../../search.html" /> 
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="S3" href="../../S3.html" />
+    <link rel="prev" title="Gateway" href="Gateway.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,10 +41,29 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../AWS.html">AWSについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../IAM.html">IAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Network.html">Network</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../Network.html">Network</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="VPC.html">VPC(Virtual Private Cloud)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Firewall.html">ファイヤーウォール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RouteTable.html">ルートテーブル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Gateway.html">Gateway</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">VPC Endpoint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gateway">Gateway型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vpc">VPCエンドポイントポリシー</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#interface">Interface型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gwif">GW型とIF型の違い</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">費用</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">外部からの通信</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Front.html">Front</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../CloudFormation.html">CloudFormation</a></li>
@@ -85,6 +106,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../Network.html">Network</a></li>
       <li class="breadcrumb-item active">VPC Endpoint</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/AWS/Network/Endpoint.md.txt" rel="nofollow"> View page source</a>
@@ -97,12 +119,52 @@
              
   <section id="vpc-endpoint">
 <h1>VPC Endpoint<a class="headerlink" href="#vpc-endpoint" title="この見出しへのパーマリンク">¶</a></h1>
+<p>VPC Endpointを利用する事でインターネットを経由せずに、VPC外のAWSサービスにアクセする事が可能となる。</p>
+<p>VPCエンドポイントにはゲートウェイ型とインターフェース型が存在する</p>
+<section id="gateway">
+<h2>Gateway型<a class="headerlink" href="#gateway" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GW型のVPCエンドポイントは、S3とDynamoDBのみが対応している。
+GW型のためVPCに設置され、各サブネットで設定するルートテーブルにおいてルーティング設定を行う事で、通信経路が確立される。</p>
+<p><img alt="" src="../../_images/vpc_endpoint_gw.png" />
+<a class="reference external" href="https://dev.classmethod.jp/articles/vpc-endpoint-gateway-type/">2つのVPCエンドポイントの違いを知る</a></p>
+<section id="vpc">
+<h3>VPCエンドポイントポリシー<a class="headerlink" href="#vpc" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GW型のVPCエンドポイントにはVPCエンドポイントポリシーを付与する。
+IAMのPolicyと同様に記載し、エンドポイントからサービスへのアクセス制御をする事ができる。</p>
+<p>例えば、VPC-Endpoint-AにはBacket-Aへのアクセス権限をエンドポイントポリシーに定義し、VPC-Endpoint-BにはBucket全てへのアクセス権限をエンドポリシーに定義する。
+バケットポリシー側でVPC-Endpoint-A経由のみのアクセスを許可するように記載する事で、Bucket-AはVPC-Endpoint-Aからのみ通信を許可し、さらに他のバケットへのコピーを防ぐ事ができる。
+一方で、VPC-Endpoint-Bを経由する事でBucket-A以外のバケットには通信が可能となる。</p>
+</section>
+</section>
+<section id="interface">
+<h2>Interface型<a class="headerlink" href="#interface" title="この見出しへのパーマリンク">¶</a></h2>
+<p>IF型のVPCエンドポイントは、実態としてはENIを経由した通信が構成される。
+サブネット内にENIが作成され、ENIに紐づいたプライベートIPアドレスで接続が行われる。
+通信としては、VPC内部のローカルの通信を行なっている者と同一となる。</p>
+<p><img alt="" src="../../_images/vpc_endpoint_if.png" />
+<a class="reference external" href="https://dev.classmethod.jp/articles/vpc-endpoint-gateway-type/">2つのVPCエンドポイントの違いを知る</a></p>
+</section>
+<section id="gwif">
+<h2>GW型とIF型の違い<a class="headerlink" href="#gwif" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id1">
+<h3>費用<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GW型は費用がかからない。一方でIF型は時間と利用通信量に応じて費用がかかる点に注意</p>
+</section>
+<section id="id2">
+<h3>外部からの通信<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GW型は、サブネット外部への通信として扱われる。そのためVPCピアリングなどのVPC外部からGW型のエンドポイントを利用しようとすると通信は失敗する。</p>
+<p>一方でエンドポイント型の場合、サブネット内部のENI経由の通信となるためVPC外部から出会っても適切にネットワーク設計されていれば通信を行う事ができる。</p>
+</section>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Gateway.html" class="btn btn-neutral float-left" title="Gateway" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../S3.html" class="btn btn-neutral float-right" title="S3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

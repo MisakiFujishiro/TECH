@@ -14,5 +14,6 @@ Network
 
     AWS/Network/VPC
     AWS/Network/Firewall
+    AWS/Network/RouteTable
     AWS/Network/Gateway
     AWS/Network/Endpoint
