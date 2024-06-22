@@ -12,8 +12,10 @@ Front
     :maxdepth: 1
     :caption: AWS Frontside
 
-    AWS/Front/APIGW.md
+    AWS/Front/Route53.md
+    AWS/Front/ELB.md
     AWS/Front/CloudFront.md
+    AWS/Front/APIGW.md
     AWS/Front/WAF.md
 
 
