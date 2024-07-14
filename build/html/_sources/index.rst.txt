@@ -15,8 +15,8 @@
    AWS/AWS.md
    IAM
    Network
-   S3
    Front
+   S3
    CloudFormation
    CloudWatch
 

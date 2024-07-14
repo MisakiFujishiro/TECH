@@ -21,8 +21,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="gitとは" href="../../Git/starter.html" />
-    <link rel="prev" title="CloudFront" href="CloudFront.html" /> 
+    <link rel="next" title="S3" href="../../S3.html" />
+    <link rel="prev" title="API Gateway" href="APIGW.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,10 +44,12 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../AWS.html">AWSについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../IAM.html">IAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Network.html">Network</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../Front.html">Front</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="APIGW.html">API Gateway</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Route53.html">Route53</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ELB.html">ELB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="CloudFront.html">CloudFront</a></li>
+<li class="toctree-l2"><a class="reference internal" href="APIGW.html">API Gateway</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">WAF</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#note">note</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#acl-access-control-list">ACL(Access Control List)</a><ul>
@@ -63,11 +65,18 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudFormation.html">CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">CloudWatch</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">gitとは</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/security.html">セキュリティ系の基本知識</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -121,8 +130,8 @@ CloudFront・APIGW・ALB・AppSync・Cognitoユーザープールなどに対す
 WebACLと呼ばれるルールセットを作成し、サービスに対してアタッチすることでAppに影響なく開始することができる。
 </pre></div>
 </div>
-<p><img alt="waf_image" src="../../_images/waf_image.png" />
-<a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">Hands-on for Beginners</a>より引用</p>
+<p><img alt="waf_image" src="../../_images/waf_image.png" /></p>
+<p><a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">Hands-on for Beginners</a>より引用</p>
 </section>
 <section id="acl-access-control-list">
 <h2>ACL(Access Control List)<a class="headerlink" href="#acl-access-control-list" title="この見出しへのパーマリンク">¶</a></h2>
@@ -207,8 +216,8 @@ WebACLに複数のルールを設定する場合、設定されたルールの�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="CloudFront.html" class="btn btn-neutral float-left" title="CloudFront" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../../Git/starter.html" class="btn btn-neutral float-right" title="gitとは" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="APIGW.html" class="btn btn-neutral float-left" title="API Gateway" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../S3.html" class="btn btn-neutral float-right" title="S3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

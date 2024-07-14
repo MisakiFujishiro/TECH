@@ -8,6 +8,28 @@
 - デベロッパーガイド：プログラムの例などの開発者向け資料
 - APIリファレンス：各リソースを操作するときのAPIに関するガイド
 
+## ベストプラクティス
+### ホワイトペーパー
+ベストプラクティスとしてホワイトペーパが公開されているがかなり膨大な量になっている。
+
+- [AWS ホワイトペーパー](https://aws.amazon.com/jp/whitepapers/?whitepapers-main.sort-by=item.additionalFields.sortDate&whitepapers-main.sort-order=desc&awsf.whitepapers-content-type=*all&awsf.whitepapers-global-methodology=*all&awsf.whitepapers-tech-category=*all&awsf.whitepapers-industries=*all&awsf.whitepapers-business-category=*all)
+
+### Well-Architected Framework
+Well-Architected Frameworkとは、ベストプラクティスを基に規範的なアドバイスを提供する資料。
+システム設計・運用の対極的な考え方とベストプラクティスが記述されている。
+
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/framework/welcome.html)
+
+6つの柱が定義されている
+- 運用上の優秀性
+- セキュリティ
+- 信頼性
+- パフォーマンス効率
+- コスト最適化
+- サステナビリティ
+
+
+
 ### 解説資料
 ドキュメントをもう少し噛み砕いて、理解したい場合は[blackbelt](https://aws.amazon.com/jp/events/aws-event-resource/archive/?cards.sort-by=item.additionalFields.SortDate&cards.sort-order=desc&awsf.tech-category=*all)が参考になる。
 
@@ -41,17 +63,3 @@ CloudFrontのようなエッジサービスが提供される。全600+のAZ（2
 
 
 エッジロケーションとリージョンはAWSの高速なバックボーンで接続され、低遅延で安定したAWSリソースへの接続を提供する。
-
-## Well-Architected Framework
-Well-Architected Frameworkとは、ベストプラクティスを基に規範的なアドバイスを提供する資料。
-システム設計・運用の対極的な考え方とベストプラクティスが記述されている。
-- [AWS Well-Architected Framework](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/framework/welcome.html)
-
-6つの柱が定義されている
-- 運用上の優秀性
-- セキュリティ
-- 信頼性
-- パフォーマンス効率
-- コスト最適化
-- サステナビリティ
-

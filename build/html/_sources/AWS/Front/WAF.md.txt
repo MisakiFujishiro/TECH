@@ -12,6 +12,7 @@ WebACLと呼ばれるルールセットを作成し、サービスに対して�
 ```
 
 ![waf_image](../../img/AWS/Front/waf_image.png)
+
 [Hands-on for Beginners](https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html)より引用
 
 

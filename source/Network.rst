@@ -17,3 +17,4 @@ Network
     AWS/Network/RouteTable
     AWS/Network/Gateway
     AWS/Network/Endpoint
+    AWS/Network/PrivateLink
