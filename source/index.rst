@@ -34,6 +34,8 @@
    :maxdepth: 1
    :caption: ITBasic:
 
+   ITBasic/server.md
+   ITBasic/kernel.md
    ITBasic/security.md
 
 

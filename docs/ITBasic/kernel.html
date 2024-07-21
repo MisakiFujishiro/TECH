@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>カーネル &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="セキュリティ系の基本知識" href="security.html" />
+    <link rel="prev" title="サーバー" href="server.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="server.html">サーバー</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">カーネル</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">カーネルパニック</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">カーネルクラッシュ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kdump">kdump</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kexec">kexecを利用した再起動：</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">クラッシュカーネルの設定：</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">クラッシュダンプの生成：</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dump">dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">解析手順</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">前提</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">手順</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">セキュリティ系の基本知識</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">カーネル</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/ITBasic/kernel.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>カーネル<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="id2">
+<h2>カーネルパニック<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>カーネルパニックとは、オペレーティングシステムのカーネル（核となる部分）が重大なエラーを検出し、システムの通常の運用を続けられない場合に発生するシステムエラーのことです。カーネルパニックが発生すると、システムは安全な状態に戻すために再起動が必要になります。これは、データの破損や損失を防ぐための措置です。</p>
+</section>
+<section id="id3">
+<h2>カーネルクラッシュ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>カーネルのクラッシュとは、オペレーティングシステムのカーネルが実行中に重大なエラーに直面し、その結果システム全体が正常に動作しなくなる状態を指します。これはカーネルパニックと似ていますが、特にクラッシュという用語は、カーネルが予期せぬ状況に陥り、適切に処理できずに停止することを強調しています。</p>
+</section>
+<section id="kdump">
+<h2>kdump<a class="headerlink" href="#kdump" title="この見出しへのパーマリンク">¶</a></h2>
+<p>kdumpは、Linuxカーネルで利用されるクラッシュダンプメカニズムの一つです。kdumpを利用することで、カーネルパニックやカーネルクラッシュが発生した際に、システムのメモリ内容をダンプファイルとして保存することができます。これにより、クラッシュの原因を後から調査することが可能になります。</p>
+<section id="kexec">
+<h3>kexecを利用した再起動：<a class="headerlink" href="#kexec" title="この見出しへのパーマリンク">¶</a></h3>
+<p>kexecは、カーネルが再起動することなく新しいカーネルをロードして実行することを可能にする技術です。
+kdumpでは、この機能を利用してクラッシュ時に再起動することなくクラッシュダンプ用の新しいカーネル（クラッシュカーネル）を起動します。
+クラッシュカーネルは、現行のカーネルの状態を保存するために、システム全体が一時停止しする。この時点でプロセスやエージェントは停止される。</p>
+</section>
+<section id="id4">
+<h3>クラッシュカーネルの設定：<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>kdumpを有効にするためには、システムブート時に特別なクラッシュカーネル（crash kernel）を予約する必要があります。
+このクラッシュカーネルは、メインカーネルがクラッシュした際に実行される軽量なカーネルです。</p>
+</section>
+<section id="id5">
+<h3>クラッシュダンプの生成：<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>メインカーネルがクラッシュすると、kexecを利用してクラッシュカーネルが起動されます。
+このクラッシュカーネルは、クラッシュしたメインカーネルのメモリ内容を取得し、指定されたストレージにダンプファイルとして保存します。</p>
+</section>
+</section>
+<section id="dump">
+<h2>dump<a class="headerlink" href="#dump" title="この見出しへのパーマリンク">¶</a></h2>
+<p>ダンプファイルは、システムのクラッシュ時にその時点でのメモリ内容、レジスタの状態、プロセス情報などを含むファイルです。これらのファイルは、システム管理者や開発者がクラッシュの原因を調査し、修正するために使用されます。</p>
+</section>
+<section id="id6">
+<h2>解析手順<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id7">
+<h3>前提<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>以下の手順でカーネルのクラッシュを引き起こすため、重要なデータがない環境で実施する</p>
+</section>
+<section id="id8">
+<h3>手順<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>kdumpのインストール</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">kexec</span><span class="o">-</span><span class="n">tools</span>
+</pre></div>
+</div>
+<p>kdumの有効化</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">kdump</span>
+<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">kdump</span>
+</pre></div>
+</div>
+<p>kdumpが動作したときに出力されるファイルの配置場所の設定</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kdump</span><span class="o">.</span><span class="n">conf</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">v</span> <span class="s1">&#39;^#&#39;</span>
+</pre></div>
+</div>
+<p>クラッシュダンプ用のメモリを確保</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">grub</span>
+</pre></div>
+</div>
+<p>ファイルの中身を以下のように編集</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&quot;... crashkernel=auto&quot;</span>
+</pre></div>
+</div>
+<p>変更を反映させるために、GRUB設定ファイルを再生成</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">grub2</span><span class="o">-</span><span class="n">mkconfig</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">grub2</span><span class="o">/</span><span class="n">grub</span><span class="o">.</span><span class="n">cfg</span>
+</pre></div>
+</div>
+<p>再起動させる</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">reboot</span>
+</pre></div>
+</div>
+<p>復旧後に人為的にカーネルクラッシュを引き起こす</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">sysrq</span>
+<span class="n">echo</span> <span class="n">c</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">sysrq</span><span class="o">-</span><span class="n">trigger</span>
+</pre></div>
+</div>
+<p>kdumpファイルは以下のフォルダに作成される</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ls</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">crash</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="server.html" class="btn btn-neutral float-left" title="サーバー" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="security.html" class="btn btn-neutral float-right" title="セキュリティ系の基本知識" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
