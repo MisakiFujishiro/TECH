@@ -77,10 +77,32 @@
 <li class="toctree-l3"><a class="reference internal" href="#id6">デーモンの代表例</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">ユーザー</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Linux</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#root">スーパーユーザー(root)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">一般ユーザー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">システムユーザー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">グループ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">ユーザー変更・権限変更</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#administrator">Administrator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#standard-user">標準ユーザー（Standard User）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#guest-user">ゲストユーザー（Guest User）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">システムアカウント</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">カーネル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="security.html">セキュリティ系の基本知識</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode.html">Programing Code</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -343,6 +365,68 @@ Windowsのような使いやすいインターフェースがある。</p>
 </tr>
 </tbody>
 </table>
+</section>
+</section>
+<section id="id7">
+<h2>ユーザー<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id8">
+<h3>Linux<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Linuxではいくつかのユーザーの種類とグループという概念が存在する。</p>
+<section id="root">
+<h4>スーパーユーザー(root)<a class="headerlink" href="#root" title="この見出しへのパーマリンク">¶</a></h4>
+<p>システム全体に対して全ての権限を持つユーザー。</p>
+</section>
+<section id="id9">
+<h4>一般ユーザー<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
+<p>システムにログインできるユーザーで、自分のホームディレクトリとその配下のファイルに対して権限を持つ。</p>
+</section>
+<section id="id10">
+<h4>システムユーザー<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
+<p>特定のサービスやデーモンの実行用のユーザーで、通常はログインせずにサービス実行専門となる。</p>
+</section>
+<section id="id11">
+<h4>グループ<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ユーザーをまとめて管理するための単位。</p>
+</section>
+<section id="id12">
+<h4>ユーザー変更・権限変更<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Linuxではsuコマンドを利用して、ユーザーの変更を行うことができる。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># root ユーザーに変更</span>
+su<span class="w"> </span>-
+<span class="c1"># 特定のユーザーに変更</span>
+su<span class="w"> </span>-<span class="w"> </span>username
+</pre></div>
+</div>
+<p>また、sudoコマンドを利用することで、特定ユーザーの権限を利用したコマンド実行も可能</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 管理者権限でコマンドを実行</span>
+sudo<span class="w"> </span><span class="nb">command</span>
+
+<span class="c1"># 特定のユーザーとしてコマンドを実行</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>username<span class="w"> </span><span class="nb">command</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="administrator">
+<h4>Administrator<a class="headerlink" href="#administrator" title="この見出しへのパーマリンク">¶</a></h4>
+<p>初期インストール時に作成される最初のユーザーアカウントは通常、管理者権限を持っている。</p>
+</section>
+<section id="standard-user">
+<h4>標準ユーザー（Standard User）<a class="headerlink" href="#standard-user" title="この見出しへのパーマリンク">¶</a></h4>
+<p>基本的な操作がかのう。、システム設定の変更やソフトウェアのインストールには管理者権限が必要。
+安全性のために、日常的な操作は標準ユーザーで行うことが推奨される。</p>
+</section>
+<section id="guest-user">
+<h4>ゲストユーザー（Guest User）<a class="headerlink" href="#guest-user" title="この見出しへのパーマリンク">¶</a></h4>
+<p>制限された権限を持つ一時的なユーザー。システム設定などの権限は制限される</p>
+</section>
+<section id="id13">
+<h4>システムアカウント<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Windowsの内部システムプロセスやサービスが使用するためのアカウント。
+ユーザーが意識することは少ない。</p>
+</section>
 </section>
 </section>
 </section>
