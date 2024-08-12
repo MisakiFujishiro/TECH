@@ -22,6 +22,7 @@
    CloudWatch
    AWS/EventBridge.md
    AWS/EFS.md
+   AWS/AutoScaling.md
 
 
 .. toctree::
