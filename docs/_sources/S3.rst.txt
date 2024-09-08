@@ -9,5 +9,7 @@ S3
     :caption: AWS Simple Storage Service:
 
     AWS/S3/basic.md
+    AWS/S3/Object.md
+    AWS/S3/Lifecycle.md
     AWS/S3/security.md
     AWS/S3/Athena.md
