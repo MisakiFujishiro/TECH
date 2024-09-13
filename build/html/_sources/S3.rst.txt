@@ -13,3 +13,4 @@ S3
     AWS/S3/Lifecycle.md
     AWS/S3/security.md
     AWS/S3/Athena.md
+    AWS/S3/Processing.md
