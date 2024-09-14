@@ -39,9 +39,14 @@
 
    ITBasic/server.md
    ITBasic/kernel.md
-   ITBasic/security.md
    ITBasic/Container.md
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Security:
+
+   Security/cors.md
+   Security/SSL.md
 
 .. toctree::
    :maxdepth: 1

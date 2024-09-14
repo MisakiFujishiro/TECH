@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>セキュアな通信 &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="Programing Code" href="../ProgramingCode.html" />
+    <link rel="prev" title="CORS" href="cors.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EFS.html">EFS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">AutoScaling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cors.html">CORS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">セキュアな通信</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ssl-tls">SSL/TLS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">暗号化詳細</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">SSL/TLSによるウェブサイトのセキュリティ確保</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cassl">CAとSSL証明書</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">発行時</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">発行後</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#aws">AWSのサービスによるウェブサイトのセキュリティ確保の流れ</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode.html">Programing Code</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">セキュアな通信</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Security/SSL.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>セキュアな通信<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="ssl-tls">
+<h2>SSL/TLS<a class="headerlink" href="#ssl-tls" title="この見出しへのパーマリンク">¶</a></h2>
+<p>SSL(Secure Socket Layer)/TLS(Transport Layer Security)とは、インターネット上でやり取りされるデータの「盗聴」と「なりすまし」を防ぐための暗号化のプロトコルである。</p>
+<section id="id2">
+<h3>暗号化詳細<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<ol class="arabic simple">
+<li><p>クライアントはサーバーへ通信要求<br />
+クライアント（例えばブラウザ）がサーバーにHTTPS通信をリクエストします。この段階ではまだ暗号化されていない通信です。</p></li>
+<li><p>サーバーはSSL証明書（公開鍵を含む）をクライアントに送信<br />
+サーバーは自分のSSL証明書をクライアントに送信します。この証明書にはサーバーの公開鍵と、証明書発行機関（CA）によるサーバーの信頼性を証明する署名が含まれています。</p></li>
+<li><p>クライアントはSSL証明書を検証<br />
+クライアントは、サーバーから受け取ったSSL証明書の信頼性を確認します。具体的には、証明書が信頼できるCAから発行されているか、証明書が有効期限内かどうか、証明書に含まれるドメイン名が接続先と一致しているかなどをチェックします。この検証が成功すると、クライアントはそのサーバーが正当なものであると判断します。</p></li>
+<li><p>クライアントは共通鍵を生成し、公開鍵で暗号化<br />
+クライアントは、この後の通信で使う「共通鍵（セッションキー）」を生成します。この共通鍵は、サーバーとクライアントの間で通信データを暗号化するために使用されます。そして、共通鍵をサーバーから受け取った公開鍵で暗号化します。</p></li>
+<li><p>暗号化された共通鍵をサーバーに送信<br />
+クライアントは、サーバーから受け取った公開鍵で暗号化した共通鍵をサーバーに送信します。公開鍵で暗号化されたデータは、サーバーの秘密鍵でしか復号化できません。</p></li>
+<li><p>サーバーは秘密鍵を使って共通鍵を復号化<br />
+サーバーは自分の秘密鍵を使って、クライアントから送信された暗号化された共通鍵を復号化します。これにより、サーバーとクライアントが同じ共通鍵を共有することになります。</p></li>
+<li><p>共通鍵を使って暗号化された通信を開始<br />
+以降、サーバーとクライアントはこの共通鍵を使用して通信データを暗号化し、やり取りします。共通鍵暗号は処理が速いため、効率的に通信を行うことができます。これにより、通信の盗聴やデータ改ざんが防止されます。</p></li>
+</ol>
+</section>
+</section>
+<section id="id3">
+<h2>SSL/TLSによるウェブサイトのセキュリティ確保<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>インターネットを通じて、Webサイトを閲覧している際にSSL/TLSを利用している場合はHTTPSでの通信になる。
+WebブラウザとWebサーバーの通信に用いるHTTPが暗号化されているのでHTTPSと呼ばれる。</p>
+<p>ウェブサイトのURLのアドレスバーから、発行されているSSL証明書などを確認することができる。
+SSL証明書により、サイトを運営している会社などを確認することや、サイトがセキュアな通信であることを確認することができる。</p>
+<p>例えば、yahooのwebサイトから証明書を確認すると、運営会社と証明書を発行した会社が確認できる。</p>
+<p><img alt="" src="../_images/SSL_certificatate.png" /></p>
+</section>
+<section id="cassl">
+<h2>CAとSSL証明書<a class="headerlink" href="#cassl" title="この見出しへのパーマリンク">¶</a></h2>
+<p>SSL証明書は、ウェブサイトとユーザー間の通信を暗号化し、安全に行うために使用されるデジタル証明書</p>
+<section id="id4">
+<h3>発行時<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>ドメインに対して、発行者の身元確認などをする</p></li>
+<li><p>DV/OV/EVのレベルがある</p></li>
+<li><p>おれおれ証明書とは？</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>発行後<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>証明書について、身元が正しいことを証明する</p></li>
+</ul>
+</section>
+</section>
+<section id="aws">
+<h2>AWSのサービスによるウェブサイトのセキュリティ確保の流れ<a class="headerlink" href="#aws" title="この見出しへのパーマリンク">¶</a></h2>
+<p>暗号化の終端についても
+クラウドフロントについても
+ACMについても</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cors.html" class="btn btn-neutral float-left" title="CORS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../ProgramingCode.html" class="btn btn-neutral float-right" title="Programing Code" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
