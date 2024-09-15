@@ -69,14 +69,22 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="cors.html">CORS</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">セキュアな通信</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ssl-tls">SSL/TLS</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">暗号化詳細</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ssl-tlshttps">SSL/TLSとHTTPS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-tls">SSL/TLSの暗号化のながれ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">なりすましの防止</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssl">SSL証明書の確認</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">SSL/TLSによるウェブサイトのセキュリティ確保</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cassl">CAとSSL証明書</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id4">発行時</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">発行後</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ca">CA(証明書発行機関)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">申請者の認証</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">SSL証明書の発行</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">デジタル署名</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">ルート証明書</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#aws">AWSのサービスによるウェブサイトのセキュリティ確保の流れ</a></li>
@@ -127,11 +135,13 @@
              
   <section id="id1">
 <h1>セキュアな通信<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="ssl-tlshttps">
+<h2>SSL/TLSとHTTPS<a class="headerlink" href="#ssl-tlshttps" title="この見出しへのパーマリンク">¶</a></h2>
+<p>SSL(Secure Socket Layer)/TLS(Transport Layer Security)とは、インターネット上でやり取りされるデータの「盗聴」、「改ざん」「なりすまし」を防ぐための暗号化のプロトコルである。</p>
+<p>HTTPSとは、インターネットを通じてWebサイトを閲覧するプロトコルであるHTTPをSSL/TLSを利用して暗号化しているプロトコルである。</p>
 <section id="ssl-tls">
-<h2>SSL/TLS<a class="headerlink" href="#ssl-tls" title="この見出しへのパーマリンク">¶</a></h2>
-<p>SSL(Secure Socket Layer)/TLS(Transport Layer Security)とは、インターネット上でやり取りされるデータの「盗聴」と「なりすまし」を防ぐための暗号化のプロトコルである。</p>
-<section id="id2">
-<h3>暗号化詳細<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>SSL/TLSの暗号化のながれ<a class="headerlink" href="#ssl-tls" title="この見出しへのパーマリンク">¶</a></h3>
+<p>以下の暗号化の流れにより、暗号化による盗聴対策が行われるとともに、CA（認証局）とSSL証明書を利用することでなりすましを防止することができる。改ざんについては別途、デジタル署名などを利用して防止している。</p>
 <ol class="arabic simple">
 <li><p>クライアントはサーバーへ通信要求<br />
 クライアント（例えばブラウザ）がサーバーにHTTPS通信をリクエストします。この段階ではまだ暗号化されていない通信です。</p></li>
@@ -149,39 +159,112 @@
 以降、サーバーとクライアントはこの共通鍵を使用して通信データを暗号化し、やり取りします。共通鍵暗号は処理が速いため、効率的に通信を行うことができます。これにより、通信の盗聴やデータ改ざんが防止されます。</p></li>
 </ol>
 </section>
+<section id="id2">
+<h3>なりすましの防止<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SSL/TLSでは、SSL証明書とCA（認証局）を用いて、通信相手が正当なウェブサイトであることを確認し、なりすましを防止している。</p>
+<p>事前にCAがサイト運営者の存在証明や妥当性を確認してからSSL証明書を発行しておき、クライアントからの問い合わせにSSL証明書が信頼できることを保証することで、クライアントはCAを通じてサイト運営者が信頼できることと、通信先がなりすまししていないことを確認できる。</p>
 </section>
-<section id="id3">
-<h2>SSL/TLSによるウェブサイトのセキュリティ確保<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
-<p>インターネットを通じて、Webサイトを閲覧している際にSSL/TLSを利用している場合はHTTPSでの通信になる。
-WebブラウザとWebサーバーの通信に用いるHTTPが暗号化されているのでHTTPSと呼ばれる。</p>
+<section id="ssl">
+<h3>SSL証明書の確認<a class="headerlink" href="#ssl" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ウェブサイトのURLのアドレスバーから、発行されているSSL証明書などを確認することができる。
 SSL証明書により、サイトを運営している会社などを確認することや、サイトがセキュアな通信であることを確認することができる。</p>
 <p>例えば、yahooのwebサイトから証明書を確認すると、運営会社と証明書を発行した会社が確認できる。</p>
 <p><img alt="" src="../_images/SSL_certificatate.png" /></p>
 </section>
+</section>
 <section id="cassl">
 <h2>CAとSSL証明書<a class="headerlink" href="#cassl" title="この見出しへのパーマリンク">¶</a></h2>
-<p>SSL証明書は、ウェブサイトとユーザー間の通信を暗号化し、安全に行うために使用されるデジタル証明書</p>
-<section id="id4">
-<h3>発行時<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="ca">
+<h3>CA(証明書発行機関)<a class="headerlink" href="#ca" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CA(証明書発行機関)とは、SSL証明書を発行する機関であり、以下の役割を担う</p>
 <ul class="simple">
-<li><p>ドメインに対して、発行者の身元確認などをする</p></li>
-<li><p>DV/OV/EVのレベルがある</p></li>
-<li><p>おれおれ証明書とは？</p></li>
+<li><p>申請者の認証</p></li>
+<li><p>SSL証明書発行</p></li>
+<li><p>証明書に対するデジタル署名</p></li>
+<li><p>ルート証明書の管理</p></li>
 </ul>
+<section id="id3">
+<h4>申請者の認証<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
+<p>サイト運営者はCAにSSL証明書の作成を依頼する時に証明書の署名リクエスト（Certificate Signing Request：CSR）をCAへ提出する。
+CSRには、企業名や住所など、申請元に関する情報が含まれている。</p>
+<p>CAはCSRや申請元の企業について調査を行い、存在するかどうかや信頼に足るかなどの確認を行う。
+確認には以下3つのレベルがあり、レベルによって費用や信頼度が異なる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>証明書の種類</p></th>
+<th class="text-left head"><p>認証内容</p></th>
+<th class="text-left head"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>DV証明書 （Domain Validation）</p></td>
+<td class="text-left"><p>ドメイン所有権の確認</p></td>
+<td class="text-left"><p>最も基本的な認証レベル。サイト運営者の身元は確認しない。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>OV証明書 （Organization Validation）</p></td>
+<td class="text-left"><p>ドメイン所有権 + 組織の実在性確認</p></td>
+<td class="text-left"><p>運営者の組織の存在が確認される。認証プロセスが厳格。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>EV証明書 （Extended Validation）</p></td>
+<td class="text-left"><p>ドメイン所有権 + 組織の詳細な実在性確認</p></td>
+<td class="text-left"><p>最も高い認証レベル。認証プロセスが非常に厳密。URLバーが緑色になる（対応ブラウザ）。</p></td>
+</tr>
+</tbody>
+</table>
 </section>
+</section>
+<section id="id4">
+<h3>SSL証明書の発行<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>存在確認を取ることができたら、SSL証明書を発行する。
+証明書には、保証されるWebサイトやサイト運営者および保証をしているCAの情報が含まれる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>項目名</p></th>
+<th class="text-left head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>ドメイン名</p></td>
+<td class="text-left"><p>証明書が適用されるウェブサイトのドメイン名。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>公開鍵</p></td>
+<td class="text-left"><p>SSL通信で使用されるウェブサイトの公開鍵。クライアントがこれを使ってデータを暗号化する。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>証明書発行者（CA）情報</p></td>
+<td class="text-left"><p>証明書を発行した認証局（CA）の名前。例: DigiCert, GlobalSign, Let's Encryptなど。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>サブジェクト（サイト運営者）情報</p></td>
+<td class="text-left"><p>ウェブサイトの所有者や運営者の情報（OVやEV証明書の場合、企業名や所在地が含まれる）。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>有効期間</p></td>
+<td class="text-left"><p>SSL証明書の発行日と有効期限。証明書はこの期間内でのみ有効。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>署名アルゴリズム</p></td>
+<td class="text-left"><p>証明書に使用された署名アルゴリズム。例: SHA-256など。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>デジタル署名</p></td>
+<td class="text-left"><p>CAによるデジタル署名。この署名により、証明書が正当なものであり改ざんされていないことが保証される。</p></td>
+</tr>
+</tbody>
+</table>
 <section id="id5">
-<h3>発行後<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
-<ul class="simple">
-<li><p>証明書について、身元が正しいことを証明する</p></li>
-</ul>
+<h4>デジタル署名<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
+<p>SSL証明書の中にはデジタル署名が含まれており、このデジタル署名を利用することでCAが発行したものであることを確認することができる。</p>
+</section>
+<section id="id6">
+<h4>ルート証明書<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ルート証明書とは、インターネットの根幹となる技術であり、OSやブラウザは元々信頼できるCAを登録している。
+このルート証明書が信頼できるからこそ、CAが信頼されることになる。</p>
+</section>
 </section>
 </section>
 <section id="aws">
 <h2>AWSのサービスによるウェブサイトのセキュリティ確保の流れ<a class="headerlink" href="#aws" title="この見出しへのパーマリンク">¶</a></h2>
-<p>暗号化の終端についても
-クラウドフロントについても
-ACMについても</p>
+<p>AWSにおいて、SSL証明書を利用する場合、ACM(AWS Certificate Manager)を利用する。<br />
+ACMでSSL証明書の発行を発行することもでき、サードパーティで発行されたSSL証明書をImportすることもできる。<br />
+※ACMで証明書のImportを行う場合は、us-east-1で行う必要がある点に注意</p>
+<p>APIGW、CloudFrontやALBに対してACMで登録したSSL証明書を適用することが可能で、これによってSSL/TLSの暗号化を複合することができる<br />
+※関連サービスとACMを連携させる際にACMは同じリージョンに存在する必要がある点に注意</p>
 </section>
 </section>
 
