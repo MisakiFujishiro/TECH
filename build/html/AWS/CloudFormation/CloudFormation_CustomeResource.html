@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>カスタムリソース &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="CloudWatch" href="../../CloudWatch.html" />
+    <link rel="prev" title="CloudFormationのGitOps" href="CloudFormation_Automation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../AWS.html">AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../CloudFormation.html">CloudFormation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation.html">CloudFormationの基本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_template.html">CloudFormationのテンプレートファイルの書き方</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_parameter.html">CloudFormationのパラメータ参照</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_control.html">CloudFormationの条件関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_Automation.html">CloudFormationのGitOps</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">カスタムリソース</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lambda">Lambdaの呼び出し</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cloudfomation">CloudFomation側の指定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cloudformationevent">CloudFormationの呼び出しEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Lambda側の設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#physical-resource-id">Physical Resource IDに気をつける</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EFS.html">EFS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">AutoScaling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">gitとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">コンテナ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode.html">Programing Code</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../CloudFormation.html">CloudFormation</a></li>
+      <li class="breadcrumb-item active">カスタムリソース</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/AWS/CloudFormation/CloudFormation_CustomeResource.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p>https://qiita.com/willco21/items/534436ba89a3c6f217ac
+https://medium.com/&#64;angusyuen/cloudformation-custom-resources-be-cautious-of-physicalresourceid-b4a359657c12</p>
+<p>https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/template-custom-resources.html</p>
+<p>https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-customresource.html</p>
+<p>https://medium.com/&#64;sch.bar/a-deep-dive-on-aws-cloudformation-custom-resources-8e04c6d155fd</p>
+<section id="id1">
+<h1>カスタムリソース<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<p>カスタムリソースとは、CloudFormationからLambdaを呼び出し、デフォルトのCloudFormationではできないような処理を行うための機能である。
+基本的な流れとしては、以下になる</p>
+<ol class="arabic simple">
+<li><p>Custome Resourceとして呼び出すLambdaを開発</p></li>
+<li><p>CloudFormationのCustomeResourceとして対象のLambdaを指定</p></li>
+<li><p>CloudFormationのCustomeResourceのパラメータを設定し、LambdaへParameterを渡す</p></li>
+</ol>
+<section id="lambda">
+<h2>Lambdaの呼び出し<a class="headerlink" href="#lambda" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="cloudfomation">
+<h3>CloudFomation側の指定<a class="headerlink" href="#cloudfomation" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CloudFormationでは、TypeとしてCustomeを指定した上で、ServiceTokeとして、lambdaのARNを指定する。
+また、同じテンプレート内で作成したリソースの値をパラメータとして渡すことができ、作成したリソースに対する操作をテンプレート内で実施することができる。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">SampleCustomResource</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Custom::CustomResourceName&#39;</span>
+<span class="w">  </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ServiceToken</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:lambda-template&#39;</span>
+<span class="w">    </span><span class="nt">ParamX</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XXXXX</span>
+<span class="w">    </span><span class="nt">ParamY</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YYYY.Id</span>
+</pre></div>
+</div>
+</section>
+<section id="cloudformationevent">
+<h3>CloudFormationの呼び出しEvent<a class="headerlink" href="#cloudformationevent" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CloudFormationからCustomeResourceとしてLambdaを呼び出す際には、以下のEventがLambdaへ渡される。
+CustomeResourceの作成・削除・更新のステータスを表すRequestTypeや、Parameterとして指定した値を格納しているResourcePropertiesなどが重要。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="nt">&quot;RequestType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Create&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;ResponseURL&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://pre-signed-S3-url-for-response&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;StackId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:cloudformation:us-west-2:123456789012:stack/mystack/5b918d10-cd98-11ea-90d5-0a9cd3354c10&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;RequestId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unique id for this create request&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;ResourceType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom::TestResource&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;LogicalResourceId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyTestResource&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;ResourceProperties&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ParamX&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ValueX&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ParamY&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ValueY&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>設定されるKey-Valueの詳細は
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/crpg-ref-requests.html">公式ドキュメント</a>
+参照</p>
+</section>
+<section id="id2">
+<h3>Lambda側の設定<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CustomeResourceが実行されるタイミングはCloudFormationが実行されるタイミングであり、そのリクエストのタイプには以下の3つがある</p>
+<ul class="simple">
+<li><p>作成時（Create）</p></li>
+<li><p>更新時（Update）</p></li>
+<li><p>削除時（Delete）</p></li>
+</ul>
+<p>CustomeResourceどのリクエストタイプで実行されているかは、CloudFormationからLambdaを呼び出す時イベント内に含まているため、
+Lambda側でもそれぞれのEventタイプに応じた場合分けを行う。</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cfnResponse</span> <span class="kn">import</span> <span class="n">send</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">XXXX</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;ResourceProperties&#39;</span><span class="p">][</span><span class="s1">&#39;ParamX&#39;</span><span class="p">]</span>
+        <span class="n">YYYY</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;ResourceProperties&#39;</span><span class="p">][</span><span class="s1">&#39;ParamY&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;RequestType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Create&#39;</span><span class="p">:</span>
+            <span class="c1"># 作成イベントに対応する処理</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">cfnresponce</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Response&#39;</span><span class="p">:</span> <span class="s1">&#39;Success&#39;</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;RequestType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Delete&#39;</span><span class="p">:</span>
+            <span class="c1"># 削除イベントに対応する処理</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">cfnresponce</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Response&#39;</span><span class="p">:</span> <span class="s1">&#39;Success&#39;</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;RequestType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Update&#39;</span><span class="p">:</span>
+            <span class="c1"># 更新イベントに対応する処理</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">cfnresponce</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Response&#39;</span><span class="p">:</span> <span class="s1">&#39;Success&#39;</span><span class="p">},</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PhysicalResourceId&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">cfnresponce</span><span class="o">.</span><span class="n">FAILED</span><span class="p">,</span> <span class="p">{})</span>
+</pre></div>
+</div>
+</section>
+<section id="physical-resource-id">
+<h3>Physical Resource IDに気をつける<a class="headerlink" href="#physical-resource-id" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="cfn-response">
+<h4>cfn-responseモジュール<a class="headerlink" href="#cfn-response" title="この見出しへのパーマリンク">¶</a></h4>
+<p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/cfn-lambda-function-code-cfnresponsemodule.html">cfn-response モジュールの公式ドキュメント</a>
+で記載されているように、Lambda側のソースコードでphysicalResourceIdを指定しないと、CloudWatchのログストリームが指定される。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>physicalResourceId
+オプション。関数を呼び出したカスタムリソースの一意の識別子。モジュールのデフォルトでは、Lambda 関数に関連付けられている Amazon CloudWatch Logs ログストリームの名前が使用されます。
+
+PhysicalResourceId に返された値は、カスタムリソース更新オペレーションを変更できます。返される値が同じであれば、通常の更新と見なされます。返された値が異なる場合には、CloudFormation は新しい方が更新用のものであると認識し、古いリソースに削除リクエストを送信します。詳細については、
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CloudFormation_Automation.html" class="btn btn-neutral float-left" title="CloudFormationのGitOps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../CloudWatch.html" class="btn btn-neutral float-right" title="CloudWatch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
