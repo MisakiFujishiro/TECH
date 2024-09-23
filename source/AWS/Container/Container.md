@@ -1,5 +1,15 @@
 # AWSにおけるコンテナサービス
+AWSではコンテナサービスとして充実したサービスラインナップがある。
+
+![](../../img/AWS/Container/container_services.png)
+[Amazon ECS 入門【AWS Black Belt】](https://www.youtube.com/watch?v=stpz_SNiWmA&list=PLzWGOASvSx6FIwIC2X1nObr1KcMCBBlqY&index=4)
+
+## オーケストレーションサービス
 AWSではオーケストレーションサービスにはECSとEKSがあり、そのどちらを利用するかは案件特性とそのサービスの特徴を踏まえて判断する必要がある。
+
+ECSの最大の特徴はそのシンプルさがメリットである。構築や導入についてもスピーディーに適用することができる。  
+EKSの最大の特徴は、Kubernetesというオープンソースの特徴を活かして、周辺の行為範囲なコミュニティの再利用性。さらに、ACK(AWS Contreollers for Kubernetes)を利用するとK8sとAWSの連携もシームレスになる。
+
 
 |項目|Amazon ECS|Amazon EKS|
 |:----|:----|:----|
@@ -11,3 +21,4 @@ AWSではオーケストレーションサービスにはECSとEKSがあり、�
 |カスタマイズ性|比較的少ない|高い|
 |スケーラビリティ|自動スケーリングが容易|Kubernetesの自動スケーリングを利用可能|
 |コスト|使用するリソースに応じた課金|Kubernetesクラスターの管理コストが発生|
+
