@@ -1,16 +1,3 @@
-
-
-https://qiita.com/willco21/items/534436ba89a3c6f217ac
-https://medium.com/@angusyuen/cloudformation-custom-resources-be-cautious-of-physicalresourceid-b4a359657c12
-
-
-https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/template-custom-resources.html
-
-https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-customresource.html
-
-https://medium.com/@sch.bar/a-deep-dive-on-aws-cloudformation-custom-resources-8e04c6d155fd
-
-
 # カスタムリソース
 カスタムリソースとは、CloudFormationからLambdaを呼び出し、デフォルトのCloudFormationではできないような処理を行うための機能である。
 基本的な流れとしては、以下になる
@@ -39,9 +26,9 @@ CustomeResourceの作成・削除・更新のステータスを表すRequestType
 {
    "RequestType" : "Create",
    "ResponseURL" : "http://pre-signed-S3-url-for-response",
-   "StackId" : "arn:aws:cloudformation:us-west-2:123456789012:stack/mystack/5b918d10-cd98-11ea-90d5-0a9cd3354c10",
+   "StackId" : "arn:aws:cloudformation:ap-northeast-1:123456789012:stack/mystack/{xxx-yyy-zzz}",
    "RequestId" : "unique id for this create request",
-   "ResourceType" : "Custom::TestResource",
+   "ResourceType" : "Custom::Resource",
    "LogicalResourceId" : "MyTestResource",
    "ResourceProperties" : {
       "ParamX" : "ValueX",
@@ -85,8 +72,45 @@ def main(event, context):
 ```
 
 
-### Physical Resource IDに気をつける
+### Physical Resource ID
+CustomeReosurceでUpdate処理を行なった際、CloudFormationのCleanUpのタイミングでDeleteの実行がされてしまう問題が発生した。これは、PhysicalResourceIDの扱いが正しく行われていないために発生していた。
 
+CloudFormationからカスタムリソースに対して、Update実行する際にPhysicalResourceIDをやりとりしている。
+Lambda側から返すPhysicalResourceIDとCloudFormation側で管理しているPhysicalResourceIDが異なると、CloudFormatinでは、新しいカスタムリソースに更新されていると認識し、古いカスタムリソースを削除する動作をする。そのため、Deleteが流れてしまう。
+
+具体的には、カスタムリソースのUpdateでは以下のEventがLambdaに送信されている。
+このPhysicalResourceIdについて、異なる値が返却されると上記の削除が実行されてしまう。
+
+PhysicalResourceIdについては、自セクションで説明するが、cfn-responseモジュールのデフォルトで実行時のログストリームの値が利用されてしまうので、意識的に設定をしないと削除に流れやすい点に注意。
+```json
+{
+  "RequestType": "Update",
+  "ServiceToken": "arn:aws:lambda:us-west-2:*******:function:set_identity_notifications",
+  "ResponseURL": "https://cloudformation-custom-resource-response-uswest2.s3-us-west-2.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-west-2%3A*******%3Astack/ses-suppression-register/6ba8e740-4989-11ea-9aac-06be751c1bd6%7CProvideSetId******",
+  "StackId": "arn:aws:cloudformation:us-west-2:*******:stack/ses-suppression-register/6ba8e740-4989-11ea-9aac-06be751c1bd6",
+  "RequestId": "c3a874a5-a181-4a5c-88fc-d2b2e1504aa0",
+  "LogicalResourceId": "ProvideSetIdentityNotifications",
+  "PhysicalResourceId": "2020/02/07/[$LATEST]0b367e84e59e46798738c00bece897be",
+  "ResourceType": "AWS::CloudFormation::CustomResource",
+  "ResourceProperties": {
+    "ServiceToken": "arn:aws:lambda:us-west-2:*******:function:set_identity_notifications",
+    "HeadersInBounceNotificationsEnabled": "False",
+    "ComplaintTopic": "",
+    "HeadersInComplaintNotificationsEnabled": "False",
+    "BounceTopic": "arn:aws:sns:us-west-2:*******:ses-suppression-list-topic",
+    "Identities": ["willco21.test.com", "example.co.jp"]
+  },
+  "OldResourceProperties": {
+    "ServiceToken": "arn:aws:lambda:us-west-2:*******:function:set_identity_notifications",
+    "HeadersInBounceNotificationsEnabled": "False",
+    "ComplaintTopic": "",
+    "HeadersInComplaintNotificationsEnabled": "False",
+    "BounceTopic": "arn:aws:sns:us-west-2:*******:ses-suppression-list-topic",
+    "Identities": ["willco21.test.com"]
+  }
+}
+```
+[【AWS】【Cloudformation】CustomResource作ったら、Stack更新時にDeleteアクション実行してしまう件](https://qiita.com/willco21/items/534436ba89a3c6f217ac)
 
 
 #### cfn-responseモジュール
@@ -96,5 +120,14 @@ def main(event, context):
 physicalResourceId
 オプション。関数を呼び出したカスタムリソースの一意の識別子。モジュールのデフォルトでは、Lambda 関数に関連付けられている Amazon CloudWatch Logs ログストリームの名前が使用されます。
 
-PhysicalResourceId に返された値は、カスタムリソース更新オペレーションを変更できます。返される値が同じであれば、通常の更新と見なされます。返された値が異なる場合には、CloudFormation は新しい方が更新用のものであると認識し、古いリソースに削除リクエストを送信します。詳細については、
+PhysicalResourceId に返された値は、カスタムリソース更新オペレーションを変更できます。返される値が同じであれば、通常の更新と見なされます。返された値が異なる場合には、CloudFormation は新しい方が更新用のものであると認識し、古いリソースに削除リクエストを送信します。
+```
+
+#### 対策
+CustomeResourceのLambdaの設計として、Updateのタイミングでも同じPhysicalResoruceIDを返すような仕組み作りが必要。以下のようにリクエストEventに含まれているPhysicalResoruceIDをそのままレスポンスとして返す。
+
+```py
+        if event['RequestType'] == 'Update':
+            # 更新イベントに対応する処理
+        send(event, context, cfnresponce.SUCCESS, {'Response': 'Success'}, event.get
 ```

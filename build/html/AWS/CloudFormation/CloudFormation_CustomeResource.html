@@ -59,7 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#cloudfomation">CloudFomation側の指定</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cloudformationevent">CloudFormationの呼び出しEvent</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id2">Lambda側の設定</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#physical-resource-id">Physical Resource IDに気をつける</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#physical-resource-id">Physical Resource ID</a></li>
 </ul>
 </li>
 </ul>
@@ -130,12 +130,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p>https://qiita.com/willco21/items/534436ba89a3c6f217ac
-https://medium.com/&#64;angusyuen/cloudformation-custom-resources-be-cautious-of-physicalresourceid-b4a359657c12</p>
-<p>https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/template-custom-resources.html</p>
-<p>https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-customresource.html</p>
-<p>https://medium.com/&#64;sch.bar/a-deep-dive-on-aws-cloudformation-custom-resources-8e04c6d155fd</p>
-<section id="id1">
+  <section id="id1">
 <h1>カスタムリソース<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
 <p>カスタムリソースとは、CloudFormationからLambdaを呼び出し、デフォルトのCloudFormationではできないような処理を行うための機能である。
 基本的な流れとしては、以下になる</p>
@@ -166,9 +161,9 @@ CustomeResourceの作成・削除・更新のステータスを表すRequestType
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">   </span><span class="nt">&quot;RequestType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Create&quot;</span><span class="p">,</span>
 <span class="w">   </span><span class="nt">&quot;ResponseURL&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://pre-signed-S3-url-for-response&quot;</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">&quot;StackId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:cloudformation:us-west-2:123456789012:stack/mystack/5b918d10-cd98-11ea-90d5-0a9cd3354c10&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;StackId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:cloudformation:ap-northeast-1:123456789012:stack/mystack/{xxx-yyy-zzz}&quot;</span><span class="p">,</span>
 <span class="w">   </span><span class="nt">&quot;RequestId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unique id for this create request&quot;</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">&quot;ResourceType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom::TestResource&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;ResourceType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom::Resource&quot;</span><span class="p">,</span>
 <span class="w">   </span><span class="nt">&quot;LogicalResourceId&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyTestResource&quot;</span><span class="p">,</span>
 <span class="w">   </span><span class="nt">&quot;ResourceProperties&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;ParamX&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ValueX&quot;</span><span class="p">,</span>
@@ -212,7 +207,42 @@ Lambda側でもそれぞれのEventタイプに応じた場合分けを行う。
 </div>
 </section>
 <section id="physical-resource-id">
-<h3>Physical Resource IDに気をつける<a class="headerlink" href="#physical-resource-id" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>Physical Resource ID<a class="headerlink" href="#physical-resource-id" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CustomeReosurceでUpdate処理を行なった際、CloudFormationのCleanUpのタイミングでDeleteの実行がされてしまう問題が発生した。これは、PhysicalResourceIDの扱いが正しく行われていないために発生していた。</p>
+<p>CloudFormationからカスタムリソースに対して、Update実行する際にPhysicalResourceIDをやりとりしている。
+Lambda側から返すPhysicalResourceIDとCloudFormation側で管理しているPhysicalResourceIDが異なると、CloudFormatinでは、新しいカスタムリソースに更新されていると認識し、古いカスタムリソースを削除する動作をする。そのため、Deleteが流れてしまう。</p>
+<p>具体的には、カスタムリソースのUpdateでは以下のEventがLambdaに送信されている。
+このPhysicalResourceIdについて、異なる値が返却されると上記の削除が実行されてしまう。</p>
+<p>PhysicalResourceIdについては、自セクションで説明するが、cfn-responseモジュールのデフォルトで実行時のログストリームの値が利用されてしまうので、意識的に設定をしないと削除に流れやすい点に注意。</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;RequestType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Update&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ServiceToken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:lambda:us-west-2:*******:function:set_identity_notifications&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ResponseURL&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://cloudformation-custom-resource-response-uswest2.s3-us-west-2.amazonaws.com/arn%3Aaws%3Acloudformation%3Aus-west-2%3A*******%3Astack/ses-suppression-register/6ba8e740-4989-11ea-9aac-06be751c1bd6%7CProvideSetId******&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;StackId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:cloudformation:us-west-2:*******:stack/ses-suppression-register/6ba8e740-4989-11ea-9aac-06be751c1bd6&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;RequestId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c3a874a5-a181-4a5c-88fc-d2b2e1504aa0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;LogicalResourceId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ProvideSetIdentityNotifications&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;PhysicalResourceId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020/02/07/[$LATEST]0b367e84e59e46798738c00bece897be&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ResourceType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AWS::CloudFormation::CustomResource&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ResourceProperties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ServiceToken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:lambda:us-west-2:*******:function:set_identity_notifications&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;HeadersInBounceNotificationsEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;False&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ComplaintTopic&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;HeadersInComplaintNotificationsEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;False&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;BounceTopic&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:sns:us-west-2:*******:ses-suppression-list-topic&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Identities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;willco21.test.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;example.co.jp&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;OldResourceProperties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ServiceToken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:lambda:us-west-2:*******:function:set_identity_notifications&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;HeadersInBounceNotificationsEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;False&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ComplaintTopic&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;HeadersInComplaintNotificationsEnabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;False&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;BounceTopic&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:sns:us-west-2:*******:ses-suppression-list-topic&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Identities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;willco21.test.com&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://qiita.com/willco21/items/534436ba89a3c6f217ac">【AWS】【Cloudformation】CustomResource作ったら、Stack更新時にDeleteアクション実行してしまう件</a></p>
 <section id="cfn-response">
 <h4>cfn-responseモジュール<a class="headerlink" href="#cfn-response" title="この見出しへのパーマリンク">¶</a></h4>
 <p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/cfn-lambda-function-code-cfnresponsemodule.html">cfn-response モジュールの公式ドキュメント</a>
@@ -220,7 +250,16 @@ Lambda側でもそれぞれのEventタイプに応じた場合分けを行う。
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>physicalResourceId
 オプション。関数を呼び出したカスタムリソースの一意の識別子。モジュールのデフォルトでは、Lambda 関数に関連付けられている Amazon CloudWatch Logs ログストリームの名前が使用されます。
 
-PhysicalResourceId に返された値は、カスタムリソース更新オペレーションを変更できます。返される値が同じであれば、通常の更新と見なされます。返された値が異なる場合には、CloudFormation は新しい方が更新用のものであると認識し、古いリソースに削除リクエストを送信します。詳細については、
+PhysicalResourceId に返された値は、カスタムリソース更新オペレーションを変更できます。返される値が同じであれば、通常の更新と見なされます。返された値が異なる場合には、CloudFormation は新しい方が更新用のものであると認識し、古いリソースに削除リクエストを送信します。
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h4>対策<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
+<p>CustomeResourceのLambdaの設計として、Updateのタイミングでも同じPhysicalResoruceIDを返すような仕組み作りが必要。以下のようにリクエストEventに含まれているPhysicalResoruceIDをそのままレスポンスとして返す。</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span>        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;RequestType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Update&#39;</span><span class="p">:</span>
+            <span class="c1"># 更新イベントに対応する処理</span>
+        <span class="n">send</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">cfnresponce</span><span class="o">.</span><span class="n">SUCCESS</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;Response&#39;</span><span class="p">:</span> <span class="s1">&#39;Success&#39;</span><span class="p">},</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span>
 </pre></div>
 </div>
 </section>
