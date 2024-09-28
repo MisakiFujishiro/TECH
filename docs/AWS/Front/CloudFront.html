@@ -52,25 +52,28 @@
 <li class="toctree-l3"><a class="reference internal" href="#note">note</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id1">エッジサービスについて</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">CloudFrontについて</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cdn">CDNについて</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id3">配信対象について</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">動的コンテンツ機能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cdn">CDNについて</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">CDNのキャッシュ詳細</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">キャッシュポイント</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">配信対象について</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">動的コンテンツ機能</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">CloudFrontの構成要素</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id6">ビヘイビア</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">CloudFrontの構成要素</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">ビヘイビア</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">オリジンへのアクセス制御</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">オリジンへのアクセス制御</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#oac-origin-access-control">OAC(Origin Access Control)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id10">カスタムヘッダー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">カスタムヘッダー</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ip">IP制限</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#url">署名付きURLとの組み合わせ</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">エッジ関数</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#lambda-edge">Lambda&#64;Edge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">エッジコンピューティング</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id14">制約事項</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cloudfront-functions">CloudFront Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lambda-edge">Lambda&#64;Edge</a></li>
 </ul>
 </li>
 </ul>
@@ -79,9 +82,13 @@
 <li class="toctree-l2"><a class="reference internal" href="WAF.html">WAF</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../Container.html">コンテナ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../CloudFormation.html">CloudFormation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EFS.html">EFS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">AutoScaling</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -90,7 +97,18 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/security.html">セキュリティ系の基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">コンテナ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode.html">Programing Code</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -139,7 +157,7 @@
 <li><p><a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/20190730_AWS-BlackBelt_Amazon_CloudFront.pdf">blackbelt</a></p></li>
 <li><p><a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">HandsOn</a></p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CloudFrontはCDN（Contents Delivery Netwoerk）の機能を持つマネージドサービスであり、クライアントへのコンテンツ配信について、エッジサービスのメリットを享受し、ユーザーエクスペリエンスを向上させる。
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CloudFrontはCDN（Contents Delivery Netwoerk）の機能を持つマネージドサービスであり、クライアント(ビューワー)へのコンテンツ配信について、エッジサービスのメリットを享受し、ユーザーエクスペリエンスを向上させる。
 
 CloudFrontではオリジンとビヘイビアを定義して、ディストリビューションと呼ばれる配信設定を作成する。
 </pre></div>
@@ -149,6 +167,8 @@ CloudFrontではオリジンとビヘイビアを定義して、ディストリ�
 <h2>エッジサービスについて<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>AWSでは33のリージョンと105のAZが利用可能であるが、これらとは別に225箇所のエッジロケーションが配置されている。
 エッジロケーションはCDNやDNSといったユーザーから近い場所から提供されることが望ましいサービスに利用される。</p>
+<p><img alt="" src="../../_images/cloudfront_edge.png" />
+<a class="reference external" href="https://www.youtube.com/watch?v=TRyrMU_opz4">Amazon CloudFront EdgeComputing 編【AWS Black Belt】</a></p>
 <p>エッジロケーションを利用することで、以下のようなメリットが得られる</p>
 <ul class="simple">
 <li><p>地理的距離による遅延の削減</p></li>
@@ -169,8 +189,18 @@ ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 <p>CDNの構成は、コンテンツを所持し配信する<code class="docutils literal notranslate"><span class="pre">オリジンサーバー</span></code>(S3,API GW etc..)と、一時的にコンテンツをキャッシュする<code class="docutils literal notranslate"><span class="pre">エッジサーバー</span></code>（CloufFront etc..）で構成されている</p>
 <p><img alt="" src="../../_images/cloudfront_merit.png" />
 <a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">HandsOn</a>より引用</p>
+</section>
 <section id="id3">
-<h3>配信対象について<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<h2>CDNのキャッシュ詳細<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id4">
+<h3>キャッシュポイント<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CloudFrontのキャッシュを保持するポイントは多段になっている。
+ユーザーに最も近いEdgeLocationと、リージョンごとにまとまっているRegionalEdgeCacheが存在する。</p>
+<p><img alt="" src="../../_images/cloudfront_edges.png" />
+<a class="reference external" href="https://www.youtube.com/watch?v=TRyrMU_opz4">Amazon CloudFront EdgeComputing 編【AWS Black Belt】</a></p>
+</section>
+<section id="id5">
+<h3>配信対象について<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ウェブアプリケーションについては、動的コンテンツと静的コンテンツが存在する。</p>
 <ul class="simple">
 <li><p>動的コンテンツ：ユーザーのリクエストによって変わるコンテンツ</p></li>
@@ -181,15 +211,15 @@ ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 <p><img alt="" src="../../_images/cloudfront_path.png" />
 <a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">HandsOn</a>より引用</p>
 </section>
-<section id="id4">
-<h3>動的コンテンツ機能<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id6">
+<h3>動的コンテンツ機能<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
 <p>CloudFrontでも動的コンテンツについて、配信することも可能。
 動的コンテンツを配信する場合は、Header/Cookie/QueryStringsの情報も転送する。なお、すべての情報を転送してしまうとキャッシュヒットの条件が厳しくなるため、最小限の情報を指定するようにする。</p>
 <p>動的コンテンツ機能に関しては、後述するビヘイビアの注意点も参照する。</p>
 </section>
 </section>
-<section id="id5">
-<h2>CloudFrontの構成要素<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id7">
+<h2>CloudFrontの構成要素<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
 <p>CloudFrontを設定する際には3つのリソースの設定を行う</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -209,11 +239,11 @@ ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 </tr>
 </tbody>
 </table>
-<section id="id6">
-<h3>ビヘイビア<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id8">
+<h3>ビヘイビア<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
 <p>パスごとにキャッシュの振る舞いを定義する。</p>
-<section id="id7">
-<h4>キャッシュポリシー<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id9">
+<h4>キャッシュポリシー<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
 <p>オリジンに対するキャッシュの振る舞いを<code class="docutils literal notranslate"><span class="pre">ビヘイビア</span></code>において設定する。
 カスタマイズすることも可能だが、一般的な設定についてはマネージドポリシーが準備されている。</p>
 <table class="colwidths-auto docutils align-default">
@@ -232,24 +262,24 @@ ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 </tbody>
 </table>
 </section>
-<section id="id8">
-<h4>オリジンリクエストポリシー: 動的コンテンツの配信時の注意<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id10">
+<h4>オリジンリクエストポリシー: 動的コンテンツの配信時の注意<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
 <p>ユーザーからのリクエストは、まずCloudFrontによって受け取られ、その後オリジンへ配信される。
 この過程で、ヘッダー、Cookie、クエリストリングはCloudFrontによってフィルタリングされることがある。</p>
 <p>したがって、動的コンテンツ配信などでヘッダー、Cookie、およびクエリストリングに関しては、CloudFront側でのホワイトリスト設定が必要となる。この設定を<code class="docutils literal notranslate"><span class="pre">オリジンリクエストポリシー</span></code>と呼ぶ。</p>
 </section>
 </section>
 </section>
-<section id="id9">
-<h2>オリジンへのアクセス制御<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id11">
+<h2>オリジンへのアクセス制御<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
 <p>オリジンへの負荷を低減するためにCloudFrontを利用するため、オリジンへの直接アクセスは制御する必要がある。</p>
 <section id="oac-origin-access-control">
 <h3>OAC(Origin Access Control)<a class="headerlink" href="#oac-origin-access-control" title="この見出しへのパーマリンク">¶</a></h3>
 <p>S3がオリジンの場合に設定することができる。</p>
 <p>CloudFront側でOICを作成し、S3側のバケットポリシーでOICからのアクセスを許可する。 バケットポリシーだけの制限も可能であるものの、シンプルかつ一貫性のあるルール設定ができるため推奨。</p>
 </section>
-<section id="id10">
-<h3>カスタムヘッダー<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id12">
+<h3>カスタムヘッダー<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ALBがオリジンの場合に利用すると有効。<br />
 ディストリビューションのオリジン設定に任意のキーと値をカスタムヘッダーに追加する。 リクエストヘッダーにこの値があることを確認しあって通信を許可する。</p>
 </section>
@@ -265,29 +295,98 @@ ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 <a class="reference external" href="https://www.aws-room.com/entry/presigned-cloudfront">CloudFront の署名付きURL を使ったコンテンツの配信方法</a>より引用</p>
 </section>
 </section>
-<section id="id11">
-<h2>エッジ関数<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id13">
+<h2>エッジコンピューティング<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h2>
+<p>CloudFrontのエッジコンピューティングには2種類ある</p>
+<ul class="simple">
+<li><p>CloudFromt Functions</p></li>
+<li><p>Lambda&#64;Edge</p></li>
+</ul>
+<p>それぞれの違いとしては、実行タイミングが異なる。</p>
+<p><img alt="" src="../../_images/cloudfront_functions.png" /></p>
+<p>上記の図のように、CloudFront Functionsはエッジロケーションで実行されるためビューワーの一番近くで処理が行われ、ビューワーリクエストとビューワーレスポンスにのみ処理を加えることができる。<br />
+一方で、Lambda&#64;Edgeはエッジロケーションとオリジンの間の間に存在するリージョンレベルのキャッシュ層である、リージョナルエッジキャッシュでオリジン寄りの部分で処理が実行される。そのため、ビューワーリクエスト・オリジンリクエスト・オリジンレスポンス・ビューワーレスポンス全てに処理を加えることができる。</p>
+<p>CloudFront FunctionsとLambda&#64;Edgeは同時に利用はできるものの、ビューワーリクエストに関してはどちらかしか付与することができない点にも注意。</p>
+<section id="id14">
+<h3>制約事項<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CloudFront FunctionsとLambda&#64;Edgeについては、後述するがその制約事項についてまとめると以下。</p>
+<p>Functionsには、実行時間やメモリに厳しい制約があるため、軽い処理に向いている。
+一方で、Lambda&#64;Edgeは、比較的緩い制約のためある程度複雑な処理が可能。ただし、LambdaLayerが利用できないことや、実行時間が通常の15分よりも短いことなど、通常のLambdaと比べると制約は厳しい点に注意。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p></p></th>
+<th class="text-left head"><p>CloudFront Functions</p></th>
+<th class="text-left head"><p>Lambda&#64;Edge</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>ランタイムサポート</p></td>
+<td class="text-left"><p>JavaScript (ECMAScript 5.1 準拠)</p></td>
+<td class="text-left"><p>Node.js と Python</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>実行場所</p></td>
+<td class="text-left"><p>エッジロケーション</p></td>
+<td class="text-left"><p>リージョン別エッジキャッシュ</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>サポートされる CloudFront トリガー</p></td>
+<td class="text-left"><p>ビューワーリクエスト<br>ビューワーレスポンス</p></td>
+<td class="text-left"><p>ビューワーリクエスト<br>ビューワーレスポンス<br>オリジンリクエスト<br>オリジンレスポンス</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>関数の持続時間</p></td>
+<td class="text-left"><p>サブミリ秒</p></td>
+<td class="text-left"><p>5 秒 (ビューワーリクエスト、ビューワーレスポンス)<br>30 秒 (オリジンリクエスト、オリジンレスポンス)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>最大メモリ</p></td>
+<td class="text-left"><p>2 MB</p></td>
+<td class="text-left"><p>128 ～ 10,240 MB</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>コード / ライブラリの最大サイズ</p></td>
+<td class="text-left"><p>10 KB</p></td>
+<td class="text-left"><p>1 MB (ビューワーリクエスト、ビューワーレスポンス)<br>50 MB (オリジンリクエスト、オリジンレスポンス)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ネットワーク / ファイルシステムアクセス</p></td>
+<td class="text-left"><p>いいえ</p></td>
+<td class="text-left"><p>はい</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>リクエスト本文へのアクセス</p></td>
+<td class="text-left"><p>いいえ</p></td>
+<td class="text-left"><p>はい</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cloudfront-functions">
+<h3>CloudFront Functions<a class="headerlink" href="#cloudfront-functions" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Lambda&#64;Edgeと比較して、軽い処理の際にはCloudFront Functionsを利用する。
+CloudFrontネイティブな機能であり、開発自体は完全にCloudFrontのコンソール場で行うことができる。</p>
+<section id="cloudfront-keyvaluestore">
+<h4>CloudFront KeyValueStore<a class="headerlink" href="#cloudfront-keyvaluestore" title="この見出しへのパーマリンク">¶</a></h4>
+<p>CloudFront Functionsから数ミリ秒でアクセスすることができるデータストア。
+Functionsのコード内でキーバリューを定義する必要がなくなるため可読性が上がる。</p>
+</section>
+<section id="id15">
+<h4>ユースケース<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h4>
+<p>例えば、クエリ文字列の順番を統一するなどして、キャッシュヒット率を向上させることができる。</p>
+</section>
+</section>
 <section id="lambda-edge">
 <h3>Lambda&#64;Edge<a class="headerlink" href="#lambda-edge" title="この見出しへのパーマリンク">¶</a></h3>
-<p>CloudFrontのエッジで動作するLambda関数を設定する機能で、CloudFront単体で実行できないさまざまなソリューションを、クライアントに近い場所でコード実行することができる。</p>
-<section id="id12">
-<h4>ユースケース<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h4>
+<p>CloudFrontのエッジで動作するLambda関数を設定する機能で、CloudFront単体で実行できないさまざまなソリューションを、クライアントに近い場所でコード実行することができる。<br />
+CloudFront Functionsと比較するとCloudFrontとLambdaを組み合わせたイメージ。</p>
+<section id="id16">
+<h4>設定方法<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h4>
+<p>一般的なLambdaと同じようにLambda関数を作成定義する。ただし、リージョンはus-east-1にする必要がある。
+その後Lambdaのコンソールから「Lambda&#64;Edgeへのデプロイ」を行い、CloudFrontと紐づけることでLambda&#64;Edgeとなる。</p>
+</section>
+<section id="id17">
+<h4>ユースケース<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Lambda&#64;Edgeのユースケースには以下のようなものがある。</p>
 <ul class="simple">
 <li><p>ヘッダーの追加</p></li>
-<li><p>リアルタイム画像返還</p></li>
+<li><p>リアルタイム画像変換</p></li>
 <li><p>データ暗号化</p></li>
 <li><p>ユーザーの認証認可</p></li>
 </ul>
-</section>
-<section id="id13">
-<h4>設定方法<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h4>
-<p>一般的なLambdaと同じようにLambda関数を作成定義する。その後CloudFrontの画面からLambdaの紐付けを行うことでLambda&#64;Edgeとなる。</p>
-</section>
-<section id="id14">
-<h4>実行タイミング<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h4>
-<p>4つのタイミングでLambda&#64;Edgeを実行させることができる。4つのタイミングは、ビューワー側のリクエストとレスポンス、オリジン側のリクエストとレスポンス。
-(API GWのメソッド側と統合側とイメージは同じ)</p>
 <p><img alt="lambdaEdge" src="../../_images/lambdaEdge_image.png" />
 <a class="reference external" href="https://aws.amazon.com/jp/blogs/news/lambdaedge-design-best-practices/">AWSブログ</a>から引用</p>
 <table class="colwidths-auto docutils align-default">
@@ -300,31 +399,23 @@ ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 <tbody>
 <tr class="row-even"><td class="text-left"><p>ビューワーリクエスト</p></td>
 <td class="text-left"><p>URLリライトやリダイレクト</p></td>
-<td class="text-left"><p>ユーザーのリクエストに応じて、URLを動的に書き換えたり、特定の条件に基づいて他のページへリダイレクトしたりします。例えば、モバイルユーザーをモバイル専用ページにリダイレクトする、言語設定に基づいて異なるコンテンツを表示する、などの処理が可能です。</p></td>
+<td class="text-left"><p>ユーザーのリクエストに応じて、URLを動的に書き換えたり、特定の条件に基づいて他のページへリダイレクトしたりする。<br>例えば、モバイルユーザーをモバイル専用ページにリダイレクトする、言語設定に基づいて異なるコンテンツを表示する、などの処理が可能。</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>オリジンリクエスト</p></td>
 <td class="text-left"><p>アクセス制御と認証</p></td>
-<td class="text-left"><p>ユーザーのリクエストがオリジンに送信される前に、アクセス制御や認証を行います。例えば、特定のユーザーにのみコンテンツを表示する、APIキーの検証を行う、などの処理が可能です。これにより、不正なアクセスを防ぎ、セキュリティを強化できます。</p></td>
+<td class="text-left"><p>ユーザーのリクエストがオリジンに送信される前に、アクセス制御や認証を行う。<br>例えば、特定のユーザーにのみコンテンツを表示する、APIキーの検証を行う、などの処理が可能。<br>これにより、不正なアクセスを防ぎ、セキュリティを強化できます。</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>オリジンレスポインス</p></td>
 <td class="text-left"><p>ヘッダーのカスタマイズとセキュリティ強化</p></td>
-<td class="text-left"><p>オリジンからのレスポンスを受け取った後、セキュリティヘッダーを追加したり、キャッシュ制御ヘッダーを設定したりします。例えば、Content Security Policy (CSP) ヘッダーを追加してXSS攻撃を防ぐ、Cache-Controlヘッダーを設定してキャッシュの挙動を最適化する、などの処理が可能です。</p></td>
+<td class="text-left"><p>オリジンからのレスポンスを受け取った後、セキュリティヘッダーを追加したり、キャッシュ制御ヘッダーを設定したりする。<br>例えば、Content Security Policy (CSP) ヘッダーを追加してXSS攻撃を防ぐ、Cache-Controlヘッダーを設定してキャッシュの挙動を最適化する、などの処理が可能。</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>ビューワーレスポンス</p></td>
 <td class="text-left"><p>カスタムヘッダーの挿入</p></td>
-<td class="text-left"><p>ユーザーに送信されるレスポンスにカスタムヘッダーを追加します。例えば、セキュリティを向上させるためのStrict-Transport-SecurityやX-Content-Type-Optionsヘッダーを追加する、パフォーマンス追跡のためのカスタムヘッダーを挿入する、などの処理が可能です。</p></td>
+<td class="text-left"><p>ユーザーに送信されるレスポンスにカスタムヘッダーを追加する。<br>例えば、セキュリティを向上させるためのStrict-Transport-SecurityやX-Content-Type-Optionsヘッダーを追加する、パフォーマンス追跡のためのカスタムヘッダーを挿入する、などの処理が可能。</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-</section>
-<section id="cloudfront-functions">
-<h3>CloudFront Functions<a class="headerlink" href="#cloudfront-functions" title="この見出しへのパーマリンク">¶</a></h3>
-<p>Lambda&#64;Edgeと比較して、軽い処理の際にはCloudFront Functionsを利用する。具体的には実行最大時間1msec、最大メモリ、2MBなどかなり厳しい制約が組み込まれている。</p>
-<p>実行タイミングについては、最初と最後の、ビューワーリクエストとビューワーレスポンスの二箇所のみに限定される点に注意。この理解は、Lambda&#64;EdgeとCloudFront Functionsの実行される環境の違いに着目するとわかりやすい。</p>
-<p><img alt="" src="../../_images/cloudfront_functions.png" /></p>
-<p>上記の図のように、CloudFront Functionsはエッジロケーションで実行されるためビューワーの一番近くで処理が行われ、ビューワーリクエストとビューワーレスポンスにのみ処理を加えることができる。
-一方で、Lambda&#64;Edgeはエッジロケーションとオリジンの間の間に存在するリージョンレベルのキャッシュ層である、リージョナルエッジキャッシュでオリジン寄りの部分で処理が実行される。そのため、ビューワーリクエスト・オリジンリクエスト・オリジンレスポンス・ビューワーレスポンス全てに処理を加えることができる。</p>
 </section>
 </section>
 </section>
