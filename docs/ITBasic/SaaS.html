@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SaaS &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="CORS" href="../Security/cors.html" />
+    <link rel="prev" title="コンテナ" href="Container.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EFS.html">EFS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">AutoScaling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html#id1">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SaaS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">SaaSへの移行</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4つのステップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">事業計画立案</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">製品戦略およびロードマップ開発</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">実用最小限のサービス</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">ローンチ・市場開拓</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode.html">Programing Code</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">SaaS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/ITBasic/SaaS.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="saas">
+<h1>SaaS<a class="headerlink" href="#saas" title="この見出しへのパーマリンク">¶</a></h1>
+<p>SaaSはビジネスモデルであり、具体的な技術はSaaSのメリットを享受するための手段にすぎない。
+SaaSに取り組む上では、ステークホルダー全員にSaaSに関するマインドセットが重要であり、サービスの持続的な成長や価値ベースのアプローチの理解などが重要である。</p>
+<section id="id1">
+<h2>SaaSへの移行<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>AWSでは<a class="reference external" href="https://d1.awsstatic.com/whitepapers/ja_JP/saas-journey-framework.pdf">SaaS Journey Framework</a>を推奨している。</p>
+<p>移行に先立ってSaaS化したいとしても、SaaSで得たい目標は異なる。そのため、自社がどうしてSaaS化したいのから見極める。
+<img alt="" src="../_images/saas_target_category.png" /></p>
+<section id="id2">
+<h3>4つのステップ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>4つのステップに分類している。</p>
+<ul class="simple">
+<li><p>事業計画立案</p></li>
+<li><p>製品戦略およびロードマップ開発</p></li>
+<li><p>実用最小限のサービス</p></li>
+<li><p>ローンチ・市場開拓(Go-to-Market)</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>事業計画立案<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ヒトモノカネの準備をする</p>
+</section>
+<section id="id4">
+<h3>製品戦略およびロードマップ開発<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>どのような価値を誰に提供するのかを明確にする</p>
+</section>
+<section id="id5">
+<h3>実用最小限のサービス<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>コアとなる価値を見出し、MVSを特定して、アーリーアダプターを定義する</p>
+</section>
+<section id="id6">
+<h3>ローンチ・市場開拓<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>顧客の意地と利用拡大検討。プライシングパッケージを行う</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Container.html" class="btn btn-neutral float-left" title="コンテナ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Security/cors.html" class="btn btn-neutral float-right" title="CORS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
