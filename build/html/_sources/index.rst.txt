@@ -40,6 +40,7 @@
    ITBasic/server.md
    ITBasic/kernel.md
    ITBasic/Container.md
+   ITBasic/SaaS.md
 
 .. toctree::
    :maxdepth: 1
