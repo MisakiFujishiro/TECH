@@ -29,6 +29,8 @@
    :maxdepth: 1
    :caption: Git:
 
+   Git/basic.md
+   Git/branch_strategy.md
    Git/starter.md
 
 
