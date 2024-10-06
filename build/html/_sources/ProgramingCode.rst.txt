@@ -6,10 +6,9 @@
 Programing Code
 ====================================
 
-
-
 .. toctree::
     :maxdepth: 1
     :caption: Programing Code
 
-    ProgramingCode/shell
+    ProgramingCode/Excel.md
+    ProgramingCode/shell.md
