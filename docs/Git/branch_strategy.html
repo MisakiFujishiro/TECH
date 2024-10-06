@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>gitへの登録 &mdash; project  ドキュメント</title>
+  <title>ブランチ戦略 &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="サーバー" href="../ITBasic/server.html" />
-    <link rel="prev" title="ブランチ戦略" href="branch_strategy.html" /> 
+    <link rel="next" title="gitへの登録" href="starter.html" />
+    <link rel="prev" title="gitの基本知識" href="basic.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -58,12 +58,14 @@
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="basic.html">gitの基本知識</a></li>
-<li class="toctree-l1"><a class="reference internal" href="branch_strategy.html">ブランチ戦略</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">gitへの登録</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#push">ローカルリポジトリをリモートにPush</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">リモートリポジトリをローカルにクローン</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ブランチ戦略</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gitdevelop-flow">gitdevelop-flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#github-flow">github-flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gitlab-flow">gitlab-flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">トランクベース開発</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="starter.html">gitへの登録</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
@@ -109,9 +111,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">gitへの登録</li>
+      <li class="breadcrumb-item active">ブランチ戦略</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/Git/starter.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/Git/branch_strategy.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -119,27 +121,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="git">
-<h1>gitへの登録<a class="headerlink" href="#git" title="この見出しへのパーマリンク">¶</a></h1>
-<section id="push">
-<h2>ローカルリポジトリをリモートにPush<a class="headerlink" href="#push" title="この見出しへのパーマリンク">¶</a></h2>
-<p>ローカルで作業したファイルをgitで管理したい場合は、ローカルからリモートにgitの登録をしてPushする</p>
-<p>ローカルのリポジトリで、gitの設定を行う</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~~/</span><span class="p">[</span><span class="n">YOUR_REPO</span><span class="p">]</span>
-<span class="n">git</span> <span class="n">init</span>
-<span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;first commit&quot;</span>
-<span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">M</span> <span class="n">main</span>
-<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="p">[</span><span class="n">YOUR_ACCOUNT_NAME</span><span class="p">]</span><span class="o">/</span><span class="p">[</span><span class="n">YOUR_REPO</span><span class="p">]</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">main</span>
-</pre></div>
-</div>
+  <section id="id1">
+<h1>ブランチ戦略<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="gitdevelop-flow">
+<h2>gitdevelop-flow<a class="headerlink" href="#gitdevelop-flow" title="この見出しへのパーマリンク">¶</a></h2>
+<p>2010年に提唱された有名なブランチ戦略。</p>
+<ul class="simple">
+<li><p>main</p></li>
+<li><p>develop</p></li>
+<li><p>リリース</p></li>
+<li><p>ホットフィックス</p></li>
+<li><p>featureブランチ
+featureを大事にしていく。
+これはcicdとmixしてこまめなリリースを想定していないことも提唱者が言っている。</p></li>
+</ul>
 </section>
-<section id="id1">
-<h2>リモートリポジトリをローカルにクローン<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
-<p>リモートでリポジトリを作成直後に、ローカルで作用したい場合は、リモートからローカルにgitをクローンする</p>
-<p>リモートのフォルダをcloneしたい階層に移動して、<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code>する。
-コマンド自体は、gitのWeb側にデフォルトで準備されている。</p>
+<section id="github-flow">
+<h2>github-flow<a class="headerlink" href="#github-flow" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
+<section id="gitlab-flow">
+<h2>gitlab-flow<a class="headerlink" href="#gitlab-flow" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
+<section id="id2">
+<h2>トランクベース開発<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>トランクブランチをなるべく短命にして、mainのブランチにどんどんマージしていく開発
+CICDとセットで、長く生きる開発ブランチを認めない。</p>
+<p>トランクベース開発ではない戦略だと、長いfeatureブランチが発生することになるので、潜在的にリファクタリングを嫌うようになる。これはリファクタリングをすると全体的にコンフリクトが発生することが増えるからである。結果として技術的負債が溜まってしまう。</p>
 </section>
 </section>
 
@@ -147,8 +154,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="branch_strategy.html" class="btn btn-neutral float-left" title="ブランチ戦略" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../ITBasic/server.html" class="btn btn-neutral float-right" title="サーバー" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="basic.html" class="btn btn-neutral float-left" title="gitの基本知識" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="starter.html" class="btn btn-neutral float-right" title="gitへの登録" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
