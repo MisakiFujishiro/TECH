@@ -60,8 +60,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">gitの基本知識</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id1">コミット</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">ブランチ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#push">push</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">マージ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">マージ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fast-forward">Fast-Forwardマージ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rebase">Rebaseについて</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id4">参考</a></li>
 </ul>
 </li>
@@ -82,7 +85,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode.html">Programing Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">Shell</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -145,15 +149,40 @@
 ブランチを切るという操作は、現在の最新コミットに対してさらに別名を付与することを意味する。</p>
 <p><img alt="" src="../_images/git_branch_make.png" />
 <a class="reference external" href="https://kotas.hatenablog.jp/entry/2012/11/22/000046">こわくない Git</a></p>
-<p>ここから、それぞれのブランチに対して新しいコミットを行うと、コミットはブランチごとに完全に独立して行われるため枝分かれする。</p>
+<p>ここから、それぞれのブランチに対して新しいコミットとプッシュを行うと、ブランチごとにコミットを管理するため、枝分かれする。</p>
 <p><img alt="" src="../_images/git_branch_commit.png" />
 <a class="reference external" href="https://kotas.hatenablog.jp/entry/2012/11/22/000046">こわくない Git</a></p>
 </section>
-<section id="push">
-<h2>push<a class="headerlink" href="#push" title="この見出しへのパーマリンク">¶</a></h2>
-</section>
 <section id="id3">
 <h2>マージ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>マージとは、異なるブランチに存在するコミットを別のブランチに統合することである。</p>
+<p><img alt="" src="../_images/git_merge.png" />
+<a class="reference external" href="https://kotas.hatenablog.jp/entry/2012/11/22/000046">こわくない Git</a></p>
+<p>上記のmasterブランチに対して、Topicブランチをマージすると、Masterブランチの最新コミットに対してTopicの持っている3つのコミットを反映させる。</p>
+<p><img alt="" src="../_images/git_merge_2.png" />
+<a class="reference external" href="https://kotas.hatenablog.jp/entry/2012/11/22/000046">こわくない Git</a></p>
+<p>結果として新たなコミットが作成されることになる。このコミットを<em>マージコミット</em>と呼ぶ。
+<img alt="" src="../_images/git_merge_commit.png" />
+<a class="reference external" href="https://kotas.hatenablog.jp/entry/2012/11/22/000046">こわくない Git</a></p>
+<section id="fast-forward">
+<h3>Fast-Forwardマージ<a class="headerlink" href="#fast-forward" title="この見出しへのパーマリンク">¶</a></h3>
+<p>上記のマージをNon-Fast-Forwardマージと呼ぶ。
+Fast-Forwardマージは基本的に非推奨で、Non-Fast-Forwardマージを利用する。</p>
+<p>Fast-Forwardとは、ブランチが枝分かれしていない時にマージコミットを作成せずにブランチをマージする方法。</p>
+<p><img alt="" src="../_images/git_fast-forward.png" />
+<a class="reference external" href="https://kotas.hatenablog.jp/entry/2012/11/22/000046">こわくない Git</a></p>
+<p>ブランチを作成してマージをした履歴が分かり辛くなるのでブランチ戦略や状況にもよるが基本的にはマージコミットが残るNon-Fast-Forwardのマージを実施する。</p>
+</section>
+</section>
+<section id="rebase">
+<h2>Rebaseについて<a class="headerlink" href="#rebase" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Rebaseは異なるブランチの持つコミットを無理やり別ブランチの最新コミットから実施する作業。<br />
+Rebaseをマージの代わりに異なるブランチの統合に利用するのは基本的に非推奨。マージを利用する。</p>
+<p><img alt="" src="../_images/git_rebase.png" />
+<a class="reference external" href="https://kotas.hatenablog.jp/entry/2012/11/22/000046">こわくない Git</a></p>
+<p>結果として以下のような形になる。こちらに関してもFast-Forward同様にマージの履歴が残らないため、異なるブランチを統合したなどの履歴がわかり辛くなる。
+<img alt="" src="../_images/git_rebase_2.png" />
+<a class="reference external" href="https://kotas.hatenablog.jp/entry/2012/11/22/000046">こわくない Git</a></p>
 </section>
 <section id="id4">
 <h2>参考<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
