@@ -64,6 +64,15 @@ Rebaseをマージの代わりに異なるブランチの統合に利用する�
 ![](../img/Git/git_rebase_2.png)
 [こわくない Git](https://kotas.hatenablog.jp/entry/2012/11/22/000046)
 
+## コンフリクトについて
+masterからAブランチとBブランチを作成し、それぞれで改修を行うとする。
+
+Aブランチをmasterにマージする際には、masterのブランチに対してブランチAのコミットを統合することになるので、スムーズにマージすることができる。
+
+その後にBブランチをmasterマージする際には、masterには既にブランチAの内容が反映されている。元々のmasterから同じ箇所が修正されていると、ブランチAとブランチBどちらを採用すればいいかgitが理解することができないためコンフリクトが発生する。
+
+![](../img/Git/git_conflict.png)
+[サル先生のgit入門](https://backlog.com/ja/git-tutorial/)
 
 ## 参考
 - [ATLASSIAN きっとできるGit](https://www.atlassian.com/ja/git)
