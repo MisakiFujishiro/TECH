@@ -55,8 +55,8 @@
    :maxdepth: 1
    :caption: ProgramingCode:
 
-   ProgramingCode
-
+   ProgramingCode/Excel.md
+   ProgramingCode/shell.md
 
 .. toctree::
    :maxdepth: 1
