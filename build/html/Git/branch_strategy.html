@@ -50,6 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">CloudTrail</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">EventBridge</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AWS/EFS.html">EFS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">AutoScaling</a></li>
@@ -58,10 +59,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="basic.html">gitの基本知識</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ブランチ戦略</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#gitdevelop-flow">gitdevelop-flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#github-flow">github-flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gitdevelop-flow">gitdevelop-flow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">デメリット</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#github-flow">github-flow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">デメリット</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gitlab-flow">gitlab-flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">トランクベース開発</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">トランクベース開発</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="starter.html">gitへの登録</a></li>
@@ -80,7 +87,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode.html">Programing Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">Shell</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -122,30 +130,94 @@
              
   <section id="id1">
 <h1>ブランチ戦略<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<p>ブランチ戦略とは、Gitのブランチをどういった方法で使用・管理するかの規約。
+チームごとにローカライズされているが、以下の有名なブランチ戦略がベースになっていることが多い。</p>
 <section id="gitdevelop-flow">
 <h2>gitdevelop-flow<a class="headerlink" href="#gitdevelop-flow" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model</a></p>
 <p>2010年に提唱された有名なブランチ戦略。</p>
-<ul class="simple">
-<li><p>main</p></li>
-<li><p>develop</p></li>
-<li><p>リリース</p></li>
-<li><p>ホットフィックス</p></li>
-<li><p>featureブランチ
-featureを大事にしていく。
-これはcicdとmixしてこまめなリリースを想定していないことも提唱者が言っている。</p></li>
-</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>ブランチ名</p></th>
+<th class="text-left head"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>main</p></td>
+<td class="text-left"><p>本番環境にリリースされた安定したコードを保持するブランチ。常にデプロイ可能な状態が維持される。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>develop</p></td>
+<td class="text-left"><p>次のリリースのために開発中のコードを集約するブランチ。開発の中心となるブランチで、開発中の機能が統合される。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>release</p></td>
+<td class="text-left"><p>リリース準備を行うブランチ。developから分岐し、リリース直前のバグ修正や調整を行う。リリースが完了するとmainにマージされ、リリースバージョンのタグが付けられる。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>hotfix</p></td>
+<td class="text-left"><p>本番環境で緊急修正が必要な場合に使用するブランチ。mainから直接分岐し、修正後はmainとdevelopの両方にマージされる。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>feature</p></td>
+<td class="text-left"><p>新機能や改修を開発するための個別ブランチ。developから分岐し、作業完了後はdevelopにマージされる。多数のfeatureブランチが同時に進行することができる。</p></td>
+</tr>
+</tbody>
+</table>
+<p>上記のブランチを利用して開発を行うが、基本的な開発はfeatureを軸に進めていく。
+featureが長期にわたって利用されることを想定されており、近年のリリースの高速化に伴った開発は想定されていないと提唱者が発信している。</p>
+<p><img alt="" src="../_images/git_flow.png" />
+<a class="reference external" href="https://qiita.com/yumsn/items/08a9317531781bae4f79">代表的なブランチ戦略の特徴とメリット・デメリットを理解する</a></p>
+<section id="id2">
+<h3>デメリット<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>hotfixやreleaseブランチの存在はブランチ管理を煩雑にさせる。</p>
+</section>
 </section>
 <section id="github-flow">
 <h2>github-flow<a class="headerlink" href="#github-flow" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://docs.github.com/ja/get-started/using-github/github-flow">GitHub フロー</a></p>
+<p>mainブランチとfeatureブランチのみで運用していく非常にシンプルなブランチ戦略
+featureブランチの小まめなマージにより、コンフリクトを小さくすることができる。</p>
+<p><img alt="" src="../_images/github_flow.png" />
+<a class="reference external" href="https://qiita.com/yumsn/items/08a9317531781bae4f79">代表的なブランチ戦略の特徴とメリット・デメリットを理解する</a></p>
+<section id="id3">
+<h3>デメリット<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ブランチ自体が非常にシンプルなため、リリース管理機能など別途必要になる。</p>
+</section>
 </section>
 <section id="gitlab-flow">
 <h2>gitlab-flow<a class="headerlink" href="#gitlab-flow" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://about.gitlab.com/blog/2023/07/27/gitlab-flow-duo/">Combine GitLab Flow and GitLab Duo for a workflow powerhouse</a></p>
+<p>git-flowよりもシンプルにしつつ、github-flowほどシンプルにはしていないブランチ戦略。
+ブランチとしては以下のブランチを運用する。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>ブランチ名</p></th>
+<th class="text-left head"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>main/production</p></td>
+<td class="text-left"><p>本番環境にデプロイされる安定したコードを保持するブランチ。常にデプロイ可能な状態を維持。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>master</p></td>
+<td class="text-left"><p>一部のワークフローでmainの代わりに使用されるブランチ。本番環境にリリースされるコードを保持。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>environment branches</p></td>
+<td class="text-left"><p>各環境（例：staging、testing）に対するブランチ。環境ごとのデプロイ可能なコードを管理。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>topic branches</p></td>
+<td class="text-left"><p>特定の機能やバグ修正のために作成される短期的なブランチ。作業が完了するとmainやenvironmentブランチにマージ。</p></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="" src="../_images/gitlab_flow.png" />
+<a class="reference external" href="https://qiita.com/yumsn/items/08a9317531781bae4f79">代表的なブランチ戦略の特徴とメリット・デメリットを理解する</a></p>
 </section>
-<section id="id2">
-<h2>トランクベース開発<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id4">
+<h2>トランクベース開発<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
 <p>トランクブランチをなるべく短命にして、mainのブランチにどんどんマージしていく開発
 CICDとセットで、長く生きる開発ブランチを認めない。</p>
-<p>トランクベース開発ではない戦略だと、長いfeatureブランチが発生することになるので、潜在的にリファクタリングを嫌うようになる。これはリファクタリングをすると全体的にコンフリクトが発生することが増えるからである。結果として技術的負債が溜まってしまう。</p>
+<p>トランクベース開発以外の戦略は長いfeatureブランチが発生することになる。
+この長生きのfeatureがいる限り、潜在的にリファクタリングを嫌うようになる。
+これはリファクタリングをすると全体的にコンフリクトが発生することが増えるからである。
+結果として技術的負債が溜まってしまうという課題意識から生まれたgit-flowである。</p>
 </section>
 </section>
 
