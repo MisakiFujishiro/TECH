@@ -32,6 +32,7 @@
    Git/basic.md
    Git/branch_strategy.md
    Git/starter.md
+   Git/Rule.md
 
 
 
