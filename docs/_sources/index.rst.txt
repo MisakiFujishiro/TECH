@@ -39,10 +39,12 @@
    :maxdepth: 1
    :caption: ITBasic:
 
+   ITBasic/SWA.md
    ITBasic/server.md
    ITBasic/kernel.md
    ITBasic/Container.md
    ITBasic/SaaS.md
+   ITBasic/CICD.md
 
 .. toctree::
    :maxdepth: 1

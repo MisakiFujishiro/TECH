@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>コンテナ &mdash; project  ドキュメント</title>
+  <title>SoftWareArchitecture &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="SaaS" href="SaaS.html" />
-    <link rel="prev" title="カーネル" href="kernel.html" /> 
+    <link rel="next" title="サーバー" href="server.html" />
+    <link rel="prev" title="gitへの登録" href="../Git/starter.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -63,18 +63,16 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="SWA.html">SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kernel.html">カーネル</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">コンテナ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">コンテナのメリット</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">コンテナの仕組み</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">オーケストレーション</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">コンテナオーケストレーションの全体像</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SoftWareArchitecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">アーキテクチャパターン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">デザインパターン</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">フレームワーク</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SaaS.html">SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">CICD</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Security:</span></p>
 <ul>
@@ -114,9 +112,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">コンテナ</li>
+      <li class="breadcrumb-item active">SoftWareArchitecture</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/ITBasic/Container.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/ITBasic/SWA.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -124,56 +122,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>コンテナ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+  <section id="softwarearchitecture">
+<h1>SoftWareArchitecture<a class="headerlink" href="#softwarearchitecture" title="この見出しへのパーマリンク">¶</a></h1>
+<p>ソフトウェアアーキテクチャー(SWA)について明確な定義はない。
+SWAとは、システムの構造、アーキテクチャ特性（満たすべき非機能要件）、ルールやガイドをまとめてSWAと呼ばれる。
+SWAの範囲は非常に広く、全てを把握することは難しいことを踏まえると、幅広い知識をまずは知っておくことが必要（フレームワーク・言語・設計パターン・CICD・開発手法）</p>
+<p>SWAを考えないと、踏襲や会社標準などにより、システムがパフォーマンスを満たせなかったり、コストがかかるなどの課題が発生する。</p>
+<section id="id1">
+<h2>アーキテクチャパターン<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>SWAのベストプラクティスを再利用するための、アプリケーションやシステムの構築パターン</p>
+<ul class="simple">
+<li><p>マイクロサービスアーキテクチャ</p></li>
+<li><p>三層アーキテクチャ</p></li>
+</ul>
+</section>
 <section id="id2">
-<h2>コンテナのメリット<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
-<p>2013年にDockerがリリースしたDockerによりコンテナ技術は開発者に一気に浸透した。
-アプリケーションとその依存関係を一つのコンテナイメージとして扱うことで、一貫した動作環境を提供することを可能としました。</p>
+<h2>デザインパターン<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>SW開発の実装におけるノウハウの設計や実装パターン</p>
+<ul class="simple">
+<li><p>Singletonパターン</p></li>
+<li><p>Mediatorパターン</p></li>
+</ul>
 </section>
 <section id="id3">
-<h2>コンテナの仕組み<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
-<p>OS上にコンテナを管理するSWであるコンテナエンジン（Docker/Podman)を起動させる。
-コンテナエンジンの上にミドルウェアやアプリケーションをセットしたの含むコンテナを起動させる。
-一般的な仮想マシン(VMware/KVM etc..)と比較するとゲストOSを作らないことによる軽量さが挙げられる。
-コンテナの軽量性などはクラウドと相性が良く、クラウドネイティブなシステムに利用される。</p>
-<p><img alt="" src="../_images/container.jpg" />
-<a class="reference external" href="https://cn.teldevice.co.jp/column/10509/">注目を浴びる「Dockerコンテナ」、従来の仮想化と何が違うのか？</a></p>
-</section>
-<section id="id4">
-<h2>オーケストレーション<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
-<p>実行するコンテナが増えていくと、管理する対象が増加していく。
-また、コンテナは停止や起動を頻繁に行うこともあるため、手動での管理に大きなコストがかかる。</p>
-<p>コンテナのオーケストレーションとは、コンテナのネットワークやスケジュリング、リソース管理、障害復旧といったコンテナの管理に必要な処理を自動で行い、コンテナの運用コストを低下させる技術である。</p>
-<p>代表的なオーケストレーションサービスにはKubernetesやAWS ECSが挙げられる。</p>
-</section>
-<section id="id5">
-<h2>コンテナオーケストレーションの全体像<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
-<p>コンテナサービスには、イメージを補完するレジストリやコンテナを実行するためのホスティングなども必要。</p>
-<table class="colwidths-auto docutils align-default">
-<thead>
-<tr class="row-odd"><th class="text-left head"><p>要素</p></th>
-<th class="text-left head"><p>役割</p></th>
-<th class="text-left head"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>レジストリ</p></td>
-<td class="text-left"><p>コンテナイメージの保存と配布</p></td>
-<td class="text-left"><p>コンテナイメージを格納し、必要なときに引き出せるようにする場所。Docker HubやGoogle Container Registry、Amazon ECRなどが含まれます。</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>ホスティング</p></td>
-<td class="text-left"><p>コンテナの実行環境の提供</p></td>
-<td class="text-left"><p>コンテナを実行するためのインフラストラクチャやプラットフォーム。EC2（Amazon Elastic Compute Cloud）やFargate（サーバーレスコンテナサービス）などが含まれます。</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>オーケストレータ</p></td>
-<td class="text-left"><p>コンテナのデプロイ、管理、スケーリング、ネットワーキング、および監視の自動化</p></td>
-<td class="text-left"><p>コンテナのライフサイクル全体を管理するツール。Kubernetes、Amazon ECS、Docker Swarm、Apache Mesosなどがあります。</p></td>
-</tr>
-</tbody>
-</table>
-<p><img alt="" src="../_images/container_image.png" />
-<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Why-Container-Now_0630_v1.pdf">なぜ今コンテナなのか</a></p>
+<h2>フレームワーク<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>一般的な機能や提携コードをライブラリとして準備したソフトウェアの骨組み</p>
+<ul class="simple">
+<li><p>Spring</p></li>
+<li><p>React</p></li>
+</ul>
 </section>
 </section>
 
@@ -181,8 +158,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="kernel.html" class="btn btn-neutral float-left" title="カーネル" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="SaaS.html" class="btn btn-neutral float-right" title="SaaS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Git/starter.html" class="btn btn-neutral float-left" title="gitへの登録" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="server.html" class="btn btn-neutral float-right" title="サーバー" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
