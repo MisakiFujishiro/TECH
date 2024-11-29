@@ -45,6 +45,7 @@
    ITBasic/Container.md
    ITBasic/SaaS.md
    ITBasic/CICD.md
+   ITBasic/非機能.md
 
 .. toctree::
    :maxdepth: 1
