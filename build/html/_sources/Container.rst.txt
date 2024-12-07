@@ -15,5 +15,6 @@
     AWS/Container/Container.md
     AWS/Container/ecs.md
     AWS/Container/eks.md
+    AWS/Container/fargate.md
 
 
