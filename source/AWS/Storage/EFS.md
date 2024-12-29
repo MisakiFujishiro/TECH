@@ -13,14 +13,14 @@ EFSをマウントすると8エクサバイトの容量がマウントされる�
 ### 利用しやすさ
 さまざまなコンピューティングサービスから利用が可能。
 
-![](../img/AWS/EFS/efs_connect.png)
+![](../../img/AWS/EFS/efs_connect.png)
 [BlackBelt](https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-ElasticFileSystem_0229_v1.pdf)
 
 ### 耐久性
 リージョンタイプと1ゾーンタイプが利用可能で、耐久性や可用性はどちらでも非常に高い。
 リージョンタイプは3つのAZに分散される。1AZはデータの損失の可能性がある点に注意。
 
-![](../img/AWS/EFS/efs_kind.png)
+![](../../img/AWS/EFS/efs_kind.png)
 [BlackBelt](https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-ElasticFileSystem_0229_v1.pdf)
 
 ### セキュリティ
@@ -35,7 +35,7 @@ EFSに保管されるファイルへの暗号化も適用が簡単にできる�
 EFSファイルシステムにアクセスするためのエンドポイントはマウントターゲットと呼ばれる。
 マウントターゲットはAZごとに作成され、各種コンピューティングサービスはこのマウントターゲット経由でEFSに接続するため、VPC-Endpointのような動きをする。
 
-![](../img/AWS/EFS/efs-mounttarget.png)
+![](../../img/AWS/EFS/efs-mounttarget.png)
 [マウントターゲットの管理](https://docs.aws.amazon.com/ja_jp/efs/latest/ug/accessing-fs.html)
 
 ### アクセスポイント
@@ -71,5 +71,5 @@ AWS Backupと連携して、自動でのバックアップ設定を行うこと�
 ## 費用
 ストレージとデータアクセスについて費用がかかる
 
-![](../img/AWS/EFS/efs_cost.png)
+![](../../img/AWS/EFS/efs_cost.png)
 [BlackBelt](https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-ElasticFileSystem_0229_v1.pdf)

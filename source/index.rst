@@ -20,9 +20,9 @@
    S3
    CloudFormation
    CloudWatch
+   Storage
    AWS/CloudTrail.md
    AWS/EventBridge.md
-   AWS/EFS.md
    AWS/AutoScaling.md
 
 .. toctree::

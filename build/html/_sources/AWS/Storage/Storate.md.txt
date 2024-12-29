@@ -1,0 +1,4 @@
+# Storage全体像
+AWSのストレージには役割ごとに適切なサービスが提供さている。
+
+![](../../img/AWS/Storage/AWS_Storage.png)
