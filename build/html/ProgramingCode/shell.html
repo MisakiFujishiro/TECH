@@ -94,6 +94,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#id9">基本的なコマンド</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id10">汎用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#printf-print-formatted">printf(print formatted)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#xargs-extended-arguments">xargs(extended arguments)</a></li>
 </ul>
 </li>
@@ -425,6 +426,18 @@ cp<span class="w"> </span>/path/to/nonexistent/file<span class="w"> </span>/path
 <h2>基本的なコマンド<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id10">
 <h3>汎用<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="printf-print-formatted">
+<h4>printf(print formatted)<a class="headerlink" href="#printf-print-formatted" title="この見出しへのパーマリンク">¶</a></h4>
+<p>フォーマットを指定しながら、出力を成形することができる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">%</span></code>を利用して、フォーマット指定子を明示する。例えば、<code class="docutils literal notranslate"><span class="pre">%.2f</span></code>は浮動小数2桁を意味する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printf</span> <span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2"> </span><span class="si">%.2f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="mf">3.14159</span> <span class="mf">2.71828</span>
+</pre></div>
+</div>
+<p>とすると以下の結果が出力される(\nはコマンドライン上の見栄えのため)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">3.14</span> <span class="mf">2.72</span>
+</pre></div>
+</div>
+</section>
 <section id="xargs-extended-arguments">
 <h4>xargs(extended arguments)<a class="headerlink" href="#xargs-extended-arguments" title="この見出しへのパーマリンク">¶</a></h4>
 <p>標準入力から受け取ったデータを引数として別のコマンドに渡すためのコマンド。</p>
