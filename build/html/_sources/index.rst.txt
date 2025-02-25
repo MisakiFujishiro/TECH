@@ -43,6 +43,7 @@
    ITBasic/server.md
    ITBasic/kernel.md
    ITBasic/Container.md
+   ITBasic/Kubernetes.md
    ITBasic/SaaS.md
    ITBasic/CICD.md
    ITBasic/非機能.md
