@@ -61,20 +61,23 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">接続方法</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id7">マウントターゲット</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">アクセスポイント</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">マウントとは</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">EFSの接続の概要</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">マウントターゲット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">アクセスポイント</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecs">コンテナ側(ECS)からの接続</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#efsnfs">EFSとNFS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#nfs-network-file-system">NFS(Network File System)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">EFSマウントヘルパー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">EFSマウントヘルパー</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">便利機能</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id11">レプリケーション</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id12">ストレージの階層化</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id13">バックアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">便利機能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id14">レプリケーション</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">ストレージの階層化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">バックアップ</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">費用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">費用</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="EBS.html">EBS</a></li>
@@ -96,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">サーバー</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">カーネル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SaaS.html">SaaS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../ITBasic/CICD.html">CICD</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
@@ -188,16 +192,127 @@ EFSに保管されるファイルへの暗号化も適用が簡単にできる�
 <section id="id6">
 <h2>接続方法<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id7">
-<h3>マウントターゲット<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>マウントとは<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>マウントとは、サーバーやコンテナ側の特定のディレクトリとファイルシステムを接続し、ディレクトリ経由でファイルシステムにアクセスできるようにする仕組みのこと。
+OSは、ディレクトリ（マウントポイント）を経由してファイルサーバーを認識する。</p>
+</section>
+<section id="id8">
+<h3>EFSの接続の概要<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>EFSをマウントするためには、EFSだけでなく以下のリソースについても設定が必要</p>
+<ul class="simple">
+<li><p>マウントターゲット(必須)<br />
+EFSに接続するためのAZごとの接続先のようなもの</p></li>
+<li><p>アクセスポイント(推奨)<br />
+EFS側のディレクトリを指定して、マウントさせる。またPOSXIのユーザー管理設定も可能</p></li>
+</ul>
+</section>
+<section id="id9">
+<h3>マウントターゲット<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
 <p>EFSファイルシステムにアクセスするためのエンドポイントはマウントターゲットと呼ばれる。
 マウントターゲットはAZごとに作成され、各種コンピューティングサービスはこのマウントターゲット経由でEFSに接続するため、VPC-Endpointのような動きをする。</p>
 <p><img alt="" src="../../_images/efs-mounttarget.png" />
 <a class="reference external" href="https://docs.aws.amazon.com/ja_jp/efs/latest/ug/accessing-fs.html">マウントターゲットの管理</a></p>
+<p>CFNでは、リソースとして<code class="docutils literal notranslate"><span class="pre">AWS::EFS::MountTarget</span></code>を個別に定義する必要がある。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  MyEFSMountTargetA:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref MyEFS
+      SubnetId: &lt;Subnet-A-ID&gt;
+      SecurityGroups:
+        - !Ref EFSSecurityGroup
+
+  MyEFSMountTargetB:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref MyEFS
+      SubnetId: &lt;Subnet-B-ID&gt;
+      SecurityGroups:
+        - !Ref EFSSecurityGroup
+</pre></div>
+</div>
 </section>
-<section id="id8">
-<h3>アクセスポイント<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id10">
+<h3>アクセスポイント<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
 <p>マウントする際にEFSのルートディレクトリではなくて、別のディレクトリをルートディレクトリとして設定することができる機能。また、権限についてもアクセスポイントで制御することができる。
-この機能を利用するためにはEFSのマウントヘルパーが必要な点に注意。</p>
+この機能を利用するためにはEFSのマウントヘルパーが必要な点に注意。
+<img alt="" src="../../_images/Storate_efs_accesspoint.png" />
+<a class="reference external" href="https://qiita.com/sakai00kou/items/3ee37db9eb31a726f558">EFSのマウントについて理解する。</a></p>
+<p>CFNでは、リソースとして<code class="docutils literal notranslate"><span class="pre">AWS::EFS::AccessPoint</span></code>を個別に定義する必要がある。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> MyEFSAccessPoint:
+    Type: AWS::EFS::AccessPoint
+    Properties:
+      FileSystemId: !Ref MyEFS
+      PosixUser:
+        Uid: &quot;1000&quot;
+        Gid: &quot;1000&quot;
+      RootDirectory:
+        Path: &quot;/ecs-data&quot;
+        CreationInfo:
+          OwnerUid: &quot;1000&quot;
+          OwnerGid: &quot;1000&quot;
+          Permissions: &quot;755&quot;
+</pre></div>
+</div>
+<p><a class="reference external" href="https://qiita.com/sakai00kou/items/3ee37db9eb31a726f558">EFSのマウントについて理解する。</a>が詳しくてわかりやすいが、本ページでもポイントを解説。</p>
+<section id="id11">
+<h4>EFSの領域分割<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h4>
+<p>EFS側の領域定義を行い、アクセスポイント経由でアクセスすることでどの領域を提供するかを指定することができる。
+アクセスポイントにより、efsの領域の提供の制御が容易になる。
+上図では、<code class="docutils literal notranslate"><span class="pre">efs2</span></code>のアクセスポイントをマウントすると、実態はefs上の<code class="docutils literal notranslate"><span class="pre">/data/efs2</span></code>をマウントしているが、クライアントからするとefsの<code class="docutils literal notranslate"><span class="pre">/</span></code>をマウントしているように見える。</p>
+</section>
+<section id="posxi">
+<h4>POSXIユーザ・グループ管理<a class="headerlink" href="#posxi" title="この見出しへのパーマリンク">¶</a></h4>
+<p>アクセスポイントには、EFS領域に書き込みを行う際の、UIDとGIDの上書き機能が備わっている。
+そのため、EFS領域の書き込みを指定したUIDとGIDに固定することができる。
+これにより、異なるコンテナの実行者が同じディレクトリのファイルについてやりとりを行うことができる。つまりUID2001とUID20002のUserが同じファイルにアクセスすることができる。</p>
+<p><img alt="" src="../../_images/Storate_efs_accesspoint_posxi.png" />
+<a class="reference external" href="https://qiita.com/sakai00kou/items/3ee37db9eb31a726f558">EFSのマウントについて理解する。</a></p>
+</section>
+</section>
+<section id="ecs">
+<h3>コンテナ側(ECS)からの接続<a class="headerlink" href="#ecs" title="この見出しへのパーマリンク">¶</a></h3>
+<p>タスク定義で、EFSとの接続の設定を行う。<code class="docutils literal notranslate"><span class="pre">Volumes</span></code>の設定と<code class="docutils literal notranslate"><span class="pre">MountPoints</span></code>の設定を行う。</p>
+<p>Volumesでは、EFSをタスク定義に登録する。設定項目は以下</p>
+<ul class="simple">
+<li><p>EFSの論理名(Name: efs-volume)：タスク定義内でEFSを識別</p></li>
+<li><p>EFSの物理名(FileSystemID)：AWS上でEFSを識別</p></li>
+<li><p>アクセスポイントID：EFSをマウントする際の定義</p></li>
+</ul>
+<p>MountPointsでは、Volumeで指定したEFSをコンテナ内のディレクトリと紐づける設定を行う。</p>
+<ul class="simple">
+<li><p>SourceVolume: Volumesで定義したEFSの論理名</p></li>
+<li><p>ContainerPath: コンテナからEFSにアクセスするためのパス</p></li>
+</ul>
+<p>EFSの「マウントターゲット（Mount Target）」と「マウントポイント（MountPoints）」は異なる概念だが、名前が似ているため混同しないよう注意。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  MyECSTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: my-ecs-task
+      ~~~
+      Volumes:
+        - Name: efs-volume
+          EFSVolumeConfiguration:
+            FileSystemId: !Ref MyEFS
+            TransitEncryption: ENABLED
+            AuthorizationConfig:
+              AccessPointId: !Ref MyEFSAccessPoint
+              IAM: ENABLED
+      ContainerDefinitions:
+        - Name: my-container
+          ~~~  
+          MountPoints:
+            - SourceVolume: efs-volume
+              ContainerPath: &quot;/mnt/data&quot;
+              ReadOnly: false
+</pre></div>
+</div>
+<section id="volumesrootdirectory">
+<h4>Volumes定義のRootDirectoryについて<a class="headerlink" href="#volumesrootdirectory" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ECSのタスク定義におけるVolumesには<code class="docutils literal notranslate"><span class="pre">RootDirectory</span></code>が指定できる。
+これは、アクセスポイントでも指定している、EFS側のどのパスを提供するかの指定である。</p>
+<p>ただし、アクセスポイントのようにUIDやGIDの上書きをすることができないので、どちらを利用するかは見極めが必要になる。
+また、RootDirectoryで指定したディレクトリががEFS上に存在しない場合に自動で作成されないため、事前に作成しておくという手間もかかる点に注意。</p>
+</section>
 </section>
 <section id="efsnfs">
 <h3>EFSとNFS<a class="headerlink" href="#efsnfs" title="この見出しへのパーマリンク">¶</a></h3>
@@ -208,32 +323,32 @@ EFSに保管されるファイルへの暗号化も適用が簡単にできる�
 <p>NFSはネットワークを介して、リモートのファイルシステムを共有するためのプロトコルである。
 NFSを使用することで、クライアントマシンがリモートサーバーのファイルシステムをローカルのディレクトリとしてマウントする。</p>
 </section>
-<section id="id9">
-<h3>EFSマウントヘルパー<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id12">
+<h3>EFSマウントヘルパー<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 <p>EFSマウントヘルパー(amazon-efs-utils)とは、EFSファイルシステムをEC2インスタンスで簡単にマウントするためのツール。
 標準的なNFSクライアントよりもシンプルなCLI操作により、EFSとの接続が可能となる。</p>
 </section>
 </section>
-<section id="id10">
-<h2>便利機能<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id11">
-<h3>レプリケーション<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id13">
+<h2>便利機能<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id14">
+<h3>レプリケーション<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h3>
 <p>EFSを別のリージョンへとレプリケーションが可能。ただし、レプリケーション先のシステムは読み取り専用となる。
 15分以内のレプリケーションが行われることが多い。
 レプリケーションに土絵は暗号化や自動バックアップやレプリケーション方式にはオプションがある。</p>
 </section>
-<section id="id12">
-<h3>ストレージの階層化<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id15">
+<h3>ストレージの階層化<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ファイルへのアクセスパターンに応じて、低頻度アクセスクラスやアーカイブクラスなどに移行することができる。
 これによって費用を削減へ寄与する。</p>
 </section>
-<section id="id13">
-<h3>バックアップ<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id16">
+<h3>バックアップ<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
 <p>AWS Backupと連携して、自動でのバックアップ設定を行うことができる。</p>
 </section>
 </section>
-<section id="id14">
-<h2>費用<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id17">
+<h2>費用<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h2>
 <p>ストレージとデータアクセスについて費用がかかる</p>
 <p><img alt="" src="../../_images/efs_cost.png" />
 <a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-ElasticFileSystem_0229_v1.pdf">BlackBelt</a></p>
