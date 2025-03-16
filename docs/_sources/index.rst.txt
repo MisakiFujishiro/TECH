@@ -24,6 +24,7 @@
    AWS/CloudTrail.md
    AWS/EventBridge.md
    AWS/AutoScaling.md
+   AWS/SES.md
 
 .. toctree::
    :maxdepth: 1
