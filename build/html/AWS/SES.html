@@ -55,34 +55,58 @@
 <li class="toctree-l1"><a class="reference internal" href="EventBridge.html">EventBridge</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AutoScaling.html">AutoScaling</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SES</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">SESのメール送信</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">メール送信の制限</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">サンドボックス</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">SESのモニタリング</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">バウンス</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">SESのメール受信</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">【実装】SESの実装イメージ</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id8">サンドボックスの解消</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">制約条件の確認</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">受信実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">SESのメール受信</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">受信ルール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">受信制約</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dns">受信用DNS設定</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#txt">利用ドメインの検証（TXTレコード）</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mx">受信メール設定（MXレコード）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">SESのメール送信</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">アクセスレベル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">メール送信の制限</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">SESのモニタリング</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">バウンス</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">送信用DNS設定</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">メール送信の信頼性担保</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mail-from">カスタム MAIL-FROM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sesdns">SESで設定するDNS設定のまとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">送受信制約</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">メールサイズ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">添付ファイル</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">SESの送受信実装例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id15">サンドボックスの解消</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">受信実装</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#receipt-rule">受信ルール(Receipt Rule)の設定</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id11">受信元の制限</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id12">受信に関する権限設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">受信元の制限</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">受信に関する権限設定</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">送信実装</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id19">送信実装</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#api">送信APIの利用</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id14">送信に関する権限設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">送信に関する権限設定</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sns">バウンス設定(SNS配信)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#spf-txt">送信の信頼性を高めるSPF（TXTレコード）</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dkim-cname-3">送信の信頼性を高めるDKIM（CNAMEレコード*3)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#dns">DNS設定のまとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mail-fromdmarc">カスタムMAIL-FROMとDMARCの実装例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id21">1. メール送信（SESから送信）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">2. 受信側のサーバーチェック</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id23">SPFのチェック</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">DKIMのチェック</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">DMARCのチェック</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -155,10 +179,61 @@
              
   <section id="ses">
 <h1>SES<a class="headerlink" href="#ses" title="この見出しへのパーマリンク">¶</a></h1>
-<p>コスト効率の高いメールサービス。メールの送信および受信機能が備わっている。
-受信と送信に関して、オプション機能を有している。</p>
+<p>SES(Simple Email Service)は、コスト効率の高いメールサービス。
+取得済みドメインについて、認証を行うことで取得済みドメインのメールについて送信および受信機能が可能。</p>
 <section id="id1">
-<h2>SESのメール送信<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2>SESのメール受信<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>所有しているドメインに対するメールについて、受信を行うメールサーバーとして利用が可能。
+注意点として、一般的なメールボックスが用意されているわけではなく、S3への配信やLambdaによる処理を行う。</p>
+<p><img alt="" src="../_images/SES_Receive_Processing.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/20190521_AWS-BlackBelt_AmazonSES.pdf">AWS Black Belt Online Seminar SES</a></p>
+<section id="id2">
+<h3>受信ルール<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SESでは、受信したメールについての条件設定や特定の処理設定を行うことができる。
+受信ルールは受信ルールセットとしてまとめられる。</p>
+<p>具体的には、以下のような設定が可能</p>
+<ul class="simple">
+<li><p>送信元アドレスの条件設定</p></li>
+<li><p>メールヘッダの内容</p></li>
+</ul>
+<p>これらの条件に応じて、S3への配信やLambdaでの後続処理の実行などの設定が行われる。</p>
+</section>
+<section id="id3">
+<h3>受信制約<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SESには受信ルールとは別にIPアドレスフィルター機能が存在し、特定のIPからのメール受信を拒否することができる。</p>
+<p><img alt="" src="../_images/SES_IP_Filter.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/20190521_AWS-BlackBelt_AmazonSES.pdf">AWS Black Belt Online Seminar SES</a></p>
+</section>
+<section id="dns">
+<h3>受信用DNS設定<a class="headerlink" href="#dns" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="txt">
+<h4>利用ドメインの検証（TXTレコード）<a class="headerlink" href="#txt" title="この見出しへのパーマリンク">¶</a></h4>
+<p>独自のドメインを経由してメールの受信を行う場合、利用するドメインの所有者であることをSESに認識させる必要がある。
+SESのコンソール上で利用するドメインを登録すると、登録するべきランダムな値が提示されるので、ドメイン側のTXTレコードとして、その値を設定する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ホスト名（Name）: _amazonses.example.com
+種類（Type）: TXT
+値（Value）: SESが指定したランダムな文字列（例: `abcdef1234567890xyz=`）
+TTL: 3600（またはデフォルト）
+</pre></div>
+</div>
+<p>上記を設定して数時間でSESのコンソール側でドメインが認証されるので、認証後はTXTレコードを削除して良い。</p>
+</section>
+<section id="mx">
+<h4>受信メール設定（MXレコード）<a class="headerlink" href="#mx" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ドメイン宛のメールをSESに転送するため、MXレコードをDNS側に設定する。
+値については、リージョンごとに固定となっている。この設定から分かる通り、ドメインレベルでSESへの転送を行う。
+仕組みとしては、<code class="docutils literal notranslate"><span class="pre">&#64;example.com</span></code>宛のメールについてはSESへの転送を行い、検証を行なっているSESへの配信を行う。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ホスト名（Name）: example.com
+種類（Type）: MX
+値（Value）: 10 inbound-smtp.us-east-1.amazonaws.com
+TTL: 3600
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="id4">
+<h2>SESのメール送信<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
 <p>SESを利用したメール送信方法には大きく3つの種類が存在。</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -190,15 +265,10 @@
 </tr>
 </tbody>
 </table>
-<section id="id2">
-<h3>メール送信の制限<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
-<p>SESでは、送受信制限が設定されている。
-これは、SES自体がスパム判定されてしまうと、配信先のメールプロバイダーとの信頼関係が崩れてしまうためである。
-具体的には、24時間帯の送信可能メールや1秒あたりの送信可能メール数に制約が設けられている</p>
-</section>
-<section id="id3">
-<h3>サンドボックス<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
-<p>AWSアカウントでSESを初めて利用する場合、不正利用を防ぐためSES機能はサンドボックス状態となっている。
+<section id="id5">
+<h3>アクセスレベル<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SESにはアクセスレベルが設定されており、アカウントの初期状態の「サンドボックス」と「プロダクション」状態がある。
+AWSアカウントでSESを初めて利用する場合、不正利用を防ぐためSES機能は初期状態でサンドボックス状態となっている。
 サンドボックス状態ではメール送信の宛先に制約がある他、メールの送信のスロットリングに制約が設けられる。</p>
 <p>サンドボックスで要件を満たすことができない場合は、AWSサポート経由で上限緩和申請を行いプロダクションへ変更する必要がある。</p>
 <table class="colwidths-auto docutils align-default">
@@ -238,9 +308,15 @@
 </tbody>
 </table>
 </section>
-<section id="id4">
-<h3>SESのモニタリング<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
-<p>SESではメールに対して以下のようなメトリクスを取得し監視することができる。</p>
+<section id="id6">
+<h3>メール送信の制限<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SESでは、送受信制限が設定されている。
+これは、SES自体がスパム判定されてしまうと、配信先のメールプロバイダーとの信頼関係が崩れてしまうためである。
+具体的には、24時間帯の送信可能メールや1秒あたりの送信可能メール数に制約が設けられている</p>
+</section>
+<section id="id7">
+<h3>SESのモニタリング<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>送信制限の監視するため、SESではメールに対して以下のようなメトリクスを取得し監視することができる。</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="text-left head"><p>メトリクス名</p></th>
@@ -284,25 +360,215 @@
 </tbody>
 </table>
 </section>
-<section id="id5">
-<h3>バウンス<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
-<p>送信した際に、エラーになってしまうアドレスについては、ハードバウンスとしてSurppression Listに登録される。</p>
-</section>
-</section>
-<section id="id6">
-<h2>SESのメール受信<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
-</section>
-<section id="id7">
-<h2>【実装】SESの実装イメージ<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
-<p>SESを利用してメールの受信をしてS3に配置。メールの送信を行う場合の実装イメージをまとめる。</p>
 <section id="id8">
-<h3>サンドボックスの解消<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
-<p>AWSアカウントで、初めてSESを利用する場合はサンドボックス状態となっている。
-サンドボックスでは、認証したメールアドレスにしか送信をすることができないため、一般的なメールサーバーとしての使用ができない。
-そのため、最初に上限緩和申請をしてプロダクションにする必要がある。</p>
+<h3>バウンス<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>送信した際に、アドレスが存在しなかったり、受信拒否されている場合そのアドレスはハードバウンスとして扱われる。
+ハードバウンスしたアドレスはSESで自動的にSuppression List(抑制リスト)に登録し、そのアドレスへのメール送信を抑制する。</p>
 </section>
 <section id="id9">
-<h3>制約条件の確認<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>送信用DNS設定<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id10">
+<h4>メール送信の信頼性担保<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
+<p>メール送信においてなりすましを防ぐための設定として、SPF・DKIM・DMARCといった技術が用いられる。</p>
+<ul class="simple">
+<li><p>SPF(Sender Policy Framework)</p></li>
+<li><p>DKIM(Domain Keys Identified Mail)</p></li>
+<li><p>DMARC(Domain-based Message Authentication Reporting and Conformance)</p></li>
+</ul>
+<p>メールでは、送信元を偽造することは比較的容易に可能。なりすましや改ざんにも対応する必要がある。
+この問題に対して、ドメイン側で「自分のアドレスから送信して良いサーバーはこれだけです」と受信者に伝えたり、改ざん対策のための技術がSPF・DKIM・DMARC。</p>
+<section id="spf">
+<h5>送信の信頼性を高めるSPF<a class="headerlink" href="#spf" title="この見出しへのパーマリンク">¶</a></h5>
+<p>ドメインから送信して良いサーバーを指定する仕組み。
+具体的には、DNSにTXTレコードとして指定する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Name（ホスト名）: example.com  
+Type: TXT  
+Value: &quot;v=spf1 include:amazonses.com -all&quot;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>&quot;include:amazonses.com&quot;：SESを許可</p></li>
+<li><p>&quot;-all&quot;：SES以外を拒否</p></li>
+</ul>
+<p>これにより、このサーバー以外からドメインを利用したメールを送信する「認証失敗」となり、スパム扱いやブロックされる。</p>
+</section>
+<section id="dkim">
+<h5>送信の信頼性を高めるDKIM<a class="headerlink" href="#dkim" title="この見出しへのパーマリンク">¶</a></h5>
+<p>電子証明を利用して、「メールは自分が送信した」ということを証明する
+DKIMを設定することで、受信時にメールの信頼度が上がるため、スパム判定されにくくなる。</p>
+<p>具体的には、送信時に秘密鍵で署名を付与し、DNSに設定された公開鍵を利用して署名を検証する。
+公開鍵のアドレスをCNAMEとして３レコード設定する</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Name</span><span class="p">:</span> <span class="n">randomstring1</span><span class="o">.</span><span class="n">_domainkey</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">CNAME</span>
+<span class="n">Value</span><span class="p">:</span> <span class="n">randomstring1</span><span class="o">.</span><span class="n">dkim</span><span class="o">.</span><span class="n">amazonses</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+</section>
+<section id="dmarc">
+<h5>送信の信頼性を高めるDMARC<a class="headerlink" href="#dmarc" title="この見出しへのパーマリンク">¶</a></h5>
+<p>特定のドメインからのメールに対して、「このように認証されているはず」「認証されてない場合はこのように扱って」ということが定義されている。</p>
+<p>DMARCでは、SPFとDKIMについて認証が成功しているかと、ドメインの整合性のチェックを行う。
+整合性チェックとは、FROMアドレスとドメインが一致しているかの検証が実施できる。
+SESで言えば、MAIL-FROMがデフォルトでamazonses.comとなるため、独自のドメインが利用したい場合、カスタムMAIL-FROMが必要になる。(後述)</p>
+<p>DMARCの設定をTXTレコードとして公開する</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Name（ホスト名）: _dmarc.example.com  
+Type: TXT  
+Value: &quot;v=DMARC1; p=quarantine; rua=mailto:reports@example.com; adkim=r; aspf=r&quot;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>&quot;p=quarantine&quot;：DMARCポリシーの設定で、認証失敗したメールの扱いを定義できる</p></li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>ポリシー</p></th>
+<th class="text-left head"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>p=none</p></td>
+<td class="text-left"><p>失敗しても許可（まずは様子を見るモード）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>p=quarantine</p></td>
+<td class="text-left"><p>失敗したら迷惑メールに入れるよう依頼</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>p=reject</p></td>
+<td class="text-left"><p>失敗したら完全拒否するよう依頼</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>&quot;rua=mailto:reports&#64;example.com&quot;：DMARCポリシーで認証失敗した状況の定期レポートの送信先メールアドレス</p></li>
+<li><p>&quot;adkim=r&quot;：DKIMの整合性チェックのレベルの設定</p></li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>オプション値</p></th>
+<th class="text-left head"><p>意味</p></th>
+<th class="text-left head"><p>整合条件</p></th>
+<th class="text-left head"><p>使われる場面</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>r（relaxed）</p></td>
+<td class="text-left"><p>緩やかな整合性</p></td>
+<td class="text-left"><p>From: のドメインと DKIMの d= が同一またはサブドメイン</p></td>
+<td class="text-left"><p>デフォルト。通常の運用に適している</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>s（strict）</p></td>
+<td class="text-left"><p>厳密な整合性</p></td>
+<td class="text-left"><p>From: のドメインと DKIMの d= が完全一致</p></td>
+<td class="text-left"><p>より強固なドメイン整合性を求める場合</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>&quot;aspf=r&quot;：SPFの整合性チェックのレベルの設定</p></li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>オプション値</p></th>
+<th class="text-left head"><p>意味</p></th>
+<th class="text-left head"><p>整合条件</p></th>
+<th class="text-left head"><p>使われる場面</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>r（relaxed）</p></td>
+<td class="text-left"><p>緩やかな整合性</p></td>
+<td class="text-left"><p>From: のドメインと MAIL FROM のドメインが同一またはサブドメイン</p></td>
+<td class="text-left"><p>デフォルト。MAIL FROMにサブドメイン（例: mail.example.com）を使う場合に有効</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>s（strict）</p></td>
+<td class="text-left"><p>厳密な整合性</p></td>
+<td class="text-left"><p>From: と MAIL FROM のドメインが完全一致</p></td>
+<td class="text-left"><p>strict alignment をDMARCで厳密に適用したいとき</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="mail-from">
+<h4>カスタム MAIL-FROM<a class="headerlink" href="#mail-from" title="この見出しへのパーマリンク">¶</a></h4>
+<p>SESを利用する場合、デフォルトのMAIL FROMドメインにはamazonses.comが利用される。
+SPFに基づくDMARC認証に合格するためには、所有するドメインをMAIL FROMに設定する必要があるため、カスタムMAIL-FROM設定が必要。</p>
+<p>カスタムMAIL-FROMを設定し、SPF用のTXTレコードと送信用のMXレコードを設定する。</p>
+<p>送信メール時に利用するMXレコード設定</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Name</span><span class="p">:</span> <span class="n">mail</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">MX</span>
+<span class="n">Value</span><span class="p">:</span> <span class="mi">10</span> <span class="n">feedback</span><span class="o">-</span><span class="n">smtp</span><span class="o">.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">1.</span><span class="n">amazonses</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>SPF設定のためのTXTレコード設定</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Name</span><span class="p">:</span> <span class="n">mail</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">TXT</span>
+<span class="n">Value</span><span class="p">:</span> <span class="s2">&quot;v=spf1 include:amazonses.com -all&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="sesdns">
+<h2>SESで設定するDNS設定のまとめ<a class="headerlink" href="#sesdns" title="この見出しへのパーマリンク">¶</a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>設定目的</p></th>
+<th class="text-left head"><p>レコード種別</p></th>
+<th class="text-left head"><p>Name（ホスト名）</p></th>
+<th class="text-left head"><p>Value（設定値）</p></th>
+<th class="text-left head"><p>必須か？</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>ドメイン所有権の証明</p></td>
+<td class="text-left"><p>TXT (_amazonses)</p></td>
+<td class="text-left"><p>_amazonses.example.com</p></td>
+<td class="text-left"><p>SESが提供する検証コード</p></td>
+<td class="text-left"><p>検証後削除OK</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>送信元認証（SPF）</p></td>
+<td class="text-left"><p>TXT</p></td>
+<td class="text-left"><p>example.com</p></td>
+<td class="text-left"><p>v=spf1 include:amazonses.com -all</p></td>
+<td class="text-left"><p>必須</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>送信メールの改ざん防止（DKIM）</p></td>
+<td class="text-left"><p>CNAME ×3</p></td>
+<td class="text-left"><p>randomstring1._domainkey.example.com</br>randomstring2._domainkey.example.com</br>randomstring3._domainkey.example.com</p></td>
+<td class="text-left"><p>SESが提供するDKIMキー</p></td>
+<td class="text-left"><p>必須</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>送信ポリシー（DMARC）</p></td>
+<td class="text-left"><p>TXT (_dmarc)</p></td>
+<td class="text-left"><p>_dmarc.example.com</p></td>
+<td class="text-left"><p>v=DMARC1; p=none; rua=mailto:reports&#64;example.com</p></td>
+<td class="text-left"><p>推奨</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>受信メールの設定</p></td>
+<td class="text-left"><p>MX</p></td>
+<td class="text-left"><p>example.com</p></td>
+<td class="text-left"><p>10 inbound-smtp.us-east-1.amazonaws.com</p></td>
+<td class="text-left"><p>必須</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>MAIL FROM用SPF</p></td>
+<td class="text-left"><p>TXT (MAIF_FROM)</p></td>
+<td class="text-left"><p>mail.example.com</p></td>
+<td class="text-left"><p>v=spf1 include:amazonses.com -all</p></td>
+<td class="text-left"><p>カスタム設定時</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>MAIL FROM用MX</p></td>
+<td class="text-left"><p>MX（MAIL_FROM）</p></td>
+<td class="text-left"><p>mail.example.com</p></td>
+<td class="text-left"><p>10 feedback-smtp.us-east-1.amazonses.com</p></td>
+<td class="text-left"><p>カスタム設定時</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id11">
+<h2>送受信制約<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id12">
+<h3>メールサイズ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 <p>SESの送受信では、メールの容量に制約があるため、要件に一致しているかを確認する。</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -322,35 +588,24 @@
 </tr>
 </tbody>
 </table>
-<p>また、ファイルを添付する場合SESとして添付を拒否している拡張子がある。
+</section>
+<section id="id13">
+<h3>添付ファイル<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ファイルを添付する場合SESとして添付を拒否している拡張子がある。
 <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/dg/mime-types.html#:~:text=You%20can%20send%20messages%20with,extensions%20in%20the%20following%20list">Amazon SES unsupported attachment types</a>を確認して、条件を満たしているかを確認する。</p>
 </section>
-<section id="id10">
-<h3>受信実装<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
-<section id="txt">
-<h4>利用ドメインの検証（TXTレコード）<a class="headerlink" href="#txt" title="この見出しへのパーマリンク">¶</a></h4>
-<p>独自のドメインを経由してメールの受信を行う場合、利用するドメインの所有者であることをSESに認識させる必要がある。
-SESのコンソール上で利用するドメインを登録すると、登録するべきランダムな値が提示されるので、ドメイン側のTXTレコードとして、その値を設定する。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ホスト名（Name）: _amazonses.example.com
-種類（Type）: TXT
-値（Value）: SESが指定したランダムな文字列（例: `abcdef1234567890xyz=`）
-TTL: 3600（またはデフォルト）
-</pre></div>
-</div>
-<p>上記を設定して数時間でSESのコンソール側でドメインが認証されるので、認証後はTXTレコードを削除して良い。</p>
 </section>
-<section id="mx">
-<h4>受信メール設定（MXレコード）<a class="headerlink" href="#mx" title="この見出しへのパーマリンク">¶</a></h4>
-<p>ドメイン宛のメールをSESに転送するため、MXレコードをDNS側に設定する。
-値については、リージョンごとに固定となっている。この設定から分かる通り、ドメインレベルでSESへの転送を行う。
-仕組みとしては、<code class="docutils literal notranslate"><span class="pre">&#64;example.com</span></code>宛のメールについてはSESへの転送を行い、検証を行なっているSESへの配信を行う。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ホスト名（Name）: example.com
-種類（Type）: MX
-値（Value）: 10 inbound-smtp.us-east-1.amazonaws.com
-TTL: 3600
-</pre></div>
-</div>
+<section id="id14">
+<h2>SESの送受信実装例<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h2>
+<p>SESを利用してメールの受信をしてS3に配置。メールの送信を行う場合の実装イメージをまとめる。</p>
+<section id="id15">
+<h3>サンドボックスの解消<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h3>
+<p>AWSアカウントで、初めてSESを利用する場合はサンドボックス状態となっている。
+サンドボックスでは、認証したメールアドレスにしか送信をすることができないため、一般的なメールサーバーとしての使用ができない。
+そのため、最初に上限緩和申請をしてプロダクションにする必要がある。</p>
 </section>
+<section id="id16">
+<h3>受信実装<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="receipt-rule">
 <h4>受信ルール(Receipt Rule)の設定<a class="headerlink" href="#receipt-rule" title="この見出しへのパーマリンク">¶</a></h4>
 <p>受信したメールに対してのアクションは<code class="docutils literal notranslate"><span class="pre">受信ルール(Receipt</span> <span class="pre">Rule)</span></code>で定義したものに従う。</p>
@@ -379,8 +634,8 @@ TTL: 3600
 </pre></div>
 </div>
 </section>
-<section id="id11">
-<h4>受信元の制限<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id17">
+<h4>受信元の制限<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h4>
 <p>SESでは特定のIPだけに受信元を制限するフィルター機能が存在する。
 送信元のメールアドレスによる制限機能は存在しないため、実装したい場合はLambda側で設定を行う必要がある。</p>
 <p>特定のIPだけに受信元を制限する場合は、受信ルールの設定を追加で行う。</p>
@@ -404,8 +659,8 @@ TTL: 3600
 </pre></div>
 </div>
 </section>
-<section id="id12">
-<h4>受信に関する権限設定<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id18">
+<h4>受信に関する権限設定<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h4>
 <p>SESについては、権限付与をするようなRole設定を行うことはできない。
 そのため、SESの機能としてS3に配置を行う場合は、S3側のバケットポリシー側にSESからの操作の認可を与える必要がある。</p>
 <p>さらに、SESからのアクセスを許可してしまうと、世界中のAWSからのアクセスが可能となってしまうので、制限を入れることを忘れない。</p>
@@ -430,15 +685,15 @@ TTL: 3600
 </div>
 </section>
 </section>
-<section id="id13">
-<h3>送信実装<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id19">
+<h3>送信実装<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="api">
 <h4>送信APIの利用<a class="headerlink" href="#api" title="この見出しへのパーマリンク">¶</a></h4>
 <p>送信については、いくつかの選択肢があるが、シンプルな構成でない限りは<code class="docutils literal notranslate"><span class="pre">SendRawEmail</span> <span class="pre">API</span></code>を利用する。
 アプリケーション側でMIME規約に従ってメールを作成することで添付ファイルなども付与してメール送信が可能である。</p>
 </section>
-<section id="id14">
-<h4>送信に関する権限設定<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id20">
+<h4>送信に関する権限設定<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h4>
 <p>SESを経由してメールを送信する場合、アプリケーション側にSESに対する権限を付与する必要がある。
 SendRawEmailの権限を付与すれば良い</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="nt">Policies</span><span class="p">:</span>
@@ -463,57 +718,82 @@ SendRawEmailの権限を付与すれば良い</p>
 <p>SESのNortificaion設定でバウンスメールが発生した場合のアクションを指定することができる。
 そのため、バウンスメール設定でSNSのメールアドレスを指定しておくことで、メールの配信に失敗するとSNSに配信することができる。</p>
 </section>
-<section id="spf-txt">
-<h4>送信の信頼性を高めるSPF（TXTレコード）<a class="headerlink" href="#spf-txt" title="この見出しへのパーマリンク">¶</a></h4>
-</section>
-<section id="dkim-cname-3">
-<h4>送信の信頼性を高めるDKIM（CNAMEレコード*3)<a class="headerlink" href="#dkim-cname-3" title="この見出しへのパーマリンク">¶</a></h4>
 </section>
 </section>
-<section id="dns">
-<h3>DNS設定のまとめ<a class="headerlink" href="#dns" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="mail-fromdmarc">
+<h2>カスタムMAIL-FROMとDMARCの実装例<a class="headerlink" href="#mail-fromdmarc" title="この見出しへのパーマリンク">¶</a></h2>
+<p>以下の設定でメールの送信を行う。
+なお、DNSに SPF / DKIM / DMARC を正しく設定済み</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>設定目的</p></th>
-<th class="text-left head"><p>レコード種別</p></th>
-<th class="text-left head"><p>Name（ホスト名）</p></th>
-<th class="text-left head"><p>Value（設定値）</p></th>
-<th class="text-left head"><p>必須か？</p></th>
+<tr class="row-odd"><th class="text-left head"><p>項目</p></th>
+<th class="text-left head"><p>設定内容</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>ドメイン所有権の証明</p></td>
-<td class="text-left"><p>TXT (_amazonses)</p></td>
-<td class="text-left"><p>_amazonses.example.com</p></td>
-<td class="text-left"><p>SESが提供する検証コード</p></td>
-<td class="text-left"><p>✅ 検証後削除OK</p></td>
+<tr class="row-even"><td class="text-left"><p>From:</p></td>
+<td class="text-left"><p>noreply&#64;example.com</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>送信元認証（SPF）</p></td>
-<td class="text-left"><p>TXT</p></td>
-<td class="text-left"><p>example.com</p></td>
-<td class="text-left"><p>v=spf1 include:amazonses.com -all</p></td>
-<td class="text-left"><p>✅ 必須</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>送信メールの改ざん防止（DKIM）</p></td>
-<td class="text-left"><p>CNAME ×3</p></td>
-<td class="text-left"><p>randomstring1._domainkey.example.com</br>randomstring2._domainkey.example.com</br>randomstring3._domainkey.example.com</p></td>
-<td class="text-left"><p>SESが提供するDKIMキー</p></td>
-<td class="text-left"><p>✅ 必須</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>送信ポリシー（DMARC）</p></td>
-<td class="text-left"><p>TXT (_dmarc)</p></td>
-<td class="text-left"><p>_dmarc.example.com</p></td>
-<td class="text-left"><p>v=DMARC1; p=none; rua=mailto:reports&#64;example.com</p></td>
-<td class="text-left"><p>✅ 推奨</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>受信メールの設定</p></td>
-<td class="text-left"><p>MX</p></td>
-<td class="text-left"><p>example.com</p></td>
-<td class="text-left"><p>10 inbound-smtp.us-east-1.amazonaws.com</p></td>
-<td class="text-left"><p>✅ 必須</p></td>
+<tr class="row-odd"><td class="text-left"><p>MAIL FROM:</p></td>
+<td class="text-left"><p>bounce&#64;mail.example.com（カスタム MAIL FROM）</p></td>
 </tr>
 </tbody>
 </table>
+<section id="id21">
+<h3>1. メール送信（SESから送信）<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>From: noreply&#64;example.com</p></li>
+<li><p>MAIL FROM: bounce&#64;mail.example.com</p></li>
+</ul>
+</section>
+<section id="id22">
+<h3>2. 受信側のサーバーチェック<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id23">
+<h4>SPFのチェック<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>SPF評価対象：MAIL FROM のドメイン（= mail.example.com）</p></li>
+<li><p>DNSクエリ：mail.example.com の TXT レコード （=  v=spf1 include:amazonses.com -all）</p></li>
+</ul>
+<p>SESの送信IPが一致 → SPF認証は成功<br />
+→ ここでは mail.example.com に設定された SPF が使われます<br />
+→ 重要：example.com ではない！</p>
+</section>
+<section id="id24">
+<h4>DKIMのチェック<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h4>
+<p>SESが example.com のドメインでDKIM署名（d=example.com）を付けている<br />
+受信者が DNS にある *.domainkey.example.com の CNAME を使って署名を検証<br />
+→ 成功（DKIMパス）</p>
+</section>
+<section id="id25">
+<h4>DMARCのチェック<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h4>
+<p>DMARCは2つの条件を見ます：</p>
+<ul class="simple">
+<li><p>SPFがパスし、MAIL FROM ドメインと From ドメインが整合しているか？</p></li>
+<li><p>DKIMがパスし、DKIM署名の d=ドメインと From ドメインが整合しているか？</p></li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>認証方式</p></th>
+<th class="text-left head"><p>成功？</p></th>
+<th class="text-left head"><p>整合性</p></th>
+<th class="text-left head"><p>コメント</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>SPF</p></td>
+<td class="text-left"><p>✅ 成功（mail.example.com のSPF）</p></td>
+<td class="text-left"><p>❌ 不一致（mail.example.com ≠ example.com）※strict時NG</p></td>
+<td class="text-left"><p>r（relaxed）ならOK</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>DKIM</p></td>
+<td class="text-left"><p>✅ 成功（署名 d=example.com）</p></td>
+<td class="text-left"><p>✅ 一致</p></td>
+<td class="text-left"><p>OK！</p></td>
+</tr>
+</tbody>
+</table>
+<p>→ 結論：DKIMで整合が取れているため、DMARCはパス</p>
+</section>
 </section>
 </section>
 </section>
