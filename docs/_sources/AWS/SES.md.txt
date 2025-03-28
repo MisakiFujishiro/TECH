@@ -111,8 +111,25 @@ SESでは、送受信制限が設定されている。
 この問題に対して、ドメイン側で「自分のアドレスから送信して良いサーバーはこれだけです」と受信者に伝えたり、改ざん対策のための技術がSPF・DKIM・DMARC。
 
 ##### 送信の信頼性を高めるSPF
-ドメインから送信して良いサーバーを指定する仕組み。
-具体的には、DNSにTXTレコードとして指定する。
+`エンベロープFROM`の送信元の偽造を防ぐための技術。
+
+そもそもメールには、送信元の`ヘッダーFROM`とメールサーバーが付与する`エンベロープFROM`が設定されており、エンベロープFROMのメールアドレスのドメインを`メールFROMドメイン`と呼ぶ。
+メールを送信する際には、メールサーバーが自分(メールサーバー)のIPとエンベロープFROMを設定する。
+
+SPFでは、DNS側で、「このメールFROMドメインを送信して良いメールサーバーのIP」を公開しておく。
+SPFにより、メールの`メールFROMドメイン`と`送信メールサーバーIP`が一致しているかを確認し、正しいメールサーバーからメールが送信されているかを検証できる。
+
+![](../img/AWS/SES/SES_SPF_1.png)
+[[SES入門] SPFを理解しよう！](https://qiita.com/K5K/items/dad9119d448d4d969fae)
+
+注意点として、SPFではメールFROMドメインについての検証しかできないため、偽装されやすいヘッダーFROMの検証ができない。
+これについては、後述するDMARCにより、ヘッダーFROMのドメインとメールFROMドメインの一致を検証する機能まで設定が必要。
+
+SESを利用する場合、デフォルトでメールFROMドメインは、`amazonses.com`が設定される。
+"amazonses.com"についてのSPFはAWS側で設定されているため、SPFについては自動で認証される。  
+一方で、受信側でヘッダーFROMのドメインのSPFの認証を行う可能性もある。
+そのため、以下のように送信で利用するメールアドレスについて、SPFを設定することは推奨。
+
 ```
 Name（ホスト名）: example.com  
 Type: TXT  
@@ -121,7 +138,7 @@ Value: "v=spf1 include:amazonses.com -all"
 - "include:amazonses.com"：SESを許可
 - "-all"：SES以外を拒否
 
-これにより、このサーバー以外からドメインを利用したメールを送信する「認証失敗」となり、スパム扱いやブロックされる。
+
 
 ##### 送信の信頼性を高めるDKIM
 電子証明を利用して、「メールは自分が送信した」ということを証明する
@@ -139,8 +156,8 @@ Value: randomstring1.dkim.amazonses.com
 特定のドメインからのメールに対して、「このように認証されているはず」「認証されてない場合はこのように扱って」ということが定義されている。
 
 DMARCでは、SPFとDKIMについて認証が成功しているかと、ドメインの整合性のチェックを行う。
-整合性チェックとは、FROMアドレスとドメインが一致しているかの検証が実施できる。
-SESで言えば、MAIL-FROMがデフォルトでamazonses.comとなるため、独自のドメインが利用したい場合、カスタムMAIL-FROMが必要になる。(後述)
+整合性チェックとは、FROMアドレスとエンベロープアドレスが一致しているかの検証が実施できる。  
+SESで言えば前述の通り、メールFROMドメインがデフォルトでamazonses.comとなるため、DMARCでヘッダーFROMとエンベロープFROMが一致している整合性チェックを有効化するためにはカスタムメールドメイン機能（後述）が必要。※ただし、SESではカスタムメールドメインを利用してもSPFで厳密な整合性は利用できない。
 
 DMARCの設定をTXTレコードとして公開する
 ```
@@ -172,11 +189,15 @@ Value: "v=DMARC1; p=quarantine; rua=mailto:reports@example.com; adkim=r; aspf=r"
 |r（relaxed）|緩やかな整合性|From: のドメインと MAIL FROM のドメインが同一またはサブドメイン|デフォルト。MAIL FROMにサブドメイン（例: mail.example.com）を使う場合に有効|
 |s（strict）|厳密な整合性|From: と MAIL FROM のドメインが完全一致|strict alignment をDMARCで厳密に適用したいとき|
 
-#### カスタム MAIL-FROM
-SESを利用する場合、デフォルトのMAIL FROMドメインにはamazonses.comが利用される。
-SPFに基づくDMARC認証に合格するためには、所有するドメインをMAIL FROMに設定する必要があるため、カスタムMAIL-FROM設定が必要。
+#### カスタム メール FROM
+SPFに基づくDMARC認証に合格するためには、`ヘッダーFROM`と`エンベロープFROM(メールFROMドメイン)`の一致が必要。
+SESでは、デフォルトでエンベロープFROMが"amazonses.com"となるため、ヘッダーFROMの所有ドメイン"example.com"と一致しない。
 
-カスタムMAIL-FROMを設定し、SPF用のTXTレコードと送信用のMXレコードを設定する。
+そこで、SESから送信するメールのエンベロープFROMを変更する設定がカスタムメールFROM機能。
+SESによって払い出されるドメイン`mail.example.com`についてのSPF用のTXTレコードと送信用のMXレコードを設定することで、エンベロープFROMのアドレスをmail.example.comに変更することができる。
+
+![](../img/AWS/SES/SES_custome_mail_from.png)
+[AWS Black Belt Online Seminar SES](https://pages.awscloud.com/rs/112-TZM-766/images/20190521_AWS-BlackBelt_AmazonSES.pdf)
 
 送信メール時に利用するMXレコード設定
 ```
@@ -192,16 +213,12 @@ Type: TXT
 Value: "v=spf1 include:amazonses.com -all"
 ```
 
-## SESで設定するDNS設定のまとめ
-|設定目的|レコード種別|Name（ホスト名）|Value（設定値）|必須か？|
-|:----|:----|:----|:----|:----|
-|ドメイン所有権の証明|TXT (_amazonses)|_amazonses.example.com|SESが提供する検証コード|検証後削除OK|
-|送信元認証（SPF）|TXT|example.com|v=spf1 include:amazonses.com -all|必須|
-|送信メールの改ざん防止（DKIM）|CNAME ×3|randomstring1._domainkey.example.com</br>randomstring2._domainkey.example.com</br>randomstring3._domainkey.example.com|SESが提供するDKIMキー|必須|
-|送信ポリシー（DMARC）|TXT (_dmarc)|_dmarc.example.com|v=DMARC1; p=none; rua=mailto:reports@example.com|推奨|
-|受信メールの設定|MX|example.com|10 inbound-smtp.us-east-1.amazonaws.com|必須|
-|MAIL FROM用SPF|TXT (MAIF_FROM)|mail.example.com|v=spf1 include:amazonses.com -all| カスタム設定時|
-|MAIL FROM用MX|MX（MAIL_FROM）|mail.example.com|10 feedback-smtp.us-east-1.amazonses.com|カスタム設定時|
+注意点として、DMARCのSPFの検証については、strictを指定するとFROMアドレスとエンベロープアドレスについて完全一致を求められる。SESでカスタムメールFROM設定をしても、`example.com`と`mail.example.com`の比較になるので失敗してしまう。
+DMARCではSPF検証を、relaxにしておく。これによりサブドメインレベルでの検証となるため、問題なく一致する。
+
+カスタムメールFROMを`example.com`で設定すれば良いという考え方もあるが、カスタムメールFROMの設定には、MXレコードを設定する必要がある。
+`example.com`のMXレコードは既に受信側で設定されており、競合してしまうためexample.comをカスタムメールFROMとして設定することはできないことが多い。
+
 
 ## 送受信制約
 ### メールサイズ
@@ -218,11 +235,26 @@ SESの送受信では、メールの容量に制約があるため、要件に�
 
 
 
+## SESで設定するDNS設定のまとめ
+SESではいくつかのDNS設定が必要なため、上記で登場した設定をまとめる。
+
+|設定目的|レコード種別|Name（ホスト名）|Value（設定値）|必須か？|
+|:----|:----|:----|:----|:----|
+|ドメイン所有権の証明|TXT (_amazonses)|_amazonses.example.com|SESが提供する検証コード|検証後削除OK|
+|受信メールの設定|MX|example.com|10 inbound-smtp.us-east-1.amazonaws.com|必須|
+|送信元認証（SPF）|TXT|example.com|v=spf1 include:amazonses.com -all|推奨|
+|送信メールの改ざん防止（DKIM）|CNAME ×3|randomstring1._domainkey.example.com</br>randomstring2._domainkey.example.com</br>randomstring3._domainkey.example.com|SESが提供するDKIMキー|必須|
+|送信ポリシー（DMARC）|TXT (_dmarc)|_dmarc.example.com|v=DMARC1; p=none; rua=mailto:reports@example.com|推奨|
+|MAIL FROM用SPF|TXT (MAIF_FROM)|mail.example.com|v=spf1 include:amazonses.com -all| カスタム設定時|
+|MAIL FROM用MX|MX（MAIL_FROM）|mail.example.com|10 feedback-smtp.us-east-1.amazonses.com|カスタム設定時|
+
 
 ## SESの送受信実装例
 SESを利用してメールの受信をしてS3に配置。メールの送信を行う場合の実装イメージをまとめる。
 
-### サンドボックスの解消
+### ドメイン検証サンドボックスの解消
+利用するドメインについて、TXTレコードを利用した検証を行い登録をする。
+
 AWSアカウントで、初めてSESを利用する場合はサンドボックス状態となっている。
 サンドボックスでは、認証したメールアドレスにしか送信をすることができないため、一般的なメールサーバーとしての使用ができない。
 そのため、最初に上限緩和申請をしてプロダクションにする必要がある。
@@ -340,43 +372,3 @@ SESがメールを送信した際に、メールアドレスの不存在など�
 SESのNortificaion設定でバウンスメールが発生した場合のアクションを指定することができる。
 そのため、バウンスメール設定でSNSのメールアドレスを指定しておくことで、メールの配信に失敗するとSNSに配信することができる。
 
-
-## カスタムMAIL-FROMとDMARCの実装例
-以下の設定でメールの送信を行う。
-なお、DNSに SPF / DKIM / DMARC を正しく設定済み
-
-|項目|設定内容|
-|:----|:----|
-|From:|noreply@example.com|
-|MAIL FROM:|bounce@mail.example.com（カスタム MAIL FROM）|
-
-
-### 1. メール送信（SESから送信）
-- From: noreply@example.com
-- MAIL FROM: bounce@mail.example.com
-
-### 2. 受信側のサーバーチェック
-#### SPFのチェック
-- SPF評価対象：MAIL FROM のドメイン（= mail.example.com）
-- DNSクエリ：mail.example.com の TXT レコード （=  v=spf1 include:amazonses.com -all）
-
-SESの送信IPが一致 → SPF認証は成功  
-→ ここでは mail.example.com に設定された SPF が使われます  
-→ 重要：example.com ではない！ 
-
-#### DKIMのチェック
-SESが example.com のドメインでDKIM署名（d=example.com）を付けている  
-受信者が DNS にある *.domainkey.example.com の CNAME を使って署名を検証  
-→ 成功（DKIMパス）
-
-#### DMARCのチェック
-DMARCは2つの条件を見ます：
-- SPFがパスし、MAIL FROM ドメインと From ドメインが整合しているか？  
-- DKIMがパスし、DKIM署名の d=ドメインと From ドメインが整合しているか？
-
-|認証方式|成功？|整合性|コメント|
-|:----|:----|:----|:----|
-|SPF|✅ 成功（mail.example.com のSPF）|❌ 不一致（mail.example.com ≠ example.com）※strict時NG|r（relaxed）ならOK|
-|DKIM|✅ 成功（署名 d=example.com）|✅ 一致|OK！|
-
-→ 結論：DKIMで整合が取れているため、DMARCはパス
