@@ -116,4 +116,21 @@ hydra -l jan -P /usr/share/wordlists/rockyou.txt ssh:10.x.x.x -t 4
 ### 参考サイト
 - 同じRoomを完了させている人：[TryHackMeでハッキングを勉強してみた話](https://zenn.dev/ci/articles/aa15d88b06bbed#%E5%8F%82%E8%80%83%E3%81%AB%E3%81%95%E3%81%9B%E3%81%A6%E3%81%84%E3%81%9F%E3%81%A0%E3%81%84%E3%81%9F%E6%83%85%E5%A0%B1%E7%BE%A4)
 
+### Day2勉強したこと
+- nmapで利用しているポートを洗い出せる
+- dirbでサーバーのディレクトリ攻撃ができる
+- SambdaはLinux用の共通フォルダサービス
+- Sambdaにアノニマスユーザーが残っていると攻撃されうる
+- hydraでパスワードのブルーフォース攻撃ができる
+
+
 ## Day3
+### Day3勉強したこと
+## Day4
+### Day4勉強したこと
+## Day5
+### Day5勉強したこと
+## Day6
+### Day6勉強したこと
+## Day7
+### Day7勉強したこと
