@@ -108,8 +108,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#day3">Day3勉強したこと</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#day4">Day4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id12">Day4勉強したこと</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#day4-web">Day4：Webサイトへの攻撃</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#burpsuite">BurpSuiteのインストール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">BurpSuite解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#day4">Day4勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day5">Day5</a><ul>
@@ -195,7 +197,8 @@
 </section>
 <section id="day2">
 <h2>Day2：ターゲットの偵察と辞書攻撃<a class="headerlink" href="#day2" title="この見出しへのパーマリンク">¶</a></h2>
-<p>開発中のサイトに攻撃をしてみる。最初はどのような通信が許可されているかをnmapで調査。</p>
+<p><a class="reference external" href="https://tryhackme.com/room/basicpentestingjt">Basic Pentesting</a><br />
+開発中のサイトに攻撃をしてみる。最初はどのような通信が許可されているかをnmapで調査。</p>
 <section id="id3">
 <h3>ポート調査<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>このコマンドでは、ターゲットがping応答しない環境下でも強制的にポートスキャンを行い、さらに各ポートで稼働しているサービスのバージョンまで取得します。結果は nmap.txt に保存されるので、後で分析しやすくなります。</p>
@@ -370,7 +373,8 @@ ssh2john を使って鍵を John the Ripper 形式に変換し、rockyou.txt で
 </section>
 <section id="day3-windows">
 <h2>Day3：Windowsの脆弱性を利用した攻撃<a class="headerlink" href="#day3-windows" title="この見出しへのパーマリンク">¶</a></h2>
-<p>Windowsサーバーに対してまずはnmapで偵察</p>
+<p><a class="reference external" href="https://tryhackme.com/room/blue">Blue</a><br />
+Windowsサーバーに対してまずはnmapで偵察</p>
 <section id="id8">
 <h3>ネットワークの偵察<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sV</span> <span class="o">-</span><span class="n">Pn</span> <span class="o">-</span><span class="n">oN</span> <span class="n">nmap</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">v</span> <span class="mf">10.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span> <span class="o">--</span><span class="n">script</span> <span class="n">vuln</span>
@@ -453,10 +457,162 @@ Jon:1000:aad3b435b51404eeaad3b435b51404ee:ffb43f0de35be4d9917ac0cc8ad57f8d:::
 </ul>
 </section>
 </section>
-<section id="day4">
-<h2>Day4<a class="headerlink" href="#day4" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="day4-web">
+<h2>Day4：Webサイトへの攻撃<a class="headerlink" href="#day4-web" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://tryhackme.com/room/owaspjuiceshop">OWASP ジュースショップ</a><br />
+OWASP(Open Worldwide Application Security Project)で提供されている、重要なWebアプリケーションの脆弱性を多く含んだ有名サイトに攻撃してみる。</p>
+<section id="burpsuite">
+<h3>BurpSuiteのインストール<a class="headerlink" href="#burpsuite" title="この見出しへのパーマリンク">¶</a></h3>
+<p>本では、BurpSuiteはデフォルトでログインされているとのことだったが、Kaliにインストールされていないのでインストールする。インストールにもかなり手間取るので、以下履歴。</p>
+<p>aptでインストールを試みるがエラー</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>└─$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>burpsuite<span class="w">                                  </span>
+<span class="o">[</span>sudo<span class="o">]</span><span class="w"> </span>kali<span class="w"> </span>のパスワード:
+パッケージリストを読み込んでいます...<span class="w"> </span>完了
+依存関係ツリーを作成しています...<span class="w"> </span>完了<span class="w">        </span>
+状態情報を読み取っています...<span class="w"> </span>完了<span class="w">        </span>
+以下の追加パッケージがインストールされます:
+<span class="w">  </span>java-wrappers
+以下のパッケージが新たにインストールされます:
+<span class="w">  </span>burpsuite<span class="w"> </span>java-wrappers
+アップグレード:<span class="w"> </span><span class="m">0</span><span class="w"> </span>個、新規インストール:<span class="w"> </span><span class="m">2</span><span class="w"> </span>個、削除:<span class="w"> </span><span class="m">0</span><span class="w"> </span>個、保留:<span class="w"> </span><span class="m">833</span><span class="w"> </span>個。
+<span class="m">251</span><span class="w"> </span>MB<span class="w"> </span>のアーカイブを取得する必要があります。
+この操作後に追加で<span class="w"> </span><span class="m">262</span><span class="w"> </span>MB<span class="w"> </span>のディスク容量が消費されます。
+エラー:1<span class="w"> </span>http://kali.download/kali<span class="w"> </span>kali-rolling/main<span class="w"> </span>arm64<span class="w"> </span>java-wrappers<span class="w"> </span>all<span class="w"> </span><span class="m">0</span>.4
+<span class="w">  </span><span class="m">404</span><span class="w">  </span>Not<span class="w"> </span>Found<span class="w"> </span><span class="o">[</span>IP:<span class="w"> </span><span class="m">104</span>.17.253.239<span class="w"> </span><span class="m">80</span><span class="o">]</span>
+エラー:2<span class="w"> </span>http://kali.download/kali<span class="w"> </span>kali-rolling/main<span class="w"> </span>arm64<span class="w"> </span>burpsuite<span class="w"> </span>arm64<span class="w"> </span><span class="m">2023</span>.10.1.2-0kali1
+<span class="w">  </span><span class="m">404</span><span class="w">  </span>Not<span class="w"> </span>Found<span class="w"> </span><span class="o">[</span>IP:<span class="w"> </span><span class="m">104</span>.17.253.239<span class="w"> </span><span class="m">80</span><span class="o">]</span>
+E:<span class="w"> </span>http://kali.download/kali/pool/main/j/java-wrappers/java-wrappers_0.4_all.deb<span class="w"> </span>の取得に失敗しました<span class="w">  </span><span class="m">404</span><span class="w">  </span>Not<span class="w"> </span>Found<span class="w"> </span><span class="o">[</span>IP:<span class="w"> </span><span class="m">104</span>.17.253.239<span class="w"> </span><span class="m">80</span><span class="o">]</span>
+E:<span class="w"> </span>http://kali.download/kali/pool/main/b/burpsuite/burpsuite_2023.10.1.2-0kali1_arm64.deb<span class="w"> </span>の取得に失敗しました<span class="w">  </span><span class="m">404</span><span class="w">  </span>Not<span class="w"> </span>Found<span class="w"> </span><span class="o">[</span>IP:<span class="w"> </span><span class="m">104</span>.17.253.239<span class="w"> </span><span class="m">80</span><span class="o">]</span>
+E:<span class="w"> </span>いくつかのアーカイブを取得できません。apt-get<span class="w"> </span>update<span class="w"> </span>を実行するか<span class="w"> </span>--fix-missing<span class="w"> </span>オプションを付けて試してみてください。
+</pre></div>
+</div>
+<p>apt-updateでもエラーが出る。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>└─$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w">           </span>
+取得:1<span class="w"> </span>http://kali.download/kali<span class="w"> </span>kali-rolling<span class="w"> </span>InRelease<span class="w"> </span><span class="o">[</span><span class="m">41</span>.5<span class="w"> </span>kB<span class="o">]</span>
+エラー:1<span class="w"> </span>http://kali.download/kali<span class="w"> </span>kali-rolling<span class="w"> </span>InRelease
+<span class="w">  </span>以下の署名が無効です:<span class="w"> </span>EXPKEYSIG<span class="w"> </span>ED444FF07D8D0BF6<span class="w"> </span>Kali<span class="w"> </span>Linux<span class="w"> </span>Repository<span class="w"> </span>&lt;devel@kali.org&gt;
+<span class="m">41</span>.5<span class="w"> </span>kB<span class="w"> </span>を<span class="w"> </span>1秒<span class="w"> </span>で取得しました<span class="w"> </span><span class="o">(</span><span class="m">59</span>.4<span class="w"> </span>kB/s<span class="o">)</span>
+パッケージリストを読み込んでいます...<span class="w"> </span>完了
+依存関係ツリーを作成しています...<span class="w"> </span>完了
+状態情報を読み取っています...<span class="w"> </span>完了<span class="w">        </span>
+アップグレードできるパッケージが<span class="w"> </span><span class="m">833</span><span class="w"> </span>個あります。表示するには<span class="w"> </span><span class="s1">&#39;apt list --upgradable&#39;</span><span class="w"> </span>を実行してください。
+W:<span class="w"> </span>署名照合中にエラーが発生しました。リポジトリは更新されず、過去のインデックスファイルが使われます。GPG<span class="w"> </span>エラー:<span class="w"> </span>http://kali.download/kali<span class="w"> </span>kali-rolling<span class="w"> </span>InRelease:<span class="w"> </span>以下の署名が無効です:<span class="w"> </span>EXPKEYSIG<span class="w"> </span>ED444FF07D8D0BF6<span class="w"> </span>Kali<span class="w"> </span>Linux<span class="w"> </span>Repository<span class="w"> </span>&lt;devel@kali.org&gt;
+W:<span class="w"> </span>http://http.kali.org/kali/dists/kali-rolling/InRelease<span class="w"> </span>の取得に失敗しました<span class="w">  </span>以下の署名が無効です:<span class="w"> </span>EXPKEYSIG<span class="w"> </span>ED444FF07D8D0BF6<span class="w"> </span>Kali<span class="w"> </span>Linux<span class="w"> </span>Repository<span class="w"> </span>&lt;devel@kali.org&gt;
+W:<span class="w"> </span>いくつかのインデックスファイルのダウンロードに失敗しました。これらは無視されるか、古いものが代わりに使われます。
+</pre></div>
+</div>
+<p>Kaliのリポジトリを信用するための「署名鍵」が古くなって、リポジトリの最新かができないので、署名鍵のアップデートを行う。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 古いキーの削除</span>
+sudo<span class="w"> </span>apt-key<span class="w"> </span>del<span class="w"> </span>ED444FF07D8D0BF6
+
+<span class="c1"># 新しい鍵の取得</span>
+curl<span class="w"> </span>-fsSL<span class="w"> </span>https://archive.kali.org/archive-key.asc<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span>-o<span class="w"> </span>/etc/apt/trusted.gpg.d/kali-archive-keyring.gpg
+
+<span class="c1"># リポジトリの更新</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+</pre></div>
+</div>
+<p>これでkaliにBurpSuiteのインストールができる</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">burpsuite</span>
+</pre></div>
+</div>
+<p>しかし、burpsuiteの実行をするとエラーが出る。javaのバージョンがあっていないのが原因。Java21をインストールする必要がありそう。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>└─$<span class="w"> </span>burpsuite
+<span class="o">[</span>warning<span class="o">]</span><span class="w"> </span>/usr/bin/burpsuite:<span class="w"> </span>No<span class="w"> </span>JAVA_CMD<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>run_java,<span class="w"> </span>falling<span class="w"> </span>back<span class="w"> </span>to<span class="w"> </span><span class="nv">JAVA_CMD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>java
+Picked<span class="w"> </span>up<span class="w"> </span>_JAVA_OPTIONS:<span class="w"> </span>-Dawt.useSystemAAFontSettings<span class="o">=</span>on<span class="w"> </span>-Dswing.aatext<span class="o">=</span><span class="nb">true</span>
+エラー:<span class="w"> </span>メイン・クラスburp.StartBurpのロード中にLinkageErrorが発生しました
+<span class="w">        </span>java.lang.UnsupportedClassVersionError:<span class="w"> </span>burp/StartBurp<span class="w"> </span>has<span class="w"> </span>been<span class="w"> </span>compiled<span class="w"> </span>by<span class="w"> </span>a<span class="w"> </span>more<span class="w"> </span>recent<span class="w"> </span>version<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Java<span class="w"> </span>Runtime<span class="w"> </span><span class="o">(</span>class<span class="w"> </span>file<span class="w"> </span>version<span class="w"> </span><span class="m">65</span>.0<span class="o">)</span>,<span class="w"> </span>this<span class="w"> </span>version<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Java<span class="w"> </span>Runtime<span class="w"> </span>only<span class="w"> </span>recognizes<span class="w"> </span>class<span class="w"> </span>file<span class="w"> </span>versions<span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span><span class="m">61</span>.0
+</pre></div>
+</div>
+<p>kali側のJavaと不整合を起こすため、Java 21のインストール時にパッケージの依存関係エラー。
+aptはシステム全体の整合性をチェックしてくれるので、Kaliなどのバージョン管理が複雑なOSだと拒否される可能性がある。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>└─$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>openjdk-21-jdk
+パッケージリストを読み込んでいます...<span class="w"> </span>完了
+依存関係ツリーを作成しています...<span class="w"> </span>完了<span class="w">        </span>
+状態情報を読み取っています...<span class="w"> </span>完了<span class="w">        </span>
+インストールすることができないパッケージがありました。おそらく、あり得
+ない状況を要求したか、<span class="o">(</span>不安定版ディストリビューションを使用しているの
+であれば<span class="o">)</span><span class="w"> </span>必要なパッケージがまだ作成されていなかったり<span class="w"> </span>Incoming<span class="w"> </span>から移
+動されていないことが考えられます。
+以下の情報がこの問題を解決するために役立つかもしれません:
+
+以下のパッケージには満たせない依存関係があります:
+<span class="w"> </span>kali-desktop-xfce<span class="w"> </span>:<span class="w"> </span>依存:<span class="w"> </span>kali-desktop-core<span class="w"> </span>しかし、インストールされようとしていません
+E:<span class="w"> </span>エラー、pkgProblemResolver::Resolve<span class="w"> </span>は停止しました。おそらく変更禁止パッケージが原因です。
+</pre></div>
+</div>
+<p>Javaアプリを動かすだけなら JDK ではなく JRE（ランタイム環境）で十分なことが多いのでこちらにチャレンジするがエラー。やっぱりダメみたい。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>└─$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>openjdk-21-jre<span class="w"> </span>
+パッケージリストを読み込んでいます...<span class="w"> </span>完了
+依存関係ツリーを作成しています...<span class="w"> </span>完了<span class="w">        </span>
+状態情報を読み取っています...<span class="w"> </span>完了<span class="w">        </span>
+インストールすることができないパッケージがありました。おそらく、あり得
+ない状況を要求したか、<span class="o">(</span>不安定版ディストリビューションを使用しているの
+であれば<span class="o">)</span><span class="w"> </span>必要なパッケージがまだ作成されていなかったり<span class="w"> </span>Incoming<span class="w"> </span>から移
+動されていないことが考えられます。
+以下の情報がこの問題を解決するために役立つかもしれません:
+
+以下のパッケージには満たせない依存関係があります:
+<span class="w"> </span>kali-desktop-xfce<span class="w"> </span>:<span class="w"> </span>依存:<span class="w"> </span>kali-desktop-core<span class="w"> </span>しかし、インストールされようとしていません
+E:<span class="w"> </span>エラー、pkgProblemResolver::Resolve<span class="w"> </span>は停止しました。おそらく変更禁止パッケージが原因です。
+</pre></div>
+</div>
+<p>avaを簡単に切り替え・管理できるツールのSDKMANでJava 21をインストールすることに挑戦。
+これなら、システム全体ではなく、ユーザーごとにJava環境を作ることになるので、aptのように依存関係が出ないはず。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># SDKMANのインストール</span>
+curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;https://get.sdkman.io&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+<span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.sdkman/bin/sdkman-init.sh&quot;</span>
+<span class="c1"># Java 21のインストール</span>
+sdk<span class="w"> </span>install<span class="w"> </span>java<span class="w"> </span><span class="m">21</span>.0.2-open
+<span class="c1"># 利用バージョン確認</span>
+sdk<span class="w"> </span>use<span class="w"> </span>java<span class="w"> </span><span class="m">21</span>.0.2-open
+<span class="c1"># バージョン確認</span>
+java<span class="w"> </span>-version<span class="w">                                                </span>
+Picked<span class="w"> </span>up<span class="w"> </span>_JAVA_OPTIONS:<span class="w"> </span>-Dawt.useSystemAAFontSettings<span class="o">=</span>on<span class="w"> </span>-Dswing.aatext<span class="o">=</span><span class="nb">true</span>
+openjdk<span class="w"> </span>version<span class="w"> </span><span class="s2">&quot;21.0.2&quot;</span><span class="w"> </span><span class="m">2024</span>-01-16
+OpenJDK<span class="w"> </span>Runtime<span class="w"> </span>Environment<span class="w"> </span><span class="o">(</span>build<span class="w"> </span><span class="m">21</span>.0.2+13-58<span class="o">)</span>
+OpenJDK<span class="w"> </span><span class="m">64</span>-Bit<span class="w"> </span>Server<span class="w"> </span>VM<span class="w"> </span><span class="o">(</span>build<span class="w"> </span><span class="m">21</span>.0.2+13-58,<span class="w"> </span>mixed<span class="w"> </span>mode,<span class="w"> </span>sharing<span class="o">)</span>
+</pre></div>
+</div>
+<p>起動成功！
+<img alt="" src="../_images/7DayHacking_day4_1.png" /></p>
+<p>しかし、よく見てみると、Javaコマンドのパスがうまく通っていないので、利用していくとエラーが発生したので修正。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>└─$<span class="w"> </span>burpsuite
+<span class="o">[</span>warning<span class="o">]</span><span class="w"> </span>/usr/bin/burpsuite:<span class="w"> </span>No<span class="w"> </span>JAVA_CMD<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>run_java,<span class="w"> </span>falling<span class="w"> </span>back<span class="w"> </span>to<span class="w"> </span>J
+Picked<span class="w"> </span>up<span class="w"> </span>_JAVA_OPTIONS:<span class="w"> </span>-Dawt.useSystemAAFontSettings<span class="o">=</span>on<span class="w"> </span>-Dswing.aatext<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p>Javaのパスを通す</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">JAVA_HOME</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.sdkman/candidates/java/21.0.2-open&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$JAVA_HOME</span>
+java<span class="w"> </span>-version
+</pre></div>
+</div>
+<p>このjavaを指定して、burpsuiteを実行</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_CMD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">/bin/java&quot;</span><span class="w"> </span>burpsuite
+</pre></div>
+</div>
+<p>これでもエラーが発生。ChromiumベースのGUIコンポーネントを使っており、Kali最小構成だと必要なライブラリが不足して起動できないケースが非常に多いとのことで以下をインストール</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libgtk-3-0<span class="w"> </span>libx11-xcb1<span class="w"> </span>libasound2<span class="w"> </span>libnss3<span class="w"> </span>libxss1<span class="w"> </span>libxtst6<span class="w"> </span>libatk-bridge2.0-0<span class="w"> </span>libxrandr2<span class="w"> </span>libgbm1
+</pre></div>
+</div>
+<p>これでもダメで以下のサイトで試したことをやってみたがダメ。。。一度整理して再実行予定</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://qiita.com/yama53san/items/dc96912ff565143c51ed">書籍「7日間でハッキングをはじめる本」をM1Macで完遂できるようにしたこと</a></p></li>
+</ul>
+</section>
 <section id="id12">
-<h3>Day4勉強したこと<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>BurpSuite解説<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>BurpSuiteは、ローカルプロキシツールであり、ブラウザとターゲットサーバーの間の通信に割り込む。
+BurpSuiteを利用することで、通信を書き換えたりすることができる。
+これによって、リクエストの形跡の分析やリクエストを書き換えて攻撃したりすることができる。</p>
+<p><img alt="" src="../_images/7DayHacking_day4_2.jpg" />
+<a class="reference external" href="https://www.anet.co.jp/security/engineer_blog/webburp_suite.html">Webアプリケーションセキュリティの検証のためのローカルプロキシツール（Burp Suite）の利用</a></p>
+</section>
+<section id="day4">
+<h3>Day4勉強したこと<a class="headerlink" href="#day4" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 <section id="day5">
