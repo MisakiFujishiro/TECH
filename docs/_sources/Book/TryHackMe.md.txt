@@ -434,6 +434,10 @@ SELECT * FROM Users WHERE emai = 'admin@juice-sh.op' --' AND password = '[input_
 ```
 
 ### Day4勉強したこと
+- BurmSuiteというローカルプロキシを利用して送信リクエストを改ざんできる
+- 送信リクエストの一部を変数としてLoop処理もできる
+- SQSインジェクションができるならクエリを予想しながら攻撃できる
+
 ## Day5
 ### Day5勉強したこと
 ## Day6
