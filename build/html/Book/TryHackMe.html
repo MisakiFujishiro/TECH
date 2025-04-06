@@ -111,19 +111,22 @@
 <li class="toctree-l2"><a class="reference internal" href="#day4-web">Day4：Webサイトへの攻撃</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#burpsuite">BurpSuiteのインストール</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id12">BurpSuite解説</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">BurpSuiteでリクエストを書き換え</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">BurpSuiteで辞書攻撃</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sqs">SQSインジェクション</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#day4">Day4勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day5">Day5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id13">Day5勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Day5勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day6">Day6</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id14">Day6勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Day6勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day7">Day7</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id15">Day7勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Day7勉強したこと</a></li>
 </ul>
 </li>
 </ul>
@@ -590,18 +593,18 @@ Picked<span class="w"> </span>up<span class="w"> </span>_JAVA_OPTIONS:<span clas
 java<span class="w"> </span>-version
 </pre></div>
 </div>
-<p>このjavaを指定して、burpsuiteを実行</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_CMD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">/bin/java&quot;</span><span class="w"> </span>burpsuite
+<p>このjavaを指定して、burpsuiteを実行するとエラーなく実行までできる。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 実行結果</span>
+$<span class="w"> </span><span class="nv">JAVA_CMD</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$JAVA_HOME</span><span class="s2">/bin/java&quot;</span><span class="w"> </span>burpsuite
+Picked<span class="w"> </span>up<span class="w"> </span>_JAVA_OPTIONS:<span class="w"> </span>-Dawt.useSystemAAFontSettings<span class="o">=</span>on<span class="w"> </span>-Dswing.aatext<span class="o">=</span><span class="nb">true</span>
 </pre></div>
 </div>
-<p>これでもエラーが発生。ChromiumベースのGUIコンポーネントを使っており、Kali最小構成だと必要なライブラリが不足して起動できないケースが非常に多いとのことで以下をインストール</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libgtk-3-0<span class="w"> </span>libx11-xcb1<span class="w"> </span>libasound2<span class="w"> </span>libnss3<span class="w"> </span>libxss1<span class="w"> </span>libxtst6<span class="w"> </span>libatk-bridge2.0-0<span class="w"> </span>libxrandr2<span class="w"> </span>libgbm1
-</pre></div>
-</div>
-<p>これでもダメで以下のサイトで試したことをやってみたがダメ。。。一度整理して再実行予定</p>
+<p>しかしTargetタブから、OpenBrowserを押下すると&quot;Burp Browser is not available&quot;となるので以下のサイトで試したことをやってみた。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://qiita.com/yama53san/items/dc96912ff565143c51ed">書籍「7日間でハッキングをはじめる本」をM1Macで完遂できるようにしたこと</a></p></li>
 </ul>
+<p>今回のOWASPジュースサイトではHTTPしか利用しないので、「Burp Suiteと連携するようFirefoxを設定する」のセクションでは以下のようにHTTPの設定のみで良い。「ブラウザのプロキシ設定の確認」まで問題なく動けばこの後の操作はできるので、こちらで完了とする。</p>
+<p><img alt="" src="../_images/7DayHacking_day4_2.png" /></p>
 </section>
 <section id="id12">
 <h3>BurpSuite解説<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
@@ -611,26 +614,57 @@ BurpSuiteを利用することで、通信を書き換えたりすることが�
 <p><img alt="" src="../_images/7DayHacking_day4_2.jpg" />
 <a class="reference external" href="https://www.anet.co.jp/security/engineer_blog/webburp_suite.html">Webアプリケーションセキュリティの検証のためのローカルプロキシツール（Burp Suite）の利用</a></p>
 </section>
+<section id="id13">
+<h3>BurpSuiteでリクエストを書き換え<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
+<p>一度リクエストを送った後にTargetを確認するとリクエストの中身を見ることができる。
+Repeat機能を利用すればGUIでリクエストを書き換えた上で、リクエストを再送することができる。</p>
+<p>送信したログを見つけて右クリックして&quot;Send to Repeater&quot;Repeter画面でメッセージを書き換え。
+<img alt="" src="../_images/7DayHacking_day4_3.png" /></p>
+</section>
+<section id="id14">
+<h3>BurpSuiteで辞書攻撃<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h3>
+<p>BurpSuiteで先ほどのリクエストを書き換えて再送する機能を応用して、再送するリクエストの一部を変数にしてその変数のLoop処理を回すことができる。
+これによって、Loginのリクエストのパスワード部分を変数にして、辞書を利用したブルートフォース攻撃をすることができる。</p>
+<p>HTTP historyから送信したログを見つけて右クリックして&quot;Send to Intruder&quot;Intruder画面で変数を指定。
+どのセクションをパラメータとするか、パラメータにどのファイルのパスワードをそうあたりするかを指定することができる。</p>
+<p><img alt="" src="../_images/7DayHacking_day4_4.png" /></p>
+</section>
+<section id="sqs">
+<h3>SQSインジェクション<a class="headerlink" href="#sqs" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SQSインジェクションとは、Webアプリケーションから実行されるクエリに不正なコードを注入して意図と違うSQLを実行させる攻撃である。</p>
+<p>サイトのからadminのアドレスがわかるので、SQSインジェクションでadminとしてログインしてみる。
+ログインフォームのアドレス部分に、<code class="docutils literal notranslate"><span class="pre">admin&#64;juice-sh.op'</span> <span class="pre">--</span></code>とadminのアドレスと<code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">--</span></code>を入力する</p>
+<p>これによって元々のSQSが書き換えられ、パスワードが記入されていなくても、アドミンとしてログインできてしまう。</p>
+<p>元々のSQSは以下が想定され、emailとpasswordが一致したデータがあればログインできるはずです。</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">emai</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;[input_address]&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;[input_pw]&#39;</span>
+</pre></div>
+</div>
+<p>ここで、[input_address]の部分にWebフォームから入力されるテキストが挿入されるので先ほどの攻撃では以下になる。
+<code class="docutils literal notranslate"><span class="pre">--</span></code>配下はコメントアウトとして扱われるので、emaiが一致していればログインできてしまう。</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">emai</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;admin@juice-sh.op&#39;</span><span class="w"> </span><span class="c1">--&#39; AND password = &#39;[input_pw]&#39;</span>
+</pre></div>
+</div>
+</section>
 <section id="day4">
 <h3>Day4勉強したこと<a class="headerlink" href="#day4" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 <section id="day5">
 <h2>Day5<a class="headerlink" href="#day5" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id13">
-<h3>Day5勉強したこと<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id15">
+<h3>Day5勉強したこと<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 <section id="day6">
 <h2>Day6<a class="headerlink" href="#day6" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id14">
-<h3>Day6勉強したこと<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id16">
+<h3>Day6勉強したこと<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 <section id="day7">
 <h2>Day7<a class="headerlink" href="#day7" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id15">
-<h3>Day7勉強したこと<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id17">
+<h3>Day7勉強したこと<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 </section>

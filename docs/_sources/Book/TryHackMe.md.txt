@@ -376,20 +376,19 @@ echo $JAVA_HOME
 java -version
 ```
 
-このjavaを指定して、burpsuiteを実行
+このjavaを指定して、burpsuiteを実行するとエラーなく実行までできる。
 ```sh
-JAVA_CMD="$JAVA_HOME/bin/java" burpsuite
+# 実行結果
+$ JAVA_CMD="$JAVA_HOME/bin/java" burpsuite
+Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true
 ```
 
-これでもエラーが発生。ChromiumベースのGUIコンポーネントを使っており、Kali最小構成だと必要なライブラリが不足して起動できないケースが非常に多いとのことで以下をインストール
-```sh
-sudo apt install libgtk-3-0 libx11-xcb1 libasound2 libnss3 libxss1 libxtst6 libatk-bridge2.0-0 libxrandr2 libgbm1
-```
-
-これでもダメで以下のサイトで試したことをやってみたがダメ。。。一度整理して再実行予定
+しかしTargetタブから、OpenBrowserを押下すると"Burp Browser is not available"となるので以下のサイトで試したことをやってみた。
 - [書籍「7日間でハッキングをはじめる本」をM1Macで完遂できるようにしたこと](https://qiita.com/yama53san/items/dc96912ff565143c51ed)
 
+今回のOWASPジュースサイトではHTTPしか利用しないので、「Burp Suiteと連携するようFirefoxを設定する」のセクションでは以下のようにHTTPの設定のみで良い。「ブラウザのプロキシ設定の確認」まで問題なく動けばこの後の操作はできるので、こちらで完了とする。
 
+![](../img/Book/7DayHacking/7DayHacking_day4_2.png)
 
 ### BurpSuite解説
 BurpSuiteは、ローカルプロキシツールであり、ブラウザとターゲットサーバーの間の通信に割り込む。
@@ -399,6 +398,40 @@ BurpSuiteを利用することで、通信を書き換えたりすることが�
 ![](../img/Book/7DayHacking/7DayHacking_day4_2.jpg)
 [Webアプリケーションセキュリティの検証のためのローカルプロキシツール（Burp Suite）の利用](https://www.anet.co.jp/security/engineer_blog/webburp_suite.html)
 
+
+### BurpSuiteでリクエストを書き換え
+一度リクエストを送った後にTargetを確認するとリクエストの中身を見ることができる。
+Repeat機能を利用すればGUIでリクエストを書き換えた上で、リクエストを再送することができる。
+
+送信したログを見つけて右クリックして"Send to Repeater"Repeter画面でメッセージを書き換え。
+![](../img/Book/7DayHacking/7DayHacking_day4_3.png)
+
+### BurpSuiteで辞書攻撃
+BurpSuiteで先ほどのリクエストを書き換えて再送する機能を応用して、再送するリクエストの一部を変数にしてその変数のLoop処理を回すことができる。
+これによって、Loginのリクエストのパスワード部分を変数にして、辞書を利用したブルートフォース攻撃をすることができる。
+
+HTTP historyから送信したログを見つけて右クリックして"Send to Intruder"Intruder画面で変数を指定。
+どのセクションをパラメータとするか、パラメータにどのファイルのパスワードをそうあたりするかを指定することができる。
+
+![](../img/Book/7DayHacking/7DayHacking_day4_4.png)
+
+### SQSインジェクション
+SQSインジェクションとは、Webアプリケーションから実行されるクエリに不正なコードを注入して意図と違うSQLを実行させる攻撃である。
+
+サイトのからadminのアドレスがわかるので、SQSインジェクションでadminとしてログインしてみる。
+ログインフォームのアドレス部分に、`admin@juice-sh.op' --`とadminのアドレスと`' --`を入力する
+
+これによって元々のSQSが書き換えられ、パスワードが記入されていなくても、アドミンとしてログインできてしまう。
+
+元々のSQSは以下が想定され、emailとpasswordが一致したデータがあればログインできるはずです。
+```sql
+SELECT * FROM Users WHERE emai = '[input_address]' AND password = '[input_pw]'
+```
+ここで、[input_address]の部分にWebフォームから入力されるテキストが挿入されるので先ほどの攻撃では以下になる。
+`--`配下はコメントアウトとして扱われるので、emaiが一致していればログインできてしまう。
+```sql
+SELECT * FROM Users WHERE emai = 'admin@juice-sh.op' --' AND password = '[input_pw]'
+```
 
 ### Day4勉強したこと
 ## Day5
