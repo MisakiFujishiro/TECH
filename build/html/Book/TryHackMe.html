@@ -108,7 +108,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#day3">Day3勉強したこと</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#day4-web">Day4：Webサイトへの攻撃</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#day4-web-sqs">Day4：Webサイトへの攻撃(リクエスト改ざんとSQSインジェクション)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#burpsuite">BurpSuiteのインストール</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id12">BurpSuite解説</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id13">BurpSuiteでリクエストを書き換え</a></li>
@@ -117,16 +117,29 @@
 <li class="toctree-l3"><a class="reference internal" href="#day4">Day4勉強したこと</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#day5">Day5</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id15">Day5勉強したこと</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#day5-suid">Day5：大学サイトへの攻撃（リバースシェルとSUIDによる権限昇格）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id15">偵察</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ftp">FTPの調査</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#httpd">HTTPDの調査</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">リバースシェル</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id17">リバースシェルで攻撃</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">権限昇格</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#suid">SUID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">SUIDでの権限昇格</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#day5">Day5勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day6">Day6</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id16">Day6勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kerbrute">kerbruteのインストール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Day6勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day7">Day7</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id17">Day7勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Day7勉強したこと</a></li>
 </ul>
 </li>
 </ul>
@@ -460,8 +473,8 @@ Jon:1000:aad3b435b51404eeaad3b435b51404ee:ffb43f0de35be4d9917ac0cc8ad57f8d:::
 </ul>
 </section>
 </section>
-<section id="day4-web">
-<h2>Day4：Webサイトへの攻撃<a class="headerlink" href="#day4-web" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="day4-web-sqs">
+<h2>Day4：Webサイトへの攻撃(リクエスト改ざんとSQSインジェクション)<a class="headerlink" href="#day4-web-sqs" title="この見出しへのパーマリンク">¶</a></h2>
 <p><a class="reference external" href="https://tryhackme.com/room/owaspjuiceshop">OWASP ジュースショップ</a><br />
 OWASP(Open Worldwide Application Security Project)で提供されている、重要なWebアプリケーションの脆弱性を多く含んだ有名サイトに攻撃してみる。</p>
 <section id="burpsuite">
@@ -654,22 +667,121 @@ Repeat機能を利用すればGUIでリクエストを書き換えた上で、�
 </ul>
 </section>
 </section>
-<section id="day5">
-<h2>Day5<a class="headerlink" href="#day5" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="day5-suid">
+<h2>Day5：大学サイトへの攻撃（リバースシェルとSUIDによる権限昇格）<a class="headerlink" href="#day5-suid" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://tryhackme.com/room/vulnversity">Vulnversity</a><br />
+Webアップロードが可能な大学サイトに対してリバースシェルで攻撃をしてから、権限昇格を試みる。</p>
 <section id="id15">
-<h3>Day5勉強したこと<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>偵察<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h3>
+<p>nmapで偵察をしてみると、以下の3つはアクセスできそう。（sambaも利用しているが今回はスルーみたい）</p>
+<ul class="simple">
+<li><p>SSH:22</p></li>
+<li><p>FTP:21</p></li>
+<li><p>HTTPD:3333</p></li>
+</ul>
+</section>
+<section id="ftp">
+<h3>FTPの調査<a class="headerlink" href="#ftp" title="この見出しへのパーマリンク">¶</a></h3>
+<p>FTPはFile Transfer Protocolの名前の通りファイルを送受信するプロトコル。
+FTPにはanonymousという匿名ユーザーが認められているので試してみる。<br />
+結果としてはログイン失敗なのでFTPには脆弱性はない。</p>
+</section>
+<section id="httpd">
+<h3>HTTPDの調査<a class="headerlink" href="#httpd" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ポート3333にWebサイトがありそうなので調べてみる。アクセスしてみると、大学のホームページが開く。
+ホームページの範囲は広いので調査しきれないので、Day2で利用したdirbコマンドを利用して脆弱性のあるディレクトリなどを探す</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dirb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span><span class="p">:</span><span class="mi">3333</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">dirb</span><span class="o">/</span><span class="n">wordlists</span><span class="o">/</span><span class="n">small</span><span class="o">.</span><span class="n">txt</span> <span class="o">-</span><span class="n">R</span>
+</pre></div>
+</div>
+<p>結果として、<code class="docutils literal notranslate"><span class="pre">/internal</span></code>と<code class="docutils literal notranslate"><span class="pre">/internal/uploads</span></code>のパスが存在することがわかる。
+このパスにアクセスしてみるとファイルアップロード画面になるのでファイルをアップロードしてみるが、txtなどは拡張子的にアップロードできない様子。
+<img alt="" src="../_images/7DayHacking_day5_1.png" /></p>
+<p>そこで、Day4でも利用したローカルプロキシのBurp Suiteを利用する。
+ファイルアップロートしたリクエストを見つけて、
+<img alt="" src="../_images/7DayHacking_day5_2.png" /></p>
+<p>拡張子の部分を変数にして、拡張子を辞書から参照しながらファイルアップロードできる拡張子を探す。
+<img alt="" src="../_images/7DayHacking_day5_3.png" /></p>
+<p>結果的にphtmlという、昔使われていたPHPファイルの拡張子でファイルアップロードができる。
+PHPファイルがアップロードできるということで今回は<code class="docutils literal notranslate"><span class="pre">リバースシェル</span></code>を利用した攻撃をする。
+<img alt="" src="../_images/7DayHacking_day5_4.png" /></p>
+</section>
+<section id="id16">
+<h3>リバースシェル<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
+<p>リバースシェルは、攻撃者がターゲットシステムに対して直接接続するのではなく、ターゲットシステムから攻撃者のシステムへ接続を確立させる手法。​この方法により、ターゲット側のファイアウォールやNAT（ネットワークアドレス変換）を回避しやすくなる。​</p>
+<p>多くのネットワーク環境では、外部から内部へのインバウンド通信は厳しく制限されているが、内部から外部へのアウトバウンド通信は比較的緩やかに設定されていることが一般的。​このようなセキュリティ設定の盲点を突いて、リバースシェルはアウトバウンド通信を利用して攻撃者との接続を確立する。​</p>
+<p><img alt="" src="../_images/7DayHacking_day5_5.png" />
+<a class="reference external" href="https://www.wallarm.com/jp/what/reverse-shell">リバースシェルとは？事例と防止策</a></p>
+<section id="id17">
+<h4>リバースシェルで攻撃<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Kaliにはpht-reverse-shell.phpが準備されているので、攻撃者のIPや待ち受けポートを書き換えた上で、先ほどのページからアップロードする。</p>
+<p>攻撃者側はポートを待ち受ける必要があるので、以下のncコマンドを実行した上で、ブラウザ上からリバースシェルのファイルを実行すると、サーバー側がのシェルが取れる</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nc</span> <span class="o">-</span><span class="n">lvnp</span> <span class="mi">12345</span>
+</pre></div>
+</div>
+<p><img alt="" src="../_images/7DayHacking_day5_6.png" /></p>
+<p>権限としては&quot;www-data&quot;というWebサーバー実行用のシステムユーザー権限である。あまり権限は大きくないので後ほど権限昇格には挑戦してみるとして、&quot;www-data&quot;でも&quot;/var/www/html/index.html&quot;の編集はできるので編集するとHPを乗っ取ることができる。</p>
+</section>
+</section>
+<section id="id18">
+<h3>権限昇格<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="suid">
+<h4>SUID<a class="headerlink" href="#suid" title="この見出しへのパーマリンク">¶</a></h4>
+<p>SUID(Set UserID)とは、実行ファイルに付与される特殊なパーミッションである。
+実行権限<code class="docutils literal notranslate"><span class="pre">s</span></code>がついている実行ファイルは、実行者のUIDに関係なくファイルの所有者での実行権限が利用される。
+例えばパスワード変更のコマンドは、rootでなければ実行できないので、SUIDの機能を用いて一般ユーザーでもパスワード変更ができるようになっている。</p>
+<p>SUID自体は、通常に用いられる機能であり、SUID前提のコマンドなどは対策がされているため脆弱性にはならない。
+一方で、通常は不要な対象にSUIDが付与されていると、GTFOBinsなどを利用して脆弱性を調査され攻撃されてしまう。
+どのように実行者の権限（rootなど）を取られてしまうかというと、実行プロセスがrootになった状態では子供プロセスもrootとなるためにrootのシェルを取られてしまう。</p>
+</section>
+<section id="id19">
+<h4>SUIDでの権限昇格<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h4>
+<p>まずは、SUIDが設定された実行ファイルを探す</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">u</span><span class="o">=</span><span class="n">s</span> <span class="o">-</span><span class="nb">type</span> <span class="n">f</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+</pre></div>
+</div>
+<p>上記の結果から通常はSUIDが付与されない<code class="docutils literal notranslate"><span class="pre">/bin/systemctl</span></code>にSUIDが付与されていることを確認。
+脆弱性のある実行ファイルについて、SUIDの脆弱性を突いた攻撃できないかを<a class="reference external" href="https://gtfobins.github.io/">GTFObins</a>で検索してみる。</p>
+<p><img alt="" src="../_images/7DayHacking_day5_7.png" /></p>
+<p>上記の情報から/root/root.txtの情報を取得するように変更するとroot権限でしか見れないファイルの中身を取得できた。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>TF=$(mktemp).service
+echo &#39;[Service]
+Type=oneshot
+ExecStart=/bin/sh -c &quot;cat /root/root.txt&gt; /tmp/output&quot;
+[Install]
+WantedBy=multi-user.target&#39; &gt; $TF
+/bin/systemctl link $TF
+/bin/systemctl enable --now $TF
+</pre></div>
+</div>
+</section>
+</section>
+<section id="day5">
+<h3>Day5勉強したこと<a class="headerlink" href="#day5" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>Webサーバーでファイルアップロードを可能にしておくのは危険</p></li>
+<li><p>ファイルアップロードの拡張性制限をしていても、自書攻撃ですぐバレる</p></li>
+<li><p>PHPがファイルアップロード・実行できると、	Firewallをすり抜けてリバースシェルでshellを奪われる</p></li>
+<li><p>不用意に実行ファイルにSUIDを付与していると脆弱性となり昇格権限されてしまう</p></li>
+</ul>
 </section>
 </section>
 <section id="day6">
 <h2>Day6<a class="headerlink" href="#day6" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id16">
-<h3>Day6勉強したこと<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="kerbrute">
+<h3>kerbruteのインストール<a class="headerlink" href="#kerbrute" title="この見出しへのパーマリンク">¶</a></h3>
+<p>書籍のkerbrute_linux_amd64はUTM上では動かないそうなので下サイトに従って対応する。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://qiita.com/yama53san/items/dc96912ff565143c51ed">書籍「7日間でハッキングをはじめる本」をM1Macで完遂できるようにしたこと</a></p></li>
+</ul>
+</section>
+<section id="id20">
+<h3>Day6勉強したこと<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 <section id="day7">
 <h2>Day7<a class="headerlink" href="#day7" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id17">
-<h3>Day7勉強したこと<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id21">
+<h3>Day7勉強したこと<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 </section>

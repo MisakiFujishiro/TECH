@@ -234,7 +234,7 @@ JonというユーザーとHashされたパスワード(ffb43xxxx)が出力さ�
 - MetaSploite Frameworkを利用して簡単に脆弱性をついた攻撃ができる
 - パスワードが簡単なものだと、hashが流出してしまうとhashからパスワードが逆算されてしまう
 
-## Day4：Webサイトへの攻撃
+## Day4：Webサイトへの攻撃(リクエスト改ざんとSQSインジェクション)
 [OWASP ジュースショップ](https://tryhackme.com/room/owaspjuiceshop)  
 OWASP(Open Worldwide Application Security Project)で提供されている、重要なWebアプリケーションの脆弱性を多く含んだ有名サイトに攻撃してみる。
 
@@ -438,9 +438,110 @@ SELECT * FROM Users WHERE emai = 'admin@juice-sh.op' --' AND password = '[input_
 - 送信リクエストの一部を変数としてLoop処理もできる
 - SQSインジェクションができるならクエリを予想しながら攻撃できる
 
-## Day5
+## Day5：大学サイトへの攻撃（リバースシェルとSUIDによる権限昇格）
+[Vulnversity](https://tryhackme.com/room/vulnversity)  
+Webアップロードが可能な大学サイトに対してリバースシェルで攻撃をしてから、権限昇格を試みる。
+
+### 偵察
+nmapで偵察をしてみると、以下の3つはアクセスできそう。（sambaも利用しているが今回はスルーみたい）
+- SSH:22
+- FTP:21
+- HTTPD:3333
+
+### FTPの調査
+FTPはFile Transfer Protocolの名前の通りファイルを送受信するプロトコル。
+FTPにはanonymousという匿名ユーザーが認められているので試してみる。  
+結果としてはログイン失敗なのでFTPには脆弱性はない。
+
+### HTTPDの調査
+ポート3333にWebサイトがありそうなので調べてみる。アクセスしてみると、大学のホームページが開く。
+ホームページの範囲は広いので調査しきれないので、Day2で利用したdirbコマンドを利用して脆弱性のあるディレクトリなどを探す
+```
+dirb http://x.x.x.x:3333 /usr/share/dirb/wordlists/small.txt -R
+```
+
+結果として、`/internal`と`/internal/uploads`のパスが存在することがわかる。
+このパスにアクセスしてみるとファイルアップロード画面になるのでファイルをアップロードしてみるが、txtなどは拡張子的にアップロードできない様子。
+![](../img/Book/7DayHacking/7DayHacking_day5_1.png)
+
+そこで、Day4でも利用したローカルプロキシのBurp Suiteを利用する。
+ファイルアップロートしたリクエストを見つけて、
+![](../img/Book/7DayHacking/7DayHacking_day5_2.png)
+
+拡張子の部分を変数にして、拡張子を辞書から参照しながらファイルアップロードできる拡張子を探す。
+![](../img/Book/7DayHacking/7DayHacking_day5_3.png)
+
+結果的にphtmlという、昔使われていたPHPファイルの拡張子でファイルアップロードができる。
+PHPファイルがアップロードできるということで今回は`リバースシェル`を利用した攻撃をする。
+![](../img/Book/7DayHacking/7DayHacking_day5_4.png)
+
+
+### リバースシェル
+リバースシェルは、攻撃者がターゲットシステムに対して直接接続するのではなく、ターゲットシステムから攻撃者のシステムへ接続を確立させる手法。​この方法により、ターゲット側のファイアウォールやNAT（ネットワークアドレス変換）を回避しやすくなる。​
+
+多くのネットワーク環境では、外部から内部へのインバウンド通信は厳しく制限されているが、内部から外部へのアウトバウンド通信は比較的緩やかに設定されていることが一般的。​このようなセキュリティ設定の盲点を突いて、リバースシェルはアウトバウンド通信を利用して攻撃者との接続を確立する。​
+
+![](../img/Book/7DayHacking/7DayHacking_day5_5.png)
+[リバースシェルとは？事例と防止策](https://www.wallarm.com/jp/what/reverse-shell)
+
+#### リバースシェルで攻撃
+Kaliにはpht-reverse-shell.phpが準備されているので、攻撃者のIPや待ち受けポートを書き換えた上で、先ほどのページからアップロードする。
+
+攻撃者側はポートを待ち受ける必要があるので、以下のncコマンドを実行した上で、ブラウザ上からリバースシェルのファイルを実行すると、サーバー側がのシェルが取れる
+```
+nc -lvnp 12345
+```
+
+![](../img/Book/7DayHacking/7DayHacking_day5_6.png)
+
+権限としては"www-data"というWebサーバー実行用のシステムユーザー権限である。あまり権限は大きくないので後ほど権限昇格には挑戦してみるとして、"www-data"でも"/var/www/html/index.html"の編集はできるので編集するとHPを乗っ取ることができる。
+
+### 権限昇格
+#### SUID
+SUID(Set UserID)とは、実行ファイルに付与される特殊なパーミッションである。
+実行権限`s`がついている実行ファイルは、実行者のUIDに関係なくファイルの所有者での実行権限が利用される。
+例えばパスワード変更のコマンドは、rootでなければ実行できないので、SUIDの機能を用いて一般ユーザーでもパスワード変更ができるようになっている。
+
+SUID自体は、通常に用いられる機能であり、SUID前提のコマンドなどは対策がされているため脆弱性にはならない。
+一方で、通常は不要な対象にSUIDが付与されていると、GTFOBinsなどを利用して脆弱性を調査され攻撃されてしまう。
+どのように実行者の権限（rootなど）を取られてしまうかというと、実行プロセスがrootになった状態では子供プロセスもrootとなるためにrootのシェルを取られてしまう。
+
+#### SUIDでの権限昇格
+まずは、SUIDが設定された実行ファイルを探す
+```
+find / -perm -u=s -type f 2>/dev/null
+```
+
+上記の結果から通常はSUIDが付与されない`/bin/systemctl`にSUIDが付与されていることを確認。
+脆弱性のある実行ファイルについて、SUIDの脆弱性を突いた攻撃できないかを[GTFObins](https://gtfobins.github.io/)で検索してみる。
+
+![](../img/Book/7DayHacking/7DayHacking_day5_7.png)
+
+上記の情報から/root/root.txtの情報を取得するように変更するとroot権限でしか見れないファイルの中身を取得できた。
+```
+TF=$(mktemp).service
+echo '[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "cat /root/root.txt> /tmp/output"
+[Install]
+WantedBy=multi-user.target' > $TF
+/bin/systemctl link $TF
+/bin/systemctl enable --now $TF
+```
+
 ### Day5勉強したこと
+- Webサーバーでファイルアップロードを可能にしておくのは危険
+- ファイルアップロードの拡張性制限をしていても、自書攻撃ですぐバレる
+- PHPがファイルアップロード・実行できると、	Firewallをすり抜けてリバースシェルでshellを奪われる
+- 不用意に実行ファイルにSUIDを付与していると脆弱性となり昇格権限されてしまう
+
 ## Day6
+### kerbruteのインストール
+書籍のkerbrute_linux_amd64はUTM上では動かないそうなので下サイトに従って対応する。
+- [書籍「7日間でハッキングをはじめる本」をM1Macで完遂できるようにしたこと](https://qiita.com/yama53san/items/dc96912ff565143c51ed)
+
 ### Day6勉強したこと
+
+
 ## Day7
 ### Day7勉強したこと
