@@ -156,7 +156,26 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day7">Day7</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id22">Day7勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">偵察</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smbclient">smbclientへの攻撃</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wordpress">WordPressのアプリ変更劇</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id23">ユーザー調査</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">パスワードの自書攻撃</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">WordPressのサーバーへの攻撃</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id26">脆弱性の調査</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#metasploit">Metasploitを利用した攻撃</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id27">権限昇格</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linpeas">LinPEAS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">LinPEASをターゲットへアップロード</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id29">LinPEASの実行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30">権限昇格</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id31">Day7勉強したこと</a></li>
 </ul>
 </li>
 </ul>
@@ -1125,8 +1144,61 @@ TryHackMe{4ctiveD1rectoryM4st3r}
 </section>
 <section id="day7">
 <h2>Day7<a class="headerlink" href="#day7" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://tryhackme.com/room/blog">blog</a><br />
+ブログなどを公開するためのサービスであるWordPressに対して攻撃をする。
+WordPressに対して、自書攻撃をしてアプリにログインをしたり、脆弱性からサーバーのOSユーザーをハックしてから権限昇格をする。</p>
 <section id="id22">
-<h3>Day7勉強したこと<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>偵察<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h3>
+<p>sbmclientとWordPressのポートが開いている。
+どうやらWordPressのバージョンは少し古い</p>
+</section>
+<section id="smbclient">
+<h3>smbclientへの攻撃<a class="headerlink" href="#smbclient" title="この見出しへのパーマリンク">¶</a></h3>
+<p>こちらは、ステ画のグラフィなどを利用してみるが、Rabbit_Hole（迷宮に迷い込んでいる）</p>
+</section>
+<section id="wordpress">
+<h3>WordPressのアプリ変更劇<a class="headerlink" href="#wordpress" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id23">
+<h4>ユーザー調査<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h4>
+<p>WordPressのスキャンでユーザー名を取得</p>
+</section>
+<section id="id24">
+<h4>パスワードの自書攻撃<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h4>
+<p>自書攻撃をしてみてパスワードを取得してログインしてみることで、wordpressのauthorのユーザーを取得できた。
+一方でアプリの侵入はできたがサーバーのOSには侵入できていない。</p>
+</section>
+</section>
+<section id="id25">
+<h3>WordPressのサーバーへの攻撃<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id26">
+<h4>脆弱性の調査<a class="headerlink" href="#id26" title="この見出しへのパーマリンク">¶</a></h4>
+<p>WordPressのバージョンが古いので脆弱性を調査</p>
+</section>
+<section id="metasploit">
+<h4>Metasploitを利用した攻撃<a class="headerlink" href="#metasploit" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Metasploitを利用して脆弱性を突いてみると結果として、www-dataの権限を取得できた。</p>
+</section>
+</section>
+<section id="id27">
+<h3>権限昇格<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h3>
+<p>adminなどの強い権限を取得するために脆弱性を調査する。</p>
+<section id="linpeas">
+<h4>LinPEAS<a class="headerlink" href="#linpeas" title="この見出しへのパーマリンク">¶</a></h4>
+</section>
+<section id="id28">
+<h4>LinPEASをターゲットへアップロード<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ローカル側にサーバーを立てて、侵入済みのサーバーからDLする流れ</p>
+</section>
+<section id="id29">
+<h4>LinPEASの実行<a class="headerlink" href="#id29" title="この見出しへのパーマリンク">¶</a></h4>
+<p>実行すると実行権限に<code class="docutils literal notranslate"><span class="pre">s</span></code>がついているコマンドを発見。</p>
+</section>
+<section id="id30">
+<h4>権限昇格<a class="headerlink" href="#id30" title="この見出しへのパーマリンク">¶</a></h4>
+</section>
+</section>
+<section id="id31">
+<h3>Day7勉強したこと<a class="headerlink" href="#id31" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 </section>
