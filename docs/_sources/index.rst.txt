@@ -21,6 +21,7 @@
    CloudFormation
    CloudWatch
    Storage
+   DB
    AWS/CloudTrail.md
    AWS/EventBridge.md
    AWS/AutoScaling.md
