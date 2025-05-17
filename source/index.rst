@@ -16,6 +16,7 @@
    IAM
    Network
    Front
+   EC2
    Container
    S3
    CloudFormation
