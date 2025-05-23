@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GCPについて &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AlloyDB" href="AlloyDB.html" />
+    <link rel="prev" title="SES" href="../AWS/SES.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GCPについて</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">ドキュメント</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">勉強中ドキュメント</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">インフラ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">他のクラウドとの比較</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">リソース・ユーザーの管理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="AlloyDB.html">AlloyDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudStorage.html">CloudStorage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GCPについて</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">ドキュメント</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">勉強中ドキュメント</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">インフラ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">他のクラウドとの比較</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">リソース・ユーザーの管理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub-Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceAccount.html">ServiceAccount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">7日間でハッキングを始める本まとめ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">GCPについて</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GCP/GCP.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gcp">
+<h1>GCPについて<a class="headerlink" href="#gcp" title="この見出しへのパーマリンク">¶</a></h1>
+<p>GCPは、Googleが提供するクラウドコンピューティングプラットフォーム。
+GCPを使うことで、Google社内で使われているものと同じテクノロジーやサービスを利用することができる。</p>
+<p>GCPはAWS同様柔軟性や拡張性、高速なインフラをクラウドから利用できる特徴があるとともに、データ分析やAIという分野において強みがある。</p>
+<section id="id1">
+<h2>ドキュメント<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cloud.google.com/docs?hl=ja">Google Cloud ドキュメント</a></p></li>
+<li><p><a class="reference external" href="https://cloud.google.com/?hl=ja">コンソールログイン</a></p></li>
+<li><p><a class="reference external" href="https://www.gc-solution-design-pattern.jp/product-sessions">プロダクト別 参考セッション</a></p></li>
+</ul>
+<section id="id2">
+<h3>勉強中ドキュメント<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://zenn.dev/google_cloud_jp/articles/15e9a147deabc9">[実践編] Google Cloud をゼロから学ぶならこれ! おすすめの学習リソース</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id3">
+<h2>インフラ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cloud.google.com/about/locations?hl=ja#regions">https://cloud.google.com/about/locations?hl=ja#regions</a></p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>他のクラウドとの比較<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id5">
+<h3>リソース・ユーザーの管理<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GPCユーザーやリソースの管理がAWSとは異なる。</p>
+<p>AdminConsoleでユーザーを作成。CloudConsoleでプロジェクト内のリソースを操作する形。
+AWSではアカウント単位でリソース境界があるが、GCPではアカウントに紐造りソースはなく、プロジェクト単位で分けられている。</p>
+<p><img alt="" src="../_images/GCP_hikaku.png" />
+<a class="reference external" href="https://lp.cloudplatformonline.com/rs/808-GJW-314/images/GC-two-way-cloud_Session3.pdf">Google Cloud でクラウド二刀流エンジニアを目指すための「早わかり集中技術講座」</a></p>
+<p><img alt="" src="../_images/GCP_kousei.png" />
+<a class="reference external" href="https://lp.cloudplatformonline.com/rs/808-GJW-314/images/GC-two-way-cloud_Session3.pdf">Google Cloud でクラウド二刀流エンジニアを目指すための「早わかり集中技術講座」</a></p>
+<p>独立したユーザーが、参画するPJのリソースを操作している。
+<img alt="" src="../_images/GPC_login.png" />
+<a class="reference external" href="https://lp.cloudplatformonline.com/rs/808-GJW-314/images/GC-two-way-cloud_Session3.pdf">Google Cloud でクラウド二刀流エンジニアを目指すための「早わかり集中技術講座」</a></p>
+<p>GCPにおけるリソースの階層構造。
+<img alt="" src="../_images/GCP_kaisou.png" />
+<a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../AWS/SES.html" class="btn btn-neutral float-left" title="SES" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="AlloyDB.html" class="btn btn-neutral float-right" title="AlloyDB" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

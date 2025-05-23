@@ -23,10 +23,32 @@
    CloudWatch
    Storage
    DB
+   SystemsManager
    AWS/CloudTrail.md
    AWS/EventBridge.md
    AWS/AutoScaling.md
    AWS/SES.md
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: GCP:
+
+   GCP/GCP.md
+   GCP/AlloyDB.md
+   GCP/ArtifactRegistry.md
+   GCP/CloudFunctions.md
+   GCP/CloudLogging.md
+   GCP/CloudRun.md
+   GCP/CloudScheduler.md
+   GCP/CloudStorage.md
+   GCP/GCE.md
+   GCP/GCP.md
+   GCP/IAM.md
+   GCP/Pub-Sub.md
+   GCP/Redis.md
+   GCP/ServiceAccount.md
+   GCP/Workflows.md
 
 .. toctree::
    :maxdepth: 1
