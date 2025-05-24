@@ -62,12 +62,10 @@
 <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">GCPについて</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">ドキュメント</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">勉強中ドキュメント</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">インフラ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">他のクラウドとの比較</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">ドキュメント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">インフラ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">基本</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">構成</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">リソース・ユーザーの管理</a></li>
 </ul>
 </li>
@@ -82,12 +80,10 @@
 <li class="toctree-l1"><a class="reference internal" href="CloudStorage.html">CloudStorage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">GCPについて</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">ドキュメント</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">勉強中ドキュメント</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">インフラ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">他のクラウドとの比較</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">ドキュメント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">インフラ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">基本</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">構成</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">リソース・ユーザーの管理</a></li>
 </ul>
 </li>
@@ -180,35 +176,125 @@ GCPを使うことで、Google社内で使われているものと同じテク�
 <li><p><a class="reference external" href="https://cloud.google.com/?hl=ja">コンソールログイン</a></p></li>
 <li><p><a class="reference external" href="https://www.gc-solution-design-pattern.jp/product-sessions">プロダクト別 参考セッション</a></p></li>
 </ul>
-<section id="id2">
-<h3>勉強中ドキュメント<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://zenn.dev/google_cloud_jp/articles/15e9a147deabc9">[実践編] Google Cloud をゼロから学ぶならこれ! おすすめの学習リソース</a></p></li>
-</ul>
 </section>
+<section id="id2">
+<h2>インフラ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p><a class="reference external" href="https://cloud.google.com/about/locations?hl=ja#regions">公式ドキュメント</a></p>
+<p>GCPでは、ゾーン（Zone）がインフラストラクチャの最小単位で、1つのゾーンは通常1つのデータセンターまたはその一部を指す。
+複数のゾーンが集まってリージョン（Region）を構成し、リージョンは同一地理的エリア内で低レイテンシ通信が可能。
+複数のリージョンをまとめた概念をロケーション（Location）と呼ぶことがあるが、これはより論理的な分類（例：US、EU、ASIAなどのマルチリージョン）。</p>
+<p><img alt="" src="../_images/GCP_location.png" />
+<a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/40yXj/google-cloud-netutowaku">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>階層</p></th>
+<th class="text-left head"><p>単位</p></th>
+<th class="text-left head"><p>説明</p></th>
+<th class="text-left head"><p>例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>ロケーション</p></td>
+<td class="text-left"><p>Location</p></td>
+<td class="text-left"><p>複数リージョンを論理的にまとめた地理的分類</p></td>
+<td class="text-left"><p>us, eu, asia（BigQuery などで使用）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>リージョン</p></td>
+<td class="text-left"><p>Region</p></td>
+<td class="text-left"><p>複数のゾーンを持つエリア。地理的に近接したゾーンで構成される</p></td>
+<td class="text-left"><p>asia-northeast1（東京）、us-central1</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ゾーン</p></td>
+<td class="text-left"><p>Zone</p></td>
+<td class="text-left"><p>物理的なデータセンター。1リージョン内に複数あり、可用性分散に利用</p></td>
+<td class="text-left"><p>asia-northeast1-a, us-central1-c</p></td>
+</tr>
+</tbody>
+</table>
+<p>GCPでは約40のリージョンと121のゾーンが提供されている。</p>
 </section>
 <section id="id3">
-<h2>インフラ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://cloud.google.com/about/locations?hl=ja#regions">https://cloud.google.com/about/locations?hl=ja#regions</a></p></li>
-</ul>
-</section>
+<h2>基本<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id4">
-<h2>他のクラウドとの比較<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<h3>構成<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GCPにおけるリソースの階層構造は以下の通りで、組織、フォルダ、プロジェクト、リソースで構成される。
+組織、フォルダー、プロジェクトにポリシーを設定することで、下位改装に対してポリシーを継承することができる。
+また、リソースは必ず、一つのPJに所属する。</p>
+<p><img alt="" src="../_images/GCP_kaisou.png" />
+<a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>階層</p></th>
+<th class="text-left head"><p>要素</p></th>
+<th class="text-left head"><p>説明</p></th>
+<th class="text-left head"><p>主な用途・備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>🏢 1</p></td>
+<td class="text-left"><p>組織（Organization）</p></td>
+<td class="text-left"><p>GCP全体の最上位階層。ドメイン（例：example.com）に紐づく1つの組織。</p></td>
+<td class="text-left"><p>大企業・法人向け。すべてのリソースの親。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>📁 2</p></td>
+<td class="text-left"><p>フォルダ（Folder）</p></td>
+<td class="text-left"><p>プロジェクトをグルーピングする中間階層。部門単位、環境（dev/stg/prd）単位などで利用。</p></td>
+<td class="text-left"><p>IAMやポリシーの継承に使える。多階層可。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>📦 3</p></td>
+<td class="text-left"><p>プロジェクト（Project）</p></td>
+<td class="text-left"><p>実際のGCPサービスを利用するための基本単位。課金、IAM、API有効化などすべてここで行う。</p></td>
+<td class="text-left"><p>GCPリソースはすべてプロジェクトに属する。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>🔧 4</p></td>
+<td class="text-left"><p>リソース（Resource）</p></td>
+<td class="text-left"><p>VM、Cloud Storage、Pub/Subなどの個別サービス。実体となるコンピューティングやストレージ。</p></td>
+<td class="text-left"><p>すべてのリソースは1つのプロジェクトに属する。</p></td>
+</tr>
+</tbody>
+</table>
+<p>プロジェクトを作成すると、以下のプロジェクトID・プロジェクト番号・プロジェクト名が決まる。
+それぞれの役割は以下。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>項目</p></th>
+<th class="text-left head"><p>説明</p></th>
+<th class="text-left head"><p>変更可否</p></th>
+<th class="text-left head"><p>ユニーク性</p></th>
+<th class="text-left head"><p>誰が指定するか</p></th>
+<th class="text-left head"><p>用途・備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>プロジェクトID (projectId)</p></td>
+<td class="text-left"><p>GCP上で一意の文字列ID。ユーザーが一度指定（自動候補あり）し、以後変更不可。API・CLIでよく使われる。</p></td>
+<td class="text-left"><p>❌変更不可</p></td>
+<td class="text-left"><p>✅一意</p></td>
+<td class="text-left"><p>ユーザーが指定（自動候補あり）</p></td>
+<td class="text-left"><p>多くのAPIでこのIDを使ってプロジェクトを指定</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>プロジェクト番号 (projectNumber)</p></td>
+<td class="text-left"><p>GCPが自動的に発行する内部的に一意な数値ID。IAMや課金設定で利用されることがある。</p></td>
+<td class="text-left"><p>❌変更不可</p></td>
+<td class="text-left"><p>✅一意</p></td>
+<td class="text-left"><p>GCPが自動で発行</p></td>
+<td class="text-left"><p>通常は意識されないが、一部APIやログで使われる</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>プロジェクト名 (name)</p></td>
+<td class="text-left"><p>表示用の名称。一意である必要はなく、いつでも変更可能。UIでの識別に使われる。</p></td>
+<td class="text-left"><p>✅変更可</p></td>
+<td class="text-left"><p>❌重複可</p></td>
+<td class="text-left"><p>ユーザーが自由に設定</p></td>
+<td class="text-left"><p>管理コンソールなどの画面に表示されるラベル的な存在</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="id5">
 <h3>リソース・ユーザーの管理<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
-<p>GPCユーザーやリソースの管理がAWSとは異なる。</p>
-<p>AdminConsoleでユーザーを作成。CloudConsoleでプロジェクト内のリソースを操作する形。
-AWSではアカウント単位でリソース境界があるが、GCPではアカウントに紐造りソースはなく、プロジェクト単位で分けられている。</p>
-<p><img alt="" src="../_images/GCP_hikaku.png" />
-<a class="reference external" href="https://lp.cloudplatformonline.com/rs/808-GJW-314/images/GC-two-way-cloud_Session3.pdf">Google Cloud でクラウド二刀流エンジニアを目指すための「早わかり集中技術講座」</a></p>
-<p><img alt="" src="../_images/GCP_kousei.png" />
-<a class="reference external" href="https://lp.cloudplatformonline.com/rs/808-GJW-314/images/GC-two-way-cloud_Session3.pdf">Google Cloud でクラウド二刀流エンジニアを目指すための「早わかり集中技術講座」</a></p>
-<p>独立したユーザーが、参画するPJのリソースを操作している。
-<img alt="" src="../_images/GPC_login.png" />
-<a class="reference external" href="https://lp.cloudplatformonline.com/rs/808-GJW-314/images/GC-two-way-cloud_Session3.pdf">Google Cloud でクラウド二刀流エンジニアを目指すための「早わかり集中技術講座」</a></p>
-<p>GCPにおけるリソースの階層構造。
-<img alt="" src="../_images/GCP_kaisou.png" />
+<p>リソースやユーザーの管理にはIAM（Identity and Access Management）を利用する。
+IAMを利用することで、<code class="docutils literal notranslate"><span class="pre">誰が</span></code>、<code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>、<code class="docutils literal notranslate"><span class="pre">何に対して</span></code>、<code class="docutils literal notranslate"><span class="pre">どういう条件で</span></code>を制御することができる。</p>
+<p><img alt="" src="../_images/GCP_IAM.png" />
 <a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
 </section>
 </section>

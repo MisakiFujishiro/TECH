@@ -72,7 +72,7 @@
 <li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">IAM</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#iam-policy">IAM Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">プリンシパル</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#iam-role">IAM Role</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sa-service-account">SA(Service Account)</a></li>
 </ul>
@@ -153,24 +153,96 @@
              
   <section id="iam">
 <h1>IAM<a class="headerlink" href="#iam" title="この見出しへのパーマリンク">¶</a></h1>
-<p>GCPにおけるIAMとは、主に認可を司るサービスである。
-<img alt="" src="../_images/IAM.png" />
+<p>リソースやユーザーの管理にはIAM（Identity and Access Management）を利用する。
+IAMを利用することで、<code class="docutils literal notranslate"><span class="pre">誰が</span></code>、<code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>、<code class="docutils literal notranslate"><span class="pre">何に対して</span></code>、<code class="docutils literal notranslate"><span class="pre">どういう条件で</span></code>を制御することができる。
+AWSと同じような用語が用いられるがそれぞれで役割が異なるため注意する。</p>
+<p><img alt="" src="../_images/IAM.png" />
 <a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
-<section id="iam-policy">
-<h2>IAM Policy<a class="headerlink" href="#iam-policy" title="この見出しへのパーマリンク">¶</a></h2>
-<p>どのロールを、どのメンバーに割り当てるかという割り当ての制御を行う。</p>
+<section id="id1">
+<h2>プリンシパル<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">誰が</span></code>については、principalとも呼ばれ、大きく以下の4つが対象となる。
+<img alt="" src="../_images/IAM_identity.png" />
+<a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
+<p>プリンシパルにはそれぞれメールアドレス形式の識別子がを持つ。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>プリンシパルの種類</p></th>
+<th class="text-left head"><p>識別子形式</p></th>
+<th class="text-left head"><p>説明・特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Google アカウント</p></td>
+<td class="text-left"><p>user:alice&#64;gmail.com</p></td>
+<td class="text-left"><p>個人のGoogleアカウント（Gmail や Workspace）。人間のユーザー。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cloud Identity ドメイン</p></td>
+<td class="text-left"><p>domain:example.com</p></td>
+<td class="text-left"><p>ドメイン全体にIAM権限を付与。Google Workspace や Cloud Identity ドメインが対象。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Google グループ</p></td>
+<td class="text-left"><p>group:dev-team&#64;example.com</p></td>
+<td class="text-left"><p>複数ユーザーを一括管理するメールグループ。IAM権限をまとめて付与可。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>サービス アカウント</p></td>
+<td class="text-left"><p>serviceAccount:my-sa&#64;project.iam.gserviceaccount.com</p></td>
+<td class="text-left"><p>アプリケーションやGCPサービスが操作するためのアイデンティティ。</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="iam-role">
 <h2>IAM Role<a class="headerlink" href="#iam-role" title="この見出しへのパーマリンク">¶</a></h2>
-<p>IAM Roleは、複数の権限の集合体であり、AWSのRoleとは役割が違う点に注意。
-具体的な認可のアクションはIAM Roleにて記述される。</p>
-<p><img alt="" src="../_images/IAM_Role.png" />
-<a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
-<p><img alt="" src="../_images/IAM_identity.png" />
-<a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>については、IAM Roleによって定義される。
+Roleは、権限の集合体であり、RoleをPrincipalに付与することで、Roleに含まれるすべての権限が実行可能。
+GCPでは拒否ポリシーが先にチェックされるため、拒否のルールを付与するとPrincipalによる操作を拒否することができる。</p>
+<p>Roleを上位階層で適用すると、下位階層に順次適用される。
+<img alt="" src="../_images/IAM_kaisou.png" />
+<a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
+<p>Roleに関しては、おおきく3つが準備されており、事前定義Roleの利用を検討して、より細かい制御が必要な時にカスタムロールを利用する。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>ロール種別</p></th>
+<th class="text-left head"><p>名称（英語）</p></th>
+<th class="text-left head"><p>説明・特徴</p></th>
+<th class="text-left head"><p>カスタマイズ</p></th>
+<th class="text-left head"><p>使用推奨度</p></th>
+<th class="text-left head"><p>例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>基本ロール</p></td>
+<td class="text-left"><p>Primitive Roles</p></td>
+<td class="text-left"><p>プロジェクト全体への大雑把な権限（旧式）</p></td>
+<td class="text-left"><p>❌ できない</p></td>
+<td class="text-left"><p>🔻 非推奨</p></td>
+<td class="text-left"><p>roles/editor</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>事前定義ロール</p></td>
+<td class="text-left"><p>Predefined Roles</p></td>
+<td class="text-left"><p>Googleが用意した細かく設計されたロール</p></td>
+<td class="text-left"><p>❌ できない（そのまま使う）</p></td>
+<td class="text-left"><p>✅ 推奨</p></td>
+<td class="text-left"><p>roles/compute.viewer</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>カスタムロール</p></td>
+<td class="text-left"><p>Custom Roles</p></td>
+<td class="text-left"><p>ユーザーが必要な権限だけを指定して作成</p></td>
+<td class="text-left"><p>✅ 可能</p></td>
+<td class="text-left"><p>⭕ 条件付きで推奨</p></td>
+<td class="text-left"><p>roles/custom.storageReader</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="sa-service-account">
 <h2>SA(Service Account)<a class="headerlink" href="#sa-service-account" title="この見出しへのパーマリンク">¶</a></h2>
+<p>サービスアカウントとは、ユーザーではなくて、プログラムやアプリケーション、仮想マシンに適用するためのプリンシパルである。
+GCPのサービスにサービスアカウントをアタッチすることができる。
+アタッチされたサービスは、サービスアカウントに付与された認可情報を利用して、別のリソースにアクセスすることができる。</p>
+<p>イメージについては以下のように、VMに対してSAを割り当てることでCloudStorageへのアクセスを許可する。</p>
+<p><img alt="" src="../_images/IAM_SA_EX.png" />
+<a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
 </section>
 </section>
 
