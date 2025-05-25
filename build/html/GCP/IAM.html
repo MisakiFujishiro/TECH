@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="Pub-Sub" href="Pub-Sub.html" />
-    <link rel="prev" title="GCE" href="GCE.html" /> 
+    <link rel="next" title="Network" href="Network.html" />
+    <link rel="prev" title="GCPについて" href="GCP.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,25 +62,30 @@
 <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AlloyDB.html">AlloyDB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudStorage.html">CloudStorage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">IAM</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">プリンシパル</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#iam-role">IAM Role</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sa-service-account">SA(Service Account)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">認可</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">プリンシパル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iam-role">IAM Role</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">バインディング</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iam-policy">IAM Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sa-service-account">SA(Service Account)</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub-Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceAccount.html">ServiceAccount</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -159,7 +164,9 @@ AWSと同じような用語が用いられるがそれぞれで役割が異な�
 <p><img alt="" src="../_images/IAM.png" />
 <a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
 <section id="id1">
-<h2>プリンシパル<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2>認可<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id2">
+<h3>プリンシパル<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">誰が</span></code>については、principalとも呼ばれ、大きく以下の4つが対象となる。
 <img alt="" src="../_images/IAM_identity.png" />
 <a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
@@ -192,10 +199,11 @@ AWSと同じような用語が用いられるがそれぞれで役割が異な�
 </table>
 </section>
 <section id="iam-role">
-<h2>IAM Role<a class="headerlink" href="#iam-role" title="この見出しへのパーマリンク">¶</a></h2>
+<h3>IAM Role<a class="headerlink" href="#iam-role" title="この見出しへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>については、IAM Roleによって定義される。
-Roleは、権限の集合体であり、RoleをPrincipalに付与することで、Roleに含まれるすべての権限が実行可能。
-GCPでは拒否ポリシーが先にチェックされるため、拒否のルールを付与するとPrincipalによる操作を拒否することができる。</p>
+Roleは、あくまで実行することができる権限をまとめたものにとどまる。
+AWSのIAMと大きく異なるのはResourceセクションがなくどのリソースに対して操作するのかを指定しないこと。</p>
+<p>GCPでは拒否ポリシーが先にチェックされるため、拒否のルールを付与するとPrincipalによる操作を拒否することができる。</p>
 <p>Roleを上位階層で適用すると、下位階層に順次適用される。
 <img alt="" src="../_images/IAM_kaisou.png" />
 <a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
@@ -235,14 +243,40 @@ GCPでは拒否ポリシーが先にチェックされるため、拒否のル�
 </tbody>
 </table>
 </section>
+<section id="id3">
+<h3>バインディング<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GCPのIAMの本質はリソースベースでのアクセス制御である。
+GCPでは、リソースに定義をする形で、PrincipalとRoleをバインディングする。
+すなわち、対象となるリソースに対して<code class="docutils literal notranslate"><span class="pre">誰が</span></code>と<code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>して良いかを定義するのである。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">storage</span> <span class="n">buckets</span> <span class="n">add</span><span class="o">-</span><span class="n">iam</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">binding</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span> \
+  <span class="o">--</span><span class="n">member</span><span class="o">=</span><span class="s2">&quot;user:alice@example.com&quot;</span> \
+  <span class="o">--</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;roles/storage.objectViewer&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="iam-policy">
+<h3>IAM Policy<a class="headerlink" href="#iam-policy" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GCPにおけるIAM Policyとは、リソースに紐づけられたバインディング情報の一覧である。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">policy</span><span class="p">:</span>
+  <span class="n">bindings</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">role</span><span class="p">:</span> <span class="n">roles</span><span class="o">/</span><span class="n">storage</span><span class="o">.</span><span class="n">objectViewer</span>
+      <span class="n">members</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">user</span><span class="p">:</span><span class="n">alice</span><span class="nd">@example</span><span class="o">.</span><span class="n">com</span>
+    <span class="o">-</span> <span class="n">role</span><span class="p">:</span> <span class="n">roles</span><span class="o">/</span><span class="n">storage</span><span class="o">.</span><span class="n">objectAdmin</span>
+      <span class="n">members</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">serviceAccount</span><span class="p">:</span><span class="n">app</span><span class="o">-</span><span class="n">sa</span><span class="nd">@project</span><span class="o">.</span><span class="n">iam</span><span class="o">.</span><span class="n">gserviceaccount</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+</section>
 <section id="sa-service-account">
-<h2>SA(Service Account)<a class="headerlink" href="#sa-service-account" title="この見出しへのパーマリンク">¶</a></h2>
-<p>サービスアカウントとは、ユーザーではなくて、プログラムやアプリケーション、仮想マシンに適用するためのプリンシパルである。
-GCPのサービスにサービスアカウントをアタッチすることができる。
-アタッチされたサービスは、サービスアカウントに付与された認可情報を利用して、別のリソースにアクセスすることができる。</p>
+<h3>SA(Service Account)<a class="headerlink" href="#sa-service-account" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SAは認可の代理人といえる。</p>
+<p>SAとは、ユーザーではなくて、プログラムやアプリケーション、仮想マシンに適用するためのプリンシパルである。
+SAとして、リソースに対してバイディングを行い、SAをGCEやCloudFunctionなどに付与することで、リソースにアクセスすることができる。</p>
 <p>イメージについては以下のように、VMに対してSAを割り当てることでCloudStorageへのアクセスを許可する。</p>
 <p><img alt="" src="../_images/IAM_SA_EX.png" />
 <a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
+</section>
 </section>
 </section>
 
@@ -250,8 +284,8 @@ GCPのサービスにサービスアカウントをアタッチすることが�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="GCE.html" class="btn btn-neutral float-left" title="GCE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Pub-Sub.html" class="btn btn-neutral float-right" title="Pub-Sub" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="GCP.html" class="btn btn-neutral float-left" title="GCPについて" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Network.html" class="btn btn-neutral float-right" title="Network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

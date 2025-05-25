@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>コンテナサービス &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="CloudRun" href="CloudRun.html" />
+    <link rel="prev" title="GCE(Google Cloud Engine)" href="GCE.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">コンテナサービス</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Kubernetesの構成要素</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Kubernetesの課題</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gke-google-kubernetes-engine">GKE(Google Kubernetes Engine)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub-Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">7日間でハッキングを始める本まとめ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">コンテナサービス</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GCP/Container.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>コンテナサービス<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="kubernetes">
+<h2>Kubernetes<a class="headerlink" href="#kubernetes" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Kubernetesとは、コンテナを複数のホストにまたがって管理するオープンソースのコンテナオーケストレーションサービス。 Eオーケストレーションの機能を有しているが、オープンソースであるという特徴からさまざまなエコシステムとの連携を行うことができる。</p>
+<section id="id2">
+<h3>Kubernetesの構成要素<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Kubernetesの構成は、大きく次の2つのレイヤに分かれる。</p>
+<ul class="simple">
+<li><p>コントロールプレーン：クラスタ全体を管理する「頭脳」</p></li>
+<li><p>ノード（ワーカー）：実際にアプリ（コンテナ）を動かす「手足」</p></li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>レイヤ</p></th>
+<th class="text-left head"><p>コンポーネント</p></th>
+<th class="text-left head"><p>役割・説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>コントロールプレーン</p></td>
+<td class="text-left"><p>kube-apiserver</p></td>
+<td class="text-left"><p>外部や内部からのリクエストを受け付けるAPIサーバ</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>etcd</p></td>
+<td class="text-left"><p>クラスタ全体の状態を保存するキーバリューストア</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>kube-scheduler</p></td>
+<td class="text-left"><p>Podをどのノードに配置するか決定する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>kube-controller-manager</p></td>
+<td class="text-left"><p>実際の状態が理想状態になるように調整</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ノード（ワーカー）</p></td>
+<td class="text-left"><p>kubelet</p></td>
+<td class="text-left"><p>ノード上でPodを管理・監視するエージェント</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>kube-proxy</p></td>
+<td class="text-left"><p>ノード内のネットワークルールを管理</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>Container Runtime</p></td>
+<td class="text-left"><p>コンテナを実行するエンジン（例：containerd、Docker）</p></td>
+</tr>
+</tbody>
+</table>
+<p>Kubernetesを理解するうえで押さえておきたい中核的な構成要素は次の通り。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>要素</p></th>
+<th class="text-left head"><p>意味・説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Cluster</p></td>
+<td class="text-left"><p>Kubernetes全体の実行環境。ノードの集まり</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Node</p></td>
+<td class="text-left"><p>Podを実行するサーバー（VMや物理マシン）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Pod</p></td>
+<td class="text-left"><p>Kubernetesにおける最小の実行単位。1つ以上のコンテナを含む</p></td>
+</tr>
+</tbody>
+</table>
+<p>より現実的なアプリ運用で頻出するKubernetesリソースは以下の通り。
+Kubernetesの特徴的な考え方は、処理を依頼する実行型ではなくて、あるべき姿を記載した宣言型の動きをするところ。
+あるべき姿を記述したドキュメントを準備することで、Kubernetesはマネージドにその姿を目指してオーケストレーションしてくれる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>用語</p></th>
+<th class="text-left head"><p>意味・説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>YAMLマニフェスト</p></td>
+<td class="text-left"><p>Kubernetesにリソースを宣言するための設定ファイル形式</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Deployment</p></td>
+<td class="text-left"><p>Podの数や更新戦略などを定義するオブジェクト</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ReplicaSet</p></td>
+<td class="text-left"><p>同じPodを複数実行して可用性を確保するための仕組み</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Service</p></td>
+<td class="text-left"><p>Podに安定した名前でアクセスできるようにする抽象化レイヤ</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Namespace</p></td>
+<td class="text-left"><p>リソースをグループ化するための仮想的な区切り</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ConfigMap / Secret</p></td>
+<td class="text-left"><p>設定情報や機密情報を外部化してPodに注入できるオブジェクト</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Horizontal Pod Autoscaler</p></td>
+<td class="text-left"><p>負荷に応じてPodの数を自動調整する仕組み</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id3">
+<h3>Kubernetesの課題<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Kubernetesは、分散システムであり、コントロールプレーン・データプレーンでさまざまなコンポーネントが動作しており、運用管理が煩雑になりがちである。</p>
+</section>
+</section>
+<section id="gke-google-kubernetes-engine">
+<h2>GKE(Google Kubernetes Engine)<a class="headerlink" href="#gke-google-kubernetes-engine" title="この見出しへのパーマリンク">¶</a></h2>
+<p>KubernetesをGCP上で簡単に利用できるようにしたマネージドサービス。
+GKEをりよす売ることでKubernetesのセットアップをすべてマネージドにしてくれる。</p>
+<p>GKEを利用することで以下のようなことが可能となる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>機能</p></th>
+<th class="text-left head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>クラスタ作成・管理の自動化</p></td>
+<td class="text-left"><p>数クリック or CLI でクラスタが作れる</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ノードのアップグレード・修復</p></td>
+<td class="text-left"><p>OSのパッチ適用、ダウン時の自動回復</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>スケーリング</p></td>
+<td class="text-left"><p>ノード数やPod数の自動増減（オートスケーリング）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>セキュリティ統合</p></td>
+<td class="text-left"><p>IAMやVPCと統合。ネットワークやアクセス制御もGoogle Cloud流に設定可能</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>モニタリング・ログ</p></td>
+<td class="text-left"><p>Cloud Monitoring / Loggingと統合。可視化がラク</p></td>
+</tr>
+</tbody>
+</table>
+<p>さらに、クラスター構成について言えば、コントロールプレーンについてはすべてGKE側で制御されるため、ユーザーはノード側に集中することができる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>レイヤ</p></th>
+<th class="text-left head"><p>管理主体</p></th>
+<th class="text-left head"><p>役割・説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>コントロールプレーン</p></td>
+<td class="text-left"><p>Google Cloudが管理</p></td>
+<td class="text-left"><p>Kubernetesの中枢（APIサーバ、スケジューラなど）。利用者は気にしなくてよい</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ノードプール（Node Pool）</p></td>
+<td class="text-left"><p>ユーザーが管理（ある程度）</p></td>
+<td class="text-left"><p>実際にコンテナを動かすVM群。GCE（Compute Engine）インスタンスとして提供される</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Pod</p></td>
+<td class="text-left"><p>Kubernetesが自動管理</p></td>
+<td class="text-left"><p>ユーザーのアプリケーション本体が動く</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="GCE.html" class="btn btn-neutral float-left" title="GCE(Google Cloud Engine)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CloudRun.html" class="btn btn-neutral float-right" title="CloudRun" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

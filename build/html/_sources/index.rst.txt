@@ -35,20 +35,20 @@
    :caption: GCP:
 
    GCP/GCP.md
-   GCP/AlloyDB.md
-   GCP/ArtifactRegistry.md
-   GCP/CloudFunctions.md
-   GCP/CloudLogging.md
-   GCP/CloudRun.md
-   GCP/CloudScheduler.md
-   GCP/CloudStorage.md
-   GCP/GCE.md
-   GCP/GCP.md
    GCP/IAM.md
+   GCP/Network.md
+   GCP/Storage.md
+   GCP/CloudLogging.md
+   GCP/DB.md
+   GCP/GCE.md
+   GCP/Container.md
+   GCP/CloudRun.md
+   GCP/CloudFunctions.md
+   GCP/Workflows.md
+   GCP/CloudScheduler.md
    GCP/Pub-Sub.md
    GCP/Redis.md
-   GCP/ServiceAccount.md
-   GCP/Workflows.md
+   GCP/ArtifactRegistry.md
 
 .. toctree::
    :maxdepth: 1

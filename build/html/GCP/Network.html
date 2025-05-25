@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Network &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="AlloyDB" href="AlloyDB.html" />
+    <link rel="prev" title="IAM" href="IAM.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vpc">VPC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">ルートテーブル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fw">FW</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-dns">Cloud DNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-cdn">Cloud CDN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gcp">GCPとの直接通信</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="AlloyDB.html">AlloyDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudStorage.html">CloudStorage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub-Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceAccount.html">ServiceAccount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">7日間でハッキングを始める本まとめ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Network</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GCP/Network.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="network">
+<h1>Network<a class="headerlink" href="#network" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="vpc">
+<h2>VPC<a class="headerlink" href="#vpc" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GCPでは、VPCがグローバルリソースとして定義され、サブネットがリージョン単位で定義される。
+そのため、AWSと比較してDRの設計がしやすいなど、以下のような特徴がある。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>比較項目</p></th>
+<th class="text-left head"><p>GCP</p></th>
+<th class="text-left head"><p>AWS</p></th>
+<th class="text-left head"><p>補足・設計への影響</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>VPCのスコープ</p></td>
+<td class="text-left"><p>グローバル（全リージョン）</p></td>
+<td class="text-left"><p>リージョン単位</p></td>
+<td class="text-left"><p>GCPでは1つのVPCで複数リージョンにまたがって構成可能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>サブネットのスコープ</p></td>
+<td class="text-left"><p>リージョン</p></td>
+<td class="text-left"><p>AZ（アベイラビリティゾーン）</p></td>
+<td class="text-left"><p>GCPは1サブネットで複数ゾーンをカバー可能、AWSはゾーンごとにサブネットが必要</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>サブネット内のリソース配置</p></td>
+<td class="text-left"><p>異なるゾーンにまたがって配置可能</p></td>
+<td class="text-left"><p>単一ゾーンのみ（AZごとに分ける）</p></td>
+<td class="text-left"><p>GCPは高可用性構成がシンプル</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>VPCピアリングの要否</p></td>
+<td class="text-left"><p>通常は不要（単一VPCで多リージョン展開可能）</p></td>
+<td class="text-left"><p>リージョン間でVPCピアリングが必要</p></td>
+<td class="text-left"><p>GCPの方がDR設計時のネットワーク構成が簡単</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>IPアドレス管理</p></td>
+<td class="text-left"><p>RFC1918ベースでCIDR指定（自動／手動）</p></td>
+<td class="text-left"><p>同上</p></td>
+<td class="text-left"><p>どちらもCIDRで管理する点は共通</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ファイアウォール</p></td>
+<td class="text-left"><p>VPC単位（インスタンスにタグやサービスアカウント単位）</p></td>
+<td class="text-left"><p>セキュリティグループ＋ネットワークACL（サブネット単位）</p></td>
+<td class="text-left"><p>GCPは柔軟でルールをまとめやすい</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルート制御</p></td>
+<td class="text-left"><p>VPC全体で共通ルーティングテーブル</p></td>
+<td class="text-left"><p>サブネット単位のルートテーブル</p></td>
+<td class="text-left"><p>AWSはルート制御が細かいが複雑にもなりやすい</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id1">
+<h3>ルートテーブル<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GCPではVPC単位でのルートテーブルが作成され、サブネットに一括で適用される。
+特定のVMなどにのみ適用したいルーティングのルールはタグなどを利用して適用できる。</p>
+<p>ルートテーブルの構成要素としては以下のようなものがある。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>要素</p></th>
+<th class="text-left head"><p>内容</p></th>
+<th class="text-left head"><p>例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>宛先範囲（Destination Range）</p></td>
+<td class="text-left"><p>送信先のIP範囲（CIDR）</p></td>
+<td class="text-left"><p>0.0.0.0/0, 10.0.0.0/8</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>次ホップ（Next Hop）</p></td>
+<td class="text-left"><p>パケットの転送先</p></td>
+<td class="text-left"><p>Internet Gateway、特定VM、VPN Gatewayなど</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>優先度（Priority）</p></td>
+<td class="text-left"><p>数値が小さいほど優先される（デフォルト：1000）</p></td>
+<td class="text-left"><p>100～65535で指定可能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ターゲット（Target Tags）</p></td>
+<td class="text-left"><p>特定のVMタグにのみ適用できるルート</p></td>
+<td class="text-left"><p>web-server など</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fw">
+<h3>FW<a class="headerlink" href="#fw" title="この見出しへのパーマリンク">¶</a></h3>
+<p>FWについても、VPC単位に適用され、VPC上のリソースに自動的に適用される。
+一方で、ルートテーブル同様、タグやサービスアカウントを指定して制御も可能。
+AWSのSGやWebACLのように細かい単位で、設定するような設計とはなっていない点に注意。</p>
+</section>
+</section>
+<section id="cloud-dns">
+<h2>Cloud DNS<a class="headerlink" href="#cloud-dns" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GCPでは、Cloud DNSを利用することで、所有しているドメインのDNSのホスティングが可能。
+具体的には、ドメイン名（例: example.com）に対して以下のDNSレコードをホスティング（管理）している。</p>
+<ul class="simple">
+<li><p>A レコード（IPアドレスの指定）</p></li>
+<li><p>CNAME（別名）</p></li>
+<li><p>MX（メール）</p></li>
+<li><p>TXT（SPF、DKIMなど）</p></li>
+</ul>
+</section>
+<section id="cloud-cdn">
+<h2>Cloud CDN<a class="headerlink" href="#cloud-cdn" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud CDNは、アプリケーションの高速配信を目的としたCDNのサービスで、エッジキャシングサービス。
+ALBのセットアップでチェックボックスをオンにするだけで簡単に統合することができる。</p>
+</section>
+<section id="gcp">
+<h2>GCPとの直接通信<a class="headerlink" href="#gcp" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GCPのネットワーク環境と他のクラウドやオンプレミスとネットワークを接続するためには以下のような例が挙げられる。
+<img alt="" src="../_images/Network_senyousen.png" />
+<a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/40yXj/google-cloud-netutowaku">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>接続方法</p></th>
+<th class="text-left head"><p>概要</p></th>
+<th class="text-left head"><p>特徴・用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Cloud VPN</p></td>
+<td class="text-left"><p>インターネット越しにVPNトンネルを張る</p></td>
+<td class="text-left"><p>暗号化された安全な接続。安価で簡単。可用性は中程度</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Direct Peering</p></td>
+<td class="text-left"><p>GCPと直接BGPピアリングを張る</p></td>
+<td class="text-left"><p>インターネット経由だが高速・低レイテンシ。Googleサービスへの通信向け</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Carrier Peering</p></td>
+<td class="text-left"><p>通信事業者を経由してGCPとBGP接続</p></td>
+<td class="text-left"><p>通信キャリアの網を通して安定した接続が可能。広域通信に向く</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Dedicated Interconnect</p></td>
+<td class="text-left"><p>GCPと物理的に専用線で接続</p></td>
+<td class="text-left"><p>高帯域・低遅延・高可用性。本番用途や大規模システムに最適</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Partner Interconnect</p></td>
+<td class="text-left"><p>提携パートナーを経由してGCPに専用接続</p></td>
+<td class="text-left"><p>専用線レベルの品質をパートナー経由で柔軟に実現。拠点制約が少ない</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cross-Cloud Interconnect</p></td>
+<td class="text-left"><p>他クラウドと専用線でGCPと接続</p></td>
+<td class="text-left"><p>マルチクラウド構成を専用ネットワークでセキュアかつ高速に構築可能</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="IAM.html" class="btn btn-neutral float-left" title="IAM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="AlloyDB.html" class="btn btn-neutral float-right" title="AlloyDB" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

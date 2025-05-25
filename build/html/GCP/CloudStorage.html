@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CloudStorage &mdash; project  ドキュメント</title>
+  <title>ストレージ &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="GCE.html" />
+    <link rel="next" title="GCE(Google Cloud Engine)" href="GCE.html" />
     <link rel="prev" title="Cloud Scheduler" href="CloudScheduler.html" /> 
 </head>
 
@@ -62,14 +62,27 @@
 <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AlloyDB.html">AlloyDB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CloudStorage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ストレージ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-storage">Cloud Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-sql">Cloud SQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spanner">Spanner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#firestore">Firestore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bigtable">Bigtable</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub-Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceAccount.html">ServiceAccount</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -130,7 +143,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">CloudStorage</li>
+      <li class="breadcrumb-item active">ストレージ</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/CloudStorage.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -140,8 +153,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="cloudstorage">
-<h1>CloudStorage<a class="headerlink" href="#cloudstorage" title="この見出しへのパーマリンク">¶</a></h1>
+  <section id="id1">
+<h1>ストレージ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="cloud-storage">
+<h2>Cloud Storage<a class="headerlink" href="#cloud-storage" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
+<section id="cloud-sql">
+<h2>Cloud SQL<a class="headerlink" href="#cloud-sql" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
+<section id="spanner">
+<h2>Spanner<a class="headerlink" href="#spanner" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
+<section id="firestore">
+<h2>Firestore<a class="headerlink" href="#firestore" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
+<section id="bigtable">
+<h2>Bigtable<a class="headerlink" href="#bigtable" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
 </section>
 
 
@@ -149,7 +177,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="CloudScheduler.html" class="btn btn-neutral float-left" title="Cloud Scheduler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="GCE.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="GCE.html" class="btn btn-neutral float-right" title="GCE(Google Cloud Engine)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

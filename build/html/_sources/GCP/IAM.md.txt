@@ -6,8 +6,8 @@ AWSと同じような用語が用いられるがそれぞれで役割が異な�
 ![](../img/GCP/IAM/IAM.png) 
 [まずは知っておくべき IAM の基礎と最新の便利機能](https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf)
 
-
-## プリンシパル
+## 認可
+### プリンシパル
 `誰が`については、principalとも呼ばれ、大きく以下の4つが対象となる。
 ![](../img/GCP/IAM/IAM_identity.png)
 [まずは知っておくべき IAM の基礎と最新の便利機能](https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf)
@@ -21,10 +21,11 @@ AWSと同じような用語が用いられるがそれぞれで役割が異な�
 |Google グループ|group:dev-team@example.com|複数ユーザーを一括管理するメールグループ。IAM権限をまとめて付与可。|
 |サービス アカウント|serviceAccount:my-sa@project.iam.gserviceaccount.com|アプリケーションやGCPサービスが操作するためのアイデンティティ。|
 
-
-## IAM Role
+### IAM Role
 `どういう操作を`については、IAM Roleによって定義される。
-Roleは、権限の集合体であり、RoleをPrincipalに付与することで、Roleに含まれるすべての権限が実行可能。
+Roleは、あくまで実行することができる権限をまとめたものにとどまる。
+AWSのIAMと大きく異なるのはResourceセクションがなくどのリソースに対して操作するのかを指定しないこと。
+
 GCPでは拒否ポリシーが先にチェックされるため、拒否のルールを付与するとPrincipalによる操作を拒否することができる。
 
 Roleを上位階層で適用すると、下位階層に順次適用される。
@@ -39,11 +40,34 @@ Roleに関しては、おおきく3つが準備されており、事前定義Rol
 |事前定義ロール|Predefined Roles|Googleが用意した細かく設計されたロール|❌ できない（そのまま使う）|✅ 推奨|roles/compute.viewer|
 |カスタムロール|Custom Roles|ユーザーが必要な権限だけを指定して作成|✅ 可能|⭕ 条件付きで推奨|roles/custom.storageReader|
 
+### バインディング
+GCPのIAMの本質はリソースベースでのアクセス制御である。
+GCPでは、リソースに定義をする形で、PrincipalとRoleをバインディングする。
+すなわち、対象となるリソースに対して`誰が`と`どういう操作を`して良いかを定義するのである。
+```
+gcloud storage buckets add-iam-policy-binding gs://my-bucket \
+  --member="user:alice@example.com" \
+  --role="roles/storage.objectViewer"
+```
 
-## SA(Service Account)
-サービスアカウントとは、ユーザーではなくて、プログラムやアプリケーション、仮想マシンに適用するためのプリンシパルである。
-GCPのサービスにサービスアカウントをアタッチすることができる。
-アタッチされたサービスは、サービスアカウントに付与された認可情報を利用して、別のリソースにアクセスすることができる。
+### IAM Policy
+GCPにおけるIAM Policyとは、リソースに紐づけられたバインディング情報の一覧である。
+```
+policy:
+  bindings:
+    - role: roles/storage.objectViewer
+      members:
+        - user:alice@example.com
+    - role: roles/storage.objectAdmin
+      members:
+        - serviceAccount:app-sa@project.iam.gserviceaccount.com
+```
+
+### SA(Service Account)
+SAは認可の代理人といえる。
+
+SAとは、ユーザーではなくて、プログラムやアプリケーション、仮想マシンに適用するためのプリンシパルである。
+SAとして、リソースに対してバイディングを行い、SAをGCEやCloudFunctionなどに付与することで、リソースにアクセスすることができる。
 
 イメージについては以下のように、VMに対してSAを割り当てることでCloudStorageへのアクセスを許可する。
 
