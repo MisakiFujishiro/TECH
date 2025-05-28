@@ -1,4 +1,6 @@
-# CloudRun
+# サーバーレスアーキテクチャ
+## Cloud Functions
+## Cloud Run
 Cloud Runはフルマネージドの`コンテナ実行環境`でありながら、自動スケーリング・HTTPリクエスト処理を行なってくれる。
 実行環境としては、LambdaとFargateのいいとこ取りをしつつ、実行方法としてはAPIGW+Lambdaのような動きをしてくれる。
 
@@ -14,3 +16,5 @@ Cloud Runはフルマネージドの`コンテナ実行環境`でありながら
 |✅ スケジュール駆動|Cloud Scheduler|cron形式で定期実行（例：毎日9時）|バッチ実行、定期レポート生成|
 |✅ イベント駆動|Eventarc|GCS、Firebase、BigQuery などのイベント|ファイルアップロード検知、監査ログ処理など|
 |✅ CI/CD駆動|Cloud Build|コード更新に伴うビルド後に自動デプロイ|継続的デプロイ構成（CD）|
+
+## Cloud Run Functions

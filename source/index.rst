@@ -42,8 +42,7 @@
    GCP/DB.md
    GCP/GCE.md
    GCP/Container.md
-   GCP/CloudRun.md
-   GCP/CloudFunctions.md
+   GCP/Serverless.md
    GCP/Workflows.md
    GCP/CloudScheduler.md
    GCP/Pub-Sub.md
