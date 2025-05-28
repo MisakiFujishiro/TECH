@@ -8,6 +8,7 @@ GCPはAWS同様柔軟性や拡張性、高速なインフラをクラウドか�
 - [Google Cloud ドキュメント](https://cloud.google.com/docs?hl=ja)
 - [コンソールログイン](https://cloud.google.com/?hl=ja)
 - [プロダクト別 参考セッション](https://www.gc-solution-design-pattern.jp/product-sessions)
+- [GCPSketchnote](https://github.com/priyankavergadia/GCPSketchnote)
 
 ## インフラ
 [公式ドキュメント](https://cloud.google.com/about/locations?hl=ja#regions)
