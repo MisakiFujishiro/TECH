@@ -64,9 +64,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">GCPについて</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id1">ドキュメント</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">インフラ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">基本</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id3">構成と権限</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id4">構成</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">リソース・ユーザーの管理</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#google-cloud-apis">Google Cloud APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#protobuf-protocol-buffers">Protobuf(Protocol Buffers)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rpc">RPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#grpc">gRPC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#google-cloud-sdk-grpc-rest">Google Cloud SDKにおける gRPC と REST の切り替え</a></li>
 </ul>
 </li>
 </ul>
@@ -78,11 +85,10 @@
 <li class="toctree-l1"><a class="reference internal" href="DB.html">データベースサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">サーバーレスアーキテクチャ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub-Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
 </ul>
@@ -206,7 +212,7 @@ GCPを使うことで、Google社内で使われているものと同じテク�
 <p>GCPでは約40のリージョンと121のゾーンが提供されている。</p>
 </section>
 <section id="id3">
-<h2>基本<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<h2>構成と権限<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id4">
 <h3>構成<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
 <p>GCPにおけるリソースの階層構造は以下の通りで、組織、フォルダ、プロジェクト、リソースで構成される。
@@ -285,9 +291,170 @@ GCPを使うことで、Google社内で使われているものと同じテク�
 <section id="id5">
 <h3>リソース・ユーザーの管理<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <p>リソースやユーザーの管理にはIAM（Identity and Access Management）を利用する。
-IAMを利用することで、<code class="docutils literal notranslate"><span class="pre">誰が</span></code>、<code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>、<code class="docutils literal notranslate"><span class="pre">何に対して</span></code>、<code class="docutils literal notranslate"><span class="pre">どういう条件で</span></code>を制御することができる。</p>
+IAMを利用することで、<code class="docutils literal notranslate"><span class="pre">誰が</span></code>、<code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>、<code class="docutils literal notranslate"><span class="pre">何に対して</span></code>、<code class="docutils literal notranslate"><span class="pre">どういう条件で</span></code>を制御することができる。
+詳細は、<a class="reference external" href="https://misakifujishiro.github.io/TECH/GCP/IAM.html">別ページ</a>にまとめる。</p>
 <p><img alt="" src="../_images/GCP_IAM.png" />
 <a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
+</section>
+</section>
+<section id="google-cloud-apis">
+<h2>Google Cloud APIs<a class="headerlink" href="#google-cloud-apis" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Google Cloud APIsは、GCPが提供するAPI群が定義されている。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cloud.google.com/apis/docs/overview?hl=ja">Google Cloud APIS</a></p></li>
+</ul>
+<p>Google Cloud APIsは、gRPCをベースにして設計されている。<br />
+<code class="docutils literal notranslate"><span class="pre">gRPC</span></code>は、googleが開発した<code class="docutils literal notranslate"><span class="pre">Protocol</span> <span class="pre">Buffers</span></code>をベースとした、軽量・高速な<code class="docutils literal notranslate"><span class="pre">RPC(Remote</span> <span class="pre">Procedure</span> <span class="pre">Call)</span></code>フレームワークであり、通信の効率性と型安全性を重視した設計となっている。</p>
+<section id="protobuf-protocol-buffers">
+<h3>Protobuf(Protocol Buffers)<a class="headerlink" href="#protobuf-protocol-buffers" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ProtobufはGoogleが開発したデータ定義のフレームワークであり、<code class="docutils literal notranslate"><span class="pre">「APIで利用するデータ構造」と「そのインターフェース（RPC）」を宣言的に定義するフォーマット</span></code>。</p>
+<p>このフォーマットの最大の特徴は、単なるデータ形式（例：JSONやYAML）の代替ではなく、<code class="docutils literal notranslate"><span class="pre">定義されたスキーマ（.protoファイル）がなければ開発を始められないという点</span></code>。</p>
+<p>つまり、スキーマが仕様書であり、かつコードの出発点でもあるため、ドキュメント管理と開発実装が一体化されている。</p>
+<p>まず、APIのインターフェースを宣言的に定義しているという特徴は、具体的に.protoファイルの例をみると理解しやすい。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">syntax</span> <span class="o">=</span> <span class="s2">&quot;proto3&quot;</span><span class="p">;</span>
+
+<span class="n">service</span> <span class="n">UserService</span> <span class="p">{</span>
+  <span class="n">rpc</span> <span class="n">GetUser</span><span class="p">(</span><span class="n">GetUserRequest</span><span class="p">)</span> <span class="n">returns</span> <span class="p">(</span><span class="n">User</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">message</span> <span class="n">GetUserRequest</span> <span class="p">{</span>
+  <span class="n">string</span> <span class="n">user_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">message</span> <span class="n">User</span> <span class="p">{</span>
+  <span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">int32</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>上記の.protoにより、関数名・引数・戻り値などのAPI定義、データ構造について明確かつ機械可読に定義されている。</p>
+<ul class="simple">
+<li><p>どんなAPIがあるか → GetUserというRPCがある</p></li>
+<li><p>どんなリクエストを送るか → user_idを送る</p></li>
+<li><p>どんなレスポンスが返るか → nameとageが入ったUser構造が返る</p></li>
+</ul>
+<p>Protobufで定義されたスキーマがなければ開発を始められないという特徴は、gRPCがそのスキーマからStubコードを自動生成し、それを基にAPI実装やクライアント開発を行う設計になっていることに起因する。
+この仕組みの詳細は、後述のgRPCセクションで解説する。</p>
+<p>最後にRESTと比較すると、一層Protobufの特徴である、APIを定義したドキュメントをベースに開発が始まる点が理解しやすい。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>項目</p></th>
+<th class="text-left head"><p>REST（+Swagger/OpenAPI）</p></th>
+<th class="text-left head"><p>gRPC（+Protobuf）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>APIの定義</p></td>
+<td class="text-left"><p>任意（後からでもOK）</p></td>
+<td class="text-left"><p>必須（ないと通信できない）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>定義の役割</p></td>
+<td class="text-left"><p>人が読むためのドキュメント</p></td>
+<td class="text-left"><p>コード生成・通信の契約</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>実装との関係</p></td>
+<td class="text-left"><p>実装とズレがち</p></td>
+<td class="text-left"><p>実装も定義から生成される</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rpc">
+<h3>RPC<a class="headerlink" href="#rpc" title="この見出しへのパーマリンク">¶</a></h3>
+<p>RPC(Remote Procedure Call)とは、離れた場所（リモート）にある関数を、ローカルの関数のように呼び出す仕組み。
+通信処理の実装を抽象化し、開発者はシンプルな関数呼び出しの形でAPIを利用できる。</p>
+</section>
+<section id="grpc">
+<h3>gRPC<a class="headerlink" href="#grpc" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Googleが開発したRPC通信フレームワークであり、Protobufで定義されたAPI仕様に基づいて、Stubコードを自動生成して双方向通信を行う。</p>
+<p>開発者は .proto ファイルでサービスとメッセージの定義を行い、それをコンパイルして得られるStubコードを使ってAPIを呼び出す。
+.protoファイルを protoc コマンドでコンパイルすると、次のようなStubファイルが生成される。使用言語（Python、Go、Javaなど）に応じたコードを自動生成できる。）</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>ファイル名</p></th>
+<th class="text-left head"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>user_pb2.py</p></td>
+<td class="text-left"><p>メッセージ構造（User, GetUserRequest）などを定義</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>user_pb2_grpc.py</p></td>
+<td class="text-left"><p>gRPCのクライアント/サーバーStubコードを定義</p></td>
+</tr>
+</tbody>
+</table>
+<p>gRPCのAPIの開発においては、この生成されたファイルをimportして、開発を行う。すなわち、.protoファイルが前提となって開発が始まる。
+以下は、生成されたStubファイルをPythonでimportして使うことで UserService に対して GetUser を呼び出す例：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">grpc</span>
+<span class="kn">from</span> <span class="nn">user_pb2</span> <span class="kn">import</span> <span class="n">GetUserRequest</span>
+<span class="kn">from</span> <span class="nn">user_pb2_grpc</span> <span class="kn">import</span> <span class="n">UserServiceStub</span>
+
+<span class="n">channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="s1">&#39;localhost:50051&#39;</span><span class="p">)</span>
+<span class="n">stub</span> <span class="o">=</span> <span class="n">UserServiceStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">stub</span><span class="o">.</span><span class="n">GetUser</span><span class="p">(</span><span class="n">GetUserRequest</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="s2">&quot;123&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>このコードでは、stub.GetUser(...) が関数呼び出しのように見えるが、実際には gRPC を通じてネットワーク越しのリモートAPIを呼び出している。</p>
+</section>
+<section id="google-cloud-sdk-grpc-rest">
+<h3>Google Cloud SDKにおける gRPC と REST の切り替え<a class="headerlink" href="#google-cloud-sdk-grpc-rest" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Google Cloud SDK のクライアントライブラリには、主に2種類のAPI層が存在しており、開発者は transport オプションを指定することで、gRPC通信かREST通信かを選択することができる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>レイヤー</p></th>
+<th class="text-left head"><p>概要</p></th>
+<th class="text-left head"><p>例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>1. High-level Client (手軽API)</p></td>
+<td class="text-left"><p>REST/gRPC両対応。独自の使いやすいラッパー</p></td>
+<td class="text-left"><p>pubsub_v1.PublisherClient</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>2. Low-level gRPC Client</p></td>
+<td class="text-left"><p>Protobuf/gRPCベースの生のStub</p></td>
+<td class="text-left"><p>publisher_pb2_grpc.PublisherServiceStub</p></td>
+</tr>
+</tbody>
+</table>
+<p>.proto ファイルに以下のような記述を追加することで、gRPCのメソッドをRESTエンドポイントとしても利用可能になる。この仕組みは gRPC Transcoding と呼ばれる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rpc</span> <span class="n">GetUser</span><span class="p">(</span><span class="n">GetUserRequest</span><span class="p">)</span> <span class="n">returns</span> <span class="p">(</span><span class="n">User</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">option</span> <span class="p">(</span><span class="n">google</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">http</span><span class="p">)</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">get</span><span class="p">:</span> <span class="s2">&quot;/v1/users/</span><span class="si">{user_id}</span><span class="s2">&quot;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>このように、同じAPIメソッドに対して gRPC でも REST でもアクセスできるようになっているため、Google Cloudのクライアントライブラリでは、通信方式（transport）を明示的に選択できる</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>通信方法</p></th>
+<th class="text-left head"><p>呼び出し例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>gRPC</p></td>
+<td class="text-left"><p>stub.GetUser(request)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>REST</p></td>
+<td class="text-left"><p>GET /v1/users/123</p></td>
+</tr>
+</tbody>
+</table>
+<p>Google Cloudのクライアントライブラリでは、transportの方式を明示的に選択することができる：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.cloud</span> <span class="kn">import</span> <span class="n">pubsub_v1</span>
+
+<span class="c1"># gRPCベース</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">pubsub_v1</span><span class="o">.</span><span class="n">PublisherClient</span><span class="p">(</span><span class="n">transport</span><span class="o">=</span><span class="s2">&quot;grpc&quot;</span><span class="p">)</span>
+
+<span class="c1"># RESTベース（内部的にはHTTP/1.1 + JSON）</span>
+<span class="n">client_rest</span> <span class="o">=</span> <span class="n">pubsub_v1</span><span class="o">.</span><span class="n">PublisherClient</span><span class="p">(</span><span class="n">transport</span><span class="o">=</span><span class="s2">&quot;rest&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>デフォルトはサービスによって異なるが、性能重視ならgRPC、環境制約やデバッグ性重視ならRESTを選択することが多い。</p>
 </section>
 </section>
 </section>
