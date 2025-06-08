@@ -71,7 +71,11 @@
 <li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナサービス</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">サーバーレスアーキテクチャ</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-functions">Cloud Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-run">Cloud Run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-run">Cloud Run</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-run-services">Cloud Run Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-run-jobs">Cloud Run Jobs</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-run-functions">Cloud Run Functions</a></li>
 </ul>
 </li>
@@ -163,13 +167,74 @@ GCPでは、<code class="docutils literal notranslate"><span class="pre">Cloud</
 </section>
 <section id="cloud-run">
 <h2>Cloud Run<a class="headerlink" href="#cloud-run" title="この見出しへのパーマリンク">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span></code>はフルマネージドの<code class="docutils literal notranslate"><span class="pre">コンテナ実行環境</span></code>である。<br />
-リポジトリ（Artifact Registry）に、DockerイメージをPushし、Cloud Runで設定することで実行環境が準備される。
-コンテナの実行環境を提供するため、任意の言語やライブラリを利用したアプリのデプロイが可能であることが特徴。
-加えて、Cloud Run上で実行することで、自動スケーリング・HTTPリクエスト処理を行なうことが可能。</p>
-<p>AWSのLambdaとFargateのいいとこ取りをした実行環境しつつ、実行方法としてはAPIGW+Lambdaのような動きをしてくれる。</p>
-<p><img alt="" src="../_images/CloudRun_illustration.png" /><br />
-<a class="reference external" href="https://cloud.google.com/blog/topics/developers-practitioners/cloud-run-story-serverless-containers?utm_source=ext&amp;amp;utm_medium=partner&amp;amp;utm_campaign=CDR_pve_gcp_gcpsketchnote_&amp;amp;utm_content=-&amp;amp;hl=en">Cloud Run: What no one tells you about Serverless (and how it's done)</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span></code>とは、フルマネージドなコンテナ実行環境である。
+任意の言語やライブラリを含むアプリケーションを、コンテナ化してデプロイすると、自動で実行環境が構築される。<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span></code>はAWS Lambdaの気軽さとFargateのカスタマイズ性を併せ持ちつイメージ。また特徴は以下のようなものがある。</p>
+<ul class="simple">
+<li><p>オートスケーリング＆ゼロスケール<br />
+リクエストの有無に応じてインスタンス数が自動調整され、使わないときにはスケールダウンして課金が停止 。</p></li>
+<li><p>Dockerイメージ管理：Artifact Registry連携<br />
+リポジトリにDockerイメージを格納し、Cloud Runで実行。CLIやソースデプロイも可能。</p></li>
+</ul>
+<p>CloudRunには、<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span> <span class="pre">Services</span></code>と<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span> <span class="pre">Jobs</span></code>の2つの機能が存在。
+<img alt="" src="../_images/CloudRun_services_jobs.png" />
+<a class="reference external" href="https://zenn.dev/google_cloud_jp/articles/cloudrun-jobs-basic">Cloud Run ジョブ ことはじめ</a></p>
+<p>特徴をまとめると下表になるが詳細は、次節で解説。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>種類</p></th>
+<th class="text-left head"><p>特徴</p></th>
+<th class="text-left head"><p>主な利用ケース</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Cloud Run Services</p></td>
+<td class="text-left"><p>HTTP/Gatewayを通じたリクエストに応答する<br>常駐型のコンテナ<br>HTTPS・HTTP/2・gRPC・WebSocket 対応<br>自動TLS、トラフィック分割可</p></td>
+<td class="text-left"><p>Web API、マイクロサービス、イベント駆動（Pub/Sub/Eventarc）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cloud Run Jobs</p></td>
+<td class="text-left"><p>一時的タスクを実行し終えると停止する<br>バッチ処理型<br>最大10,000タスク並列可<br>環境変数でタスク制御<br>最大7日間実行可能</p></td>
+<td class="text-left"><p>データ処理バッチ、画像リサイズ、DBマイグレーション、定期ジョブ</p></td>
+</tr>
+</tbody>
+</table>
+<section id="cloud-run-services">
+<h3>Cloud Run Services<a class="headerlink" href="#cloud-run-services" title="この見出しへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span> <span class="pre">Services</span></code>は、HTTPエンドポイントに対するリクエストなど、外部からのリクエストをトリガーとして実行される特徴がある。</p>
+</section>
+<section id="cloud-run-jobs">
+<h3>Cloud Run Jobs<a class="headerlink" href="#cloud-run-jobs" title="この見出しへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span> <span class="pre">Jobs</span></code>は、HTTPサーバーを立てず、一度実行して終了するバッチ的な処理に設計されたリソース。手動やスケジュールワークフローの一部など、任意のタイミングで実行される特徴がある。</p>
+<p>Cloud Run Jobsは下図のように<code class="docutils literal notranslate"><span class="pre">Job</span></code>、<code class="docutils literal notranslate"><span class="pre">Execution</span></code>、<code class="docutils literal notranslate"><span class="pre">Task</span></code>から構成される。
+<img alt="" src="../_images/CloudRun_jobs.png" />
+<a class="reference external" href="https://blog.g-gen.co.jp/entry/cloud-run-jobs-explained">Cloud Run jobsを徹底解説！</a></p>
+<p>これら3つの特徴をまとめると以下。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>要素</p></th>
+<th class="text-left head"><p>説明</p></th>
+<th class="text-left head"><p>主な構成・制御対象</p></th>
+<th class="text-left head"><p>成功・失敗の定義</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Job</p></td>
+<td class="text-left"><p>コンテナイメージやTask数、並列度、CPU/メモリ、環境変数などを定義・保持するルートリソース</p></td>
+<td class="text-left"><p>• 使用するコンテナイメージ<br>• --tasks, --parallelism<br>• CPU/メモリ制限<br>• 環境変数・秘密情報</p></td>
+<td class="text-left"><p>—</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Execution</p></td>
+<td class="text-left"><p>Job の実行単位。1回の gcloud run jobs execute や Workflows等の起動により生成される</p></td>
+<td class="text-left"><p>• 登録された Job 設定に基づいて Task を生成・実行<br>• リトライポリシーやタイムアウトの制御</p></td>
+<td class="text-left"><p>全 Task が成功 →成功<br>どれか Task がリトライ上限超 →失敗</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Task</p></td>
+<td class="text-left"><p>Execution によって起動された個別のコンテナインスタンス（1 Task = 1 コンテナ）</p></td>
+<td class="text-left"><p>• 環境変数 CLOUD_RUN_TASK_INDEX, CLOUD_RUN_TASK_COUNT による役割決定<br>• 一定時間内（最大168時間）で処理</p></td>
+<td class="text-left"><p>コンテナが正常に終了、もしくはタイムアウトや再試行制限到達でタスク完了。未終了であれば失敗とみなされる</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="cloud-run-functions">
 <h2>Cloud Run Functions<a class="headerlink" href="#cloud-run-functions" title="この見出しへのパーマリンク">¶</a></h2>
