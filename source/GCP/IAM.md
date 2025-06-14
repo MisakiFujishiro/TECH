@@ -23,12 +23,12 @@ AWSと同じような用語が用いられるがそれぞれで役割が異な�
 
 ### IAM Role
 `どういう操作を`については、IAM Roleによって定義される。
-Roleは、あくまで実行することができる権限をまとめたものにとどまる。
-AWSのIAMと大きく異なるのはResourceセクションがなくどのリソースに対して操作するのかを指定しないこと。
+GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定義しており、どのリソースに対して適用されるかは含まない。
+AWS IAMポリシーのようにRoleに直接Resource指定は含まず、リソース側にバインディングする形で適用範囲が決まる。
 
 GCPでは拒否ポリシーが先にチェックされるため、拒否のルールを付与するとPrincipalによる操作を拒否することができる。
 
-Roleを上位階層で適用すると、下位階層に順次適用される。
+IAM Roleのバインディングは、GCPのリソース階層（組織 > フォルダ > プロジェクト > リソース）に基づき、上位階層での設定が下位リソースにも継承される。
 ![](../img/GCP/IAM/IAM_kaisou.png)
 [Google Cloud Fundamentals: Core Infrastructure 日本語版](https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam)
 
@@ -64,12 +64,35 @@ policy:
 ```
 
 ### SA(Service Account)
-SAは認可の代理人といえる。
+サービスアカウント（SA）は、GCPのリソース（VM、Cloud Functionsなど）が他のリソースにアクセスするための認可主体（Principal）である。
 
-SAとは、ユーザーではなくて、プログラムやアプリケーション、仮想マシンに適用するためのプリンシパルである。
-SAとして、リソースに対してバイディングを行い、SAをGCEやCloudFunctionなどに付与することで、リソースにアクセスすることができる。
+つまり、VM などが Cloud Storage や BigQuery といった他のリソースにアクセスするためには、以下の2つのステップで認可を定義する必要がある。
 
-イメージについては以下のように、VMに対してSAを割り当てることでCloudStorageへのアクセスを許可する。
+- 「誰が SA を使ってよいか？」を定義（SA 自体にバインディング）
+  - 対象リソース: サービスアカウントそのもの
+  - Principal: VM やユーザー
+  - 付与するロール: roles/iam.serviceAccountUser（または roles/iam.serviceAccountTokenCreator など）
+```
+gcloud iam service-accounts add-iam-policy-binding my-sa@project.iam.gserviceaccount.com \
+  --member="user:bob@example.com" \
+  --role="roles/iam.serviceAccountUser"
+```
 
-![](../img/GCP/IAM/IAM_SA_EX.png)
-[Google Cloud Fundamentals: Core Infrastructure 日本語版](https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam)
+- 「SAにどんな権限を与えるか？」を定義（アクセスしたいリソース側にバインディング）
+  - 対象リソース: Cloud Storage、BigQuery、Pub/Subなど
+  - Principal: サービスアカウント
+  - 付与するロール: roles/storage.objectViewer など、操作対象に応じたロール
+```
+gcloud storage buckets add-iam-policy-binding gs://my-bucket \
+  --member="serviceAccount:my-sa@project.iam.gserviceaccount.com" \
+  --role="roles/storage.objectViewer"
+```
+
+SAを利用することで以下のようなメリットを享受できる
+
+|理由|解説|
+|:----|:----|
+|① アクセス権限の一元管理|VMインスタンスごとにアクセス権限をIAMで直に設定していくと管理が煩雑になる。<br>SAにアクセス権限を集中させることで、1箇所で制御可能になる。|
+|② 責任の分離|	「誰がこの操作を行ったのか」をSA単位でトレースできる。<br>SAはCloud Audit Logsでの識別にも使われるため、ロールごとの責任区分が明確になる。|
+|③ 再利用性・構成の再現性|	複数のVMやCloud Functionsに、同じSAを割り当てることで、共通の権限設定を再利用できる。<br> Infrastructure as Codeとの相性も良い。|
+|④ 実行単位に応じた設計が可能|実行環境（VMやCloud Functionなど）に応じて別々のSAを割り当てれば、<br>最小権限の原則（Principle of Least Privilege）を実践できる。|
