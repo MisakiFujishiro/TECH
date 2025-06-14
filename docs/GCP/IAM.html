@@ -66,8 +66,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#id1">認可</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">プリンシパル</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#iam-role">IAM Role</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">バインディング</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iam-policy">IAM Policy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iam-policy">IAM Policy(バインディング)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sa-service-account">SA(Service Account)</a></li>
 </ul>
 </li>
@@ -162,6 +161,13 @@ IAMを利用することで、<code class="docutils literal notranslate"><span c
 AWSと同じような用語が用いられるがそれぞれで役割が異なるため注意する。</p>
 <p><img alt="" src="../_images/IAM.png" />
 <a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
+<p>GCPのIAMの本質は<code class="docutils literal notranslate"><span class="pre">リソースベースでのアクセス制御</span></code>である。
+以下の流れで、リソース側で誰がどの操作をして良いかについて定義を行う。</p>
+<ol class="arabic simple">
+<li><p>IAM Roleにより権限を定義する</p></li>
+<li><p>IAM PolicyによりIAM RoleとPrincipalを紐づける（バインディング）</p></li>
+<li><p>IAM Policyをリソースに付与する</p></li>
+</ol>
 <section id="id1">
 <h2>認可<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id2">
@@ -200,12 +206,18 @@ AWSと同じような用語が用いられるがそれぞれで役割が異な�
 <section id="iam-role">
 <h3>IAM Role<a class="headerlink" href="#iam-role" title="この見出しへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>については、IAM Roleによって定義される。
-GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定義しており、どのリソースに対して適用されるかは含まない。
-AWS IAMポリシーのようにRoleに直接Resource指定は含まず、リソース側にバインディングする形で適用範囲が決まる。</p>
-<p>GCPでは拒否ポリシーが先にチェックされるため、拒否のルールを付与するとPrincipalによる操作を拒否することができる。</p>
-<p>IAM Roleのバインディングは、GCPのリソース階層（組織 &gt; フォルダ &gt; プロジェクト &gt; リソース）に基づき、上位階層での設定が下位リソースにも継承される。
-<img alt="" src="../_images/IAM_kaisou.png" />
-<a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
+GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定義する。</p>
+<p>具体的には、以下のように<code class="docutils literal notranslate"><span class="pre">includedPermissions</span></code>で認可される操作が定義される。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">Custom</span><span class="nv"> </span><span class="s">Read-Only</span><span class="nv"> </span><span class="s">Storage</span><span class="nv"> </span><span class="s">Role&quot;</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Allows</span><span class="nv"> </span><span class="s">listing</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">reading</span><span class="nv"> </span><span class="s">GCS</span><span class="nv"> </span><span class="s">objects&quot;</span>
+<span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GA&quot;</span>
+<span class="nt">includedPermissions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage.objects.get</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage.objects.list</span>
+</pre></div>
+</div>
+<p>例から分かる通り、AWS IAMポリシーとは異なり利用できるprincipalや、対象のResourceの指定は含まない。
+後述するがGCPでは、リソースベースポリシーの許可ルールがされており、principalやresouceの紐付けはIAM Policyのバインディングを利用する。</p>
 <p>Roleに関しては、おおきく3つが準備されており、事前定義Roleの利用を検討して、より細かい制御が必要な時にカスタムロールを利用する。</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -242,30 +254,41 @@ AWS IAMポリシーのようにRoleに直接Resource指定は含まず、リソ�
 </tbody>
 </table>
 </section>
-<section id="id3">
-<h3>バインディング<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
-<p>GCPのIAMの本質はリソースベースでのアクセス制御である。
-GCPでは、リソースに定義をする形で、PrincipalとRoleをバインディングする。
-すなわち、対象となるリソースに対して<code class="docutils literal notranslate"><span class="pre">誰が</span></code>と<code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>して良いかを定義するのである。</p>
+<section id="iam-policy">
+<h3>IAM Policy(バインディング)<a class="headerlink" href="#iam-policy" title="この見出しへのパーマリンク">¶</a></h3>
+<p>IAM Policyは、<code class="docutils literal notranslate"><span class="pre">誰が</span></code>が<code class="docutils literal notranslate"><span class="pre">どの操作を</span></code>するかを定義し、リソースに対して付与する。
+どの操作についてはRoleで定義を行なったことを踏まえると、IAM Policyにより<code class="docutils literal notranslate"><span class="pre">principal</span></code>と<code class="docutils literal notranslate"><span class="pre">IAM</span> <span class="pre">Role</span></code>を<code class="docutils literal notranslate"><span class="pre">紐づける</span></code>定義が行われる。紐付け定義がIAM Policyの<code class="docutils literal notranslate"><span class="pre">バインディング</span></code>である。</p>
+<p>IAM Policyでは、bindingsとして、roleとprincipal(members)を紐づけている。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">bindings</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roles/storage.objectViewer</span>
+<span class="w">    </span><span class="nt">members</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user:alice@example.com</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roles/storage.objectAdmin</span>
+<span class="w">    </span><span class="nt">members</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">serviceAccount:app-sa@my-project.iam.gserviceaccount.com</span>
+<span class="nt">etag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BwWWja0YfJA=</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>IAM Policyはリソースに付与するため、以下のようなコマンドで付与を行う。</p>
+<p>loud Storage バケットへの適用</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>storage<span class="w"> </span>buckets<span class="w"> </span>set-iam-policy<span class="w"> </span>gs://my-bucket<span class="w"> </span>policy.json
+</pre></div>
+</div>
+<p>プロジェクトへの適用</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>projects<span class="w"> </span>set-iam-policy<span class="w"> </span>my-project-id<span class="w"> </span>policy.json
+</pre></div>
+</div>
+<p>上記の例のように、特定のバケットもリソースであるとともに、組織やフォルダ、プロジェクトも同様にリソースであるとうこと。
+さらに、付与された権限については、GCPのリソース階層（組織 &gt; フォルダ &gt; プロジェクト &gt; リソース）に基づき、上位階層での設定が下位リソースにも継承される。そのため、プロジェクトに対してIAM Policyを付与して権限を与えると、そのプロジェクト配下のリソース全てに権限を付与していることになる点に注意。</p>
+<p><img alt="" src="../_images/IAM_kaisou.png" />
+<a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">storage</span> <span class="n">buckets</span> <span class="n">add</span><span class="o">-</span><span class="n">iam</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">binding</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span> \
   <span class="o">--</span><span class="n">member</span><span class="o">=</span><span class="s2">&quot;user:alice@example.com&quot;</span> \
   <span class="o">--</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;roles/storage.objectViewer&quot;</span>
 </pre></div>
 </div>
-</section>
-<section id="iam-policy">
-<h3>IAM Policy<a class="headerlink" href="#iam-policy" title="この見出しへのパーマリンク">¶</a></h3>
 <p>GCPにおけるIAM Policyとは、リソースに紐づけられたバインディング情報の一覧である。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">policy</span><span class="p">:</span>
-  <span class="n">bindings</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">role</span><span class="p">:</span> <span class="n">roles</span><span class="o">/</span><span class="n">storage</span><span class="o">.</span><span class="n">objectViewer</span>
-      <span class="n">members</span><span class="p">:</span>
-        <span class="o">-</span> <span class="n">user</span><span class="p">:</span><span class="n">alice</span><span class="nd">@example</span><span class="o">.</span><span class="n">com</span>
-    <span class="o">-</span> <span class="n">role</span><span class="p">:</span> <span class="n">roles</span><span class="o">/</span><span class="n">storage</span><span class="o">.</span><span class="n">objectAdmin</span>
-      <span class="n">members</span><span class="p">:</span>
-        <span class="o">-</span> <span class="n">serviceAccount</span><span class="p">:</span><span class="n">app</span><span class="o">-</span><span class="n">sa</span><span class="nd">@project</span><span class="o">.</span><span class="n">iam</span><span class="o">.</span><span class="n">gserviceaccount</span><span class="o">.</span><span class="n">com</span>
-</pre></div>
-</div>
 </section>
 <section id="sa-service-account">
 <h3>SA(Service Account)<a class="headerlink" href="#sa-service-account" title="この見出しへのパーマリンク">¶</a></h3>
