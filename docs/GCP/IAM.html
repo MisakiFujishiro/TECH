@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="Network" href="Network.html" />
+    <link rel="next" title="Google Cloud APIs" href="API.html" />
     <link rel="prev" title="GCPについて" href="GCP.html" /> 
 </head>
 
@@ -63,15 +63,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">IAM</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">認可</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">プリンシパル</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iam-role">IAM Role</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iam-policy">IAM Policy(バインディング)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sa-service-account">SA(Service Account)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">プリンシパル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iam-role">IAM Role</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iam-policy">IAM Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sa-service-account">SA(Service Account)</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">Google Cloud APIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Network.html">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
@@ -169,9 +167,7 @@ AWSと同じような用語が用いられるがそれぞれで役割が異な�
 <li><p>IAM Policyをリソースに付与する</p></li>
 </ol>
 <section id="id1">
-<h2>認可<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
-<section id="id2">
-<h3>プリンシパル<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h2>プリンシパル<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">誰が</span></code>については、principalとも呼ばれ、大きく以下の4つが対象となる。
 <img alt="" src="../_images/IAM_identity.png" />
 <a class="reference external" href="https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf">まずは知っておくべき IAM の基礎と最新の便利機能</a></p>
@@ -204,7 +200,7 @@ AWSと同じような用語が用いられるがそれぞれで役割が異な�
 </table>
 </section>
 <section id="iam-role">
-<h3>IAM Role<a class="headerlink" href="#iam-role" title="この見出しへのパーマリンク">¶</a></h3>
+<h2>IAM Role<a class="headerlink" href="#iam-role" title="この見出しへのパーマリンク">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">どういう操作を</span></code>については、IAM Roleによって定義される。
 GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定義する。</p>
 <p>具体的には、以下のように<code class="docutils literal notranslate"><span class="pre">includedPermissions</span></code>で認可される操作が定義される。</p>
@@ -255,9 +251,10 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 </table>
 </section>
 <section id="iam-policy">
-<h3>IAM Policy(バインディング)<a class="headerlink" href="#iam-policy" title="この見出しへのパーマリンク">¶</a></h3>
-<p>IAM Policyは、<code class="docutils literal notranslate"><span class="pre">誰が</span></code>が<code class="docutils literal notranslate"><span class="pre">どの操作を</span></code>するかを定義し、リソースに対して付与する。
-どの操作についてはRoleで定義を行なったことを踏まえると、IAM Policyにより<code class="docutils literal notranslate"><span class="pre">principal</span></code>と<code class="docutils literal notranslate"><span class="pre">IAM</span> <span class="pre">Role</span></code>を<code class="docutils literal notranslate"><span class="pre">紐づける</span></code>定義が行われる。紐付け定義がIAM Policyの<code class="docutils literal notranslate"><span class="pre">バインディング</span></code>である。</p>
+<h2>IAM Policy<a class="headerlink" href="#iam-policy" title="この見出しへのパーマリンク">¶</a></h2>
+<p>IAM Policyは、<code class="docutils literal notranslate"><span class="pre">バインディング</span></code>、<code class="docutils literal notranslate"><span class="pre">監査構成</span></code>、<code class="docutils literal notranslate"><span class="pre">メタデータ</span></code>を定義している。</p>
+<p><code class="docutils literal notranslate"><span class="pre">バインディング</span></code>により、<code class="docutils literal notranslate"><span class="pre">誰が</span></code>が<code class="docutils literal notranslate"><span class="pre">どの操作を</span></code>するかの紐付けを定義し、リソースに対して付与する。
+どの操作についてはRoleで定義を行なったことを踏まえると、IAM Policyにより<code class="docutils literal notranslate"><span class="pre">principal</span></code>と<code class="docutils literal notranslate"><span class="pre">IAM</span> <span class="pre">Role</span></code>を<code class="docutils literal notranslate"><span class="pre">紐づける</span></code>定義が行われる。</p>
 <p>IAM Policyでは、bindingsとして、roleとprincipal(members)を紐づけている。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">bindings</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roles/storage.objectViewer</span>
@@ -279,8 +276,8 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>projects<span class="w"> </span>set-iam-policy<span class="w"> </span>my-project-id<span class="w"> </span>policy.json
 </pre></div>
 </div>
-<p>上記の例のように、特定のバケットもリソースであるとともに、組織やフォルダ、プロジェクトも同様にリソースであるとうこと。
-さらに、付与された権限については、GCPのリソース階層（組織 &gt; フォルダ &gt; プロジェクト &gt; リソース）に基づき、上位階層での設定が下位リソースにも継承される。そのため、プロジェクトに対してIAM Policyを付与して権限を与えると、そのプロジェクト配下のリソース全てに権限を付与していることになる点に注意。</p>
+<p>上記の例のように、特定のバケットにポリシーを付与することができるとともに、組織やフォルダ、プロジェクトも同様にリソースであるため、ポリシーを付与することができる。
+付与された権限については、GCPのリソース階層（組織 &gt; フォルダ &gt; プロジェクト &gt; リソース）に基づき、上位階層での設定が下位リソースにも継承される。そのため、プロジェクトに対してIAM Policyを付与して権限を与えると、そのプロジェクト配下のリソース全てに権限を付与していることになる点に注意。</p>
 <p><img alt="" src="../_images/IAM_kaisou.png" />
 <a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">storage</span> <span class="n">buckets</span> <span class="n">add</span><span class="o">-</span><span class="n">iam</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">binding</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span> \
@@ -291,7 +288,7 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 <p>GCPにおけるIAM Policyとは、リソースに紐づけられたバインディング情報の一覧である。</p>
 </section>
 <section id="sa-service-account">
-<h3>SA(Service Account)<a class="headerlink" href="#sa-service-account" title="この見出しへのパーマリンク">¶</a></h3>
+<h2>SA(Service Account)<a class="headerlink" href="#sa-service-account" title="この見出しへのパーマリンク">¶</a></h2>
 <p>サービスアカウント（SA）は、GCPのリソース（VM、Cloud Functionsなど）が他のリソースにアクセスするための認可主体（Principal）である。</p>
 <p>つまり、VM などが Cloud Storage や BigQuery といった他のリソースにアクセスするためには、以下の2つのステップで認可を定義する必要がある。</p>
 <ul class="simple">
@@ -344,7 +341,7 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 </tr>
 </tbody>
 </table>
-</section>
+<p>SAは、サービスアカウントキー（秘密鍵と公開鍵）を発行することができ、その情報を利用することでSAに許可されている権限を行使することができる。注意点として、サービスアカウントキーをgithubなどに後悔しないように注意する。</p>
 </section>
 </section>
 
@@ -353,7 +350,7 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="GCP.html" class="btn btn-neutral float-left" title="GCPについて" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Network.html" class="btn btn-neutral float-right" title="Network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="API.html" class="btn btn-neutral float-right" title="Google Cloud APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

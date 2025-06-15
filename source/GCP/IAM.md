@@ -13,8 +13,7 @@ GCPのIAMの本質は`リソースベースでのアクセス制御`である。
 3. IAM Policyをリソースに付与する
 
 
-## 認可
-### プリンシパル
+## プリンシパル
 `誰が`については、principalとも呼ばれ、大きく以下の4つが対象となる。
 ![](../img/GCP/IAM/IAM_identity.png)
 [まずは知っておくべき IAM の基礎と最新の便利機能](https://services.google.com/fh/files/events/0224-infra-onair-seesion-1.pdf)
@@ -28,7 +27,7 @@ GCPのIAMの本質は`リソースベースでのアクセス制御`である。
 |Google グループ|group:dev-team@example.com|複数ユーザーを一括管理するメールグループ。IAM権限をまとめて付与可。|
 |サービス アカウント|serviceAccount:my-sa@project.iam.gserviceaccount.com|アプリケーションやGCPサービスが操作するためのアイデンティティ。|
 
-### IAM Role
+## IAM Role
 `どういう操作を`については、IAM Roleによって定義される。
 GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定義する。
 
@@ -54,9 +53,11 @@ Roleに関しては、おおきく3つが準備されており、事前定義Rol
 |カスタムロール|Custom Roles|ユーザーが必要な権限だけを指定して作成|✅ 可能|⭕ 条件付きで推奨|roles/custom.storageReader|
 
 
-### IAM Policy(バインディング)
-IAM Policyは、`誰が`が`どの操作を`するかを定義し、リソースに対して付与する。
-どの操作についてはRoleで定義を行なったことを踏まえると、IAM Policyにより`principal`と`IAM Role`を`紐づける`定義が行われる。紐付け定義がIAM Policyの`バインディング`である。
+## IAM Policy
+IAM Policyは、`バインディング`、`監査構成`、`メタデータ`を定義している。
+
+`バインディング`により、`誰が`が`どの操作を`するかの紐付けを定義し、リソースに対して付与する。
+どの操作についてはRoleで定義を行なったことを踏まえると、IAM Policyにより`principal`と`IAM Role`を`紐づける`定義が行われる。
 
 IAM Policyでは、bindingsとして、roleとprincipal(members)を紐づけている。
 ```yaml
@@ -83,8 +84,8 @@ gcloud storage buckets set-iam-policy gs://my-bucket policy.json
 gcloud projects set-iam-policy my-project-id policy.json
 ```
 
-上記の例のように、特定のバケットもリソースであるとともに、組織やフォルダ、プロジェクトも同様にリソースであるとうこと。
-さらに、付与された権限については、GCPのリソース階層（組織 > フォルダ > プロジェクト > リソース）に基づき、上位階層での設定が下位リソースにも継承される。そのため、プロジェクトに対してIAM Policyを付与して権限を与えると、そのプロジェクト配下のリソース全てに権限を付与していることになる点に注意。
+上記の例のように、特定のバケットにポリシーを付与することができるとともに、組織やフォルダ、プロジェクトも同様にリソースであるため、ポリシーを付与することができる。
+付与された権限については、GCPのリソース階層（組織 > フォルダ > プロジェクト > リソース）に基づき、上位階層での設定が下位リソースにも継承される。そのため、プロジェクトに対してIAM Policyを付与して権限を与えると、そのプロジェクト配下のリソース全てに権限を付与していることになる点に注意。
 
 ![](../img/GCP/IAM/IAM_kaisou.png)
 [Google Cloud Fundamentals: Core Infrastructure 日本語版](https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam)
@@ -100,7 +101,7 @@ gcloud storage buckets add-iam-policy-binding gs://my-bucket \
 GCPにおけるIAM Policyとは、リソースに紐づけられたバインディング情報の一覧である。
 
 
-### SA(Service Account)
+## SA(Service Account)
 サービスアカウント（SA）は、GCPのリソース（VM、Cloud Functionsなど）が他のリソースにアクセスするための認可主体（Principal）である。
 
 つまり、VM などが Cloud Storage や BigQuery といった他のリソースにアクセスするためには、以下の2つのステップで認可を定義する必要がある。
@@ -133,3 +134,5 @@ SAを利用することで以下のようなメリットを享受できる
 |② 責任の分離|	「誰がこの操作を行ったのか」をSA単位でトレースできる。<br>SAはCloud Audit Logsでの識別にも使われるため、ロールごとの責任区分が明確になる。|
 |③ 再利用性・構成の再現性|	複数のVMやCloud Functionsに、同じSAを割り当てることで、共通の権限設定を再利用できる。<br> Infrastructure as Codeとの相性も良い。|
 |④ 実行単位に応じた設計が可能|実行環境（VMやCloud Functionなど）に応じて別々のSAを割り当てれば、<br>最小権限の原則（Principle of Least Privilege）を実践できる。|
+
+SAは、サービスアカウントキー（秘密鍵と公開鍵）を発行することができ、その情報を利用することでSAに許可されている権限を行使することができる。注意点として、サービスアカウントキーをgithubなどに後悔しないように注意する。
