@@ -65,8 +65,15 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">IAM</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id1">プリンシパル</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#iam-role">IAM Role</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#iam-policy">IAM Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sa-service-account">SA(Service Account)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iam-policy">IAM Policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">上位階層への付与</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sa-service-account">SA(Service Account)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">自動バインディングに関する補足</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sa">SAのメリット</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="API.html">Google Cloud APIs</a></li>
@@ -74,7 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DB.html">データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Compute Engine)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Serverless.html">サーバーレスアーキテクチャ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
@@ -276,35 +283,25 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcloud<span class="w"> </span>projects<span class="w"> </span>set-iam-policy<span class="w"> </span>my-project-id<span class="w"> </span>policy.json
 </pre></div>
 </div>
+<section id="id2">
+<h3>上位階層への付与<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>上記の例のように、特定のバケットにポリシーを付与することができるとともに、組織やフォルダ、プロジェクトも同様にリソースであるため、ポリシーを付与することができる。
 付与された権限については、GCPのリソース階層（組織 &gt; フォルダ &gt; プロジェクト &gt; リソース）に基づき、上位階層での設定が下位リソースにも継承される。そのため、プロジェクトに対してIAM Policyを付与して権限を与えると、そのプロジェクト配下のリソース全てに権限を付与していることになる点に注意。</p>
 <p><img alt="" src="../_images/IAM_kaisou.png" />
 <a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">storage</span> <span class="n">buckets</span> <span class="n">add</span><span class="o">-</span><span class="n">iam</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">binding</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span> \
-  <span class="o">--</span><span class="n">member</span><span class="o">=</span><span class="s2">&quot;user:alice@example.com&quot;</span> \
-  <span class="o">--</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;roles/storage.objectViewer&quot;</span>
-</pre></div>
-</div>
-<p>GCPにおけるIAM Policyとは、リソースに紐づけられたバインディング情報の一覧である。</p>
+<p>上位階層をリソースとして、ポリシーを付与するとアイデンティティベースのように認可を与えることになる点に注意。
+例えばPJに対してバインディングを行い、特定のSAをprincipalにした場合、その後はPolicyにRoleを付与していくことでSAは対象リソースへの権限を持つことができ、リソース側にバインディングする手間が省ける。</p>
+</section>
 </section>
 <section id="sa-service-account">
 <h2>SA(Service Account)<a class="headerlink" href="#sa-service-account" title="この見出しへのパーマリンク">¶</a></h2>
-<p>サービスアカウント（SA）は、GCPのリソース（VM、Cloud Functionsなど）が他のリソースにアクセスするための認可主体（Principal）である。</p>
-<p>つまり、VM などが Cloud Storage や BigQuery といった他のリソースにアクセスするためには、以下の2つのステップで認可を定義する必要がある。</p>
+<p>サービスアカウント（SA）は、ユーザーではなくGCP内のサービスが認証・認可を行うための機能。2つの役割を持っていることを意識すると理解しやすい</p>
 <ul class="simple">
-<li><p>「誰が SA を使ってよいか？」を定義（SA 自体にバインディング）</p>
-<ul>
-<li><p>対象リソース: サービスアカウントそのもの</p></li>
-<li><p>Principal: VM やユーザー</p></li>
-<li><p>付与するロール: roles/iam.serviceAccountUser（または roles/iam.serviceAccountTokenCreator など）</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">プリンシパル</span></code>・・・Policyでバインディングを指定する際にSAをprincipalにすることができる</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">リソース</span></code>・・・SA自体がリソースであるので誰がSAを引き受けられるかを定義する</p></li>
 </ul>
-</li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">iam</span> <span class="n">service</span><span class="o">-</span><span class="n">accounts</span> <span class="n">add</span><span class="o">-</span><span class="n">iam</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">binding</span> <span class="n">my</span><span class="o">-</span><span class="n">sa</span><span class="nd">@project</span><span class="o">.</span><span class="n">iam</span><span class="o">.</span><span class="n">gserviceaccount</span><span class="o">.</span><span class="n">com</span> \
-  <span class="o">--</span><span class="n">member</span><span class="o">=</span><span class="s2">&quot;user:bob@example.com&quot;</span> \
-  <span class="o">--</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;roles/iam.serviceAccountUser&quot;</span>
-</pre></div>
-</div>
+<p>例として、VM などが Cloud Storage や BigQuery といった他のリソースにアクセスすることを考える。
+以下の2つのステップで認可を定義する。</p>
 <ul class="simple">
 <li><p>「SAにどんな権限を与えるか？」を定義（アクセスしたいリソース側にバインディング）</p>
 <ul>
@@ -319,6 +316,27 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
   <span class="o">--</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;roles/storage.objectViewer&quot;</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>「誰が SA を使ってよいか？」を定義（SA 自体にバインディング）</p>
+<ul>
+<li><p>対象リソース: サービスアカウントそのもの</p></li>
+<li><p>Principal: VM やユーザー</p></li>
+<li><p>付与するロール: roles/iam.serviceAccountUser（または roles/iam.serviceAccountTokenCreator など）</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">iam</span> <span class="n">service</span><span class="o">-</span><span class="n">accounts</span> <span class="n">add</span><span class="o">-</span><span class="n">iam</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">binding</span> <span class="n">my</span><span class="o">-</span><span class="n">sa</span><span class="nd">@project</span><span class="o">.</span><span class="n">iam</span><span class="o">.</span><span class="n">gserviceaccount</span><span class="o">.</span><span class="n">com</span> \
+  <span class="o">--</span><span class="n">member</span><span class="o">=</span><span class="s2">&quot;user:bob@example.com&quot;</span> \
+  <span class="o">--</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;roles/iam.serviceAccountUser&quot;</span>
+</pre></div>
+</div>
+<section id="id3">
+<h3>自動バインディングに関する補足<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cloud Run や GCE などのサービスに SA を指定してリソースを作成すると、そのリソースがSAを使うためのバインディング（②の部分）はGCPが自動で設定してくれる。
+したがって、通常はユーザーが明示的に設定する必要はない。</p>
+</section>
+<section id="sa">
+<h3>SAのメリット<a class="headerlink" href="#sa" title="この見出しへのパーマリンク">¶</a></h3>
 <p>SAを利用することで以下のようなメリットを享受できる</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
@@ -342,6 +360,7 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 </tbody>
 </table>
 <p>SAは、サービスアカウントキー（秘密鍵と公開鍵）を発行することができ、その情報を利用することでSAに許可されている権限を行使することができる。注意点として、サービスアカウントキーをgithubなどに後悔しないように注意する。</p>
+</section>
 </section>
 </section>
 

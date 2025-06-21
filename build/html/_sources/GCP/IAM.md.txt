@@ -84,37 +84,23 @@ gcloud storage buckets set-iam-policy gs://my-bucket policy.json
 gcloud projects set-iam-policy my-project-id policy.json
 ```
 
+### 上位階層への付与
 上記の例のように、特定のバケットにポリシーを付与することができるとともに、組織やフォルダ、プロジェクトも同様にリソースであるため、ポリシーを付与することができる。
 付与された権限については、GCPのリソース階層（組織 > フォルダ > プロジェクト > リソース）に基づき、上位階層での設定が下位リソースにも継承される。そのため、プロジェクトに対してIAM Policyを付与して権限を与えると、そのプロジェクト配下のリソース全てに権限を付与していることになる点に注意。
 
 ![](../img/GCP/IAM/IAM_kaisou.png)
 [Google Cloud Fundamentals: Core Infrastructure 日本語版](https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/KUBlM/identity-and-access-management-iam)
 
-
-
-```
-gcloud storage buckets add-iam-policy-binding gs://my-bucket \
-  --member="user:alice@example.com" \
-  --role="roles/storage.objectViewer"
-```
-
-GCPにおけるIAM Policyとは、リソースに紐づけられたバインディング情報の一覧である。
-
+上位階層をリソースとして、ポリシーを付与するとアイデンティティベースのように認可を与えることになる点に注意。
+例えばPJに対してバインディングを行い、特定のSAをprincipalにした場合、その後はPolicyにRoleを付与していくことでSAは対象リソースへの権限を持つことができ、リソース側にバインディングする手間が省ける。
 
 ## SA(Service Account)
-サービスアカウント（SA）は、GCPのリソース（VM、Cloud Functionsなど）が他のリソースにアクセスするための認可主体（Principal）である。
+サービスアカウント（SA）は、ユーザーではなくGCP内のサービスが認証・認可を行うための機能。2つの役割を持っていることを意識すると理解しやすい
+- `プリンシパル`・・・Policyでバインディングを指定する際にSAをprincipalにすることができる
+- `リソース`・・・SA自体がリソースであるので誰がSAを引き受けられるかを定義する
 
-つまり、VM などが Cloud Storage や BigQuery といった他のリソースにアクセスするためには、以下の2つのステップで認可を定義する必要がある。
-
-- 「誰が SA を使ってよいか？」を定義（SA 自体にバインディング）
-  - 対象リソース: サービスアカウントそのもの
-  - Principal: VM やユーザー
-  - 付与するロール: roles/iam.serviceAccountUser（または roles/iam.serviceAccountTokenCreator など）
-```
-gcloud iam service-accounts add-iam-policy-binding my-sa@project.iam.gserviceaccount.com \
-  --member="user:bob@example.com" \
-  --role="roles/iam.serviceAccountUser"
-```
+例として、VM などが Cloud Storage や BigQuery といった他のリソースにアクセスすることを考える。
+以下の2つのステップで認可を定義する。
 
 - 「SAにどんな権限を与えるか？」を定義（アクセスしたいリソース側にバインディング）
   - 対象リソース: Cloud Storage、BigQuery、Pub/Subなど
@@ -125,7 +111,21 @@ gcloud storage buckets add-iam-policy-binding gs://my-bucket \
   --member="serviceAccount:my-sa@project.iam.gserviceaccount.com" \
   --role="roles/storage.objectViewer"
 ```
+- 「誰が SA を使ってよいか？」を定義（SA 自体にバインディング）
+  - 対象リソース: サービスアカウントそのもの
+  - Principal: VM やユーザー
+  - 付与するロール: roles/iam.serviceAccountUser（または roles/iam.serviceAccountTokenCreator など）
+```
+gcloud iam service-accounts add-iam-policy-binding my-sa@project.iam.gserviceaccount.com \
+  --member="user:bob@example.com" \
+  --role="roles/iam.serviceAccountUser"
+```
 
+### 自動バインディングに関する補足
+Cloud Run や GCE などのサービスに SA を指定してリソースを作成すると、そのリソースがSAを使うためのバインディング（②の部分）はGCPが自動で設定してくれる。
+したがって、通常はユーザーが明示的に設定する必要はない。
+
+### SAのメリット
 SAを利用することで以下のようなメリットを享受できる
 
 |理由|解説|
