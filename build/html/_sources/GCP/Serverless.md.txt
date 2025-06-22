@@ -1,6 +1,18 @@
 # サーバーレスアーキテクチャ
 サーバーレスアーキテクチャを利用することで、インフラの管理を最小限に抑え、開発者がAPP開発に集中することができる。
-GCPでは、`Cloud Functions`・`Cloud Run`・`Cloud Run Functions`といったサーバーレスサービスが提供されている。
+GCPでは、`AppEngine`・`Cloud Functions`・`Cloud Run`・`Cloud Run Functions`といったサーバーレスサービスが提供されている。
+
+## App Engine
+App Engine は、Webアプリケーションのインフラ運用を極限まで簡略化し、スケーラブルかつ安全なサービスを素早く構築・運用できる GCP のサーバーレスプラットフォーム。
+
+スタンダート環境とフレキシブル環境の2種類が提供されている。
+
+|環境|特徴|利用可能な言語|スケーリング|カスタマイズ性|
+|:----|:----|:----|:----|:----|
+|スタンダード環境|軽量・高速起動、料金が細かく課金される（秒単位）|Python, Java, Node.js, Go などの一部バージョン|リクエスト数に応じて自動スケーリング|制限あり（固定ランタイム）|
+|フレキシブル環境|Dockerベースのカスタム環境、メモリやCPUの指定も可能|ほぼすべての言語に対応（カスタムランタイム）|VM単位でスケーリング（起動はやや遅い）|高い（VMレベルで自由に設定可能）|
+
+
 
 ## Cloud Functions
 `CloudFunctions`は、イベント駆動型の`関数実行環境`である。  
@@ -9,6 +21,14 @@ GCPでは、`Cloud Functions`・`Cloud Run`・`Cloud Run Functions`といった�
 ![](../img/GCP/Serverless/CloudFunction_illustration.png)   
 [Learn Cloud Functions in a snap!](https://cloud.google.com/blog/topics/developers-practitioners/learn-cloud-functions-snap?utm_source=ext&utm_medium=partner&utm_campaign=CDR_pve_gcp_gcpsketchnote_&utm_content=-&hl=en)
 
+第一世代と第二世代があり、第二世代の利用が推奨されており、タイムアウトやトリガー可能なサービスが増えている。
+
+|項目|第1世代（First Gen）|第2世代（Second Gen）|
+|:----|:----|:----|
+|サポート言語|限定（特定バージョンのPython, Java, Go など）|より多くの言語・バージョンに対応|
+|トリガー|HTTPリクエストのみ|HTTP、Task Queues、Pub/Sub、Scheduler など|
+|最大タイムアウト|約1分（60秒）|最大60分まで拡張可能（バックグラウンドタスク）|
+|ライブラリの制約|固定ランタイム、使えるライブラリに制限あり|柔軟なライブラリ・依存管理が可能（ローカルパッケージ使用OK）|
 
 
 ## Cloud Run
@@ -17,7 +37,6 @@ GCPでは、`Cloud Functions`・`Cloud Run`・`Cloud Run Functions`といった�
 
 - オートスケーリング＆ゼロスケール  
 リクエストの有無に応じてインスタンス数が自動調整され、使わないときにはスケールダウンして課金が停止 。
-
 - Dockerイメージ管理：Artifact Registry連携  
 リポジトリにDockerイメージを格納し、Cloud Runで実行。CLIやソースデプロイも可能。
 

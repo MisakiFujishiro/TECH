@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="CloudFunction" href="CloudFunctions.html" />
-    <link rel="prev" title="GCE(Google Cloud Engine)" href="GCE.html" /> 
+    <link rel="next" title="サーバーレスアーキテクチャ" href="Serverless.html" />
+    <link rel="prev" title="GCE(Google Compute Engine)" href="GCE.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -63,25 +63,32 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">Google Cloud APIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Network.html">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DB.html">データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Compute Engine)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">コンテナサービス</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gcp">GCPのコンテナエコシステム</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">Kubernetesの構成要素</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Kubernetesの課題</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">マニフェスト</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">ヘルスチェック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Kubernetesの課題</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#gke-google-kubernetes-engine">GKE(Google Kubernetes Engine)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gke-google-kubernetes-engine">GKE(Google Kubernetes Engine)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">高可用性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">オートスケール</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">サーバーレスアーキテクチャ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub-Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
 </ul>
@@ -156,109 +163,154 @@
              
   <section id="id1">
 <h1>コンテナサービス<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="gcp">
+<h2>GCPのコンテナエコシステム<a class="headerlink" href="#gcp" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GCPでは、コンテナのBuildを行う<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Build</span></code>や成果物（コンテナイメージの管理）を行う<code class="docutils literal notranslate"><span class="pre">Artifact</span> <span class="pre">Resistry</span></code>、コンテナのオーケストレーションを行う<code class="docutils literal notranslate"><span class="pre">GKE</span></code>などのサービスが提供されている。</p>
+<p><img alt="" src="../_images/Container_eco.png" />
+<a class="reference external" href="https://blog.searce.com/ci-cd-with-cloud-build-and-argocd-on-gke-5b2afe316177">CI/CD with Cloud Build and ArgoCD on GKE</a></p>
+</section>
 <section id="kubernetes">
 <h2>Kubernetes<a class="headerlink" href="#kubernetes" title="この見出しへのパーマリンク">¶</a></h2>
-<p>Kubernetesとは、コンテナを複数のホストにまたがって管理するオープンソースのコンテナオーケストレーションサービス。 Eオーケストレーションの機能を有しているが、オープンソースであるという特徴からさまざまなエコシステムとの連携を行うことができる。</p>
+<p>Kubernetesとは、コンテナを複数のホストにまたがって管理するオープンソースのコンテナオーケストレーションサービス。
+以下のようなオーケストレーションの機能を有している。</p>
+<ul class="simple">
+<li><p>ヘルスチェック</p></li>
+<li><p>オートスケール</p></li>
+<li><p>起動停止(スケジューリング)</p></li>
+<li><p>デプロイ</p></li>
+<li><p>ネットワーク設定</p></li>
+</ul>
+<p>2014年にGoogleから発表され、オープンソースであるという特徴からさまざまなエコシステムとの連携を行うことができる。</p>
 <section id="id2">
 <h3>Kubernetesの構成要素<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
-<p>Kubernetesの構成は、大きく次の2つのレイヤに分かれる。</p>
-<ul class="simple">
-<li><p>コントロールプレーン：クラスタ全体を管理する「頭脳」</p></li>
-<li><p>ノード（ワーカー）：実際にアプリ（コンテナ）を動かす「手足」</p></li>
-</ul>
+<p>K8sにおける主要な構成要素は以下の通り。</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>レイヤ</p></th>
-<th class="text-left head"><p>コンポーネント</p></th>
-<th class="text-left head"><p>役割・説明</p></th>
+<tr class="row-odd"><th class="text-left head"><p>構成要素</p></th>
+<th class="text-left head"><p>説明</p></th>
+<th class="text-left head"><p>補足</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>コントロールプレーン</p></td>
-<td class="text-left"><p>kube-apiserver</p></td>
-<td class="text-left"><p>外部や内部からのリクエストを受け付けるAPIサーバ</p></td>
+<tr class="row-even"><td class="text-left"><p>クラスタ</p></td>
+<td class="text-left"><p>Kubernetesの最上位単位。コントロールプレーンと複数のワーカーノードで構成される。</p></td>
+<td class="text-left"><p>GKEではクラスターを作成すると、コントロールプレーンはマネージドに提供される。</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>etcd</p></td>
-<td class="text-left"><p>クラスタ全体の状態を保存するキーバリューストア</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>kube-scheduler</p></td>
-<td class="text-left"><p>Podをどのノードに配置するか決定する</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>kube-controller-manager</p></td>
-<td class="text-left"><p>実際の状態が理想状態になるように調整</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>ノード（ワーカー）</p></td>
-<td class="text-left"><p>kubelet</p></td>
-<td class="text-left"><p>ノード上でPodを管理・監視するエージェント</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p></p></td>
-<td class="text-left"><p>kube-proxy</p></td>
-<td class="text-left"><p>ノード内のネットワークルールを管理</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p></p></td>
-<td class="text-left"><p>Container Runtime</p></td>
-<td class="text-left"><p>コンテナを実行するエンジン（例：containerd、Docker）</p></td>
-</tr>
-</tbody>
-</table>
-<p>Kubernetesを理解するうえで押さえておきたい中核的な構成要素は次の通り。</p>
-<table class="colwidths-auto docutils align-default">
-<thead>
-<tr class="row-odd"><th class="text-left head"><p>要素</p></th>
-<th class="text-left head"><p>意味・説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>Cluster</p></td>
-<td class="text-left"><p>Kubernetes全体の実行環境。ノードの集まり</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Node</p></td>
-<td class="text-left"><p>Podを実行するサーバー（VMや物理マシン）</p></td>
+<tr class="row-odd"><td class="text-left"><p>ノード</p></td>
+<td class="text-left"><p>クラスタを管理する<code class="docutils literal notranslate"><span class="pre">コントロールプレーン</span></code>とPod を実行する<code class="docutils literal notranslate"><span class="pre">ワーカーノード</span></code>（VM）の２種類。kubelet やコンテナランタイムが動作。</p></td>
+<td class="text-left"><p>GKE では GCE VM（Compute Engine）がワーカーノードになる</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Pod</p></td>
-<td class="text-left"><p>Kubernetesにおける最小の実行単位。1つ以上のコンテナを含む</p></td>
+<td class="text-left"><p>Kubernetesにおける最小のデプロイ単位。1つ以上のコンテナを含む。</p></td>
+<td class="text-left"><p>通常は1Pod = 1アプリコンテナ（+ サイドカー）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Service</p></td>
+<td class="text-left"><p>Pod への安定したアクセス手段を提供する仮想IPとロードバランサ</p></td>
+<td class="text-left"><p>PodのIPは変わるため、Serviceが固定IP的な役割を担う</p></td>
 </tr>
 </tbody>
 </table>
-<p>より現実的なアプリ運用で頻出するKubernetesリソースは以下の通り。
-Kubernetesの特徴的な考え方は、処理を依頼する実行型ではなくて、あるべき姿を記載した宣言型の動きをするところ。
-あるべき姿を記述したドキュメントを準備することで、Kubernetesはマネージドにその姿を目指してオーケストレーションしてくれる。</p>
+<p>イメージとしては以下のような階層構造になっている</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[ クラスタ ]
+  ├─ [ ノード ]（複数）
+  │     ├─ [ Pod ]（1つ以上）
+  │     │     └─ [ コンテナ ]（1つ以上）
+  │
+  └─ [ Service ]
+         └─ Pod に対する仮想IPと負荷分散を提供
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>マニフェスト<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Kubernetesでは「何を動かすか」「どこに公開するか」「どう設定するか」「どんな権限を持たせるか」などを、リソースごとに分けて<code class="docutils literal notranslate"><span class="pre">マニフェスト</span></code>としてYAMLで書き分ける。各リソースの中には、さらに具体的な設定項目が階層的に記述される。</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>用語</p></th>
-<th class="text-left head"><p>意味・説明</p></th>
+<tr class="row-odd"><th class="text-left head"><p>マニフェストの種類</p></th>
+<th class="text-left head"><p>主な役割</p></th>
+<th class="text-left head"><p>主な設定項目（中に書く内容）</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>YAMLマニフェスト</p></td>
-<td class="text-left"><p>Kubernetesにリソースを宣言するための設定ファイル形式</p></td>
+<tr class="row-even"><td class="text-left"><p>🟦 Deployment</p></td>
+<td class="text-left"><p>アプリを動かす設定</p></td>
+<td class="text-left"><p>・replicas: 起動するPodの数<br>・selector: 対象Podのラベル<br>・template: Podの定義（下に説明）</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>Deployment</p></td>
-<td class="text-left"><p>Podの数や更新戦略などを定義するオブジェクト</p></td>
+<tr class="row-odd"><td class="text-left"><p>└─ template:</p></td>
+<td class="text-left"><p>Podの設計図</p></td>
+<td class="text-left"><p>・metadata.labels: Podのラベル<br>・spec.containers: コンテナの中身</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>ReplicaSet</p></td>
-<td class="text-left"><p>同じPodを複数実行して可用性を確保するための仕組み</p></td>
+<tr class="row-even"><td class="text-left"><p>└─ containers:</p></td>
+<td class="text-left"><p>アプリの実行内容</p></td>
+<td class="text-left"><p>・image: コンテナイメージ<br>・ports: 公開ポート<br>・env: 環境変数<br>・resources: CPU/メモリ制限<br>・livenessProbe などのヘルスチェック</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>Service</p></td>
-<td class="text-left"><p>Podに安定した名前でアクセスできるようにする抽象化レイヤ</p></td>
+<tr class="row-odd"><td class="text-left"><p>🟦 Service</p></td>
+<td class="text-left"><p>Podへの入り口</p></td>
+<td class="text-left"><p>・selector: 対象Podのラベル<br>・ports: 通信ポートの変換<br>・type: ClusterIP / NodePort / LoadBalancer</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>Namespace</p></td>
-<td class="text-left"><p>リソースをグループ化するための仮想的な区切り</p></td>
+<tr class="row-even"><td class="text-left"><p>🟦 Ingress</p></td>
+<td class="text-left"><p>HTTPの入口設定</p></td>
+<td class="text-left"><p>・rules: ドメイン名とルーティングルール<br>・backend.service.name: 宛先Service名</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>ConfigMap / Secret</p></td>
-<td class="text-left"><p>設定情報や機密情報を外部化してPodに注入できるオブジェクト</p></td>
+<tr class="row-odd"><td class="text-left"><p>🟦 ConfigMap</p></td>
+<td class="text-left"><p>設定ファイルや環境変数</p></td>
+<td class="text-left"><p>・data: キーと値のセット（例: LOG_LEVEL: debug）</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>Horizontal Pod Autoscaler</p></td>
-<td class="text-left"><p>負荷に応じてPodの数を自動調整する仕組み</p></td>
+<tr class="row-even"><td class="text-left"><p>🟦 Secret</p></td>
+<td class="text-left"><p>パスワードなどの機密情報</p></td>
+<td class="text-left"><p>・data: Base64で暗号化された値</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>🟦 PersistentVolumeClaim（PVC）</p></td>
+<td class="text-left"><p>永続ストレージの要求</p></td>
+<td class="text-left"><p>・accessModes: アクセス方式<br>・resources.requests.storage: 容量要求</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>🟦 ServiceAccount</p></td>
+<td class="text-left"><p>Podの身分証明書</p></td>
+<td class="text-left"><p>・名前のみ（RoleBindingなどと一緒に使う）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>🟦 Role / ClusterRole</p></td>
+<td class="text-left"><p>権限定義（RBAC）</p></td>
+<td class="text-left"><p>・rules: リソースごとに許可する操作（例: get, list）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>🟦 RoleBinding / ClusterRoleBinding</p></td>
+<td class="text-left"><p>権限を誰に割り当てるか</p></td>
+<td class="text-left"><p>・subjects: 対象（ServiceAccountなど）<br>・roleRef: 割り当てるRole名</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>🟦 HorizontalPodAutoscaler（HPA）</p></td>
+<td class="text-left"><p>Podの数を自動調整</p></td>
+<td class="text-left"><p>・scaleTargetRef: 対象のDeployment名<br>・minReplicas / maxReplicas<br>・metrics: CPUなどの指標</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>🟦 Namespace</p></td>
+<td class="text-left"><p>グループ分け</p></td>
+<td class="text-left"><p>・metadata.name: 名前空間の名前</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="id3">
-<h3>Kubernetesの課題<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id4">
+<h3>ヘルスチェック<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>K8Sのヘルスチェックには以下の3種類の機能が提供されている。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>種類</p></th>
+<th class="text-left head"><p>目的とタイミング</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>livenessProbe</p></td>
+<td class="text-left"><p>コンテナが「生きているか」を確認。失敗したら再起動される</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>readinessProbe</p></td>
+<td class="text-left"><p>コンテナが「リクエストを受け付けられる状態か」を確認。失敗中はServiceから除外される</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>startupProbe</p></td>
+<td class="text-left"><p>コンテナの起動に時間がかかる場合に使用。起動完了前のlivenessチェックを防げる</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id5">
+<h3>Kubernetesの課題<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Kubernetesは、分散システムであり、コントロールプレーン・データプレーンでさまざまなコンポーネントが動作しており、運用管理が煩雑になりがちである。</p>
 </section>
 </section>
@@ -308,12 +360,76 @@ GKEをりよす売ることでKubernetesのセットアップをすべてマネ�
 <td class="text-left"><p>ユーザーが管理（ある程度）</p></td>
 <td class="text-left"><p>実際にコンテナを動かすVM群。GCE（Compute Engine）インスタンスとして提供される</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>Pod</p></td>
-<td class="text-left"><p>Kubernetesが自動管理</p></td>
-<td class="text-left"><p>ユーザーのアプリケーション本体が動く</p></td>
+</tbody>
+</table>
+<section id="id6">
+<h3>高可用性<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GKEのクラスターについては、ワーカーノードとコントロールプレーンをマルチゾーンに配置することで高可用性を担保することができる。それぞれのマルチゾーン配置による分類は以下の通り。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>クラスタタイプ</p></th>
+<th class="text-left head"><p>ノード配置</p></th>
+<th class="text-left head"><p>コントロールプレーン</p></th>
+<th class="text-left head"><p>可用性</p></th>
+<th class="text-left head"><p>コスト</p></th>
+<th class="text-left head"><p>ユースケース</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>シングルゾーン</p></td>
+<td class="text-left"><p>単一ゾーン</p></td>
+<td class="text-left"><p>単一ゾーン（冗長性なし）</p></td>
+<td class="text-left"><p>低</p></td>
+<td class="text-left"><p>安価</p></td>
+<td class="text-left"><p>開発・検証向け</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>マルチゾーン</p></td>
+<td class="text-left"><p>複数ゾーンに分散</p></td>
+<td class="text-left"><p>単一ゾーン（冗長性なし）</p></td>
+<td class="text-left"><p>中</p></td>
+<td class="text-left"><p>中</p></td>
+<td class="text-left"><p>小規模本番など</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>リージョンクラスタ</p></td>
+<td class="text-left"><p>複数ゾーンに分散</p></td>
+<td class="text-left"><p>複数ゾーンに冗長化</p></td>
+<td class="text-left"><p>高</p></td>
+<td class="text-left"><p>やや高</p></td>
+<td class="text-left"><p>可用性・信頼性が求められる本番環境</p></td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="id7">
+<h3>オートスケール<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GKEにおけるオートスケールには、ワーカーノードを対象にしたオートスケーリング(Cluster Autoscaler)とPodを対象としたオートスケーリング(HPA)の2つの機能が提供されている。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>比較軸</p></th>
+<th class="text-left head"><p>Cluster Autoscaler（ノード）</p></th>
+<th class="text-left head"><p>Horizontal Pod Autoscaler（Pod）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>スケール対象</p></td>
+<td class="text-left"><p>ノード（VM）</p></td>
+<td class="text-left"><p>Pod（レプリカ）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>粒度</p></td>
+<td class="text-left"><p>1ノード単位</p></td>
+<td class="text-left"><p>1Pod単位</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ユースケース</p></td>
+<td class="text-left"><p>インフラ自動最適化</p></td>
+<td class="text-left"><p>アプリの負荷対応</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>設定場所</p></td>
+<td class="text-left"><p>gcloud や node-pool 設定</p></td>
+<td class="text-left"><p>HPAリソース（YAML）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 </section>
 
@@ -321,8 +437,8 @@ GKEをりよす売ることでKubernetesのセットアップをすべてマネ�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="GCE.html" class="btn btn-neutral float-left" title="GCE(Google Cloud Engine)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="CloudFunctions.html" class="btn btn-neutral float-right" title="CloudFunction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="GCE.html" class="btn btn-neutral float-left" title="GCE(Google Compute Engine)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Serverless.html" class="btn btn-neutral float-right" title="サーバーレスアーキテクチャ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
