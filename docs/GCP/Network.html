@@ -22,7 +22,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="ストレージ" href="Storage.html" />
-    <link rel="prev" title="IAM" href="IAM.html" /> 
+    <link rel="prev" title="Google Cloud APIs" href="API.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -63,27 +63,33 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">Google Cloud APIs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Network</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#vpc">VPC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">ルートテーブル</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fw">FW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vcp">VCPネットワーク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">サブネット</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">ルーティング</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#igw">IGW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-nat">Cloud NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#firewall">Firewall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">ネットワークの拡張</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">デフォルトネットワーク</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-dns">Cloud DNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-load-balancing">Cloud Load Balancing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-cdn">Cloud CDN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gcp">GCPとの直接通信</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-dns">Cloud DNS</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DB.html">データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Compute Engine)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">サーバーレスアーキテクチャ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub-Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
 </ul>
@@ -160,148 +166,298 @@
 <h1>Network<a class="headerlink" href="#network" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="vpc">
 <h2>VPC<a class="headerlink" href="#vpc" title="この見出しへのパーマリンク">¶</a></h2>
-<p>GCPでは、VPCがグローバルリソースとして定義され、サブネットがリージョン単位で定義される。
-そのため、AWSと比較してDRの設計がしやすいなど、以下のような特徴がある。</p>
+<p>VCPとは、Google Cloud内に提供される仮想ネットワーク提供サービス。</p>
+<section id="vcp">
+<h3>VCPネットワーク<a class="headerlink" href="#vcp" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Google Cloud内に構成される仮想ネットワークをVPCネットワークと呼ぶ。
+VPCネットワークはグローバルリソースであり複数のリージョンを収容可能。</p>
+<p><img alt="" src="../_images/vpc_network.png" />
+<a class="reference external" href="https://easy-study-forest.com/google-cloud-vpc/">【よくわかる Google Cloud】VPCネットワークとは</a></p>
+<p>また、リージョン内のサブネットに作成されたVNなどには内部IPが割り当てられ、VPC内の通信に関しては異なるサブネットに所属していても内部IPを利用して通信が行われるため、特別なルーティング設定なしに可能である。
+すなわち、GCPにおいては、VPCを構築するだけでマルチリージョン構成を構築できる。</p>
+</section>
+<section id="id1">
+<h3>サブネット<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>サブネットとは、ネットワークのIPアドレスを論理的に分解した小さなネットワークである。
+サブネットは、CIDR表記を利用されて表現される。
+VPC内部においてサブネットを定義する際にはVPC内でCIDRが重複しないよう設定を行う必要がある。</p>
+<p>サブネットはリージョンリソースであり、複数のZoneに跨いで定義することができる。
+<img alt="" src="../_images/vpc_subnet_zone.png" />
+<a class="reference external" href="https://easy-study-forest.com/google-cloud-vpc/">【よくわかる Google Cloud】VPCネットワークとは</a></p>
+</section>
+<section id="id2">
+<h3>ルーティング<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ルーティング（経路制御）では、VPC内のトラフィックをどこに転送するかのルールを定義する。
+VPCネットワークごとに<code class="docutils literal notranslate"><span class="pre">ルートテーブル</span></code>が存在し、宛先CIDRごとに送り先を定義する。</p>
+<p>VPCネットワークを作成したタイミングでデフォルトとして<code class="docutils literal notranslate"><span class="pre">デフォルトルート</span></code>と<code class="docutils literal notranslate"><span class="pre">サブネットルート</span></code>という2種類の自動毛色が自動で登録される。</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>比較項目</p></th>
-<th class="text-left head"><p>GCP</p></th>
-<th class="text-left head"><p>AWS</p></th>
-<th class="text-left head"><p>補足・設計への影響</p></th>
+<tr class="row-odd"><th class="text-left head"><p>種類</p></th>
+<th class="text-left head"><p>内容</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>VPCのスコープ</p></td>
-<td class="text-left"><p>グローバル（全リージョン）</p></td>
-<td class="text-left"><p>リージョン単位</p></td>
-<td class="text-left"><p>GCPでは1つのVPCで複数リージョンにまたがって構成可能</p></td>
+<tr class="row-even"><td class="text-left"><p>サブネット間ルート</p></td>
+<td class="text-left"><p>VPC作成時に、自動生成。すべてのサブネット間通信を許可するルート（削除不可）</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>サブネットのスコープ</p></td>
-<td class="text-left"><p>リージョン</p></td>
-<td class="text-left"><p>AZ（アベイラビリティゾーン）</p></td>
-<td class="text-left"><p>GCPは1サブネットで複数ゾーンをカバー可能、AWSはゾーンごとにサブネットが必要</p></td>
+<tr class="row-odd"><td class="text-left"><p>デフォルトルート</p></td>
+<td class="text-left"><p>VPC作成時に、自動生成。。IGW（default-internet-gateway）に向く</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>サブネット内のリソース配置</p></td>
-<td class="text-left"><p>異なるゾーンにまたがって配置可能</p></td>
-<td class="text-left"><p>単一ゾーンのみ（AZごとに分ける）</p></td>
-<td class="text-left"><p>GCPは高可用性構成がシンプル</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>VPCピアリングの要否</p></td>
-<td class="text-left"><p>通常は不要（単一VPCで多リージョン展開可能）</p></td>
-<td class="text-left"><p>リージョン間でVPCピアリングが必要</p></td>
-<td class="text-left"><p>GCPの方がDR設計時のネットワーク構成が簡単</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>IPアドレス管理</p></td>
-<td class="text-left"><p>RFC1918ベースでCIDR指定（自動／手動）</p></td>
-<td class="text-left"><p>同上</p></td>
-<td class="text-left"><p>どちらもCIDRで管理する点は共通</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>ファイアウォール</p></td>
-<td class="text-left"><p>VPC単位（インスタンスにタグやサービスアカウント単位）</p></td>
-<td class="text-left"><p>セキュリティグループ＋ネットワークACL（サブネット単位）</p></td>
-<td class="text-left"><p>GCPは柔軟でルールをまとめやすい</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>ルート制御</p></td>
-<td class="text-left"><p>VPC全体で共通ルーティングテーブル</p></td>
-<td class="text-left"><p>サブネット単位のルートテーブル</p></td>
-<td class="text-left"><p>AWSはルート制御が細かいが複雑にもなりやすい</p></td>
+<tr class="row-even"><td class="text-left"><p>カスタムルート</p></td>
+<td class="text-left"><p>特定のCIDRをVPN、Peering、VMインスタンスなどに向けるための追加ルート</p></td>
 </tr>
 </tbody>
 </table>
-<section id="id1">
-<h3>ルートテーブル<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
-<p>GCPではVPC単位でのルートテーブルが作成され、サブネットに一括で適用される。
-特定のVMなどにのみ適用したいルーティングのルールはタグなどを利用して適用できる。</p>
-<p>ルートテーブルの構成要素としては以下のようなものがある。</p>
+<p>例としては以下のような設定を行う。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>宛先</p></th>
+<th class="text-left head"><p>次ホップ</p></th>
+<th class="text-left head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>10.128.0.0/9</p></td>
+<td class="text-left"><p>local</p></td>
+<td class="text-left"><p>自動生成（同じVPC内の他サブネット）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>0.0.0.0/0</p></td>
+<td class="text-left"><p>default-internet-gateway</p></td>
+<td class="text-left"><p>インターネット向け（デフォルト）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>10.0.0.0/16</p></td>
+<td class="text-left"><p>vpn-tunnel-1</p></td>
+<td class="text-left"><p>オンプレミスVPN</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>192.168.0.0/24</p></td>
+<td class="text-left"><p>instance-1</p></td>
+<td class="text-left"><p>ルータ代わりのVMなど</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="igw">
+<h3>IGW<a class="headerlink" href="#igw" title="この見出しへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">デフォルトインターネットゲートウェイ</span></code>は、GCP環境内に自動で作成される、インターネット接続ポイントであり、VPCネットワーク作成時に自動で有効化されており、削除もできない。
+ルートの設定は、VPC全体に適用されるため、サブネット単位でインターネット接続の可能不可能を制御しない。つまり、GCPにおいては、Public SubnetやPrivate Subnetといった考えは存在しない。GCPにおいて、外部への接続の制御は、Firewallで行う。</p>
+<p>また、外部IPを持っている場合は外部IPを利用してIGWを経由してアクセスを行うが、外部IPを持たせたくない場合はNATを経由してアクセスする。</p>
+</section>
+<section id="cloud-nat">
+<h3>Cloud NAT<a class="headerlink" href="#cloud-nat" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Google Cloud でインスタンス（例：Compute Engine）からインターネットに接続するには、通常は外部IPアドレスを付与する必要がある。ただし、外部からの通信は受け付けたくない、つまりインバウンド通信を遮断したい場合には、外部IPを付与せずにアウトバウンド通信だけを有効にしたくなる。このようなケースで利用するのが <code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">NAT</span></code>（Network Address Translation） である。</p>
+<p>Cloud NAT を構成するためには、<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Router</span></code> がセットで必要となる。Cloud Router は、Cloud NAT のルーティングを制御する役割を担う動的ルーティング機能であり、NATゲートウェイのバックエンド的存在。</p>
+<p>Cloud NAT は、対象となるサブネットまたはサブネット内のIPレンジ（例：特定のVMのプライベートIP範囲）を指定することで、そのサブネットからのアウトバウンド通信を自動で変換してくれる。つまり、VM やアプリケーション側では NAT の存在を意識する必要はない。</p>
+</section>
+<section id="firewall">
+<h3>Firewall<a class="headerlink" href="#firewall" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Firewallとは、ターゲットへの通信において、ポリシーを定義することで許可または拒否するセキュリティ機能。</p>
+<p>GCPにおいては、VPCに対してFirewallを定義することができ、インバウンドやアウトバンドの通信についてポリシーを適用することができる。具体的には、以下のようにルールを適用できる。</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="text-left head"><p>要素</p></th>
-<th class="text-left head"><p>内容</p></th>
-<th class="text-left head"><p>例</p></th>
+<th class="text-left head"><p>説明</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>宛先範囲（Destination Range）</p></td>
-<td class="text-left"><p>送信先のIP範囲（CIDR）</p></td>
-<td class="text-left"><p>0.0.0.0/0, 10.0.0.0/8</p></td>
+<tr class="row-even"><td class="text-left"><p>direction</p></td>
+<td class="text-left"><p>INGRESS（受信） or EGRESS（送信）</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>次ホップ（Next Hop）</p></td>
-<td class="text-left"><p>パケットの転送先</p></td>
-<td class="text-left"><p>Internet Gateway、特定VM、VPN Gatewayなど</p></td>
+<tr class="row-odd"><td class="text-left"><p>action</p></td>
+<td class="text-left"><p>ALLOW または DENY</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>優先度（Priority）</p></td>
-<td class="text-left"><p>数値が小さいほど優先される（デフォルト：1000）</p></td>
-<td class="text-left"><p>100～65535で指定可能</p></td>
+<tr class="row-even"><td class="text-left"><p>sourceRanges / destinationRanges</p></td>
+<td class="text-left"><p>INGRESSでは送信元、EGRESSでは宛先をCIDRで指定</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>ターゲット（Target Tags）</p></td>
-<td class="text-left"><p>特定のVMタグにのみ適用できるルート</p></td>
-<td class="text-left"><p>web-server など</p></td>
+<tr class="row-odd"><td class="text-left"><p>protocols / ports</p></td>
+<td class="text-left"><p>TCP/UDPなどとポート番号の組み合わせ</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>targetTags / targetServiceAccounts</p></td>
+<td class="text-left"><p>このルールを&quot;どのVMに&quot;適用するか（タグ or SA）</p></td>
+</tr>
+</tbody>
+</table>
+<p>INGRESSとEGRESSでそれぞれの要素の具体的な意味合いが異なるのでそれぞれについてまとめると以下。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>要素</p></th>
+<th class="text-left head"><p>INGRESS時の意味</p></th>
+<th class="text-left head"><p>EGRESS時の意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>action</p></td>
+<td class="text-left"><p>ALLOW or DENY（受信の許可/拒否）</p></td>
+<td class="text-left"><p>ALLOW or DENY（送信の許可/拒否）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>sourceRanges</p></td>
+<td class="text-left"><p>通信の送信元IP（例：0.0.0.0/0）</p></td>
+<td class="text-left"><p>使用しない（EGRESSでは指定不可）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>destinationRanges</p></td>
+<td class="text-left"><p>使用しない（INGRESSでは指定不可）</p></td>
+<td class="text-left"><p>通信の宛先IP（例：8.8.8.8/32）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>protocols / ports</p></td>
+<td class="text-left"><p>どのポートを許可するか（例：tcp:22）</p></td>
+<td class="text-left"><p>どのポートを許可するか（例：tcp:443）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>targetTags / targetServiceAccounts</p></td>
+<td class="text-left"><p>通信を受けるVMの指定</p></td>
+<td class="text-left"><p>通信を出すVMの指定</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>priority</p></td>
+<td class="text-left"><p>優先度。数値が小さいほど優先</p></td>
+<td class="text-left"><p>優先度。数値が小さいほど優先</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="fw">
-<h3>FW<a class="headerlink" href="#fw" title="この見出しへのパーマリンク">¶</a></h3>
-<p>FWについても、VPC単位に適用され、VPC上のリソースに自動的に適用される。
-一方で、ルートテーブル同様、タグやサービスアカウントを指定して制御も可能。
-AWSのSGやWebACLのように細かい単位で、設定するような設計とはなっていない点に注意。</p>
+<section id="id3">
+<h3>ネットワークの拡張<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>VCPを拡張し、他のVPCやオンプレミスと通信する方法には以下のようなものがある。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>拡張手段</p></th>
+<th class="text-left head"><p>接続対象</p></th>
+<th class="text-left head"><p>特徴</p></th>
+<th class="text-left head"><p>用途例</p></th>
+<th class="text-left head"><p>帯域/性能</p></th>
+<th class="text-left head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>VPCピアリング</p></td>
+<td class="text-left"><p>GCP内の他のVPC（同一 or 他プロジェクト）</p></td>
+<td class="text-left"><p>GCP内の2つのVPCを内部IPベースで直接接続。</p></td>
+<td class="text-left"><p>組織内の複数VPCを統合したい場合など</p></td>
+<td class="text-left"><p>高性能（GCP内バックボーン使用）</p></td>
+<td class="text-left"><p>双方向に明示的な設定が必要。トラフィックの転送/制御はやや限定的</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>共有VPC</p></td>
+<td class="text-left"><p>同一組織内の複数プロジェクト</p></td>
+<td class="text-left"><p>ホストプロジェクトでVPCを作成。<br>サービスプロジェクトのリソースをホストプロジェクトVPCで起動</p></td>
+<td class="text-left"><p>セキュリティとネットワーク管理の一元化</p></td>
+<td class="text-left"><p>高性能</p></td>
+<td class="text-left"><p>ホストプロジェクトとサービスプロジェクトの関係で構成</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Cloud VPN</p></td>
+<td class="text-left"><p>オンプレミス or 他クラウド</p></td>
+<td class="text-left"><p>IPsecベースのVPN接続。すぐに使える柔軟な構成</p></td>
+<td class="text-left"><p>小～中規模のハイブリッドクラウド構成</p></td>
+<td class="text-left"><p>数百Mbps～最大10Gbps程度</p></td>
+<td class="text-left"><p>HA VPNを使うと冗長化可能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cloud Interconnect</p></td>
+<td class="text-left"><p>オンプレミス or データセンター</p></td>
+<td class="text-left"><p>高帯域・低レイテンシの専用回線。DedicatedとPartnerの2種がある</p></td>
+<td class="text-left"><p>大規模な企業の本番環境や高性能要件</p></td>
+<td class="text-left"><p>10Gbps〜100Gbps</p></td>
+<td class="text-left"><p>接続にはCloud Routerが必要</p></td>
+</tr>
+</tbody>
+</table>
+<p>Cloud Interconnectについては、さらに専用線のDedicatedとパートナー事業者を通じたParterがある。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>種類</p></th>
+<th class="text-left head"><p>概要</p></th>
+<th class="text-left head"><p>接続場所</p></th>
+<th class="text-left head"><p>導入難易度</p></th>
+<th class="text-left head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Dedicated</p></td>
+<td class="text-left"><p>Googleと直接物理接続する専用線</p></td>
+<td class="text-left"><p>GoogleのPOP（相互接続拠点）</p></td>
+<td class="text-left"><p>高</p></td>
+<td class="text-left"><p>専用ポートと帯域（10Gbps単位）を選択可能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Partner</p></td>
+<td class="text-left"><p>Googleのパートナー（通信事業者など）を通じて接続</p></td>
+<td class="text-left"><p>任意の場所（パートナーが提供）</p></td>
+<td class="text-left"><p>中</p></td>
+<td class="text-left"><p>柔軟な帯域・地域対応。事前の契約が必要</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<h3>デフォルトネットワーク<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GCPでは、プロジェクトを作成した時点でdefaultという名前のVPCネットワークが作成されている。
+各リージョンにサブネットまで準備されており、ルーティング設定やFirewallについても準備できている。
+簡単な検証であればdefaultを利用して開始できる。</p>
 </section>
 </section>
-<section id="cloud-dns">
-<h2>Cloud DNS<a class="headerlink" href="#cloud-dns" title="この見出しへのパーマリンク">¶</a></h2>
-<p>GCPでは、Cloud DNSを利用することで、所有しているドメインのDNSのホスティングが可能。
-具体的には、ドメイン名（例: example.com）に対して以下のDNSレコードをホスティング（管理）している。</p>
+<section id="cloud-load-balancing">
+<h2>Cloud Load Balancing<a class="headerlink" href="#cloud-load-balancing" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud Load Balancing は、Google Cloud 上の Compute Engine や Cloud Storage などのバックエンドに対してトラフィックを自動で分散させるフルマネージドなサービスです。以下の特徴を持つ。</p>
 <ul class="simple">
-<li><p>A レコード（IPアドレスの指定）</p></li>
-<li><p>CNAME（別名）</p></li>
-<li><p>MX（メール）</p></li>
-<li><p>TXT（SPF、DKIMなど）</p></li>
+<li><p>グローバル / リージョン / ゾーン間にまたがる負荷分散が可能</p></li>
+<li><p>トラフィック量に応じて 自動スケーリング</p></li>
+<li><p>ヘルスチェック機能によって正常なバックエンドへのみルーティング</p></li>
+<li><p>HTTP(S)、TCP/SSL、UDP レベルでのロードバランシングをサポート</p></li>
 </ul>
+<p>種類別の分類（用途・プロトコル・接続方式）</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>分類</p></th>
+<th class="text-left head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>アプリケーションLB</p></td>
+<td class="text-left"><p>L7（HTTP(S)）レイヤで動作。Cloud CDNと連携可能。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>プロキシ型ネットワークLB</p></td>
+<td class="text-left"><p>L4（TCP/SSL）レイヤのプロキシ型LB。IP非公開アクセスに対応。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>パススルー型ネットワークLB</p></td>
+<td class="text-left"><p>L3/L4パススルーで構成、オンプレやVMのNICへ直接到達するケース向け。</p></td>
+</tr>
+</tbody>
+</table>
+<p>デプロイモードの違い</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>項目</p></th>
+<th class="text-left head"><p>外部LB（External）</p></th>
+<th class="text-left head"><p>内部LB（Internal）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>接続元</p></td>
+<td class="text-left"><p>インターネットからのトラフィック</p></td>
+<td class="text-left"><p>VPC内部からの通信</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>主な用途</p></td>
+<td class="text-left"><p>Webアプリ、API公開用など</p></td>
+<td class="text-left"><p>社内システム、サービス間通信など</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>グローバル対応</p></td>
+<td class="text-left"><p>アプリケーションLBはグローバルに対応</p></td>
+<td class="text-left"><p>内部LBはリージョン単位（グローバル不可）</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="cloud-cdn">
 <h2>Cloud CDN<a class="headerlink" href="#cloud-cdn" title="この見出しへのパーマリンク">¶</a></h2>
-<p>Cloud CDNは、アプリケーションの高速配信を目的としたCDNのサービスで、エッジキャシングサービス。
-ALBのセットアップでチェックボックスをオンにするだけで簡単に統合することができる。</p>
+<p>Cloud CDN は、Google Cloud が提供する グローバルエッジキャッシュネットワーク。</p>
+<ul class="simple">
+<li><p>Google の世界中のエッジロケーションで静的/動的コンテンツをキャッシュし、低レイテンシ・高速配信を実現</p></li>
+<li><p>バックエンドとして Cloud Load Balancing（特にHTTP(S) LB）とセットで使用する</p></li>
+<li><p>オリジンサーバは Compute Engine, Cloud Run, GKE, Cloud Storage などが利用可能</p></li>
+<li><p>CDN の利用には外部HTTP(S)ロードバランサのバックエンド設定が必要</p></li>
+</ul>
 </section>
-<section id="gcp">
-<h2>GCPとの直接通信<a class="headerlink" href="#gcp" title="この見出しへのパーマリンク">¶</a></h2>
-<p>GCPのネットワーク環境と他のクラウドやオンプレミスとネットワークを接続するためには以下のような例が挙げられる。
-<img alt="" src="../_images/Network_senyousen.png" />
-<a class="reference external" href="https://www.coursera.org/learn/gcp-fundamentals-jp/lecture/40yXj/google-cloud-netutowaku">Google Cloud Fundamentals: Core Infrastructure 日本語版</a></p>
-<table class="colwidths-auto docutils align-default">
-<thead>
-<tr class="row-odd"><th class="text-left head"><p>接続方法</p></th>
-<th class="text-left head"><p>概要</p></th>
-<th class="text-left head"><p>特徴・用途</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>Cloud VPN</p></td>
-<td class="text-left"><p>インターネット越しにVPNトンネルを張る</p></td>
-<td class="text-left"><p>暗号化された安全な接続。安価で簡単。可用性は中程度</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Direct Peering</p></td>
-<td class="text-left"><p>GCPと直接BGPピアリングを張る</p></td>
-<td class="text-left"><p>インターネット経由だが高速・低レイテンシ。Googleサービスへの通信向け</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>Carrier Peering</p></td>
-<td class="text-left"><p>通信事業者を経由してGCPとBGP接続</p></td>
-<td class="text-left"><p>通信キャリアの網を通して安定した接続が可能。広域通信に向く</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Dedicated Interconnect</p></td>
-<td class="text-left"><p>GCPと物理的に専用線で接続</p></td>
-<td class="text-left"><p>高帯域・低遅延・高可用性。本番用途や大規模システムに最適</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>Partner Interconnect</p></td>
-<td class="text-left"><p>提携パートナーを経由してGCPに専用接続</p></td>
-<td class="text-left"><p>専用線レベルの品質をパートナー経由で柔軟に実現。拠点制約が少ない</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Cross-Cloud Interconnect</p></td>
-<td class="text-left"><p>他クラウドと専用線でGCPと接続</p></td>
-<td class="text-left"><p>マルチクラウド構成を専用ネットワークでセキュアかつ高速に構築可能</p></td>
-</tr>
-</tbody>
-</table>
+<section id="cloud-dns">
+<h2>Cloud DNS<a class="headerlink" href="#cloud-dns" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud DNS は、Google Cloud が提供する高可用性・低レイテンシのスケーラブルなDNSサービス。</p>
+<ul class="simple">
+<li><p>ドメイン名とIPアドレスの変換（名前解決）を行う</p></li>
+<li><p>ゾーンの作成 → レコード（A, AAAA, CNAMEなど）の定義 により、独自ドメインの管理が可能</p></li>
+</ul>
 </section>
 </section>
 
@@ -309,7 +465,7 @@ ALBのセットアップでチェックボックスをオンにするだけで�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="IAM.html" class="btn btn-neutral float-left" title="IAM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="API.html" class="btn btn-neutral float-left" title="Google Cloud APIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="Storage.html" class="btn btn-neutral float-right" title="ストレージ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
