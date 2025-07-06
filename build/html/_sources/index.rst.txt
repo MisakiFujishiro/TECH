@@ -64,6 +64,7 @@
    :maxdepth: 1
    :caption: ITBasic:
 
+   ITBasic/開発工程.md
    ITBasic/SWA.md
    ITBasic/server.md
    ITBasic/kernel.md
@@ -92,6 +93,7 @@
    :caption: Book:
 
    Book/TryHackMe.md
+   Book/ソフトウェア開発の失敗42.md
 
 .. toctree::
    :maxdepth: 1
