@@ -122,7 +122,7 @@ gcloud iam service-accounts add-iam-policy-binding my-sa@project.iam.gserviceacc
 ```
 
 ### 自動バインディングに関する補足
-Cloud Run や GCE などのサービスに SA を指定してリソースを作成すると、そのリソースがSAを使うためのバインディング（②の部分）はGCPが自動で設定してくれる。
+Cloud Run や GCE などのサービスに SA を指定してリソースを作成すると、そのリソースがSAを使うためのバインディング（上記の後半部分）はGCPが自動で設定してくれる。
 したがって、通常はユーザーが明示的に設定する必要はない。
 
 ### SAのメリット
