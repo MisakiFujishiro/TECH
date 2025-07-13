@@ -41,6 +41,8 @@
    GCP/Storage.md
    GCP/CloudLogging.md
    GCP/DB.md
+   GCP/DataAnalytics.md
+   GCP/AI.md
    GCP/GCE.md
    GCP/Container.md
    GCP/Serverless.md

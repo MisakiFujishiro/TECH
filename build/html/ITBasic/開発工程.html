@@ -68,6 +68,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">Cloud Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">AIサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">GCE(Google Compute Engine)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">コンテナサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">サーバーレスアーキテクチャ</a></li>
@@ -91,7 +93,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#id3">要件</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id4">基本設計（外部設計・外部仕様・仕様）</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id5">詳細設計（内部設計・内部仕様）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">コラム：「バグです」「仕様です」</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="SWA.html">SoftWareArchitecture</a></li>
@@ -260,29 +261,6 @@ V字の左側に上流工程（要件定義、基本設計、詳細設計など�
 <p><code class="docutils literal notranslate"><span class="pre">詳細設計とは、基本設計で決定したシステムの振る舞いを内部でどのように実装するかを定義する工程</span></code></p>
 <p>プログラミングに先立ち、システム内部のアーキテクチャやモジュール構成、データ構造、アルゴリズムの詳細などを全て設計する、いわば実装者のための設計図。</p>
 <p>具体的にはクラス設計（クラス図やメソッドの設計）、データベース設計（テーブルスキーマやインデックス設計）、各モジュール間のインタフェース、処理手順を記載した擬似コードなど、開発者がコードを書き始めるために必要な情報を詳細に定めます。</p>
-</section>
-<section id="id6">
-<h2>コラム：「バグです」「仕様です」<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
-<p>不具合報告チャットに舞い降りる二大呪文。</p>
-<p>「バグです」<br />
-「仕様です」</p>
-<p>この話は問題の基準が噛み合っていない。</p>
-<p>そもそも「バグです」の意図は「要件定義に書いてある期待動作と違うじゃないですか（ぷんすか）」</p>
-<p>一方「仕様です」の意図は「基本設計書に書いてあったから、そのとおりに作っただけです（キリッ）」</p>
-<p>つまり、どのドキュメントを基準に話しているかが完全にズレている。</p>
-<ul class="simple">
-<li><p>「バグです」は要件を基準にした抗議。</p></li>
-<li><p>「仕様です」は設計を基準にした正当化。</p></li>
-</ul>
-<p>だから「バグです」「仕様です」の往復だけでは、何も解決しない。
-正しい会話例：</p>
-<ul class="simple">
-<li><p>「この動作、要件定義書2.3節にある期待動作と違うように見えます。確認いただけますか？」</p></li>
-<li><p>「確認します。現状は基本設計書どおりに実装していますが、要件との差分を洗い出して報告します。」</p></li>
-</ul>
-<p>そもそも基本設計が要件からズレたときに、誰が気づかなかったのか？レビューしたのは誰だったのか？承認したのは誰だったのか？</p>
-<p>結論は「全員、共犯」</p>
-<p>「バグです」と叫ぶ側も、「仕様です」と言い切る側も、要件から設計に落とすタイミングでうっかり見逃していた。だから責めるだけでは解決しない。</p>
 </section>
 </section>
 
