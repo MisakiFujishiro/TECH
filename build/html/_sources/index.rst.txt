@@ -67,6 +67,7 @@
    :caption: ITBasic:
 
    ITBasic/開発工程.md
+   ITBasic/Network.md
    ITBasic/SWA.md
    ITBasic/server.md
    ITBasic/kernel.md

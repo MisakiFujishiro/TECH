@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Network &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="SoftWareArchitecture" href="SWA.html" />
+    <link rel="prev" title="V字モデル" href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCP.html">GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/API.html">Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/ArtifactRegistry.html">ArtifactRegistry</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">V字モデル</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">ネットワーク基礎知識</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">ネットワークの登場</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">プロトコル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#osi">OSI参照モデル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">ネットワーク機器の分類と役割</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#repeater-1">リピーター（Repeater）【第1層：物理層】</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#l2-2-2">L2スイッチ（レイヤ2スイッチ）【第2層：データリンク層】</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#l3-3-3">L3スイッチ（レイヤ3スイッチ）【第3層：ネットワーク層】</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#l47-4">L4〜7スイッチ（マルチレイヤスイッチ）【第4層以上】</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gateway">ゲートウェイ（Gateway）【各層にまたがる】</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tcp-ip">TCP/IP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tcp-iposi">TCP/IPとOSI参照モデル</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">インターネット層</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">トランスポート層</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">アプリケーション層</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">通信イメージ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html">SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Network</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/ITBasic/Network.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="network">
+<h1>Network<a class="headerlink" href="#network" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="id1">
+<h2>ネットワーク基礎知識<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id2">
+<h3>ネットワークの登場<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ネットワークの登場はコンピューターがどのように利用されてきたかと深い関係がある。
+コンピューターは単独で利用されるスタンドアローンから、複数のコンピューター同士が通信し合うネットワーク、世界中のコンピューターがつながるインターネットへと進化していった。</p>
+</section>
+<section id="id3">
+<h3>プロトコル<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>世界中のコンピューターが、自身のOSやCPUを気にすることなく通信を行うためには、通信をするためのルールを決める必要がある。それが<code class="docutils literal notranslate"><span class="pre">プロトコル</span></code>である。
+プロトコルは人間のコミュニケーションにおける言語（英語や日本語）であり、異なるとコミュニケーションを取ることができない。</p>
+<p>例えば、現在の通信における主流のパケットにおける通信では、通信の内容は「パケット」に分割され、以下のような構成で送信される：</p>
+<ul class="simple">
+<li><p>ヘッダ部：宛先IPアドレス、送信元ポート番号など</p></li>
+<li><p>データ部：実際に伝えたい中身（HTMLデータなど）</p></li>
+</ul>
+<p>プロトコルは、ヘッダ情報の構成や、通信手順、エラー処理の方法などを厳密に定義している。</p>
+<p>プロトコルは、標準化の流れがありISO(国際標準化機構)やIETFが標準化を定めている。
+現在最も利用されているTCP/IPはデファクトスタンダードとなっており、IETFが標準化している。</p>
+</section>
+<section id="osi">
+<h3>OSI参照モデル<a class="headerlink" href="#osi" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ISOが標準化を検討した際に、ネットワークにおけるプロトコルにおいて、OSI参照モデルを提唱した。
+OSI参照モデルは、ネットワークプロトコルを7つの階層にモデリングしており、各層の役割を定義しているため、TCP/IPや他のプロトコルについて理解する際もガイドラインとして非常に参考になる。
+ただし、OSIモデルは理論的には7層だが、実務で使われるのはTCP/IPモデル（4階層）。セッション層・プレゼンテーション層はアプリケーション層に吸収されている。</p>
+<p>OSI参照モデルは、ネットワークプロトコルを7つの階層に分けて定義している。
+同じ階層同士では同じプロトコルで、上下の階層はインターフェースで、ルールを定めている。
+アプリケーション層で生成されたデータは、下位の層に渡されるたびに各層のヘッダが付加されていく。受信側では逆順にヘッダを剥がしながら、最終的にアプリケーション層でユーザーが意味のある形で受け取る。</p>
+<p><img alt="" src="../_images/network_osi.jpeg" /></p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>層</p></th>
+<th class="text-left head"><p>名称</p></th>
+<th class="text-left head"><p>主な役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>第7層</p></td>
+<td class="text-left"><p>アプリケーション層</p></td>
+<td class="text-left"><p>ユーザーが直接触れるアプリケーションの通信インターフェースを提供。<br>例：HTTP、SMTP、FTP、DNS</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>第6層</p></td>
+<td class="text-left"><p>プレゼンテーション層</p></td>
+<td class="text-left"><p>データの表現形式（文字コードや圧縮、暗号化）を統一する役割。<br>例：JPEG、MIME</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>第5層</p></td>
+<td class="text-left"><p>セッション層</p></td>
+<td class="text-left"><p>通信の開始〜終了までの論理的な会話（セッション）を管理。中断や再開処理を制御。<br>例：RPC、NetBIOSセッション</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>第4層</p></td>
+<td class="text-left"><p>トランスポート層</p></td>
+<td class="text-left"><p>アプリケーション間の通信を確実に届けるため、ポート番号の割当や通信の信頼性確保（TCP）を行う。<br>例：TCP（信頼性あり）、UDP（軽量）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>第3層</p></td>
+<td class="text-left"><p>ネットワーク層</p></td>
+<td class="text-left"><p>ネットワークを越えたルーティングを行い、IPアドレスを用いて適切な宛先までパケットを転送。<br>例：ルーター、IPv4/IPv6</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>第2層</p></td>
+<td class="text-left"><p>データリンク層</p></td>
+<td class="text-left"><p>隣接ノード間での誤り検出やフレーム化、MACアドレスによる識別を行う。<br>例：スイッチ、Ethernetフレーム</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>第1層</p></td>
+<td class="text-left"><p>物理層</p></td>
+<td class="text-left"><p>電気信号・光信号・電波など、物理的な通信手段を定義。コネクタの形状や電圧レベルも含まれる。<br>例：Ethernetケーブル、Wi-Fiの電波</p></td>
+</tr>
+</tbody>
+</table>
+<p>例えば、HTTP通信を行う際の各層の役割は以下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>アプリケーション層
+　ユーザーがWebブラウザを使い、HTTPでリクエストを生成する。
+
+プレゼンテーション層
+　TLSによってデータが暗号化される。文字コードなども変換される。
+
+セッション層
+　クライアントとサーバーのセッション（対話）を開始する（TLSハンドシェイクなど）。
+
+トランスポート層
+　TCPでデータが分割・番号付けされ、送信順序や再送制御も行う。ポート番号を指定してアプリケーションを識別。
+
+ネットワーク層
+　送信元→宛先IPまでの経路を決定。ルーターを介して中継される。
+
+データリンク層
+　MACアドレスを使い、LAN内での最終配信先を決定。エラーチェックも行う。
+
+物理層
+　LANケーブルやWi-Fiなどで、実際に電気信号としてデータを送信する。
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>ネットワーク機器の分類と役割<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>OSI参照モデルやTCP/IPモデルを理解したうえで、実際のネットワーク通信を支える装置（ネットワーク機器）についても整理しておく。</p>
+<section id="repeater-1">
+<h4>リピーター（Repeater）【第1層：物理層】<a class="headerlink" href="#repeater-1" title="この見出しへのパーマリンク">¶</a></h4>
+<p>リピーターは電気信号の中継器。信号が弱まってしまう距離でも通信できるように、信号を再生成して延長する。</p>
+<ul class="simple">
+<li><p>層：OSI第1層（物理層）</p></li>
+<li><p>主な役割：信号の増幅・再送</p></li>
+<li><p>装置例：ハブ（旧式のネットワーク装置）</p></li>
+</ul>
+</section>
+<section id="l2-2-2">
+<h4>L2スイッチ（レイヤ2スイッチ）【第2層：データリンク層】<a class="headerlink" href="#l2-2-2" title="この見出しへのパーマリンク">¶</a></h4>
+<p>MACアドレスをもとに、LAN内での宛先を判断し、フレームを転送するスイッチ。</p>
+<ul class="simple">
+<li><p>層：OSI第2層</p></li>
+<li><p>主な役割：MACアドレスベースの転送・スイッチング</p></li>
+<li><p>特徴：ブロードキャストドメインは分けられない（VLANなしの場合）</p></li>
+</ul>
+</section>
+<section id="l3-3-3">
+<h4>L3スイッチ（レイヤ3スイッチ）【第3層：ネットワーク層】<a class="headerlink" href="#l3-3-3" title="この見出しへのパーマリンク">¶</a></h4>
+<p>IPアドレスを見て、異なるネットワーク間の通信（ルーティング）も処理できるスイッチ。</p>
+<ul class="simple">
+<li><p>層：OSI第3層</p></li>
+<li><p>主な役割：ルーティング機能付きスイッチング</p></li>
+<li><p>特徴：VLAN間ルーティングや高速な転送が可能</p></li>
+</ul>
+</section>
+<section id="l47-4">
+<h4>L4〜7スイッチ（マルチレイヤスイッチ）【第4層以上】<a class="headerlink" href="#l47-4" title="この見出しへのパーマリンク">¶</a></h4>
+<p>トランスポート層（ポート番号）やアプリケーション層（HTTPヘッダ）まで見て、より高度な制御や振り分けが可能。</p>
+<ul class="simple">
+<li><p>層：OSI第4層〜第7層</p></li>
+<li><p>主な役割：</p>
+<ul>
+<li><p>L4：AWSのNLBはL4スイッチ。ポート番号に基づくロードバランシング（例：TCP80/443）</p></li>
+<li><p>L7：AWSのALBはL7スイッチ。URLやクッキー、HTTPヘッダによる振り分け（例：/apiと/imageで別のサーバーへ）</p></li>
+</ul>
+</li>
+<li><p>特徴：WAFやプロキシ、ロードバランサーなどに利用される</p></li>
+</ul>
+</section>
+<section id="gateway">
+<h4>ゲートウェイ（Gateway）【各層にまたがる】<a class="headerlink" href="#gateway" title="この見出しへのパーマリンク">¶</a></h4>
+<p>異なるプロトコルやネットワークの間をつなぐ翻訳装置的な役割。</p>
+<ul class="simple">
+<li><p>主な役割：異種ネットワーク間の接続・中継（例：IPv4とIPv6間の変換、メールプロトコル間の中継）</p></li>
+<li><p>特徴：OSIモデルでは明確に層を限定しない。アプリケーション層の処理を伴う場合もある</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="tcp-ip">
+<h2>TCP/IP<a class="headerlink" href="#tcp-ip" title="この見出しへのパーマリンク">¶</a></h2>
+<p>TCP/IPとは、全世界のネットワークをつなげるインターネットで使われているプロトコル群（プロトコルスイート）の総称である。
+「スイート」とは“ひとまとまりのもの”という意味で、TCP/IPは複数の通信プロトコル（HTTPやDNSなど）をまとめた集合体ということ。
+名前には「TCP」と「IP」が含まれているが、実際には多くのプロトコル（HTTP, FTP, SMTP, DNSなど）を含んでおり、単なる2つのプロトコルだけを指しているわけではない。</p>
+<p>TCP/IPがインターネットの標準プロトコルスイートとして採用された背景には、次の3つの要因がある。</p>
+<ol class="arabic simple">
+<li><p>パケット交換ネットワークとの相性<br />
+かつての通信は電話網と同じ回線交換方式（中央集権的）だったが、通信路の効率性や障害耐性の観点からパケット交換方式が注目された。
+TCP/IPはこの分散型のパケット通信に最適化された設計を持っており、ネットワーク破壊への耐性も含めて軍事・学術的に注目された。</p></li>
+<li><p>UNIX OSへの標準搭載<br />
+1980年代、TCP/IPは当時広く使われ始めていたUNIX OSに標準で搭載された。
+UNIXの普及とともにTCP/IPも自然と広まることになり、結果としてネットワークの共通言語となっていった。</p></li>
+<li><p>オープンな標準化と実装主義<br />
+TCP/IPは**IETF（Internet Engineering Task Force）**で議論され、RFC（Request For Comments）として誰でも参照・参加できる形で仕様が公開されている。
+しかも仕様の多くは実装に基づいて定義されるため、理論倒れにならず、実際に動くことが前提となっていた。これは後発のOSI参照モデルとの大きな違いだった。</p></li>
+</ol>
+<section id="tcp-iposi">
+<h3>TCP/IPとOSI参照モデル<a class="headerlink" href="#tcp-iposi" title="この見出しへのパーマリンク">¶</a></h3>
+<p>OSI参照モデルは、ネットワークを7つの階層に分けて整理することで、ネットワーク設計やトラブルシュートを論理的に理解するためのモデル。
+一方でTCP/IPは実装主義で、現実のネットワークを構築・運用する上で使われている実用的な<code class="docutils literal notranslate"><span class="pre">4階層</span></code>モデルである。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>OSI参照モデル</p></th>
+<th class="text-left head"><p>TCP/IPモデル</p></th>
+<th class="text-left head"><p>主なプロトコル例</p></th>
+<th class="text-left head"><p>担当</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>7. アプリケーション層</p></td>
+<td class="text-left"><p>アプリケーション層</p></td>
+<td class="text-left"><p>HTTP, FTP, DNS, SMTP</p></td>
+<td class="text-left"><p>アプリケーションプログラム</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>6. プレゼンテーション層</p></td>
+<td class="text-left"><p>（アプリケーション層に含まれる）</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>アプリケーションプログラム</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>5. セッション層</p></td>
+<td class="text-left"><p>（アプリケーション層に含まれる）</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>アプリケーションプログラム</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>4. トランスポート層</p></td>
+<td class="text-left"><p>トランスポート層</p></td>
+<td class="text-left"><p>TCP, UDP</p></td>
+<td class="text-left"><p>OS</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>3. ネットワーク層</p></td>
+<td class="text-left"><p>インターネット層</p></td>
+<td class="text-left"><p>IP, ICMP, ARP</p></td>
+<td class="text-left"><p>OS</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>2. データリンク層</p></td>
+<td class="text-left"><p>ネットワークインターフェース層</p></td>
+<td class="text-left"><p>Ethernet, PPP, Wi-Fi</p></td>
+<td class="text-left"><p>デバイスドライバ・ネットワークインターフェース</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>1. 物理層</p></td>
+<td class="text-left"><p>ハードウェア</p></td>
+<td class="text-left"><p>UTPケーブル, 光ファイバーなど</p></td>
+<td class="text-left"><p>デバイスドライバ・ネットワークインターフェース</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id5">
+<h4>インターネット層<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
+<p>この層は「データを目的地まで届ける」ことにフォーカスした層。IPアドレスを利用してルーティングやアドレス指定といった処理を担当する。
+「インターネット層」は“IPを中心としたルーティング機能”に特化しており、OSIモデルのように細かい制御機能（例えばQoSなど）まではカバーしていない。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>プロトコル</p></th>
+<th class="text-left head"><p>役割</p></th>
+<th class="text-left head"><p>主な特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>IP</p></td>
+<td class="text-left"><p>パケットに送り先・送り元のIPアドレスを付けて配送</p></td>
+<td class="text-left"><p>コネクションレス・ルーティング機能で、再送などはしない。<br>IPにより、通信したいホストの間経路に関係なく通信が可能となる。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ICMP</p></td>
+<td class="text-left"><p>通信エラーや到達確認を行う</p></td>
+<td class="text-left"><p>ping・tracerouteに利用される制御用プロトコル</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ARP</p></td>
+<td class="text-left"><p>IPアドレスをMACアドレスに変換する</p></td>
+<td class="text-left"><p>LAN内での実通信のために必要なアドレス解決プロトコル<br>ARPは「インターネット層に属するが、実際にはデータリンク層と密接に関わる」位置付けにある。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id6">
+<h4>トランスポート層<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ここではアプリケーション間のデータ伝送の信頼性を保証する。コンピューターの内部では複数プログラムが動作しており、アプリケーションの識別にはポート番号を利用。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>プロトコル</p></th>
+<th class="text-left head"><p>役割</p></th>
+<th class="text-left head"><p>主な特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>TCP</p></td>
+<td class="text-left"><p>信頼性のある通信を実現（コネクション型）</p></td>
+<td class="text-left"><p>3-wayハンドシェイク、順序保証、再送制御あり</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>UDP</p></td>
+<td class="text-left"><p>最小限の処理で素早く送信（コネクションレス型）</p></td>
+<td class="text-left"><p>軽量・再送なし・順序保証なし</p></td>
+</tr>
+</tbody>
+</table>
+<p>TCPは、ホスト間のデータの到達性を保証し、パケットの消失や順番の入れ替わりがあっても、TCPが解決してくれる。
+一方でUDPは、コネクションレスのため、相手へ正しく届いているかは実施せず、アプリケーション層に任せている。
+「信頼性が重要ならTCP」「リアルタイム性が重要ならUDP」と覚えると良い。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>TCP vs UDP（比較表）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>特徴項目</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>接続</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>信頼性</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>速度</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>用途例</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id7">
+<h4>アプリケーション層<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
+<p>利用者が直接使う「目的に応じた通信プロトコル」が該当する層。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>プロトコル</p></th>
+<th class="text-left head"><p>用途</p></th>
+<th class="text-left head"><p>通信方式</p></th>
+<th class="text-left head"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>HTTP</p></td>
+<td class="text-left"><p>Web閲覧</p></td>
+<td class="text-left"><p>TCP</p></td>
+<td class="text-left"><p>WebブラウザとWebサーバ間の通信</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>HTTPS</p></td>
+<td class="text-left"><p>暗号化されたWeb通信</p></td>
+<td class="text-left"><p>TCP</p></td>
+<td class="text-left"><p>HTTP+TLSで安全な通信</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>FTP</p></td>
+<td class="text-left"><p>ファイル送受信</p></td>
+<td class="text-left"><p>TCP</p></td>
+<td class="text-left"><p>認証あり、制御/データの2つのチャネルを使用</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>SSH</p></td>
+<td class="text-left"><p>リモート接続</p></td>
+<td class="text-left"><p>TCP</p></td>
+<td class="text-left"><p>セキュアなターミナル通信</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>SMTP</p></td>
+<td class="text-left"><p>メール送信</p></td>
+<td class="text-left"><p>TCP</p></td>
+<td class="text-left"><p>メール送信用プロトコル</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>POP3</p></td>
+<td class="text-left"><p>メール受信</p></td>
+<td class="text-left"><p>TCP</p></td>
+<td class="text-left"><p>クライアントにダウンロードして読む</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>IMAP</p></td>
+<td class="text-left"><p>メール受信</p></td>
+<td class="text-left"><p>TCP</p></td>
+<td class="text-left"><p>サーバ上に保存しながら操作可能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>DNS</p></td>
+<td class="text-left"><p>名前解決</p></td>
+<td class="text-left"><p>UDP/TCP</p></td>
+<td class="text-left"><p>ドメイン名 ⇔ IPアドレスの変換</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>DHCP</p></td>
+<td class="text-left"><p>IPアドレス配布</p></td>
+<td class="text-left"><p>UDP</p></td>
+<td class="text-left"><p>自動でIPやゲートウェイを配布する</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id8">
+<h4>通信イメージ<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
+<p>TCP/IP通信では、アプリケーションが作ったデータが「上から下へ」と層を通過するたびにヘッダ情報が追加され、送信される。
+受信側では「下から上へ」と各層のヘッダを1つずつ剥がして中身を読み取り、最終的にアプリケーションへ届けられる。
+<img alt="" src="../_images/network_tcpip.jpeg" /></p>
+<p>ここで注意したいのが、「IPとMACの違い」。</p>
+<ul class="simple">
+<li><p>IPアドレス：通信の最終目的地（たとえばWebサーバなど）を示す。</p></li>
+<li><p>MACアドレス：通信の次の1ホップ先の相手（物理的に直接つながっている機器）を示す。</p></li>
+</ul>
+<p>たとえば、Aという端末がCにデータを送りたい時に、AとCは直接つながっておらず、間にBというルータがいる場合：</p>
+<ol class="arabic simple">
+<li><p>Aは最終的にCに届けたい（IPアドレス：C）</p></li>
+<li><p>しかし直接は届かないため、まず中継先のBに渡す</p></li>
+<li><p>Aは「C宛のIPパケット」を作るが、データリンク層ではBのMACアドレスを使って送信する</p></li>
+<li><p>Bが受け取った後、今度はCのMACアドレスを使ってデータを再送する
+各層では以下で定義されており、各ホップごとにMACアドレス（データリンク層の相手）は変化していく</p></li>
+</ol>
+<p>各層での「通信相手」の違いは以下に整理できる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>層</p></th>
+<th class="text-left head"><p>通信の相手</p></th>
+<th class="text-left head"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>アプリケーション層</p></td>
+<td class="text-left"><p>最終的な通信アプリケーション</p></td>
+<td class="text-left"><p>HTTPやFTPのクライアント・サーバ</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>トランスポート層</p></td>
+<td class="text-left"><p>最終的な通信アプリケーション（ポート）</p></td>
+<td class="text-left"><p>TCP/UDPのポートで指定</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>インターネット層</p></td>
+<td class="text-left"><p>最終的な宛先のIPアドレス</p></td>
+<td class="text-left"><p>例：203.0.113.5</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>データリンク層</p></td>
+<td class="text-left"><p>次の中継先（1ホップ先）のMACアドレス</p></td>
+<td class="text-left"><p>ARPで解決し、その都度変わる</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html" class="btn btn-neutral float-left" title="V字モデル" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SWA.html" class="btn btn-neutral float-right" title="SoftWareArchitecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
