@@ -113,6 +113,26 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">データリンク層</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mac">MACアドレス</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">データリンクにおける通信</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">イーサネット</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">無線通信</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ppp-point-to-point-protocol">PPP（Point-to-Point Protocol）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ip">インターネット層(IP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ip3">IPの3つの役割</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id13">IPアドレス</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">ルーティング</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">パケット分割と再構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6">IPv6</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#icmp">ICMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tcp-udp">トランスポート層(TCP/UDP)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="SWA.html">SoftWareArchitecture</a></li>
@@ -338,7 +358,7 @@ TCP/IPはこの分散型のパケット通信に最適化された設計を持�
 1980年代、TCP/IPは当時広く使われ始めていたUNIX OSに標準で搭載された。
 UNIXの普及とともにTCP/IPも自然と広まることになり、結果としてネットワークの共通言語となっていった。</p></li>
 <li><p>オープンな標準化と実装主義<br />
-TCP/IPは**IETF（Internet Engineering Task Force）**で議論され、RFC（Request For Comments）として誰でも参照・参加できる形で仕様が公開されている。
+TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Request For Comments）として誰でも参照・参加できる形で仕様が公開されている。
 しかも仕様の多くは実装に基づいて定義されるため、理論倒れにならず、実際に動くことが前提となっていた。これは後発のOSI参照モデルとの大きな違いだった。</p></li>
 </ol>
 <section id="tcp-iposi">
@@ -380,12 +400,12 @@ TCP/IPは**IETF（Internet Engineering Task Force）**で議論され、RFC（Re
 <td class="text-left"><p>OS</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>2. データリンク層</p></td>
-<td class="text-left"><p>ネットワークインターフェース層</p></td>
+<td class="text-left"><p>データリンク層</p></td>
 <td class="text-left"><p>Ethernet, PPP, Wi-Fi</p></td>
 <td class="text-left"><p>デバイスドライバ・ネットワークインターフェース</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>1. 物理層</p></td>
-<td class="text-left"><p>ハードウェア</p></td>
+<td class="text-left"><p>データリンク層</p></td>
 <td class="text-left"><p>UTPケーブル, 光ファイバーなど</p></td>
 <td class="text-left"><p>デバイスドライバ・ネットワークインターフェース</p></td>
 </tr>
@@ -444,19 +464,27 @@ TCP/IPは**IETF（Internet Engineering Task Force）**で議論され、RFC（Re
 「信頼性が重要ならTCP」「リアルタイム性が重要ならUDP」と覚えると良い。</p>
 <table class="colwidths-auto docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>TCP vs UDP（比較表）</p></th>
+<tr class="row-odd"><th class="text-left head"><p>特徴項目</p></th>
+<th class="text-left head"><p>TCP</p></th>
+<th class="text-left head"><p>UDP</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>特徴項目</p></td>
+<tr class="row-even"><td class="text-left"><p>接続</p></td>
+<td class="text-left"><p>コネクション型</p></td>
+<td class="text-left"><p>コネクションレス型</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>接続</p></td>
+<tr class="row-odd"><td class="text-left"><p>信頼性</p></td>
+<td class="text-left"><p>高い（再送・順序制御あり）</p></td>
+<td class="text-left"><p>低い（制御なし）</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>信頼性</p></td>
+<tr class="row-even"><td class="text-left"><p>速度</p></td>
+<td class="text-left"><p>遅め（オーバーヘッドあり）</p></td>
+<td class="text-left"><p>速い（軽量）</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>速度</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>用途例</p></td>
+<tr class="row-odd"><td class="text-left"><p>用途例</p></td>
+<td class="text-left"><p>Web通信, メール, SSH</p></td>
+<td class="text-left"><p>DNS, ストリーミング, ゲームなど</p></td>
 </tr>
 </tbody>
 </table>
@@ -568,6 +596,228 @@ TCP/IPは**IETF（Internet Engineering Task Force）**で議論され、RFC（Re
 </table>
 </section>
 </section>
+</section>
+<section id="id9">
+<h2>データリンク層<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
+<p>データリンク層は、物理的に直接接続されたノード間での通信手順やフォーマットを定める層である。OSI参照モデルでは、物理層（ビット伝送）とデータリンク層（フレーム転送）に分けて定義されている。</p>
+<p>具体的な役割としては：</p>
+<ul class="simple">
+<li><p>物理層：電圧や光の点滅といった物理的信号を0/1のビット列に変換</p></li>
+<li><p>データリンク層：ビット列をフレームというまとまりにし、エラー検出や再送、ノード識別（MACアドレス）を行う</p></li>
+</ul>
+<section id="mac">
+<h3>MACアドレス<a class="headerlink" href="#mac" title="この見出しへのパーマリンク">¶</a></h3>
+<p>データリンク層では、宛先を特定するために MACアドレス（Media Access Control address）を使用する。MACアドレスは各NIC（ネットワークインターフェースカード）に割り当てられた48ビットの識別子で、以下の構成を持つ：</p>
+<ul class="simple">
+<li><p>上位2ビット：ユニキャスト・マルチキャスト・ユニバーサル・ローカルアドレス</p></li>
+<li><p>上位22ビット：ベンダ識別子（OUI: Organizationally Unique Identifier）</p></li>
+<li><p>下位24ビット：ベンダ内のシリアル番号</p></li>
+</ul>
+<p>これにより、世界中で一意な識別が可能となっている。</p>
+</section>
+<section id="id10">
+<h3>データリンクにおける通信<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>データリンク層における通信方式は大きく2つに分類される：</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>方式</p></th>
+<th class="text-left head"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>媒体共有型</p></td>
+<td class="text-left"><p>同一の通信線を複数の機器が共有する。<br>通信の衝突を避けるために、CSMA/CD（イーサネット）、CSMA/CA（無線LAN）やトークンパッシングなどの制御方式が利用される。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>媒体非共有型</p></td>
+<td class="text-left"><p>各通信はスイッチによって分離されるため衝突が発生しない。<br>通信が同時に並列で行えるため、高速で安定した通信が可能。イーサネットスイッチが該当する。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id11">
+<h3>イーサネット<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>イーサネットは最も一般的なデータリンク層プロトコルであり、現在の有線LANの主流となっている。IEEE 802.3により標準化されており、以下のような進化を遂げてきた：</p>
+<ul class="simple">
+<li><p>初期は CSMA/CD により衝突を回避していた（ハブ接続）</p></li>
+<li><p>現在は スイッチを用いた媒体非共有型が主流</p></li>
+<li><p>通信速度は10Mbps → 100Mbps → 1Gbps → 10Gbpsと高速化</p></li>
+</ul>
+<p>フレーム構造（代表的な構成）：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">Preamble</span> <span class="o">|</span> <span class="n">宛先MAC</span> <span class="o">|</span> <span class="n">送信元MAC</span> <span class="o">|</span> <span class="n">タイプ</span> <span class="o">|</span> <span class="n">データ</span> <span class="o">|</span> <span class="n">FCS</span> <span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Preamble：同期用ビット列（前置き）</p></li>
+<li><p>FCS (Frame Check Sequence)：CRCによるエラー検出</p></li>
+</ul>
+</section>
+<section id="id12">
+<h3>無線通信<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>無線通信もデータリンク層に対応したプロトコルが存在する。</p>
+<ul class="simple">
+<li><p>IEEE 802.11：無線LAN（Wi-Fi）で使われる規格</p></li>
+<li><p>3GPP規格（3G/4G/5G）：モバイル通信で使用。無線リンクでもフレーム構造に類似したデータ単位（MAC PDUなど）を扱い、データリンク層の機能（再送、順序制御など）を提供する。</p></li>
+</ul>
+<p>Wi-Fiでは CSMA/CA（Collision Avoidance） を使い、衝突が発生しにくい方式を採用している。</p>
+</section>
+<section id="ppp-point-to-point-protocol">
+<h3>PPP（Point-to-Point Protocol）<a class="headerlink" href="#ppp-point-to-point-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<p>PPPは、主にモデムなどで使われていた1対1の通信回線におけるデータリンク層プロトコルである。電話回線など物理的に共有しない通信において使用された。</p>
+<p>現在では、広域ネットワーク接続やVPNトンネル内などで使われることもあるが、EthernetやIPベースの技術に主役を譲っている。</p>
+</section>
+</section>
+<section id="ip">
+<h2>インターネット層(IP)<a class="headerlink" href="#ip" title="この見出しへのパーマリンク">¶</a></h2>
+<p>TCP/IPモデルにおける「インターネット層」は、ネットワーク間でのエンドツーエンド通信を成立させる役割を担う。</p>
+<ul class="simple">
+<li><p>データリンク層：直接つながったノード間の通信（隣の機器まで）</p></li>
+<li><p>インターネット層：ルーターを中継しながら離れたノードまで届ける通信</p></li>
+</ul>
+<p>IPパケットは、ルーターをホップしながら宛先に届く。各ホップ間の実際の通信（物理的なやりとり）はデータリンク層に依存するため、イーサネットだろうがWi-Fiだろうが、インターネット層にとってはどうでもいい。
+TCP/IPにおけるインターネット層を支えるプロトコルがIP(Internet Protocol)とICMP（Internet Control Message Protocol）。</p>
+<section id="ip3">
+<h3>IPの3つの役割<a class="headerlink" href="#ip3" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>IPアドレス</p></li>
+<li><p>ルーティング</p></li>
+<li><p>パケット分割と再構築</p></li>
+</ul>
+<section id="id13">
+<h4>IPアドレス<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h4>
+<p>IPアドレスは、その下の階層で利用されているデータリンク層の形式に関わらず共通的な形式になっている。
+すなわち、ネットワーク層ではデータリンク層を意識しない設計となっている。</p>
+<ul class="simple">
+<li><p>IPv4：32ビット（4オクテット）、例：192.168.1.1</p></li>
+<li><p>IPv6：128ビット（16オクテット）、例：2001:0db8::1</p></li>
+</ul>
+<p>かつてはIPアドレスが「クラスA〜C」に固定されていた</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>クラス</p></th>
+<th class="text-left head"><p>ネットワーク部</p></th>
+<th class="text-left head"><p>ホスト部</p></th>
+<th class="text-left head"><p>割当範囲</p></th>
+<th class="text-left head"><p>台数</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>A</p></td>
+<td class="text-left"><p>8bit</p></td>
+<td class="text-left"><p>24bit</p></td>
+<td class="text-left"><p>0.0.0.0/8〜</p></td>
+<td class="text-left"><p>約1,600万台</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>B</p></td>
+<td class="text-left"><p>16bit</p></td>
+<td class="text-left"><p>16bit</p></td>
+<td class="text-left"><p>128.0.0.0/16〜</p></td>
+<td class="text-left"><p>約6万台</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>C</p></td>
+<td class="text-left"><p>24bit</p></td>
+<td class="text-left"><p>8bit</p></td>
+<td class="text-left"><p>192.0.0.0/24〜</p></td>
+<td class="text-left"><p>254台</p></td>
+</tr>
+</tbody>
+</table>
+<p>しかしこの設計は次第に破綻してしまう。</p>
+<ul class="simple">
+<li><p>大企業がAクラス（1600万台）を独占し、IPアドレスの浪費</p></li>
+<li><p>小規模組織にはCクラスでも足りない</p></li>
+<li><p>結果：グローバルIP枯渇が現実に</p></li>
+</ul>
+<p>この課題に対して3つの技術が利用されるようになった</p>
+<ul class="simple">
+<li><p>CIDR（Classless Inter-Domain Routing）</p>
+<ul>
+<li><p>ネットワーク部の長さを柔軟に指定可能</p></li>
+<li><p>/24 や /16 などでアドレス空間を細かく切って使える</p></li>
+<li><p>ルーティング効率の向上（最長一致アルゴリズム）</p></li>
+</ul>
+</li>
+<li><p>NAT（Network Address Translation）</p>
+<ul>
+<li><p>1つのグローバルIPで複数の端末を代表して通信</p></li>
+<li><p>プライベートIPとグローバルIPの変換</p></li>
+<li><p>グローバルIPの枯渇対策として世界中で普及</p></li>
+</ul>
+</li>
+<li><p>プライベートIP（RFC1918）</p>
+<ul>
+<li><p>インターネット上ではルーティングされない特別な範囲。</p></li>
+<li><p>ルーターやファイアウォールは、これらを内部通信と認識し、外部への問い合わせは行わない</p></li>
+<li><p>これにより、全てのホストにグローバルIPを割り振る必要性がなくなった</p></li>
+<li><p>必要なものにパブリックIPとしてグローバルIPを割り振ればよくなった</p></li>
+</ul>
+</li>
+</ul>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>範囲</p></th>
+<th class="text-left head"><p>用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>10.0.0.0/8</p></td>
+<td class="text-left"><p>大規模ネットワーク</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>172.16.0.0/12</p></td>
+<td class="text-left"><p>中規模</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>192.168.0.0/16</p></td>
+<td class="text-left"><p>小規模（家庭LANなど）</p></td>
+</tr>
+</tbody>
+</table>
+<p>グローバルIPの割当と管理は、世界的な調整機関である ICANN（アイキャン） が行っており、
+その下に5つのRIR（地域インターネットレジストリ）が分担して各国・各地域に配布している。</p>
+</section>
+<section id="id14">
+<h4>ルーティング<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ルーターやホストは「宛先のIPアドレスに対して、次にどこへ送るか？」というルーティングテーブルを持っている。
+IPプロトコル自体にはルーティング機能はない（テーブルがある前提）</p>
+<p>経路は静的に設定するか、ルーティングプロトコルで動的に構築する必要がある。
+※ルーティング詳細詳細は別節で解説する。</p>
+</section>
+<section id="id15">
+<h4>パケット分割と再構築<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h4>
+<p>データリンク層（例：イーサネット）のMTU（最大転送単位）が小さいと、IPはデータを分割して送る必要がある
+ルーターが分割（フラグメント）し、受信側が再構築する</p>
+<p>ただし、IPv6ではパケット分割は原則としてルーターでは行わない設計に変更されている（効率化のため）</p>
+</section>
+<section id="ipv6">
+<h4>IPv6<a class="headerlink" href="#ipv6" title="この見出しへのパーマリンク">¶</a></h4>
+<p>IPv4の構造的限界（最大43億個のアドレス）を打破するため、IPv6（128bitアドレス）が登場した。</p>
+<p>IPv4は、4オクテッドで10進数で4区切りで表現されていた。
+IPv6は、16オクテッドで16進数で8区切りで表現される。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>範囲</p></th>
+<th class="text-left head"><p>用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>10.0.0.0/8</p></td>
+<td class="text-left"><p>大規模ネットワーク</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>172.16.0.0/12</p></td>
+<td class="text-left"><p>中規模</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>192.168.0.0/16</p></td>
+<td class="text-left"><p>小規模（家庭LANなど）</p></td>
+</tr>
+</tbody>
+</table>
+<p>IPv6はただの「拡張版IPv4」ではなく、NAT不要、ヘッダー最適化、QoS強化などの設計思想も盛り込まれている。</p>
+</section>
+</section>
+</section>
+<section id="icmp">
+<h2>ICMP<a class="headerlink" href="#icmp" title="この見出しへのパーマリンク">¶</a></h2>
+</section>
+<section id="tcp-udp">
+<h2>トランスポート層(TCP/UDP)<a class="headerlink" href="#tcp-udp" title="この見出しへのパーマリンク">¶</a></h2>
 </section>
 </section>
 
