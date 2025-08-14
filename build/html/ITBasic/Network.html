@@ -131,8 +131,30 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#icmp">ICMP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tcp-udp">トランスポート層(TCP/UDP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">ネットワーク層(IP以外)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dns-domain-name-system">DNS(Domain Name System)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arp-address-resolution-protocol">ARP(Address Resolution Protocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#icmp-internet-contorol-messageprotocol">ICMP(Internet Contorol MessageProtocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dhcp-dynamic-host-configuration-protocol">DHCP(Dynamic Host Configuration Protocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nat-network-address-translator">NAT(Network Address Translator)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">ルーティング制御</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id18">ルーティングの全体像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">ルーティングテーブル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">ルーティングのアルゴリズム</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rip-rip2-routing-information-protocol">RIP/RIP2（Routing Information Protocol）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ospf-open-shortest-path-first">OSPF（Open Shortest Path First）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgp-gorder-gataway-protocol">BGP（Gorder Gataway Protocol）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tcp-udp">トランスポート層(TCP/UDP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id21">ポート番号</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcp-transmission-control-protocol">TCP(Transmission Control Protocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#udp-user-datagram-protocol">UDP(User Datagram Protocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcpudp">TCPとUDPの比較</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="SWA.html">SoftWareArchitecture</a></li>
@@ -791,33 +813,427 @@ IPプロトコル自体にはルーティング機能はない（テーブルが
 <p>IPv4の構造的限界（最大43億個のアドレス）を打破するため、IPv6（128bitアドレス）が登場した。</p>
 <p>IPv4は、4オクテッドで10進数で4区切りで表現されていた。
 IPv6は、16オクテッドで16進数で8区切りで表現される。</p>
-<table class="colwidths-auto docutils align-default">
-<thead>
-<tr class="row-odd"><th class="text-left head"><p>範囲</p></th>
-<th class="text-left head"><p>用途</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>10.0.0.0/8</p></td>
-<td class="text-left"><p>大規模ネットワーク</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>172.16.0.0/12</p></td>
-<td class="text-left"><p>中規模</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>192.168.0.0/16</p></td>
-<td class="text-left"><p>小規模（家庭LANなど）</p></td>
-</tr>
-</tbody>
-</table>
 <p>IPv6はただの「拡張版IPv4」ではなく、NAT不要、ヘッダー最適化、QoS強化などの設計思想も盛り込まれている。</p>
 </section>
 </section>
 </section>
-<section id="icmp">
-<h2>ICMP<a class="headerlink" href="#icmp" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id16">
+<h2>ネットワーク層(IP以外)<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="dns-domain-name-system">
+<h3>DNS(Domain Name System)<a class="headerlink" href="#dns-domain-name-system" title="この見出しへのパーマリンク">¶</a></h3>
+<p>IPアドレスは「192.0.2.1」のように数字で表されるが、人間が覚えるには不便。
+そこで、ドメイン名（例：example.com）とIPアドレスを対応付ける仕組みとしてDNS（Domain Name System）が利用される。
+もともとは1つのファイル（hosts.txt）で全ホスト名を集中管理していたが、インターネットの拡大に伴い、DNSにより分散管理できる仕組みに変化。</p>
+<p>ドメイン名は「木構造（階層構造）」で管理される。右側から左へ向かって階層が下がる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hoge</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">jp</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>jp … 国別トップレベルドメイン（ccTLD: country code Top Level Domain）</p></li>
+<li><p>ac … 分野別セカンドレベルドメイン（Academic）</p></li>
+<li><p>hoge … 固有のホストや組織名を示すドメイン</p></li>
+</ul>
+<p>DNSで名前解決を行うのはリゾルバ（Resolver）と呼ばれる機能。
+リゾルバは問い合わせを行い、最終的にIPアドレスを取得する。
+この過程でネームサーバ（Name Server）が階層的に役割を分担する。</p>
+<ul class="simple">
+<li><p>ルートネームサーバに問い合わせ（「.jpはどこにある？」）</p></li>
+<li><p>ルートは.jpのネームサーバ**を案内</p></li>
+<li><p>jpのネームサーバに問い合わせ（「ac.jpはどこ？」）</p></li>
+<li><p>ac.jpのネームサーバがhoge.ac.jpの情報を案内</p></li>
+<li><p>最終的にhoge.ac.jpを管理するネームサーバからIPアドレスを取得</p></li>
+</ul>
+<p>DNSでは、以下のような代表的なレコードを設定する。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>レコード種別</p></th>
+<th class="text-left head"><p>用途</p></th>
+<th class="text-left head"><p>記載例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Aレコード</p></td>
+<td class="text-left"><p>ドメイン名 → IPv4アドレスの対応付け</p></td>
+<td class="text-left"><p>example.com → 192.0.2.1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>AAAAレコード</p></td>
+<td class="text-left"><p>ドメイン名 → IPv6アドレスの対応付け</p></td>
+<td class="text-left"><p>example.com → 2001:db8::1</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>CNAMEレコード</p></td>
+<td class="text-left"><p>別名（エイリアス）を本来のドメインに対応付け</p></td>
+<td class="text-left"><p>www.example.com → example.com</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>MXレコード</p></td>
+<td class="text-left"><p>メールの配送先サーバを指定</p></td>
+<td class="text-left"><p>example.com → mail.example.com (優先度10)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>NSレコード</p></td>
+<td class="text-left"><p>ゾーンを管理するネームサーバを指定</p></td>
+<td class="text-left"><p>example.com → ns1.example.net</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>TXTレコード</p></td>
+<td class="text-left"><p>任意のテキスト情報（SPFやドメイン所有証明など）を格納</p></td>
+<td class="text-left"><p>v=spf1 include:_spf.example.com ~all</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>SOAレコード</p></td>
+<td class="text-left"><p>ゾーン情報の管理者・更新情報を保持</p></td>
+<td class="text-left"><p>シリアル番号、更新間隔など</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="arp-address-resolution-protocol">
+<h3>ARP(Address Resolution Protocol)<a class="headerlink" href="#arp-address-resolution-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ARPは、IPアドレスから対応するMACアドレスを取得するためのプロトコル。
+ネットワーク層（IPアドレス）とデータリンク層（MACアドレス）を結びつけ、同一ネットワーク内での通信を可能にする。</p>
+<p>IP通信では最終目的地のIPアドレスは変わらないが、データリンク層の送信先MACアドレスは「次に通信する機器」に変わる。
+例えば、AからBへ通信する際にルーターCを経由する場合、パケットは次のようになる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>送信元IP: A       宛先IP: B
+送信元MAC: A      宛先MAC: C（次のルーター）
+</pre></div>
+</div>
+<p>ルーターCに届いた後、宛先MACはBのものに書き換えられて再送される。</p>
+<p>ARPの動作はARP要求（Request）とARP応答（Reply）に分けられる</p>
+<ul class="simple">
+<li><p>ARP要求（Request）:送信元が「このIPアドレスのMACアドレスを知っている人は応答して」というブロードキャストを送信</p></li>
+<li><p>ARP応答（Reply）: 宛先IPアドレスを持つ機器が、自分のMACアドレスをユニキャストで返す。</p></li>
+</ul>
+<p>ARPを利用する場合、同一ネットワーク内に宛先IPのホストがある場合は、宛先のホストが直接ARP応答を得ることができる。
+同一ネットワーク内に宛先ホストがない場合は、デフォルトゲートウェイ（ルーター）のIPに対してARPを行い、ルーターのMACアドレスを取得する。</p>
+</section>
+<section id="icmp-internet-contorol-messageprotocol">
+<h3>ICMP(Internet Contorol MessageProtocol)<a class="headerlink" href="#icmp-internet-contorol-messageprotocol" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ICMPは、ネットワークが正常に動作しているかを確認したり、異常発生時にトラブルシューティングを行うために使われるネットワーク層のプロトコル。
+IP通信の補助的な役割を持ち、パケットが届かなかった理由や経路上の問題などを通知する。</p>
+<p>主な特徴</p>
+<ul class="simple">
+<li><p>ネットワーク層（IPと同じ層）で動作する</p></li>
+<li><p>アプリケーションデータの転送ではなく、制御メッセージを送受信する</p></li>
+<li><p>通信失敗や遅延などの診断に利用される</p></li>
+</ul>
+<p>代表的なメッセージは以下</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>メッセージ種別</p></th>
+<th class="text-left head"><p>目的</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Echo Request / Echo Reply</p></td>
+<td class="text-left"><p>相手が応答可能かを確認（pingコマンドが使用）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Destination Unreachable</p></td>
+<td class="text-left"><p>宛先に到達できない理由を通知（ルーティング不可、ポート未開放など）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Time Exceeded</p></td>
+<td class="text-left"><p>パケットのTTLが0になったため破棄されたことを通知（tracerouteで利用）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dhcp-dynamic-host-configuration-protocol">
+<h3>DHCP(Dynamic Host Configuration Protocol)<a class="headerlink" href="#dhcp-dynamic-host-configuration-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<p>IPアドレスやネットワーク設定を自動で割り当てるプロトコル。
+管理者はDHCPサーバーに対して、割り当て可能なIPアドレス範囲（スコープ）、サブネットマスク、デフォルトゲートウェイ、DNSサーバーなどの情報を設定しておく。
+クライアントはネットワークに接続すると、自動的にこれらの設定を受け取り、すぐに通信を開始できる。</p>
+<p>主な動作の流れ（DORA）</p>
+<ul class="simple">
+<li><p>Discover – クライアントが「誰かIPアドレスくれませんか？」とブロードキャストする</p></li>
+<li><p>Offer – DHCPサーバーが「このIP使えます」と提案を返す</p></li>
+<li><p>Request – クライアントが「じゃあそれを使います」と要求する</p></li>
+<li><p>Acknowledge – サーバーが「OK、そのIPで確定です」と承認する</p></li>
+</ul>
+<p>手動設定不要で即座にネットワーク参加可能、アドレスの重複や設定ミスを防止、アドレスの有効期限（リース期間）を設定可能で、管理が容易といったメリットがある。</p>
+</section>
+<section id="nat-network-address-translator">
+<h3>NAT(Network Address Translator)<a class="headerlink" href="#nat-network-address-translator" title="この見出しへのパーマリンク">¶</a></h3>
+<p>プライベートIPアドレスを使う端末がインターネットに接続する際、パケットの送信元IPアドレスをグローバルIPアドレスに変換する仕組み。
+主な目的は、アドレス空間の節約と内部ネットワークの秘匿。</p>
+<p>NATには、IPアドレスだけを変換する方式と、NAPT（Network Address Port Translation）のようにポート番号も併せて変換する方式がある。
+NAPTは送信元IPアドレスとポート番号を組み合わせることで、1つのグローバルIPアドレスで複数の内部端末の通信を同時に処理できる。</p>
+<p>具体的には、このようにポート番号まで変換することで、同じグローバルIPでも多数の通信を同時に処理できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>203.0.113.5:40001  ← PC-A (192.168.0.2:1050)
+203.0.113.5:40002  ← PC-B (192.168.0.3:1060)
+203.0.113.5:40003  ← PC-C (192.168.0.4:1070)
+</pre></div>
+</div>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>内部アドレス</p></th>
+<th class="text-left head"><p>変換後アドレス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>192.168.0.2:1050</p></td>
+<td class="text-left"><p>203.0.113.5:40001</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>192.168.0.3:1060</p></td>
+<td class="text-left"><p>203.0.113.5:40002</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>192.168.0.4:1070</p></td>
+<td class="text-left"><p>203.0.113.5:40003</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id17">
+<h2>ルーティング制御<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h2>
+<p>インターネットは多数のネットワークがルーターによって相互接続されている。
+パケットを宛先まで正しく届けるために、ルーターは適切な経路を選び、次に転送すべき方向を決定する。</p>
+<p>この経路選択の仕組みをルーティング（経路制御）と呼ぶ。</p>
+<section id="id18">
+<h3>ルーティングの全体像<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h3>
+<p>インターネットは、多くの組織や事業者のネットワークが組み合わさって成り立つ。</p>
+<p>インターネットを世界中のネットワークがつながった巨大な道路網とすると、この道路網を管理している単位がAS（Autonomous System）＝自立システムであり、その中と外で経路制御のルールが変わる。
+インターネット上ではAS番号（ASN）が割り振られる。</p>
+<p>ASの内側は1つの組織が管理しているため、経路選択は速度や信頼性を重視する。一方、AS間では契約やポリシーが関わるため、必ずしも最短経路を選ぶとは限らない。
+この性質の違いから、AS内とAS間では異なるルーティングプロトコルが使われる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>種類</p></th>
+<th class="text-left head"><p>範囲</p></th>
+<th class="text-left head"><p>目的</p></th>
+<th class="text-left head"><p>プロトコル例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>IGP（Interior Gateway Protocol）</p></td>
+<td class="text-left"><p>同一組織（同一AS）内のルーティング</p></td>
+<td class="text-left"><p>ネットワーク内部で最適経路を素早く決定</p></td>
+<td class="text-left"><p>RIP/RIP2, OSPF, IS-IS</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>EGP（Exterior Gateway Protocol）</p></td>
+<td class="text-left"><p>異なるAS間のルーティング</p></td>
+<td class="text-left"><p>経路ポリシーや契約条件に基づき経路を決定</p></td>
+<td class="text-left"><p>BGP（Border Gateway Protocol）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id19">
+<h3>ルーティングテーブル<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ルーターは、転送先を決定するためにルーティングテーブル（経路制御表）を参照する。
+このテーブルには、宛先ネットワークと次に転送すべきルーター（ネクストホップ）の情報が格納されている。</p>
+<p>ルーティングテーブルの作成方法は2種類。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>方法</p></th>
+<th class="text-left head"><p>説明</p></th>
+<th class="text-left head"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Static（静的ルーティング）</p></td>
+<td class="text-left"><p>管理者が手動で経路を設定</p></td>
+<td class="text-left"><p>小規模構成・固定経路に向く。障害時に自動切替できない</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Dynamic（動的ルーティング）</p></td>
+<td class="text-left"><p>ルーティングプロトコルを使ってルーター同士が経路情報を交換し、自動でテーブルを更新</p></td>
+<td class="text-left"><p>大規模ネットワークに向く。障害時に自動で迂回経路を選択可能</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id20">
+<h3>ルーティングのアルゴリズム<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ルーティングは大きく以下の方式に分類される。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>方式</p></th>
+<th class="text-left head"><p>特徴</p></th>
+<th class="text-left head"><p>代表的プロトコル</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>距離ベクトル型 (Distance Vector)</p></td>
+<td class="text-left"><p>各ルーターが「宛先までの距離（メトリック）」と「次に送るべき方向（ネクストホップ）」だけを隣接ルーターと定期的に交換する。経路計算は自分のテーブルだけで行う。</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>距離はホップ数や遅延などで表される。</p></td>
+<td class="text-left"><p>RIP, IGRP</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>リンク状態型 (Link State)</p></td>
+<td class="text-left"><p>各ルーターが「ネットワーク全体の接続情報（トポロジー）」を保持し、Dijkstraなどのアルゴリズムで最短経路を計算する。トポロジー情報はリンク状態広告（LSA）として全ルーターに配布される。</p></td>
+<td class="text-left"><p>OSPF, IS-IS</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>経路ベクトル型 (Path Vector)</p></td>
+<td class="text-left"><p>AS間ルーティングで用いられ、宛先までの経路情報（通過するASのリストなど）を広告する。経路ポリシーに基づく選択が可能。</p></td>
+<td class="text-left"><p>BGP</p></td>
+</tr>
+</tbody>
+</table>
+<p>IGPとEGPではそれぞれの目的に沿って選択されるアルゴリズムが異なる。</p>
+<ul class="simple">
+<li><p>IGP (Interior Gateway Protocol): 同一AS内でのルーティングに使用。距離ベクトル型やリンク状態型のプロトコルが該当。</p></li>
+<li><p>EGP (Exterior Gateway Protocol): AS間ルーティングに使用。経路ベクトル型が主流。</p></li>
+</ul>
+</section>
+<section id="rip-rip2-routing-information-protocol">
+<h3>RIP/RIP2（Routing Information Protocol）<a class="headerlink" href="#rip-rip2-routing-information-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>方式: 距離ベクトル型 IGP</p></li>
+<li><p>仕組み: ルーター間でルーティングテーブルを定期的に ブロードキャスト（RIP2ではマルチキャスト） し、宛先までのホップ数（最大15）をメトリックとして保持する。</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>実装が簡単で小規模ネットワークに向く</p></li>
+<li><p>複雑な経路やリンク障害に弱く、経路収束に時間がかかる（Count-to-Infinity問題）</p></li>
+<li><p>メトリックが単純なホップ数のみで、帯域や遅延などは考慮しない</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="ospf-open-shortest-path-first">
+<h3>OSPF（Open Shortest Path First）<a class="headerlink" href="#ospf-open-shortest-path-first" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>方式: リンク状態型 IGP</p></li>
+<li><p>仕組み: ルーター間でリンク状態情報（LSA）を交換し、全体のトポロジーを構築。Dijkstraアルゴリズムでコスト（帯域などの重み）を最小化する経路を計算する。</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>複雑なネットワークでも収束が速く安定</p></li>
+<li><p>論理的に「エリア」に分割してエリア内のトポロジーを構築</p></li>
+<li><p>エリア間の通信はバックボーンエリア（Area 0）を経由して行われる。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="bgp-gorder-gataway-protocol">
+<h3>BGP（Gorder Gataway Protocol）<a class="headerlink" href="#bgp-gorder-gataway-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>方式: 経路ベクトル型 EGP</p></li>
+<li><p>用途: AS（Autonomous System）間のルーティング</p></li>
+<li><p>仕組み: 各ASは、通過するASのリスト（ASパス）や属性情報を交換。ポリシーに基づいて経路を選択する。</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>インターネットの基盤プロトコル</p></li>
+<li><p>単なる最短経路ではなく、経路ポリシー（政治的・経済的理由を含む） による制御が可能</p></li>
+<li><p>経路数が膨大なため、プレフィックス集約（CIDR）が必須</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="tcp-udp">
 <h2>トランスポート層(TCP/UDP)<a class="headerlink" href="#tcp-udp" title="この見出しへのパーマリンク">¶</a></h2>
+<p>トランスポート層は、IP層で届いたデータを適切なアプリケーションに渡し、必要に応じて通信の信頼性を確保する役割を持つ。主な機能は次の2つ。</p>
+<ul class="simple">
+<li><p>ポート番号によるアプリケーション識別</p>
+<ul>
+<li><p>宛先IPアドレスまで到達した通信を、正しいプログラムに振り分ける。</p></li>
+</ul>
+</li>
+<li><p>通信の信頼性制御</p>
+<ul>
+<li><p>データの到達保証や順序保証、再送制御などを行うか否かはプロトコル（TCP/UDP）によって異なる。</p></li>
+</ul>
+</li>
+</ul>
+<section id="id21">
+<h3>ポート番号<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ポートは「通信の窓口」に相当し、1台のホスト上で複数のアプリケーションが同時に通信できるようにする。
+ポート番号は 0〜65535 の範囲で割り当てられ、以下の分類がある。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>範囲</p></th>
+<th class="text-left head"><p>名称</p></th>
+<th class="text-left head"><p>用途例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>0〜1023</p></td>
+<td class="text-left"><p>ウェルノウンポート</p></td>
+<td class="text-left"><p>HTTP(80), HTTPS(443), SSH(22)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>1024〜49151</p></td>
+<td class="text-left"><p>登録ポート（Registered）</p></td>
+<td class="text-left"><p>アプリケーション固有のサービス</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>49152〜65535</p></td>
+<td class="text-left"><p>動的/プライベートポート</p></td>
+<td class="text-left"><p>クライアント側が動的に割り当て</p></td>
+</tr>
+</tbody>
+</table>
+<p>TCP/IPではポートと合わせて以下の5要素（5タプル）で通信を一意に識別する。</p>
+<ul class="simple">
+<li><p>宛先IPアドレス</p></li>
+<li><p>送信元IPアドレス</p></li>
+<li><p>宛先ポート</p></li>
+<li><p>送信元ポート</p></li>
+<li><p>トランスポートプロトコル（TCP または UDP）</p></li>
+</ul>
+</section>
+<section id="tcp-transmission-control-protocol">
+<h3>TCP(Transmission Control Protocol)<a class="headerlink" href="#tcp-transmission-control-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<p>TCPはコネクション型・ストリーム型のプロトコルで、信頼性の高い通信を提供する。</p>
+<p>主な機能として以下の機能を持つ</p>
+<ul class="simple">
+<li><p>到達保証：ACK（受信確認応答）と再送制御</p></li>
+<li><p>順序保証：シーケンス番号でデータの並びを管理</p></li>
+<li><p>コネクション管理：スリーウェイハンドシェイクで接続確立</p></li>
+<li><p>フロー制御：受信側のバッファ容量を通知して過負荷を防ぐ</p></li>
+<li><p>輻輳制御：ネットワーク混雑を検知し送信速度を調整</p></li>
+</ul>
+<p>コネクション管理のスリーウェイハンドシェイクの流れは以下の通り</p>
+<ul class="simple">
+<li><p>クライアント → サーバ：SYN（接続要求）</p></li>
+<li><p>サーバ → クライアント：SYN-ACK（要求受領＋接続要求）</p></li>
+<li><p>クライアント → サーバ：ACK（接続確立応答）</p></li>
+</ul>
+<p><img alt="" src="../_images/network_3hand.png" />
+<a class="reference external" href="https://ja.wikipedia.org/wiki/3%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%BB%E3%83%8F%E3%83%B3%E3%83%89%E3%82%B7%E3%82%A7%E3%82%A4%E3%82%AF">wikipedia</a></p>
+</section>
+<section id="udp-user-datagram-protocol">
+<h3>UDP(User Datagram Protocol)<a class="headerlink" href="#udp-user-datagram-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<p>UDPはコネクションレス型のプロトコルで、到達保証や順序制御、再送制御を行わない。
+その代わりヘッダが小さく、処理が軽いため高速性とリアルタイム性に優れる。
+主な利用例としてDNS、VoIP、オンラインゲーム、動画ストリーミングが挙げられる</p>
+<ul class="simple">
+<li><p>輻輳制御やフロー制御なし</p></li>
+<li><p>再送・順序保証なし</p></li>
+<li><p>アプリケーション側で必要な制御を実装可能</p></li>
+<li><p>ブロードキャスト・マルチキャストに適する</p></li>
+</ul>
+</section>
+<section id="tcpudp">
+<h3>TCPとUDPの比較<a class="headerlink" href="#tcpudp" title="この見出しへのパーマリンク">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>項目</p></th>
+<th class="text-left head"><p>TCP</p></th>
+<th class="text-left head"><p>UDP</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>通信方式</p></td>
+<td class="text-left"><p>コネクション型</p></td>
+<td class="text-left"><p>コネクションレス型</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>到達保証</p></td>
+<td class="text-left"><p>あり</p></td>
+<td class="text-left"><p>なし</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>順序保証</p></td>
+<td class="text-left"><p>あり</p></td>
+<td class="text-left"><p>なし</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>輻輳・フロー制御</p></td>
+<td class="text-left"><p>あり</p></td>
+<td class="text-left"><p>なし</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>オーバーヘッド</p></td>
+<td class="text-left"><p>大きい</p></td>
+<td class="text-left"><p>小さい</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>主な用途</p></td>
+<td class="text-left"><p>Web、メール、ファイル転送</p></td>
+<td class="text-left"><p>音声・動画配信、DNS、オンラインゲーム</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 </section>
 
