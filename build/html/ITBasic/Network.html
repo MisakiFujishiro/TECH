@@ -155,6 +155,53 @@
 <li class="toctree-l3"><a class="reference internal" href="#tcpudp">TCPとUDPの比較</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#id22">アプリケーション層</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id23">遠隔ログイン</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#telnet">TELNET</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ssh-secure-shell">SSH（Secure Shell）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">ファイル転送</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#email">Email</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smtp-simple-mail-transfer-protocol">SMTP (Simple Mail Transfer Protocol)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pop-post-office-protocol">POP（Post Office Protocol）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imap-internet-message-access-protocol">IMAP（Internet Message Access Protocol）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mine-multipurpose-internet-mail-extensions">MINE（Multipurpose Internet Mail Extensions）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#www-world-wide-web">WWW（World Wide Web）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#uri-uniform-resource-identifier">URI（Uniform Resource Identifier）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#html">HTML</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#http">HTTP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#web">Webアプリケーション</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ntp-network-time-protocol">NTP（Network Time Protocol）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ldap-lightweight-directory-access-protocol">LDAP（Lightweight Directory Access Protocol）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id25">セキュリティ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id26">ファイアウォール</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id27">パケットフィルタリング型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">アプリケーションゲートウェイ型（プロキシ型）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ids-ips">IDS/IPS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ids-intrusion-detection-system">IDS(Intrusion Detection System: 侵入検知システム)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ips-intrusion-prevention-system">IPS(Intrusion Prevention System: 侵入防止システム)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">パーソナルファイアウォール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">コンテンツセキュリティ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id31">セキュリティプロトコル</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vpn">VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipsec">IPsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tls-ssl">TLS/SSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#https">HTTPS</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="SWA.html">SoftWareArchitecture</a></li>
@@ -1233,6 +1280,645 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </tr>
 </tbody>
 </table>
+</section>
+</section>
+<section id="id22">
+<h2>アプリケーション層<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h2>
+<p>TCP/IPモデルにおけるアプリケーション層は、ユーザーが実際に利用するサービスやアプリケーションと直接関わる層である。
+TCP/IPのアプリケーション層はOSI参照モデルの5層（セッション層）・6層（プレゼンテーション層）・7層（アプリケーション層）に相当する役割をまとめて担っている。</p>
+<p>具体的には以下の役割を担う</p>
+<ul class="simple">
+<li><p>通信の管理（セッション層相当）</p>
+<ul>
+<li><p>通信の開始・維持・終了をアプリケーションレベルで制御する。</p></li>
+<li><p>例: 接続の確立や切断の制御</p></li>
+</ul>
+</li>
+<li><p>データ形式の調整（プレゼンテーション層相当）</p>
+<ul>
+<li><p>文字コード、暗号化、圧縮方式など、異なるシステム間でデータが正しく解釈されるように形式を揃える。</p></li>
+<li><p>例: 文字コードや暗号化方式の指定</p></li>
+</ul>
+</li>
+<li><p>アプリケーションごとの通信プロトコル（アプリケーション層そのもの）</p>
+<ul>
+<li><p>実際のサービスを実現するためのプロトコルが定義されている。</p></li>
+<li><p>例: HTTP, FTP, SMTP, DNS など</p></li>
+</ul>
+</li>
+</ul>
+<p>さまざまなアプリケーション（遠隔ログイン、ファイル転送、電子メール）の通信をするためにアプリケーションプロトコルが定義されている。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>プロトコル</p></th>
+<th class="text-left head"><p>用途</p></th>
+<th class="text-left head"><p>補足</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>SSH</p></td>
+<td class="text-left"><p>遠隔ログイン</p></td>
+<td class="text-left"><p>Telnetに代わり、暗号化通信を利用</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>FTP</p></td>
+<td class="text-left"><p>ファイル転送</p></td>
+<td class="text-left"><p>古典的だが今も利用あり。SFTPやFTPSなど安全な拡張も存在</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>SMTP</p></td>
+<td class="text-left"><p>メール送信</p></td>
+<td class="text-left"><p>送信用の標準プロトコル</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>POP3</p></td>
+<td class="text-left"><p>メール受信</p></td>
+<td class="text-left"><p>ダウンロード型、サーバ上から削除する運用が多い</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>IMAP</p></td>
+<td class="text-left"><p>メール受信</p></td>
+<td class="text-left"><p>サーバにメールを残して複数端末で管理可能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>HTTP / HTTPS</p></td>
+<td class="text-left"><p>Web通信</p></td>
+<td class="text-left"><p>ブラウザとWebサーバ間のやりとり</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id23">
+<h3>遠隔ログイン<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h3>
+<p>リモートでコンピュータを操作する代表的なアプリケーションプロトコルとして TELNET と SSH がある。現在はセキュリティの観点からSSHが標準的に利用されている。</p>
+<section id="telnet">
+<h4>TELNET<a class="headerlink" href="#telnet" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>ポート番号: 23</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>かつては遠隔ログインに広く使われていたが、通信内容が暗号化されないため、盗聴や改ざんに弱い。現在はほとんど利用されない。</p></li>
+<li><p>TELNETクライアントは「任意のTCPポートに対して生の文字データを送受信できるツール」としても使える。この性質を利用して、FTPやSMTPなど他のTCPアプリケーションの疎通確認に用いられる。</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># FTPサーバー（ポート21）への接続確認</span>
+<span class="n">telnet</span> <span class="n">host名</span> <span class="mi">21</span>
+</pre></div>
+</div>
+<p>この場合は「遠隔ログイン」ではなく「TCPの動作確認ツール」としての利用。</p>
+</section>
+<section id="ssh-secure-shell">
+<h4>SSH（Secure Shell）<a class="headerlink" href="#ssh-secure-shell" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>ポート番号: 22</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>TELNETの暗号化されない問題を解決し、安全にリモート操作できる。</p></li>
+<li><p>バージョン1は脆弱性が多いため、現在は SSH-2 が一般的。</p></li>
+<li><p>認証方式にはパスワード認証のほか、公開鍵認証が広く使われる。</p></li>
+</ul>
+</li>
+<li><p>SSHとファイル転送</p>
+<ul>
+<li><p>SCP (Secure Copy): SSHを利用した単純なファイルコピー機能。</p></li>
+<li><p>SFTP (SSH File Transfer Protocol): SSHの仕組みを利用した独自のファイル転送プロトコル。</p></li>
+<li><p>FTPとは別物であり、ポート21ではなく SSHのポート22をそのまま利用する。</p></li>
+<li><p>通信経路が暗号化されているため、安全にファイル転送が可能。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="id24">
+<h3>ファイル転送<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h3>
+<p>異なるコンピュータ間でファイルを送受信するためのアプリケーションプロトコルが FTP (File Transfer Protocol)。
+古くから利用されているが、平文通信のためセキュリティには弱点がある。</p>
+<ul class="simple">
+<li><p>ポート番号: 20/21</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>制御用のポート21とファイル転送用のポート20を利用</p></li>
+<li><p>制御接続（21番）：クライアントはサーバーの21番ポートに接続し、USER や PASS、GET / PUT などのコマンドを送信する。</p></li>
+<li><p>データ転送（20番）：実際のファイルデータの送受信に使うコネクション。</p></li>
+</ul>
+</li>
+</ul>
+<p>FTPは通信が暗号化されないため、パスワードやデータが盗聴される危険がある。
+改善策として以下が登場した：</p>
+<ul class="simple">
+<li><p>FTPS: FTPにSSL/TLSを組み合わせて暗号化</p></li>
+<li><p>SFTP: SSHを利用した全く別のプロトコル（22番ポート利用）</p></li>
+</ul>
+</section>
+<section id="email">
+<h3>Email<a class="headerlink" href="#email" title="この見出しへのパーマリンク">¶</a></h3>
+<p>電子メールの基本は「送信は SMTP、受信は POP または IMAP」という構成。
+SMTP はメールを相手のメールサーバーに届ける役割を担い、受信者は自分の端末から POP または IMAP を通じてメールサーバーにアクセスする。</p>
+<section id="smtp-simple-mail-transfer-protocol">
+<h4>SMTP (Simple Mail Transfer Protocol)<a class="headerlink" href="#smtp-simple-mail-transfer-protocol" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>ポート番号：25</p></li>
+<li><p>用途: メール送信</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>TCP を利用して送信側から受信側サーバーへメールを転送</p></li>
+<li><p>受信者が常にオンラインでなくてもよいように、メールサーバーが受信メールを一時的に保持する</p></li>
+<li><p>DNS の MX レコードを用いて「ドメイン → メールサーバー」の対応を解決</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="pop-post-office-protocol">
+<h4>POP（Post Office Protocol）<a class="headerlink" href="#pop-post-office-protocol" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>ポート番号: 110（暗号化通信は POP3S として 995/TCP）</p></li>
+<li><p>用途: メール受信（ダウンロード型）</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>メールサーバーから端末へメールを取り込み、既定ではサーバー上のメールを削除</p></li>
+<li><p>メールは基本的に「端末に保存される」ため、複数端末での利用には不向き</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="imap-internet-message-access-protocol">
+<h4>IMAP（Internet Message Access Protocol）<a class="headerlink" href="#imap-internet-message-access-protocol" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>ポート番号: 143（暗号化通信は IMAPS として 993/TCP）</p></li>
+<li><p>用途: メール受信（サーバー参照型）</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>メールはサーバーに保存されたまま閲覧・管理する仕組み</p></li>
+<li><p>複数の端末から同じメールボックスを扱えるため、現在の主流</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="mine-multipurpose-internet-mail-extensions">
+<h4>MINE（Multipurpose Internet Mail Extensions）<a class="headerlink" href="#mine-multipurpose-internet-mail-extensions" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>用途: メールの内容を文字以外に拡張する仕組み</p></li>
+<li><p>役割:</p>
+<ul>
+<li><p>画像、音声、添付ファイルなどをテキスト形式にエンコードしてメールでやり取り可能にする</p></li>
+<li><p>日本語など ASCII 以外の文字コードも表現できるようにした</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="www-world-wide-web">
+<h3>WWW（World Wide Web）<a class="headerlink" href="#www-world-wide-web" title="この見出しへのパーマリンク">¶</a></h3>
+<p>インターネット上の情報を、ハイパーリンクで相互に参照可能な形で提供するシステム。WWWを支える基本要素は以下の3つ。</p>
+<ul class="simple">
+<li><p>URI: 情報資源を一意に識別・指定する仕組み</p></li>
+<li><p>HTML: 情報の構造と表現を定義するマークアップ言語</p></li>
+<li><p>HTTP: 情報のやり取りを行う通信プロトコル</p></li>
+</ul>
+<section id="uri-uniform-resource-identifier">
+<h4>URI（Uniform Resource Identifier）<a class="headerlink" href="#uri-uniform-resource-identifier" title="この見出しへのパーマリンク">¶</a></h4>
+<p>資源を示す識別子。</p>
+<ul class="simple">
+<li><p>形式: スキーム://ホスト名/パス</p></li>
+<li><p>例: https://example.com/index.html</p></li>
+<li><p>http や https などのスキームを指定することで、Web上の情報にアクセス可能となる。</p></li>
+</ul>
+</section>
+<section id="html">
+<h4>HTML<a class="headerlink" href="#html" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>Webページの構造を定義するマークアップ言語。</p></li>
+<li><p>文章、リンク、画像、フォームなどを組み合わせて表現する。</p></li>
+<li><p>デザインや装飾は CSS、動的な挙動は JavaScript と組み合わせて利用される。</p></li>
+</ul>
+</section>
+<section id="http">
+<h4>HTTP<a class="headerlink" href="#http" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>ポート番号: 80（暗号化通信は HTTPS として 443/TCP）</p></li>
+<li><p>用途: Webクライアントとサーバー間でのデータ転送（HTMLに限らずJSON, 画像, 動画なども含む）</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>コネクション型（TCP上で動作、HTTP/3はQUIC＝UDPベース）</p></li>
+<li><p>バージョン: HTTP/1.1、HTTP/2、HTTP/3</p></li>
+<li><p>ステートレス（リクエストとレスポンスの組み合わせで動作し、セッション管理はCookieなど別の仕組みで補う）</p></li>
+</ul>
+</li>
+</ul>
+<p>HTTPでは、リクエストに対する応答メッセージにステータスコードが定義されており、トラブルシューティングでは重要な情報となる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>区分</p></th>
+<th class="text-left head"><p>範囲</p></th>
+<th class="text-left head"><p>意味</p></th>
+<th class="text-left head"><p>代表例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>1xx</p></td>
+<td class="text-left"><p>100–199</p></td>
+<td class="text-left"><p>情報</p></td>
+<td class="text-left"><p>100 Continue</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>2xx</p></td>
+<td class="text-left"><p>200–299</p></td>
+<td class="text-left"><p>成功</p></td>
+<td class="text-left"><p>200 OK, 201 Created</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>3xx</p></td>
+<td class="text-left"><p>300–399</p></td>
+<td class="text-left"><p>リダイレクト</p></td>
+<td class="text-left"><p>301 Moved Permanently, 302 Found, 304 Not Modified</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>4xx</p></td>
+<td class="text-left"><p>400–499</p></td>
+<td class="text-left"><p>クライアントエラー</p></td>
+<td class="text-left"><p>400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>5xx</p></td>
+<td class="text-left"><p>500–599</p></td>
+<td class="text-left"><p>サーバーエラー</p></td>
+<td class="text-left"><p>500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable</p></td>
+</tr>
+</tbody>
+</table>
+<p>さらに詳細かすると以下</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>区分</p></th>
+<th class="text-left head"><p>コード</p></th>
+<th class="text-left head"><p>名前</p></th>
+<th class="text-left head"><p>意味・用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>1xx: 情報</p></td>
+<td class="text-left"><p>100</p></td>
+<td class="text-left"><p>Continue</p></td>
+<td class="text-left"><p>リクエストの一部を受け取り、残りを続けて送信してよい</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>101</p></td>
+<td class="text-left"><p>Switching Protocols</p></td>
+<td class="text-left"><p>プロトコルの切り替え（例: HTTP → WebSocket）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>103</p></td>
+<td class="text-left"><p>Early Hints</p></td>
+<td class="text-left"><p>レスポンス前にリンクのプリロードを通知</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>2xx: 成功</p></td>
+<td class="text-left"><p>200</p></td>
+<td class="text-left"><p>OK</p></td>
+<td class="text-left"><p>リクエスト成功。レスポンス本文に結果が含まれる</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>201</p></td>
+<td class="text-left"><p>Created</p></td>
+<td class="text-left"><p>新規リソースの作成成功（POSTなど）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>202</p></td>
+<td class="text-left"><p>Accepted</p></td>
+<td class="text-left"><p>リクエストを受理したが処理未完了</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>204</p></td>
+<td class="text-left"><p>No Content</p></td>
+<td class="text-left"><p>成功だが本文なし（例: DELETE成功）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>3xx: リダイレクト</p></td>
+<td class="text-left"><p>301</p></td>
+<td class="text-left"><p>Moved Permanently</p></td>
+<td class="text-left"><p>恒久的にリソースが移動（SEOで重要）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>302</p></td>
+<td class="text-left"><p>Found</p></td>
+<td class="text-left"><p>一時的に別のURLへ移動（従来のリダイレクト）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>303</p></td>
+<td class="text-left"><p>See Other</p></td>
+<td class="text-left"><p>POST後にGETで別リソースを参照させる</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>304</p></td>
+<td class="text-left"><p>Not Modified</p></td>
+<td class="text-left"><p>キャッシュを利用可能、再送不要</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>307</p></td>
+<td class="text-left"><p>Temporary Redirect</p></td>
+<td class="text-left"><p>一時的リダイレクト（メソッド保持）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>308</p></td>
+<td class="text-left"><p>Permanent Redirect</p></td>
+<td class="text-left"><p>永続的リダイレクト（メソッド保持）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>4xx: クライアントエラー</p></td>
+<td class="text-left"><p>400</p></td>
+<td class="text-left"><p>Bad Request</p></td>
+<td class="text-left"><p>リクエストが不正（文法エラーなど）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>401</p></td>
+<td class="text-left"><p>Unauthorized</p></td>
+<td class="text-left"><p>認証が必要（ログイン要求）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>403</p></td>
+<td class="text-left"><p>Forbidden</p></td>
+<td class="text-left"><p>アクセス禁止（権限不足など）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>404</p></td>
+<td class="text-left"><p>Not Found</p></td>
+<td class="text-left"><p>リソースが存在しない</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>405</p></td>
+<td class="text-left"><p>Method Not Allowed</p></td>
+<td class="text-left"><p>許可されていないHTTPメソッド</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>408</p></td>
+<td class="text-left"><p>Request Timeout</p></td>
+<td class="text-left"><p>リクエストがタイムアウト</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>409</p></td>
+<td class="text-left"><p>Conflict</p></td>
+<td class="text-left"><p>リソースの状態が競合して処理不能</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>410</p></td>
+<td class="text-left"><p>Gone</p></td>
+<td class="text-left"><p>リソースが永久に削除された</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>413</p></td>
+<td class="text-left"><p>Payload Too Large</p></td>
+<td class="text-left"><p>リクエストサイズが大きすぎる</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>414</p></td>
+<td class="text-left"><p>URI Too Long</p></td>
+<td class="text-left"><p>URIが長すぎる</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>415</p></td>
+<td class="text-left"><p>Unsupported Media Type</p></td>
+<td class="text-left"><p>サポートされていないメディアタイプ</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>429</p></td>
+<td class="text-left"><p>Too Many Requests</p></td>
+<td class="text-left"><p>リクエスト過多（レート制限）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>5xx: サーバーエラー</p></td>
+<td class="text-left"><p>500</p></td>
+<td class="text-left"><p>Internal Server Error</p></td>
+<td class="text-left"><p>サーバー内部エラー</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>501</p></td>
+<td class="text-left"><p>Not Implemented</p></td>
+<td class="text-left"><p>サーバーが対応していない機能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>502</p></td>
+<td class="text-left"><p>Bad Gateway</p></td>
+<td class="text-left"><p>ゲートウェイやプロキシでのエラー</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>503</p></td>
+<td class="text-left"><p>Service Unavailable</p></td>
+<td class="text-left"><p>サービス利用不可（過負荷・メンテ中）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>504</p></td>
+<td class="text-left"><p>Gateway Timeout</p></td>
+<td class="text-left"><p>ゲートウェイ・プロキシでタイムアウト</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p>505</p></td>
+<td class="text-left"><p>HTTP Version Not Supported</p></td>
+<td class="text-left"><p>サポート外のHTTPバージョン</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p>511</p></td>
+<td class="text-left"><p>Network Authentication Required</p></td>
+<td class="text-left"><p>ネットワーク認証（例: 公共Wi-Fiログイン）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="web">
+<h4>Webアプリケーション<a class="headerlink" href="#web" title="この見出しへのパーマリンク">¶</a></h4>
+<p>WWWの初期は、静止的なHTMLや画像ファイルを配信するだけの仕組みだった。
+やがて、ユーザー入力やリクエスト内容に応じて結果を返す「動的なページ生成」が可能になり、これが現在のWebアプリケーションの原型となった。</p>
+<p>この進化を支えた代表的な技術が JavaScript（クライアントサイド） と CGI（サーバーサイド） である。</p>
+<section id="javascript">
+<h5>JavaScript（クライアントサイド技術）<a class="headerlink" href="#javascript" title="この見出しへのパーマリンク">¶</a></h5>
+<ul class="simple">
+<li><p>役割: Webブラウザ上でプログラムを実行し、ページの内容や挙動を動的に変更する。</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>ページ全体を再読み込みせずに一部だけを書き換え可能（DOM操作）</p></li>
+<li><p>イベント処理（クリック、入力、スクロールなど）でインタラクティブな動作を実現</p></li>
+</ul>
+</li>
+<li><p>用途例: 入力フォームのバリデーション、リアルタイムチャット、SPA（Single Page Application）</p></li>
+</ul>
+<p>補足: JavaScriptは当初「フォーム入力チェック用の小さなスクリプト」だったが、現在ではフロントエンド開発の中心技術に成長し、ReactやVueなどのフレームワークが登場している。</p>
+</section>
+<section id="cgi-common-gateway-interface">
+<h5>CGI（Common Gateway Interface、サーバーサイド技術）<a class="headerlink" href="#cgi-common-gateway-interface" title="この見出しへのパーマリンク">¶</a></h5>
+<ul class="simple">
+<li><p>役割: Webサーバーと外部プログラムをつなぐ仕組み。サーバー側でプログラムを実行し、その結果をHTMLなどに変換して返す。</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>Webサーバー（Apacheなど）がリクエストを受けると、外部プログラムをプロセスとして起動し、その標準出力をレスポンスとして返す</p></li>
+<li><p>プログラム言語は制限されず、Perl, C, Python, Shell Scriptなどが利用可能</p></li>
+<li><p>単純だが、リクエストごとに新しいプロセスが立ち上がるため高負荷に弱い</p></li>
+</ul>
+</li>
+<li><p>用途例: フォーム送信の処理、検索機能、データベース照会</p></li>
+</ul>
+<p>補足: CGIはWebアプリ開発の黎明期に重要な役割を果たしたが、スケーラビリティの課題から、現在では FastCGI、Servlet、PHP、Ruby on Rails、Node.js などのアプリケーションサーバー方式へと進化している。</p>
+</section>
+</section>
+</section>
+<section id="ntp-network-time-protocol">
+<h3>NTP（Network Time Protocol）<a class="headerlink" href="#ntp-network-time-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ネットワーク上でコンピュータの時刻を同期させるためのプロトコル。</p>
+<ul class="simple">
+<li><p>ポート番号: UDP/123</p></li>
+<li><p>目的: 各サーバやクライアントの時計を、正確な基準時刻（UTC）に合わせる。</p></li>
+<li><p>基準時刻の源泉: GPS衛星や原子時計などを参照する「Stratum 0（基準時計）」が存在し、そこから階層的に下位のサーバ（Stratum 1, 2, …）へと時刻が伝播する。</p></li>
+<li><p>特徴: ネットワーク遅延を考慮したアルゴリズムを用いてミリ秒〜マイクロ秒単位の精度で時刻を同期可能。###</p></li>
+</ul>
+</section>
+<section id="ldap-lightweight-directory-access-protocol">
+<h3>LDAP（Lightweight Directory Access Protocol）<a class="headerlink" href="#ldap-lightweight-directory-access-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ユーザー情報や認証情報を階層的に管理・検索するためのプロトコル。</p>
+<ul class="simple">
+<li><p>ポート番号: TCP/389（LDAP）、TCP/636（LDAPS: TLS暗号化）</p></li>
+<li><p>役割: 各システムやアプリケーションに散在しがちなユーザー認証（ID/PW）や属性情報（部署、役職、メールアドレスなど）をディレクトリサービスに一元管理する。</p></li>
+<li><p>特徴:</p>
+<ul>
+<li><p>階層型データベース（ディレクトリツリー）として管理</p></li>
+<li><p>Active Directory や OpenLDAP などの実装が広く利用されている</p></li>
+<li><p>シングルサインオン（SSO）やアプリケーション統合認証の基盤となる</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="id25">
+<h2>セキュリティ<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id26">
+<h3>ファイアウォール<a class="headerlink" href="#id26" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ファイアウォールは、内部ネットワークと外部ネットワーク（インターネットなど）の間に配置し、不正アクセスや不要な通信を遮断するための仕組み。基本コンセプトは「通す通信と遮断する通信を明確に分ける」こと。</p>
+<section id="id27">
+<h4>パケットフィルタリング型<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ネットワーク層やトランスポート層での制御</p>
+<ul class="simple">
+<li><p>送信元/宛先のIPアドレスやポート番号、プロトコル種別に基づいて通信を許可または拒否する</p></li>
+<li><p>シンプルで高速だが、アプリケーション内部の内容までは確認できない</p></li>
+<li><p>例: 「社内から外部へのHTTP(80)とHTTPS(443)だけ通す」「外部からのSSH(22)は拒否する」</p></li>
+</ul>
+</section>
+<section id="id28">
+<h4>アプリケーションゲートウェイ型（プロキシ型）<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
+<p>アプリケーション層で通信を仲介する方式</p>
+<ul class="simple">
+<li><p>内部のホストが直接外部と通信するのではなく、ゲートウェイ（プロキシ）が一度受け取り、その内容を検査して必要に応じて内部へ中継する</p></li>
+<li><p>通信内容までチェックできるためセキュリティは高いが、処理が複雑で性能面では負荷がかかりやすい</p></li>
+<li><p>例: 「社内ユーザーのWebアクセスはプロキシサーバーを経由」「不正なHTTPリクエストはブロック」</p></li>
+</ul>
+</section>
+</section>
+<section id="ids-ips">
+<h3>IDS/IPS<a class="headerlink" href="#ids-ips" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ファイアウォールはポリシー（許可・拒否ルール）に合致すれば通信を通すため、「見かけ上は正しいが中身が攻撃」という通信までは判別できない。
+そこで登場するのがIDSとIPS。どちらも不正アクセスや攻撃パターンを検出する仕組みだが、役割に違いがある。
+ファイアーウォールがルールベースなのに対して、IDSとIPSは振る舞いベースであるといえる。</p>
+<section id="ids-intrusion-detection-system">
+<h4>IDS(Intrusion Detection System: 侵入検知システム)<a class="headerlink" href="#ids-intrusion-detection-system" title="この見出しへのパーマリンク">¶</a></h4>
+<p>検知専門</p>
+<ul class="simple">
+<li><p>ネットワークやホスト上の通信を監視し、既知の攻撃シグネチャや不正な挙動を検知した際に アラートを発報 する</p></li>
+<li><p>攻撃の可視化やログの収集に強みがある</p></li>
+<li><p>ただし攻撃そのものを自動的に止めることはできない</p></li>
+</ul>
+</section>
+<section id="ips-intrusion-prevention-system">
+<h4>IPS(Intrusion Prevention System: 侵入防止システム)<a class="headerlink" href="#ips-intrusion-prevention-system" title="この見出しへのパーマリンク">¶</a></h4>
+<p>検知＋防止</p>
+<ul class="simple">
+<li><p>IDSの機能に加えて、検知した不正通信をその場で 遮断（ブロック） する</p></li>
+<li><p>攻撃を自動で止められる一方、誤検知で正当な通信を遮断するリスクもあるため、調整が必要</p></li>
+</ul>
+</section>
+</section>
+<section id="id29">
+<h3>パーソナルファイアウォール<a class="headerlink" href="#id29" title="この見出しへのパーマリンク">¶</a></h3>
+<p>従来のファイアウォールやIDS/IPSは「ネットワークの内と外の境界」に設置され、組織全体を守る仕組みだった。
+一方でパーソナルファイアウォールは、各PCや端末にインストールして動作するソフトウェア型のファイアウォール。</p>
+<ul class="simple">
+<li><p>PCに出入りする通信をパケットレベルで監視・制御する</p></li>
+<li><p>アプリケーションごとに「どのプログラムがどのポートを使って通信できるか」を制御できる</p></li>
+<li><p>ネットワーク境界のファイアウォールをすり抜けた攻撃や、内部からの不正通信もブロックできる</p></li>
+</ul>
+<p>つまり「ネットワークを守る壁」ではなく、「端末を守る壁」。これはエンドポイントセキュリティの一種として位置づけられる。</p>
+</section>
+<section id="id30">
+<h3>コンテンツセキュリティ<a class="headerlink" href="#id30" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ファイアウォールやIDS/IPSはネットワーク層やトランスポート層での不正通信を防げるが、アプリケーションのコンテンツ自体に仕込まれる攻撃（マルウェア添付や不正なWebページなど） には対応が弱い。
+そこで、アプリケーションレベルでのセキュリティ対策が必要になる。</p>
+<p>Emailの例</p>
+<ul class="simple">
+<li><p>メールサーバー（SMTP/IMAP/POPの中継点）に導入されたセキュリティゲートウェイ が、送信元IPアドレスの信頼性を評価</p></li>
+<li><p>添付ファイルをアンチウイルス・サンドボックスで検査し、不審なメールを隔離</p></li>
+<li><p>迷惑メール（スパム）フィルタリングを実施</p></li>
+</ul>
+<p>Webの例</p>
+<ul class="simple">
+<li><p>WebプロキシサーバーやセキュアWebゲートウェイ（SWG） がユーザーのリクエストを中継</p></li>
+<li><p>URLフィルタリングにより不審サイトや危険サイトへのアクセスをブロック</p></li>
+<li><p>ダウンロードするファイルをアンチウイルス検査</p></li>
+</ul>
+</section>
+</section>
+<section id="id31">
+<h2>セキュリティプロトコル<a class="headerlink" href="#id31" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="vpn">
+<h3>VPN<a class="headerlink" href="#vpn" title="この見出しへのパーマリンク">¶</a></h3>
+<p>インターネットのような信用できないネットワーク上で、仮想的な専用線を構築し、安全に通信する仕組み が VPN (Virtual Private Network)。</p>
+<p>VPNを実現するためには、通信を暗号化するプロトコルが必要になる。代表的なのは以下の2つ。</p>
+<ul class="simple">
+<li><p>IPsec: ネットワーク層でIPパケットを暗号化 → 拠点間VPNに多い</p></li>
+<li><p>TLS/SSL: トランスポート層で通信を暗号化 → SSL-VPNとしてリモートアクセスに多い</p></li>
+</ul>
+<p>暗号化はVPNだけの専用技術ではなく、通信のさまざまな層で使われている。たとえば、Webの閲覧ならアプリケーション層のHTTPS、メール送信ならSMTP＋TLS、ネットワーク全体を守るならIPsec、といった具合に「どの層で守るか」によって使われる仕組みが変わる。</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>層</p></th>
+<th class="text-left head"><p>代表例</p></th>
+<th class="text-left head"><p>セキュリティ技術</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>アプリケーション層</p></td>
+<td class="text-left"><p>HTTP, SMTP, IMAP</p></td>
+<td class="text-left"><p>HTTPS (HTTP+TLS), SMTPS</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>トランスポート層</p></td>
+<td class="text-left"><p>TCP</p></td>
+<td class="text-left"><p>TLS/SSL</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ネットワーク層</p></td>
+<td class="text-left"><p>IP</p></td>
+<td class="text-left"><p>IPsec</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ipsec">
+<h3>IPsec<a class="headerlink" href="#ipsec" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ネットワーク層で動作する暗号化・認証の仕組み。上位のアプリケーションに依存せず、すべてのIP通信を保護できる。</p>
+<ul class="simple">
+<li><p>特徴: 通信経路上のパケット（IPヘッダやデータ部分）を暗号化・認証可能</p></li>
+<li><p>利用例: 拠点間VPN、リモートアクセスVPN</p></li>
+<li><p>モード:</p>
+<ul>
+<li><p>トランスポートモード: IPパケットのペイロード部分のみ暗号化</p></li>
+<li><p>トンネルモード: IPパケット全体を新しいIPヘッダでカプセル化し暗号化</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="tls-ssl">
+<h3>TLS/SSL<a class="headerlink" href="#tls-ssl" title="この見出しへのパーマリンク">¶</a></h3>
+<p>TCP上で動作する暗号化プロトコル。SSLは旧称で、現在はTLSが標準（最新はTLS 1.3）。</p>
+<ul class="simple">
+<li><p>特徴: アプリケーションごとの修正が不要で、TCPベースの通信（HTTP, SMTP, IMAPなど）を安全化できる</p></li>
+<li><p>仕組み: 通信開始時に「ハンドシェイク」で暗号鍵や暗号方式を合意し、その後の通信を暗号化</p></li>
+<li><p>用途: Web通信、メール送受信、VPN（SSL-VPN）など幅広く利用される</p></li>
+</ul>
+</section>
+<section id="https">
+<h3>HTTPS<a class="headerlink" href="#https" title="この見出しへのパーマリンク">¶</a></h3>
+<p>HTTP over TLS/SSL の略称。Web通信にTLSを適用したもの。</p>
+<ul class="simple">
+<li><p>背景: 1990年代後半のオンラインショッピング普及に伴い、Web暗号化の需要が急増し、SSL/TLSがブラウザに標準搭載され普及</p></li>
+<li><p>役割:</p>
+<ul>
+<li><p>サーバー証明書による認証（正しいサーバーか確認）</p></li>
+<li><p>通信内容の暗号化（盗聴防止）</p></li>
+<li><p>改ざん検知（途中改ざんを防ぐ）</p></li>
+</ul>
+</li>
+<li><p>現状: Web通信の事実上の標準。現在では「常時HTTPS」が推奨されている</p></li>
+</ul>
 </section>
 </section>
 </section>
