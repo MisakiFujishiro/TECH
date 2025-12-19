@@ -37,6 +37,7 @@
    GCP/GCP.md
    GCP/IAM.md
    GCP/API.md
+   GCP/GKE.md
    GCP/Network.md
    GCP/Storage.md
    GCP/CloudLogging.md
