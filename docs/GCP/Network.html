@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Network &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/translations.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=2aa0fae8"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/translations.js?v=4dbe4bdc"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
@@ -205,10 +203,10 @@ VPC内部においてサブネットを定義する際にはVPC内でCIDRが重�
 <p>ルーティング（経路制御）では、VPC内のトラフィックをどこに転送するかのルールを定義する。
 VPCネットワークごとに<code class="docutils literal notranslate"><span class="pre">ルートテーブル</span></code>が存在し、宛先CIDRごとに送り先を定義する。</p>
 <p>VPCネットワークを作成したタイミングでデフォルトとして<code class="docutils literal notranslate"><span class="pre">デフォルトルート</span></code>と<code class="docutils literal notranslate"><span class="pre">サブネットルート</span></code>という2種類の自動毛色が自動で登録される。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>種類</p></th>
-<th class="text-left head"><p>内容</p></th>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-left"><p>内容</p></th>
 </tr>
 </thead>
 <tbody>
@@ -224,11 +222,11 @@ VPCネットワークごとに<code class="docutils literal notranslate"><span c
 </tbody>
 </table>
 <p>例としては以下のような設定を行う。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>宛先</p></th>
-<th class="text-left head"><p>次ホップ</p></th>
-<th class="text-left head"><p>備考</p></th>
+<tr class="row-odd"><th class="head text-left"><p>宛先</p></th>
+<th class="head text-left"><p>次ホップ</p></th>
+<th class="head text-left"><p>備考</p></th>
 </tr>
 </thead>
 <tbody>
@@ -267,10 +265,10 @@ VPCネットワークごとに<code class="docutils literal notranslate"><span c
 <h3>Firewall<a class="headerlink" href="#firewall" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Firewallとは、ターゲットへの通信において、ポリシーを定義することで許可または拒否するセキュリティ機能。</p>
 <p>GCPにおいては、VPCに対してFirewallを定義することができ、インバウンドやアウトバンドの通信についてポリシーを適用することができる。具体的には、以下のようにルールを適用できる。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>要素</p></th>
-<th class="text-left head"><p>説明</p></th>
+<tr class="row-odd"><th class="head text-left"><p>要素</p></th>
+<th class="head text-left"><p>説明</p></th>
 </tr>
 </thead>
 <tbody>
@@ -292,11 +290,11 @@ VPCネットワークごとに<code class="docutils literal notranslate"><span c
 </tbody>
 </table>
 <p>INGRESSとEGRESSでそれぞれの要素の具体的な意味合いが異なるのでそれぞれについてまとめると以下。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>要素</p></th>
-<th class="text-left head"><p>INGRESS時の意味</p></th>
-<th class="text-left head"><p>EGRESS時の意味</p></th>
+<tr class="row-odd"><th class="head text-left"><p>要素</p></th>
+<th class="head text-left"><p>INGRESS時の意味</p></th>
+<th class="head text-left"><p>EGRESS時の意味</p></th>
 </tr>
 </thead>
 <tbody>
@@ -330,14 +328,14 @@ VPCネットワークごとに<code class="docutils literal notranslate"><span c
 <section id="id3">
 <h3>ネットワークの拡張<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>VCPを拡張し、他のVPCやオンプレミスと通信する方法には以下のようなものがある。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>拡張手段</p></th>
-<th class="text-left head"><p>接続対象</p></th>
-<th class="text-left head"><p>特徴</p></th>
-<th class="text-left head"><p>用途例</p></th>
-<th class="text-left head"><p>帯域/性能</p></th>
-<th class="text-left head"><p>備考</p></th>
+<tr class="row-odd"><th class="head text-left"><p>拡張手段</p></th>
+<th class="head text-left"><p>接続対象</p></th>
+<th class="head text-left"><p>特徴</p></th>
+<th class="head text-left"><p>用途例</p></th>
+<th class="head text-left"><p>帯域/性能</p></th>
+<th class="head text-left"><p>備考</p></th>
 </tr>
 </thead>
 <tbody>
@@ -372,13 +370,13 @@ VPCネットワークごとに<code class="docutils literal notranslate"><span c
 </tbody>
 </table>
 <p>Cloud Interconnectについては、さらに専用線のDedicatedとパートナー事業者を通じたParterがある。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>種類</p></th>
-<th class="text-left head"><p>概要</p></th>
-<th class="text-left head"><p>接続場所</p></th>
-<th class="text-left head"><p>導入難易度</p></th>
-<th class="text-left head"><p>備考</p></th>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-left"><p>概要</p></th>
+<th class="head text-left"><p>接続場所</p></th>
+<th class="head text-left"><p>導入難易度</p></th>
+<th class="head text-left"><p>備考</p></th>
 </tr>
 </thead>
 <tbody>
@@ -469,10 +467,10 @@ Cloud SQL
 <li><p>HTTP(S)、TCP/SSL、UDP レベルでのロードバランシングをサポート</p></li>
 </ul>
 <p>種類別の分類（用途・プロトコル・接続方式）</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>分類</p></th>
-<th class="text-left head"><p>説明</p></th>
+<tr class="row-odd"><th class="head text-left"><p>分類</p></th>
+<th class="head text-left"><p>説明</p></th>
 </tr>
 </thead>
 <tbody>
@@ -488,11 +486,11 @@ Cloud SQL
 </tbody>
 </table>
 <p>デプロイモードの違い</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>項目</p></th>
-<th class="text-left head"><p>外部LB（External）</p></th>
-<th class="text-left head"><p>内部LB（Internal）</p></th>
+<tr class="row-odd"><th class="head text-left"><p>項目</p></th>
+<th class="head text-left"><p>外部LB（External）</p></th>
+<th class="head text-left"><p>内部LB（Internal）</p></th>
 </tr>
 </thead>
 <tbody>

@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="ja" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Workflows &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/translations.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=2aa0fae8"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/translations.js?v=4dbe4bdc"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
@@ -63,11 +61,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">GKE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Network.html">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DB.html">データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Compute Engine)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Serverless.html">サーバーレスアーキテクチャ</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Workflows</a><ul>
@@ -83,23 +85,29 @@
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Apigee.html">Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Security:</span></p>
 <ul>
@@ -114,6 +122,7 @@
 <p class="caption" role="heading"><span class="caption-text">Book:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">ソフトウェア開発現場の「失敗」集めてみた</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -164,12 +173,12 @@
 <section id="id1">
 <h2>ワークフローの定義<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>以下のような構文を利用してワークフローを定義する。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>種類</p></th>
-<th class="text-left head"><p>名称</p></th>
-<th class="text-left head"><p>説明</p></th>
-<th class="text-left head"><p>使用例/用途</p></th>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-left"><p>名称</p></th>
+<th class="head text-left"><p>説明</p></th>
+<th class="head text-left"><p>使用例/用途</p></th>
 </tr>
 </thead>
 <tbody>
@@ -269,10 +278,10 @@
 </div>
 <p>上記では、6つのステップが定義されており、それぞれの以下のような処理が実行される。
 なお、workflowsではnextを設定すると次の実行ステップを指定することができ、指定しない場合は次に記載されているステップが実行される。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>ステップ名</p></th>
-<th class="text-left head"><p>説明</p></th>
+<tr class="row-odd"><th class="head text-left"><p>ステップ名</p></th>
+<th class="head text-left"><p>説明</p></th>
 </tr>
 </thead>
 <tbody>
@@ -299,13 +308,13 @@
 <section id="id2">
 <h3>サービス呼び出し<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Workflowsでは以下の呼び出しを行い、処理を定義することができる。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>呼び出し元</p></th>
-<th class="text-left head"><p>概要</p></th>
-<th class="text-left head"><p>代表的な用途</p></th>
-<th class="text-left head"><p>記述方法</p></th>
-<th class="text-left head"><p>備考</p></th>
+<tr class="row-odd"><th class="head text-left"><p>呼び出し元</p></th>
+<th class="head text-left"><p>概要</p></th>
+<th class="head text-left"><p>代表的な用途</p></th>
+<th class="head text-left"><p>記述方法</p></th>
+<th class="head text-left"><p>備考</p></th>
 </tr>
 </thead>
 <tbody>
@@ -346,14 +355,14 @@
 <h2>ワークフローの呼び出し<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
 <p>workflowsは、GUIやCLIを利用した手動での実行もサポートされているが、他のサービスからの呼び出しもサポートされている。</p>
 <p>呼び出し時の注意点として、Cloud Scheduler はユーザー指定のサービスアカウントによる明示的な認可が可能である一方、Eventarc は内部生成された SA によって自動的に Workflows を起動し、対応する IAM 設定が求められる。</p>
-<table class="colwidths-auto docutils align-default">
+<table class="docutils align-default">
 <thead>
-<tr class="row-odd"><th class="text-left head"><p>実行方法</p></th>
-<th class="text-left head"><p>トリガー元</p></th>
-<th class="text-left head"><p>主な用途</p></th>
-<th class="text-left head"><p>引数の渡し方</p></th>
-<th class="text-left head"><p>実行者</p></th>
-<th class="text-left head"><p>認証方法</p></th>
+<tr class="row-odd"><th class="head text-left"><p>実行方法</p></th>
+<th class="head text-left"><p>トリガー元</p></th>
+<th class="head text-left"><p>主な用途</p></th>
+<th class="head text-left"><p>引数の渡し方</p></th>
+<th class="head text-left"><p>実行者</p></th>
+<th class="head text-left"><p>認証方法</p></th>
 </tr>
 </thead>
 <tbody>
