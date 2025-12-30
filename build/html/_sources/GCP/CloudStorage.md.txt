@@ -1,8 +1,0 @@
-# ストレージ
-## Cloud Storage
-
-
-## Cloud SQL
-## Spanner
-## Firestore 
-## Bigtable

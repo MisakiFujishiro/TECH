@@ -28,10 +28,34 @@
   color: #228be6;
 }
 
-/* =========================================
-   セクション帯（確認用・はっきり版）
-   ========================================= */
+/* ================================
+   見出し帯（本番）
+   ================================ */
+
+/* ## (h2) セクション帯 */
 .wy-nav-content .rst-content h2 {
-  background: red !important;
-  color: white !important;
+  background: linear-gradient(
+    to right,
+    #d9ecff 0%,
+    #d9ecff 65%,
+    rgba(217, 236, 255, 0) 100%
+  ) !important;
+  padding: 10px 14px !important;
+  border-left: 8px solid #1971c2 !important;
+  border-radius: 6px !important;
+  margin-top: 1.6em !important;
+}
+
+/* ### (h3) サブセクション帯（少し薄め） */
+.wy-nav-content .rst-content h3 {
+  background: linear-gradient(
+    to right,
+    #edf5ff 0%,
+    #edf5ff 55%,
+    rgba(237, 245, 255, 0) 100%
+  ) !important;
+  padding: 8px 12px !important;
+  border-left: 6px solid #4dabf7 !important;
+  border-radius: 5px !important;
+  margin-top: 1.2em !important;
 }
