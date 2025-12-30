@@ -52,16 +52,8 @@
    GCP/Pub-Sub.md
    GCP/Redis.md
    GCP/ArtifactRegistry.md
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Git:
-
-   Git/basic.md
-   Git/branch_strategy.md
-   Git/starter.md
-
-
+   GCP/Apigee.md
+   GCP/misc.md
 
 .. toctree::
    :maxdepth: 1
@@ -74,10 +66,19 @@
    ITBasic/kernel.md
    ITBasic/Container.md
    ITBasic/Kubernetes.md
+   ITBasic/ServiceMesh.md
    ITBasic/NFS.md
    ITBasic/SaaS.md
    ITBasic/CICD.md
    ITBasic/非機能.md
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Git:
+
+   Git/basic.md
+   Git/branch_strategy.md
+   Git/starter.md
 
 .. toctree::
    :maxdepth: 1

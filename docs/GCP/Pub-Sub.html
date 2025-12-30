@@ -63,14 +63,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">GKE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Network.html">Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DB.html">データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Cloud Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Compute Engine)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudRun.html">CloudRun</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudFunctions.html">CloudFunction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">サーバーレスアーキテクチャ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Workflows.html">Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">Cloud Scheduler</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pub/Sub</a><ul>
@@ -82,29 +85,39 @@
 <li class="toctree-l3"><a class="reference internal" href="#push-pull">Push/Pull</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ack">ACK</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dlq">メッセージの寿命とDLQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">配信方式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exactly-once-delivery">Exactly-once delivery</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Apigee.html">Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Security:</span></p>
 <ul>
@@ -119,6 +132,7 @@
 <p class="caption" role="heading"><span class="caption-text">Book:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">ソフトウェア開発現場の「失敗」集めてみた</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -313,6 +327,23 @@ ACKとは、「そのメッセージを受け取って処理が完了したま�
 <h3>メッセージの寿命とDLQ<a class="headerlink" href="#dlq" title="この見出しへのパーマリンク">¶</a></h3>
 <p>メッセージはサブスクリプションごとに管理され、ACKを契機に削除される。</p>
 <p>また、最大再配信回数（デフォルト5、最大100）をSubscription単位で設定しておくことで、何度も失敗するメッセージに関してはDLQに配信することができる。</p>
+</section>
+<section id="id4">
+<h3>配信方式<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Pub-Subには以下二つの配信方式がある</p>
+<ul class="simple">
+<li><p>At-least-once delivery</p></li>
+<li><p>Exactly-once delivery
+At-least-onceでは、最低限一度の配信を保証し、Exactly-once deliveryでは、一度だけの配信を保証する。
+ただし、最終的な冪等性はアプリ側で保証する必要がある。</p></li>
+</ul>
+<section id="exactly-once-delivery">
+<h4>Exactly-once delivery<a class="headerlink" href="#exactly-once-delivery" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Pub/Sub の **At-least-once delivery（デフォルト）**では、メッセージが少なくとも1回配信されることを保証する一方、ack が確認できない場合や ack deadline を超過した場合には、同一メッセージが再配信される可能性がある。</p>
+<p>これに対して Exactly-once delivery は、Pub/Sub と subscriber 間において、ack が正常に確定したメッセージについては一度だけ配信されることを保証する仕組みである。ただし、アプリケーション全体の冪等性までを保証するものではない。</p>
+<p>Exactly-once delivery では、ack の状態を Pub/Sub 側で明示的に管理し、ack が完了と確定したメッセージについては再配信しないという保証を提供する。一方で、アプリケーション障害やネットワーク障害などにより ack が Pub/Sub に到達または確定しなかった場合には、ack deadline 超過後に安全側の動作として再配信される可能性がある。</p>
+<p>なお、Exactly-once delivery は Pull 型サブスクリプションでのみサポートされており、Push 型では利用できない。</p>
+</section>
 </section>
 </section>
 </section>

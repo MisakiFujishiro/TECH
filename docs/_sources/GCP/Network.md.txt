@@ -102,6 +102,46 @@ GCPでは、プロジェクトを作成した時点でdefaultという名前のV
 各リージョンにサブネットまで準備されており、ルーティング設定やFirewallについても準備できている。
 簡単な検証であればdefaultを利用して開始できる。
 
+### ネットワークの安全性
+#### VCP Service Contorls(VCP SC)
+Google Cloudのマネージドサービス（GCS/Firestore etc..）を論理的な境界で囲うことで外部へのデータ流出を防ぐ。
+具体的には、「誰か」という認証に加えて、「どこから」アクセスまで確認する。
+
+#### Private Service Connect(PSC)
+Private Service Connect (PSC) は、Google Cloud のマネージドサービス（Cloud SQL など）を「サービス」として公開し、利用側 VPC からプライベート IP でアクセスできるようにする仕組みです。
+
+ポイントは：
+- 通信は常に Google の内部ネットワーク
+- VPC ピアリング不要
+- Producer（提供側）/ Consumer（利用側）が明確
+
+例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える
+1. Cloud SQL 側で PSC サービスを公開する（Producer）
+   - Cloud SQL を Private Service Connect 経由で利用可能なサービスとして公開する
+   - この時点では IP は作成されない
+2. Cloud Run 側の VPC に PSC エンドポイントを作成する（Consumer）
+   - VPC 内にプライベート IP が払い出される
+   - この IP 宛ての通信が Cloud SQL にルーティングされる
+3. Cloud Run 側で Serverless VPC Access コネクタを作成する
+   - Cloud Run の通信を VPC に流し、PSC エンドポイントへ到達可能にする
+4. Cloud SQL Language Connectors を利用して接続する
+   - IAM 認証、TLS、接続管理をアプリ側で簡潔に扱える
+   - 別プロジェクトの場合は権限設定と API 有効化が必要
+```
+Cloud Run
+  ↓
+(Serverless VPC Access)
+  ↓
+PSC Endpoint（自分のVPC内IP）
+  ↓
+Google内部バックボーン
+  ↓
+Cloud SQL
+```
+
+
+
+
 ## Cloud Load Balancing
 Cloud Load Balancing は、Google Cloud 上の Compute Engine や Cloud Storage などのバックエンドに対してトラフィックを自動で分散させるフルマネージドなサービスです。以下の特徴を持つ。
 - グローバル / リージョン / ゾーン間にまたがる負荷分散が可能

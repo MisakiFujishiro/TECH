@@ -82,3 +82,19 @@ Push型とPull型でACKの扱いが異なる部分があるので注意。
 メッセージはサブスクリプションごとに管理され、ACKを契機に削除される。
 
 また、最大再配信回数（デフォルト5、最大100）をSubscription単位で設定しておくことで、何度も失敗するメッセージに関してはDLQに配信することができる。
+
+### 配信方式
+Pub-Subには以下二つの配信方式がある
+- At-least-once delivery
+- Exactly-once delivery
+At-least-onceでは、最低限一度の配信を保証し、Exactly-once deliveryでは、一度だけの配信を保証する。
+ただし、最終的な冪等性はアプリ側で保証する必要がある。
+
+#### Exactly-once delivery
+Pub/Sub の **At-least-once delivery（デフォルト）**では、メッセージが少なくとも1回配信されることを保証する一方、ack が確認できない場合や ack deadline を超過した場合には、同一メッセージが再配信される可能性がある。
+
+これに対して Exactly-once delivery は、Pub/Sub と subscriber 間において、ack が正常に確定したメッセージについては一度だけ配信されることを保証する仕組みである。ただし、アプリケーション全体の冪等性までを保証するものではない。
+
+Exactly-once delivery では、ack の状態を Pub/Sub 側で明示的に管理し、ack が完了と確定したメッセージについては再配信しないという保証を提供する。一方で、アプリケーション障害やネットワーク障害などにより ack が Pub/Sub に到達または確定しなかった場合には、ack deadline 超過後に安全側の動作として再配信される可能性がある。
+
+なお、Exactly-once delivery は Pull 型サブスクリプションでのみサポートされており、Push 型では利用できない。

@@ -22,7 +22,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="ストレージ" href="Storage.html" />
-    <link rel="prev" title="Google Cloud APIs" href="API.html" /> 
+    <link rel="prev" title="GKE" href="GKE.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -64,6 +64,7 @@
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">IAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="API.html">Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">GKE</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Network</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#vpc">VPC</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#vcp">VCPネットワーク</a></li>
@@ -74,6 +75,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#firewall">Firewall</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">ネットワークの拡張</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">デフォルトネットワーク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">ネットワークの安全性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vcp-service-contorls-vcp-sc">VCP Service Contorls(VCP SC)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#private-service-connect-psc">Private Service Connect(PSC)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-load-balancing">Cloud Load Balancing</a></li>
@@ -84,6 +90,8 @@
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">Cloud Logging</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DB.html">データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">AIサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GCE.html">GCE(Google Compute Engine)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Serverless.html">サーバーレスアーキテクチャ</a></li>
@@ -92,23 +100,29 @@
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Apigee.html">Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Security:</span></p>
 <ul>
@@ -123,6 +137,7 @@
 <p class="caption" role="heading"><span class="caption-text">Book:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">ソフトウェア開発現場の「失敗」集めてみた</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
@@ -388,6 +403,61 @@ VPCネットワークごとに<code class="docutils literal notranslate"><span c
 各リージョンにサブネットまで準備されており、ルーティング設定やFirewallについても準備できている。
 簡単な検証であればdefaultを利用して開始できる。</p>
 </section>
+<section id="id5">
+<h3>ネットワークの安全性<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="vcp-service-contorls-vcp-sc">
+<h4>VCP Service Contorls(VCP SC)<a class="headerlink" href="#vcp-service-contorls-vcp-sc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Google Cloudのマネージドサービス（GCS/Firestore etc..）を論理的な境界で囲うことで外部へのデータ流出を防ぐ。
+具体的には、「誰か」という認証に加えて、「どこから」アクセスまで確認する。</p>
+</section>
+<section id="private-service-connect-psc">
+<h4>Private Service Connect(PSC)<a class="headerlink" href="#private-service-connect-psc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Private Service Connect (PSC) は、Google Cloud のマネージドサービス（Cloud SQL など）を「サービス」として公開し、利用側 VPC からプライベート IP でアクセスできるようにする仕組みです。</p>
+<p>ポイントは：</p>
+<ul class="simple">
+<li><p>通信は常に Google の内部ネットワーク</p></li>
+<li><p>VPC ピアリング不要</p></li>
+<li><p>Producer（提供側）/ Consumer（利用側）が明確</p></li>
+</ul>
+<p>例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える</p>
+<ol class="arabic simple">
+<li><p>Cloud SQL 側で PSC サービスを公開する（Producer）</p>
+<ul class="simple">
+<li><p>Cloud SQL を Private Service Connect 経由で利用可能なサービスとして公開する</p></li>
+<li><p>この時点では IP は作成されない</p></li>
+</ul>
+</li>
+<li><p>Cloud Run 側の VPC に PSC エンドポイントを作成する（Consumer）</p>
+<ul class="simple">
+<li><p>VPC 内にプライベート IP が払い出される</p></li>
+<li><p>この IP 宛ての通信が Cloud SQL にルーティングされる</p></li>
+</ul>
+</li>
+<li><p>Cloud Run 側で Serverless VPC Access コネクタを作成する</p>
+<ul class="simple">
+<li><p>Cloud Run の通信を VPC に流し、PSC エンドポイントへ到達可能にする</p></li>
+</ul>
+</li>
+<li><p>Cloud SQL Language Connectors を利用して接続する</p>
+<ul class="simple">
+<li><p>IAM 認証、TLS、接続管理をアプリ側で簡潔に扱える</p></li>
+<li><p>別プロジェクトの場合は権限設定と API 有効化が必要</p></li>
+</ul>
+</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Run
+  ↓
+(Serverless VPC Access)
+  ↓
+PSC Endpoint（自分のVPC内IP）
+  ↓
+Google内部バックボーン
+  ↓
+Cloud SQL
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 <section id="cloud-load-balancing">
 <h2>Cloud Load Balancing<a class="headerlink" href="#cloud-load-balancing" title="この見出しへのパーマリンク">¶</a></h2>
@@ -465,7 +535,7 @@ VPCネットワークごとに<code class="docutils literal notranslate"><span c
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="API.html" class="btn btn-neutral float-left" title="Google Cloud APIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GKE.html" class="btn btn-neutral float-left" title="GKE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="Storage.html" class="btn btn-neutral float-right" title="ストレージ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

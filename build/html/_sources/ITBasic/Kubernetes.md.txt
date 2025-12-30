@@ -20,7 +20,30 @@ ECSと比較しながら、	Kubernetesで扱われる用語を整理すると以
 ### Node
 ノードには2種類存在し、MasterNode（コントロールプレーン）とWorkerNode（データプレーン）がある。
 
+### Deployment
+Deploymentは、運用・スケール・自己修復の責務を担う
 
+以下の事柄が責任範囲
+- 何個のpodを動かすか
+- podの自動修復
+- ローリングアップデート
+
+### Service
+Serviceとは、Pod の集合に対して、安定した到達手段を提供する
+
+Serviceは、ネットワーク・発見・安定アドレスの責務を担う
+- pod群に対する固定IP/DNSの提供
+- podの増減を隠蔽
+- L4のロードバランシング
+
+具体的には、Service が 代表となる IP アドレスや DNS 名を持ち、その宛先に届いた通信を 内部の Pod 群のいずれかへ振り分けることで、呼び出し元から Pod の存在や入れ替わりを意識させない仕組みを提供する。
+
+### Podの起動数の制御
+|項目|略称|詳細|
+|:----|:----|:----|
+|Horizontal Pod Autoscaler |HPA|ワークロードの負荷に応じて自動的にレプリカ数をスケールアウト・スケールインするための仕組み|
+|Vertical Pod Autodcaler|VPA|Podのリソースの割り当てを調整する仕組み|
+|Pod Dsiruption Budget|PDB|ノードのメンテナンスなどアップグレードなどによる意図的なPodの終了（Disruption）が行われる際のPod数が許容範囲内に収まるようにするための仕組み。<br>maxUnavailable: 10にすると、90%は常に稼働などの設定ができる。|
 
 ## マニュフェスト(Manufest)
 Kubernetesにおける主要なコンポーネントで解説したリソースたちはManufestと呼ばれるyamlファイルで管理する。

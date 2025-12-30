@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="NFS(Network File System)" href="NFS.html" />
+    <link rel="next" title="ServiceMesh" href="ServiceMesh.html" />
     <link rel="prev" title="コンテナ" href="Container.html" /> 
 </head>
 
@@ -79,12 +79,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/ArtifactRegistry.html">ArtifactRegistry</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Apigee.html">Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul class="current">
@@ -98,25 +94,35 @@
 <li class="toctree-l2"><a class="reference internal" href="#id1">主要なコンポーネント</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#pod">Pod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#node">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment">Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#service">Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Podの起動数の制御</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#manufest">マニュフェスト(Manufest)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubectl">kubectl</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">クラスターやノードへの操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">クラスターやノードへの操作</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pods">Podsへの操作</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#deploy">Deployへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#service">Serviceへの操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Serviceへの操作</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configmap-secret">ConfigMap &amp; Secret の操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">リソースの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">リソースの作成</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#prometheus">Prometheus</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">ServiceMesh</a></li>
 <li class="toctree-l1"><a class="reference internal" href="NFS.html">NFS(Network File System)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SaaS.html">SaaS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CICD.html">CICD</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Security:</span></p>
 <ul>
@@ -216,6 +222,52 @@
 <h3>Node<a class="headerlink" href="#node" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ノードには2種類存在し、MasterNode（コントロールプレーン）とWorkerNode（データプレーン）がある。</p>
 </section>
+<section id="deployment">
+<h3>Deployment<a class="headerlink" href="#deployment" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Deploymentは、運用・スケール・自己修復の責務を担う</p>
+<p>以下の事柄が責任範囲</p>
+<ul class="simple">
+<li><p>何個のpodを動かすか</p></li>
+<li><p>podの自動修復</p></li>
+<li><p>ローリングアップデート</p></li>
+</ul>
+</section>
+<section id="service">
+<h3>Service<a class="headerlink" href="#service" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Serviceとは、Pod の集合に対して、安定した到達手段を提供する</p>
+<p>Serviceは、ネットワーク・発見・安定アドレスの責務を担う</p>
+<ul class="simple">
+<li><p>pod群に対する固定IP/DNSの提供</p></li>
+<li><p>podの増減を隠蔽</p></li>
+<li><p>L4のロードバランシング</p></li>
+</ul>
+<p>具体的には、Service が 代表となる IP アドレスや DNS 名を持ち、その宛先に届いた通信を 内部の Pod 群のいずれかへ振り分けることで、呼び出し元から Pod の存在や入れ替わりを意識させない仕組みを提供する。</p>
+</section>
+<section id="id2">
+<h3>Podの起動数の制御<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>項目</p></th>
+<th class="text-left head"><p>略称</p></th>
+<th class="text-left head"><p>詳細</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Horizontal Pod Autoscaler</p></td>
+<td class="text-left"><p>HPA</p></td>
+<td class="text-left"><p>ワークロードの負荷に応じて自動的にレプリカ数をスケールアウト・スケールインするための仕組み</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Vertical Pod Autodcaler</p></td>
+<td class="text-left"><p>VPA</p></td>
+<td class="text-left"><p>Podのリソースの割り当てを調整する仕組み</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Pod Dsiruption Budget</p></td>
+<td class="text-left"><p>PDB</p></td>
+<td class="text-left"><p>ノードのメンテナンスなどアップグレードなどによる意図的なPodの終了（Disruption）が行われる際のPod数が許容範囲内に収まるようにするための仕組み。<br>maxUnavailable: 10にすると、90%は常に稼働などの設定ができる。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="manufest">
 <h2>マニュフェスト(Manufest)<a class="headerlink" href="#manufest" title="この見出しへのパーマリンク">¶</a></h2>
@@ -224,8 +276,8 @@
 <section id="kubectl">
 <h2>kubectl<a class="headerlink" href="#kubectl" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Kubernetesについて実際に操作する際にはkubectlコマンドを利用する。</p>
-<section id="id2">
-<h3>クラスターやノードへの操作<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id3">
+<h3>クラスターやノードへの操作<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="text-left head"><p>コマンド</p></th>
@@ -314,8 +366,8 @@
 </tbody>
 </table>
 </section>
-<section id="service">
-<h3>Serviceへの操作<a class="headerlink" href="#service" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id4">
+<h3>Serviceへの操作<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="text-left head"><p>コマンド</p></th>
@@ -368,8 +420,8 @@
 </tbody>
 </table>
 </section>
-<section id="id3">
-<h3>リソースの作成<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id5">
+<h3>リソースの作成<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="text-left head"><p>コマンド</p></th>
@@ -418,7 +470,7 @@ Cloudのモニタリング機能単体でも標準メトリクスは取得でき
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="Container.html" class="btn btn-neutral float-left" title="コンテナ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="NFS.html" class="btn btn-neutral float-right" title="NFS(Network File System)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ServiceMesh.html" class="btn btn-neutral float-right" title="ServiceMesh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

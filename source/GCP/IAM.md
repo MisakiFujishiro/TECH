@@ -136,3 +136,27 @@ SAを利用することで以下のようなメリットを享受できる
 |④ 実行単位に応じた設計が可能|実行環境（VMやCloud Functionなど）に応じて別々のSAを割り当てれば、<br>最小権限の原則（Principle of Least Privilege）を実践できる。|
 
 SAは、サービスアカウントキー（秘密鍵と公開鍵）を発行することができ、その情報を利用することでSAに許可されている権限を行使することができる。注意点として、サービスアカウントキーをgithubなどに後悔しないように注意する。
+
+## Workload Identity
+Workload Identityとは、外部のワークロード（k8s/VM/他クラウド）が、GCPのIAMSAとして振る舞うための仕組みである。
+代表的な利用例は、K8Sである。
+
+### K8SにおけるWorkload Identity
+K8SにおいてWorkload Identityを利用すると、Kubernetes ServiceAccount（KSA）と GCP IAM ServiceAccount（GSA）という異なる認証ドメインに属する ID を安全に関連付けることができる。
+
+- KSA（Kubernetes ServiceAccount）
+  - Kubernetes クラスタ内の ID
+  - Pod が Kubernetes API にアクセスするための身分証
+- GSA（GCP IAM ServiceAccount）
+  - Google Cloud IAM 上の ID
+  - Cloud Storage や Pub/Sub など GCP API にアクセスするための身分証
+
+これらを関連付けることで、Kubernetes 上のアプリケーションは KSA を使用したまま、サービスアカウントキーを用いることなく、GSA の権限で GCP リソースにアクセスできる。
+
+具体的な手順は以下
+- Kubernetes ServiceAccount（KSA）を作成する
+- IAM ServiceAccount（GSA）を作成し、KSA を principal として roles/iam.workloadIdentityUser を付与する
+- KSA にアノテーションを設定し、対応する GSA を指定する(両方向で指定が必要)
+- Pod（または Deployment）で使用する ServiceAccount として KSA を指定する
+
+この構成により、Pod は 短命な認証情報を用いてGSA の権限で GCP API を呼び出すことが可能となる。
