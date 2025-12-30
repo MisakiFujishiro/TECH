@@ -1,0 +1,27 @@
+/* =========================
+   見出しレベルごとの色分け
+   ========================= */
+
+/* # 見出し（h1） */
+.rst-content h1 {
+  color: #0b5394;            /* 濃い青 */
+  border-bottom: 2px solid #0b5394;
+  padding-bottom: 4px;
+}
+
+/* ## 見出し（h2） */
+.rst-content h2 {
+  color: #1c7ed6;            /* 少し明るい青 */
+  border-left: 4px solid #1c7ed6;
+  padding-left: 8px;
+}
+
+/* ### 見出し（h3） */
+.rst-content h3 {
+  color: #228be6;            /* さらに薄い青 */
+}
+
+/* #### 見出し（h4） */
+.rst-content h4 {
+  color: #4dabf7;
+}
