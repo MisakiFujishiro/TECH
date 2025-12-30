@@ -27,3 +27,11 @@
 .wy-nav-content .rst-content h3 {
   color: #228be6;
 }
+
+/* =========================================
+   セクション帯（確認用・はっきり版）
+   ========================================= */
+.wy-nav-content .rst-content h2 {
+  background: red !important;
+  color: white !important;
+}
