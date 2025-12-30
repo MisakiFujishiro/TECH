@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NFS(Network File System) &mdash; project  ドキュメント</title>
+  <title>10. NFS(Network File System) &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="SaaS" href="SaaS.html" />
-    <link rel="prev" title="ServiceMesh" href="ServiceMesh.html" /> 
+    <link rel="next" title="11. SaaS" href="SaaS.html" />
+    <link rel="prev" title="9. ServiceMesh" href="ServiceMesh.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -82,19 +82,20 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">V字モデル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Network.html">Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SWA.html">SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kernel.html">カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">ServiceMesh</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">NFS(Network File System)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#nfs">NFSの仕組み</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">パブリッククラウドのNFSサービス</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#gcpnfs-cloud-filestore">GCPにおけるNFSサービス（Cloud Filestore）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#awsnfs-amazon-efsfsx">AWSにおけるNFSサービス（Amazon EFSとFSx）</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">10. NFS(Network File System)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#nfs">10.1. NFSの仕組み</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">10.2. パブリッククラウドのNFSサービス</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gcpnfs-cloud-filestore">10.2.1. GCPにおけるNFSサービス（Cloud Filestore）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awsnfs-amazon-efsfsx">10.2.2. AWSにおけるNFSサービス（Amazon EFSとFSx）</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#efs">EFS</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#amazon-fsx-for-netapp-ontap">Amazon FSx for NetApp ONTAP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#amazon-fsx-for-openzfs">Amazon FSx for OpenZFS</a></li>
@@ -102,7 +103,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#amazon-fsx-for-windows-file-server">Amazon FSx for Windows File Server</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#fuse">FUSEとの比較</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fuse">10.2.3. FUSEとの比較</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id2">ユーザー空間とカーネル空間</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">比較</a></li>
 </ul>
@@ -111,9 +112,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="SaaS.html">SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -164,7 +165,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">NFS(Network File System)</li>
+      <li class="breadcrumb-item active"><span class="section-number">10. </span>NFS(Network File System)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/ITBasic/NFS.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -175,11 +176,11 @@
            <div itemprop="articleBody">
              
   <section id="nfs-network-file-system">
-<h1>NFS(Network File System)<a class="headerlink" href="#nfs-network-file-system" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">10. </span>NFS(Network File System)<a class="headerlink" href="#nfs-network-file-system" title="この見出しへのパーマリンク">¶</a></h1>
 <p>NFSはネットワーク越にファイルシステムを共有するための技術。
 複数のコンピュータから同じファイルシステムにアクセスできるようになり、あたかもローカルディスクのように遠隔のファイルを読み書きが可能となる技術。</p>
 <section id="nfs">
-<h2>NFSの仕組み<a class="headerlink" href="#nfs" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">10.1. </span>NFSの仕組み<a class="headerlink" href="#nfs" title="この見出しへのパーマリンク">¶</a></h2>
 <p>NFSではサーバーとクライアントに分かれている。</p>
 <p>サーバー側が共有したいディレクトリ（フォルダ）をエクスポート（公開）する。
 クライアント側はNFSサーバーにネットワーク経由で接続し、そのエクスポートされたディレクトリを自分のローカルファイルシステムの一部としてマウントする。
@@ -191,9 +192,9 @@ NFSv3はシンプルで広く実装されており、NFSv4ではセキュリテ�
 一般的な用途では細かいバージョンの違いを意識せず使われることも多いが、環境に応じて適切なバージョンが選択される。</p>
 </section>
 <section id="id1">
-<h2>パブリッククラウドのNFSサービス<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">10.2. </span>パブリッククラウドのNFSサービス<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="gcpnfs-cloud-filestore">
-<h3>GCPにおけるNFSサービス（Cloud Filestore）<a class="headerlink" href="#gcpnfs-cloud-filestore" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.2.1. </span>GCPにおけるNFSサービス（Cloud Filestore）<a class="headerlink" href="#gcpnfs-cloud-filestore" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Google Cloud Platform (GCP) では、NFS相当の機能を提供するマネージドサービスとしてCloud Filestoreがある。
 Cloud Filestoreはその名の通りクラウド上のファイルサーバーで、裏側でNFSプロトコルによる共有ストレージを提供。
 ユーザーは自分でサーバーを構築・管理する必要はなく、必要な容量や性能に応じてFilestoreインスタンスを作成し、NFSでマウントして利用することができる。</p>
@@ -224,7 +225,7 @@ Cloud Filestoreはその名の通りクラウド上のファイルサーバー�
 </table>
 </section>
 <section id="awsnfs-amazon-efsfsx">
-<h3>AWSにおけるNFSサービス（Amazon EFSとFSx）<a class="headerlink" href="#awsnfs-amazon-efsfsx" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.2.2. </span>AWSにおけるNFSサービス（Amazon EFSとFSx）<a class="headerlink" href="#awsnfs-amazon-efsfsx" title="この見出しへのパーマリンク">¶</a></h3>
 <p>EFSはシンプルなNFS共有、FSxはエンタープライズや特殊用途に向けたオプション、という位置づけ。</p>
 <section id="efs">
 <h4>EFS<a class="headerlink" href="#efs" title="この見出しへのパーマリンク">¶</a></h4>
@@ -341,7 +342,7 @@ EFSはクラウド内で簡単に共有ファイルストレージを利用で�
 </section>
 </section>
 <section id="fuse">
-<h3>FUSEとの比較<a class="headerlink" href="#fuse" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.2.3. </span>FUSEとの比較<a class="headerlink" href="#fuse" title="この見出しへのパーマリンク">¶</a></h3>
 <p>クラウド環境で共有ストレージを扱うとき、NFS以外にFUSEを利用するケースもある。FUSE（Filesystem in Userspace）はユーザー空間でファイルシステムを実装する仕組みで、クラウドストレージをファイルシステムのようにマウントできる。代表例として、GCPのCloud Storageをマウントする gcsfuse や、AWSのS3をマウントする s3fs がある。</p>
 <section id="id2">
 <h4>ユーザー空間とカーネル空間<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h4>
@@ -393,8 +394,8 @@ EFSはクラウド内で簡単に共有ファイルストレージを利用で�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="ServiceMesh.html" class="btn btn-neutral float-left" title="ServiceMesh" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="SaaS.html" class="btn btn-neutral float-right" title="SaaS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ServiceMesh.html" class="btn btn-neutral float-left" title="9. ServiceMesh" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SaaS.html" class="btn btn-neutral float-right" title="11. SaaS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -60,6 +60,7 @@
    :caption: ITBasic:
 
    ITBasic/開発工程.md
+   ITBasic/Agile.md
    ITBasic/Network.md
    ITBasic/SWA.md
    ITBasic/server.md

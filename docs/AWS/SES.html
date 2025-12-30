@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SES &mdash; project  ドキュメント</title>
+  <title>16. SES &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="GCPについて" href="../GCP/GCP.html" />
-    <link rel="prev" title="AutoScaling" href="AutoScaling.html" /> 
+    <link rel="next" title="1. GCPについて" href="../GCP/GCP.html" />
+    <link rel="prev" title="15. AutoScaling" href="AutoScaling.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,59 +40,59 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="AWS.html">AWSについて</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../IAM.html">IAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Network.html">Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Front.html">Front</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../EC2.html">EC2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Container.html">コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../S3.html">S3</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">CloudFormation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">CloudWatch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Storage.html">Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../DB.html">DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">SystemsManager</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudTrail.html">CloudTrail</a></li>
-<li class="toctree-l1"><a class="reference internal" href="EventBridge.html">EventBridge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AutoScaling.html">AutoScaling</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">SES</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">SESのメール受信</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">受信ルール</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">受信制約</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dns">受信用DNS設定</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">16. SES</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">16.1. SESのメール受信</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">16.1.1. 受信ルール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">16.1.2. 受信制約</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dns">16.1.3. 受信用DNS設定</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#txt">利用ドメインの検証（TXTレコード）</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mx">受信メール設定（MXレコード）</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">SESのメール送信</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id5">アクセスレベル</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">メール送信の制限</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">SESのモニタリング</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">バウンス</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">送信用DNS設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id4">16.2. SESのメール送信</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">16.2.1. アクセスレベル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">16.2.2. メール送信の制限</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">16.2.3. SESのモニタリング</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">16.2.4. バウンス</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">16.2.5. 送信用DNS設定</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id10">メール送信の信頼性担保</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#from">カスタム メール FROM</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">送受信制約</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id12">メールサイズ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">添付ファイル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">16.3. 送受信制約</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">16.3.1. メールサイズ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">16.3.2. 添付ファイル</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#sesdns">SESで設定するDNS設定のまとめ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id14">SESの送受信実装例</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id15">ドメイン検証サンドボックスの解消</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id16">受信実装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sesdns">16.4. SESで設定するDNS設定のまとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">16.5. SESの送受信実装例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id15">16.5.1. ドメイン検証サンドボックスの解消</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">16.5.2. 受信実装</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#receipt-rule">受信ルール(Receipt Rule)の設定</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id17">受信元の制限</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id18">受信に関する権限設定</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id19">送信実装</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id19">16.5.3. 送信実装</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#api">送信APIの利用</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id20">送信に関する権限設定</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sns">バウンス設定(SNS配信)</a></li>
@@ -105,75 +105,76 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/GCP.html">GCPについて</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/IAM.html">IAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/API.html">Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">サーバーレスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">Workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/ArtifactRegistry.html">ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Apigee.html">Apigee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">20. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">V字モデル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">gitの基本知識</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">ブランチ戦略</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">gitへの登録</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Security:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">CORS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">セキュアな通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">2. セキュアな通信</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">エクセル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Book:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">7日間でハッキングを始める本まとめ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">ソフトウェア開発現場の「失敗」集めてみた</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">Sphinxとは</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">note</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">Reveal.jsとは</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">note</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
 </ul>
 
         </div>
@@ -190,7 +191,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">SES</li>
+      <li class="breadcrumb-item active"><span class="section-number">16. </span>SES</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/AWS/SES.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -201,17 +202,17 @@
            <div itemprop="articleBody">
              
   <section id="ses">
-<h1>SES<a class="headerlink" href="#ses" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">16. </span>SES<a class="headerlink" href="#ses" title="この見出しへのパーマリンク">¶</a></h1>
 <p>SES(Simple Email Service)は、コスト効率の高いメールサービス。
 取得済みドメインについて、認証を行うことで取得済みドメインのメールについて送信および受信機能が可能。</p>
 <section id="id1">
-<h2>SESのメール受信<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">16.1. </span>SESのメール受信<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>所有しているドメインに対するメールについて、受信を行うメールサーバーとして利用が可能。
 注意点として、一般的なメールボックスが用意されているわけではなく、S3への配信やLambdaによる処理を行う。</p>
 <p><img alt="" src="../_images/SES_Receive_Processing.png" />
 <a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/20190521_AWS-BlackBelt_AmazonSES.pdf">AWS Black Belt Online Seminar SES</a></p>
 <section id="id2">
-<h3>受信ルール<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.1.1. </span>受信ルール<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>SESでは、受信したメールについての条件設定や特定の処理設定を行うことができる。
 受信ルールは受信ルールセットとしてまとめられる。</p>
 <p>具体的には、以下のような設定が可能</p>
@@ -222,13 +223,13 @@
 <p>これらの条件に応じて、S3への配信やLambdaでの後続処理の実行などの設定が行われる。</p>
 </section>
 <section id="id3">
-<h3>受信制約<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.1.2. </span>受信制約<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>SESには受信ルールとは別にIPアドレスフィルター機能が存在し、特定のIPからのメール受信を拒否することができる。</p>
 <p><img alt="" src="../_images/SES_IP_Filter.png" />
 <a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/20190521_AWS-BlackBelt_AmazonSES.pdf">AWS Black Belt Online Seminar SES</a></p>
 </section>
 <section id="dns">
-<h3>受信用DNS設定<a class="headerlink" href="#dns" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.1.3. </span>受信用DNS設定<a class="headerlink" href="#dns" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="txt">
 <h4>利用ドメインの検証（TXTレコード）<a class="headerlink" href="#txt" title="この見出しへのパーマリンク">¶</a></h4>
 <p>独自のドメインを経由してメールの受信を行う場合、利用するドメインの所有者であることをSESに認識させる必要がある。
@@ -256,7 +257,7 @@ TTL: 3600
 </section>
 </section>
 <section id="id4">
-<h2>SESのメール送信<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">16.2. </span>SESのメール送信<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
 <p>SESを利用したメール送信方法には大きく3つの種類が存在。</p>
 <table class="docutils align-default">
 <thead>
@@ -289,7 +290,7 @@ TTL: 3600
 </tbody>
 </table>
 <section id="id5">
-<h3>アクセスレベル<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.2.1. </span>アクセスレベル<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <p>SESにはアクセスレベルが設定されており、アカウントの初期状態の「サンドボックス」と「プロダクション」状態がある。
 AWSアカウントでSESを初めて利用する場合、不正利用を防ぐためSES機能は初期状態でサンドボックス状態となっている。
 サンドボックス状態ではメール送信の宛先に制約がある他、メールの送信のスロットリングに制約が設けられる。</p>
@@ -332,13 +333,13 @@ AWSアカウントでSESを初めて利用する場合、不正利用を防ぐ�
 </table>
 </section>
 <section id="id6">
-<h3>メール送信の制限<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.2.2. </span>メール送信の制限<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
 <p>SESでは、送受信制限が設定されている。
 これは、SES自体がスパム判定されてしまうと、配信先のメールプロバイダーとの信頼関係が崩れてしまうためである。
 具体的には、24時間帯の送信可能メールや1秒あたりの送信可能メール数に制約が設けられている</p>
 </section>
 <section id="id7">
-<h3>SESのモニタリング<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.2.3. </span>SESのモニタリング<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <p>送信制限の監視するため、SESではメールに対して以下のようなメトリクスを取得し監視することができる。</p>
 <table class="docutils align-default">
 <thead>
@@ -384,12 +385,12 @@ AWSアカウントでSESを初めて利用する場合、不正利用を防ぐ�
 </table>
 </section>
 <section id="id8">
-<h3>バウンス<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.2.4. </span>バウンス<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
 <p>送信した際に、アドレスが存在しなかったり、受信拒否されている場合そのアドレスはハードバウンスとして扱われる。
 ハードバウンスしたアドレスはSESで自動的にSuppression List(抑制リスト)に登録し、そのアドレスへのメール送信を抑制する。</p>
 </section>
 <section id="id9">
-<h3>送信用DNS設定<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.2.5. </span>送信用DNS設定<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="id10">
 <h4>メール送信の信頼性担保<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
 <p>メール送信においてなりすましを防ぐための設定として、SPF・DKIM・DMARCといった技術が用いられる。</p>
@@ -549,9 +550,9 @@ DMARCではSPF検証を、relaxにしておく。これによりサブドメイ�
 </section>
 </section>
 <section id="id11">
-<h2>送受信制約<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">16.3. </span>送受信制約<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id12">
-<h3>メールサイズ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.3.1. </span>メールサイズ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 <p>SESの送受信では、メールの容量に制約があるため、要件に一致しているかを確認する。</p>
 <table class="docutils align-default">
 <thead>
@@ -573,13 +574,13 @@ DMARCではSPF検証を、relaxにしておく。これによりサブドメイ�
 </table>
 </section>
 <section id="id13">
-<h3>添付ファイル<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.3.2. </span>添付ファイル<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ファイルを添付する場合SESとして添付を拒否している拡張子がある。
 <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/dg/mime-types.html#:~:text=You%20can%20send%20messages%20with,extensions%20in%20the%20following%20list">Amazon SES unsupported attachment types</a>を確認して、条件を満たしているかを確認する。</p>
 </section>
 </section>
 <section id="sesdns">
-<h2>SESで設定するDNS設定のまとめ<a class="headerlink" href="#sesdns" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">16.4. </span>SESで設定するDNS設定のまとめ<a class="headerlink" href="#sesdns" title="この見出しへのパーマリンク">¶</a></h2>
 <p>SESではいくつかのDNS設定が必要なため、上記で登場した設定をまとめる。</p>
 <table class="docutils align-default">
 <thead>
@@ -637,17 +638,17 @@ DMARCではSPF検証を、relaxにしておく。これによりサブドメイ�
 </table>
 </section>
 <section id="id14">
-<h2>SESの送受信実装例<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">16.5. </span>SESの送受信実装例<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h2>
 <p>SESを利用してメールの受信をしてS3に配置。メールの送信を行う場合の実装イメージをまとめる。</p>
 <section id="id15">
-<h3>ドメイン検証サンドボックスの解消<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.5.1. </span>ドメイン検証サンドボックスの解消<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h3>
 <p>利用するドメインについて、TXTレコードを利用した検証を行い登録をする。</p>
 <p>AWSアカウントで、初めてSESを利用する場合はサンドボックス状態となっている。
 サンドボックスでは、認証したメールアドレスにしか送信をすることができないため、一般的なメールサーバーとしての使用ができない。
 そのため、最初に上限緩和申請をしてプロダクションにする必要がある。</p>
 </section>
 <section id="id16">
-<h3>受信実装<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.5.2. </span>受信実装<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="receipt-rule">
 <h4>受信ルール(Receipt Rule)の設定<a class="headerlink" href="#receipt-rule" title="この見出しへのパーマリンク">¶</a></h4>
 <p>受信したメールに対してのアクションは<code class="docutils literal notranslate"><span class="pre">受信ルール(Receipt</span> <span class="pre">Rule)</span></code>で定義したものに従う。</p>
@@ -728,7 +729,7 @@ DMARCではSPF検証を、relaxにしておく。これによりサブドメイ�
 </section>
 </section>
 <section id="id19">
-<h3>送信実装<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.5.3. </span>送信実装<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="api">
 <h4>送信APIの利用<a class="headerlink" href="#api" title="この見出しへのパーマリンク">¶</a></h4>
 <p>送信については、いくつかの選択肢があるが、シンプルな構成でない限りは<code class="docutils literal notranslate"><span class="pre">SendRawEmail</span> <span class="pre">API</span></code>を利用する。
@@ -768,8 +769,8 @@ SendRawEmailの権限を付与すれば良い</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="AutoScaling.html" class="btn btn-neutral float-left" title="AutoScaling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../GCP/GCP.html" class="btn btn-neutral float-right" title="GCPについて" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="AutoScaling.html" class="btn btn-neutral float-left" title="15. AutoScaling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../GCP/GCP.html" class="btn btn-neutral float-right" title="1. GCPについて" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CloudFront &mdash; project  ドキュメント</title>
+  <title>4.3. CloudFront &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="検索" href="../../search.html" />
-    <link rel="next" title="API Gateway" href="APIGW.html" />
-    <link rel="prev" title="ELB" href="ELB.html" /> 
+    <link rel="next" title="4.4. API Gateway" href="APIGW.html" />
+    <link rel="prev" title="4.2. ELB" href="ELB.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,35 +40,35 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../AWS.html">AWSについて</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">IAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Network.html">Network</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../Front.html">Front</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="Route53.html">Route53</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ELB.html">ELB</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">CloudFront</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#note">note</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">エッジサービスについて</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">CloudFrontについて</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cdn">CDNについて</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">CDNのキャッシュ詳細</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Network.html">3. Network</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../Front.html">4. Front</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Route53.html">4.1. Route53</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ELB.html">4.2. ELB</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. CloudFront</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#note">4.3.1. note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">4.3.2. エッジサービスについて</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.3.3. CloudFrontについて</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cdn">4.3.4. CDNについて</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4.3.5. CDNのキャッシュ詳細</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id4">キャッシュポイント</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id5">配信対象について</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id6">動的コンテンツ機能</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">CloudFrontの構成要素</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">4.3.6. CloudFrontの構成要素</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id8">ビヘイビア</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">オリジンへのアクセス制御</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">4.3.7. オリジンへのアクセス制御</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#oac-origin-access-control">OAC(Origin Access Control)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id12">カスタムヘッダー</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ip">IP制限</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#url">署名付きURLとの組み合わせ</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">エッジコンピューティング</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id13">4.3.8. エッジコンピューティング</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id14">制約事項</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cloudfront-functions">CloudFront Functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#lambda-edge">Lambda&#64;Edge</a></li>
@@ -76,94 +76,95 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="APIGW.html">API Gateway</a></li>
-<li class="toctree-l2"><a class="reference internal" href="WAF.html">WAF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="APIGW.html">4.4. API Gateway</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WAF.html">4.5. WAF</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../EC2.html">EC2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Container.html">コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../S3.html">S3</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../CloudFormation.html">CloudFormation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">CloudWatch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Storage.html">Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../DB.html">DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../SystemsManager.html">SystemsManager</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CloudTrail.html">CloudTrail</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">EventBridge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">AutoScaling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../SES.html">SES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SES.html">16. SES</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">GCPについて</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">IAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">サーバーレスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">Workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/ArtifactRegistry.html">ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Apigee.html">Apigee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">20. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">V字モデル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Network.html">Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SWA.html">SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/ServiceMesh.html">ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/NFS.html">NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SaaS.html">SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/CICD.html">CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Git/basic.html">gitの基本知識</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Git/branch_strategy.html">ブランチ戦略</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">gitへの登録</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">3. gitへの登録</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Security:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">CORS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">セキュアな通信</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">2. セキュアな通信</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/Excel.html">エクセル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/shell.html">Shell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/shell.html">2. Shell</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Book:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Book/TryHackMe.html">7日間でハッキングを始める本まとめ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">ソフトウェア開発現場の「失敗」集めてみた</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">Sphinxとは</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">note</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">Sphinxの初期設定</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">Sphinxの基本的な利用方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">Reveal.jsとは</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">note</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">Reveal.jsの初期設定</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">Reveal.jsの基本的な利用方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
 </ul>
 
         </div>
@@ -180,8 +181,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../../Front.html">Front</a></li>
-      <li class="breadcrumb-item active">CloudFront</li>
+          <li class="breadcrumb-item"><a href="../../Front.html"><span class="section-number">4. </span>Front</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.3. </span>CloudFront</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/AWS/Front/CloudFront.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -192,9 +193,9 @@
            <div itemprop="articleBody">
              
   <section id="cloudfront">
-<h1>CloudFront<a class="headerlink" href="#cloudfront" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">4.3. </span>CloudFront<a class="headerlink" href="#cloudfront" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="note">
-<h2>note<a class="headerlink" href="#note" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3.1. </span>note<a class="headerlink" href="#note" title="この見出しへのパーマリンク">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/20190730_AWS-BlackBelt_Amazon_CloudFront.pdf">blackbelt</a></p></li>
 <li><p><a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">HandsOn</a></p></li>
@@ -206,7 +207,7 @@ CloudFrontではオリジンとビヘイビアを定義して、ディストリ�
 </div>
 </section>
 <section id="id1">
-<h2>エッジサービスについて<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3.2. </span>エッジサービスについて<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>AWSでは33のリージョンと105のAZが利用可能であるが、これらとは別に225箇所のエッジロケーションが配置されている。
 エッジロケーションはCDNやDNSといったユーザーから近い場所から提供されることが望ましいサービスに利用される。</p>
 <p><img alt="" src="../../_images/cloudfront_edge.png" />
@@ -220,20 +221,20 @@ CloudFrontではオリジンとビヘイビアを定義して、ディストリ�
 <a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">HandsOn</a>より引用</p>
 </section>
 <section id="id2">
-<h2>CloudFrontについて<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3.3. </span>CloudFrontについて<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
 <p>CloudFrontはCDN（Contents Delivery Netwoerk）の機能を持つマネージドサービスであり、クライアントへのコンテンツ配信について、エッジサービスのメリットを享受し、ユーザーエクスペリエンスを向上させる。</p>
 <p>また、AWSのマネージドサービスであり他のAWSサービスとの緊密な統合が特徴となる。S3やELBと統合することで、効率的なコンテンツ配信が可能となります。CloudWatchと連携することでリアルタイムで使用状況を確認できます。WAFやShield連携することでDDos攻撃から保護することが可能となる。
 ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 </section>
 <section id="cdn">
-<h2>CDNについて<a class="headerlink" href="#cdn" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3.4. </span>CDNについて<a class="headerlink" href="#cdn" title="この見出しへのパーマリンク">¶</a></h2>
 <p>CDN（Contents Delivery Netwoerk）とは、各地に配置されたエッジサーバーにコンテンツをキャッシュすることによって、コンテンツ配信の高速化や負荷分散する処理を指す。</p>
 <p>CDNの構成は、コンテンツを所持し配信する<code class="docutils literal notranslate"><span class="pre">オリジンサーバー</span></code>(S3,API GW etc..)と、一時的にコンテンツをキャッシュする<code class="docutils literal notranslate"><span class="pre">エッジサーバー</span></code>（CloufFront etc..）で構成されている</p>
 <p><img alt="" src="../../_images/cloudfront_merit.png" />
 <a class="reference external" href="https://pages.awscloud.com/JAPAN-event-OE-Hands-on-for-Beginners-CF_WAF-2022-confirmation_129.html">HandsOn</a>より引用</p>
 </section>
 <section id="id3">
-<h2>CDNのキャッシュ詳細<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3.5. </span>CDNのキャッシュ詳細<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id4">
 <h3>キャッシュポイント<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
 <p>CloudFrontのキャッシュを保持するポイントは多段になっている。
@@ -261,7 +262,7 @@ ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 </section>
 </section>
 <section id="id7">
-<h2>CloudFrontの構成要素<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3.6. </span>CloudFrontの構成要素<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
 <p>CloudFrontを設定する際には3つのリソースの設定を行う</p>
 <table class="docutils align-default">
 <thead>
@@ -313,7 +314,7 @@ ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 </section>
 </section>
 <section id="id11">
-<h2>オリジンへのアクセス制御<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3.7. </span>オリジンへのアクセス制御<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
 <p>オリジンへの負荷を低減するためにCloudFrontを利用するため、オリジンへの直接アクセスは制御する必要がある。</p>
 <section id="oac-origin-access-control">
 <h3>OAC(Origin Access Control)<a class="headerlink" href="#oac-origin-access-control" title="この見出しへのパーマリンク">¶</a></h3>
@@ -338,7 +339,7 @@ ADSの統合により、SSL/TLS証明書を利用することも可能。</p>
 </section>
 </section>
 <section id="id13">
-<h2>エッジコンピューティング<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3.8. </span>エッジコンピューティング<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h2>
 <p>CloudFrontのエッジコンピューティングには2種類ある</p>
 <ul class="simple">
 <li><p>CloudFromt Functions</p></li>
@@ -466,8 +467,8 @@ CloudFront Functionsと比較するとCloudFrontとLambdaを組み合わせた�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="ELB.html" class="btn btn-neutral float-left" title="ELB" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="APIGW.html" class="btn btn-neutral float-right" title="API Gateway" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ELB.html" class="btn btn-neutral float-left" title="4.2. ELB" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="APIGW.html" class="btn btn-neutral float-right" title="4.4. API Gateway" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
