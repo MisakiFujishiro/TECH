@@ -11,6 +11,7 @@
 .. toctree::
    :maxdepth: 1
    :caption: AWS:
+   :numbered: 3
 
    AWS/AWS.md
    IAM
@@ -33,7 +34,8 @@
 .. toctree::
    :maxdepth: 1
    :caption: GCP:
-
+   :numbered: 3
+   
    GCP/GCP.md
    GCP/IAM.md
    GCP/API.md
@@ -58,7 +60,8 @@
 .. toctree::
    :maxdepth: 1
    :caption: ITBasic:
-
+   :numbered: 3
+   
    ITBasic/開発工程.md
    ITBasic/Agile.md
    ITBasic/Network.md
@@ -76,7 +79,8 @@
 .. toctree::
    :maxdepth: 1
    :caption: Git:
-
+   :numbered: 3
+   
    Git/basic.md
    Git/branch_strategy.md
    Git/starter.md
@@ -84,31 +88,36 @@
 .. toctree::
    :maxdepth: 1
    :caption: Security:
-
+   :numbered: 3
+   
    Security/cors.md
    Security/SSL.md
 
 .. toctree::
    :maxdepth: 1
    :caption: ProgramingCode:
-
+   :numbered: 3
+   
    ProgramingCode/Excel.md
    ProgramingCode/shell.md
 
 .. toctree::
    :maxdepth: 1
    :caption: Book:
-
+   :numbered: 3
+   
    Book/TryHackMe.md
    Book/ソフトウェア開発の失敗42.md
 
 .. toctree::
    :maxdepth: 1
    :caption: ドキュメント管理:
-
+   :numbered: 3
+   
    Sphinx/sphinx.md
    
 .. toctree::
    :maxdepth: 1
-
+   :numbered: 3
+   
    Reveal/reveal.md
