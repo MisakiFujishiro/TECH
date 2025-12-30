@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9.1. CloudWatchAlarm &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="10. Storage" href="../../Storage.html" />
+    <link rel="prev" title="9. CloudWatch" href="../../CloudWatch.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../CloudWatch.html">9. CloudWatch</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.1. CloudWatchAlarm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">9.1.1. メトリクスアラームの状態</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#insufficient-data">9.1.1.1. INSUFFICIENT_DATA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">9.1.2. アラームの評価</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">9.1.2.1. 期間</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#n-evaluation-period">9.1.2.2. N: 評価期間（Evaluation Period）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#m-datapoints-to-alarm">9.1.2.3. M: アラームを実行するデータポイント（Datapoints to Alarm）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">9.1.3. メトリクスの作成</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">9.1.3.1. 単独のメトリクスを利用したアラーム</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#metrics">9.1.3.2. 複数のメトリクスの数式（Metrics）を利用したアラーム</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../CloudWatch.html"><span class="section-number">9. </span>CloudWatch</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">9.1. </span>CloudWatchAlarm</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/AWS/CloudWatch/CloudWatchAlarm.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cloudwatchalarm">
+<h1><span class="section-number">9.1. </span>CloudWatchAlarm<a class="headerlink" href="#cloudwatchalarm" title="この見出しへのパーマリンク">¶</a></h1>
+<p>CloudWatchのメトリクスを監視する、または複数のCloudWatchメトリクスに基づく数式結果を監視するアラームを作成することができる。アラームでは設定した閾値を超えた際にアクションを実行することができる。アクションの例としては、例えばSNSトピックを設定して通知を送ったり、AutoScalingの設定により処理性能を上げたりすることができる。</p>
+<p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html">CloudWatch Alarmのユーザーガイド</a></p>
+<section id="id1">
+<h2><span class="section-number">9.1.1. </span>メトリクスアラームの状態<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>メトリクスアラームには大きく3つの状態がある</p>
+<ul class="simple">
+<li><p>OK: メトリクスが定義されている閾値以内である</p></li>
+<li><p>ALARM: メトリクスが定義されている閾値を超えている</p></li>
+<li><p>INSUFFICIENT_DATA: メトリクスを取得できないためアラーム状態を判定できない</p></li>
+</ul>
+<p>OK/ALARM/INSUFFICIENT_DATA城田の間で状態が変わった時全てに対してアラームを実行するアクションを指定可能。</p>
+<section id="insufficient-data">
+<h3><span class="section-number">9.1.1.1. </span>INSUFFICIENT_DATA<a class="headerlink" href="#insufficient-data" title="この見出しへのパーマリンク">¶</a></h3>
+<p>メトリクスが取得的ていない場合に、アラームにおいて欠落データをどのように扱うかをアラームごとに定義することができる</p>
+<ul class="simple">
+<li><p>NotBreaching: 「良好」とされて閾値内と判定される</p></li>
+<li><p>Breaching: 「不良」とされて閾値を超えていると判定される</p></li>
+<li><p>ignore: 現在のアラーム状態を引き継ぐ</p></li>
+<li><p>missing: INSUFFICIENT_DATAへと移行する</p></li>
+</ul>
+<p>デフォルトではmissingが指定されている</p>
+</section>
+</section>
+<section id="id2">
+<h2><span class="section-number">9.1.2. </span>アラームの評価<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>以下3つの設定を行うことでアラームを発砲するかを判定する</p>
+<ul class="simple">
+<li><p>期間</p></li>
+<li><p>評価期間(Evaluation Period)</p></li>
+<li><p>アラームを実行するデータポイント（Datapoints to Alarm）</p></li>
+</ul>
+<p>データを集計する時間単位を「期間」で定義し、集計されたデータのアラーム判定「N個中M個(M/N)」を超えるとアラートを発砲する</p>
+<section id="id3">
+<h3><span class="section-number">9.1.2.1. </span>期間<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>アラーム用のデータポイントをどの単位で集計して出力するかを定義する。
+例えば、期間が300sec(5min)の場合、メトリクスとして出力される1分おきのデータについて5分をまとめて1つのデータとする。１つ目のデータは1~5分のデータから出力され、2つ目のデータは2~6分のデータから出力される。</p>
+</section>
+<section id="n-evaluation-period">
+<h3><span class="section-number">9.1.2.2. </span>N: 評価期間（Evaluation Period）<a class="headerlink" href="#n-evaluation-period" title="この見出しへのパーマリンク">¶</a></h3>
+<p>アラームを判定する際の評価範囲であり、分母になる値。
+例えば、５が設定されている場合、直近の5個分のデータを対象にして評価を行う。</p>
+</section>
+<section id="m-datapoints-to-alarm">
+<h3><span class="section-number">9.1.2.3. </span>M: アラームを実行するデータポイント（Datapoints to Alarm）<a class="headerlink" href="#m-datapoints-to-alarm" title="この見出しへのパーマリンク">¶</a></h3>
+<p>アラームを判定する際、ALARMに遷移する際の超過するデータポイント数であり、分子になる値。
+例えば、評価期間が５、データポイントが3に設定されている場合、直近の5個分のデータのなかで3個のデータが閾値を超えているとアラーム状態に遷移する。
+また、評価期間が５、データポイントも5に設定されている場合、5個連続でデータが閾値を超えるとアラームが発砲される動きとなる。</p>
+</section>
+</section>
+<section id="id4">
+<h2><span class="section-number">9.1.3. </span>メトリクスの作成<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id5">
+<h3><span class="section-number">9.1.3.1. </span>単独のメトリクスを利用したアラーム<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>アラーム作成に必要な設定をCloudFormationのリファレンスを見ながら解説していく。
+<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-alarm.html">CloudFormationのリファレンス</a></p>
+<p>重要なものに抜粋すると以下</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::CloudWatch::Alarm</span>
+<span class="nt">Properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">AlarmName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">AlarmDescription</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">ActionsEnabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Boolean</span>
+<span class="w">    </span><span class="nt">AlarmActions</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">ComparisonOperator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">Threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Number</span>
+<span class="w">    </span><span class="nt">Period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Integer</span>
+<span class="w">    </span><span class="nt">EvaluationPeriods</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Integer</span>
+<span class="w">    </span><span class="nt">DatapointsToAlarm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Integer</span>
+<span class="w">    </span><span class="nt">ExtendedStatistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">TreatMissingData</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">Namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">MetricName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">Dimensions</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+<span class="w">    </span><span class="nt">Statistic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">Metrics※</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MetricDataQuery</span>
+</pre></div>
+</div>
+<p>それぞれのプロパティの役割は以下</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>プロパティ名</p></th>
+<th class="head text-left"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>AlarmName</p></td>
+<td class="text-left"><p>アラーム名</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>AlarmDescription</p></td>
+<td class="text-left"><p>アラームの説明</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ActionsEnabled</p></td>
+<td class="text-left"><p>作成したアクションを有効にするか無効にするか</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>AlarmActions</p></td>
+<td class="text-left"><p>アラームになった時に実行するアクション(OKActions/InsufficientDataActionsもある)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ComparisonOperator</p></td>
+<td class="text-left"><p>閾値との比較演算子</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Threshold</p></td>
+<td class="text-left"><p>閾値</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Period※</p></td>
+<td class="text-left"><p>統計が適用される期間(sec)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>EvaluationPeriods</p></td>
+<td class="text-left"><p>N: 評価期間</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>DatapointsToAlarm</p></td>
+<td class="text-left"><p>M: アラームを実行するデータポイント</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>TreatMissingData</p></td>
+<td class="text-left"><p>欠落データの扱い定義</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Namespace※</p></td>
+<td class="text-left"><p>メトリクスの名前空間&quot;AWS/SQS&quot;など<br><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/aws-services-cloudwatch-metrics.html">CloudWatch メトリクスを発行する AWS のサービス</a>参考</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>MetricName※</p></td>
+<td class="text-left"><p>利用するメトリクスの定義&quot;ApproximateNumberOfMessagesNotVisible&quot;など</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Dimentions※</p></td>
+<td class="text-left"><p>どのリソースに対してメトリクスを指定するかの定義</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Statistic※</p></td>
+<td class="text-left"><p>アラームに関連付けられたメトリックの統計方法（MaxやAverageなど）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Metrics</p></td>
+<td class="text-left"><p>複数のメトリクスを利用して数式の結果に基づいてアラームを作成する。<br>上記の※がついているプロパティはMetricsを利用する場合定義せず、Metrics配下のそれぞれのメトリクス配列の中で定義する。</p></td>
+</tr>
+</tbody>
+</table>
+<p>最終的に作成されるアラームのイメージは以下。こちらと照らし合わせて設定値を確認すると理解しやすい。</p>
+<p><img alt="" src="../../_images/cloudwatch_alarm_setting.png" /></p>
+</section>
+<section id="metrics">
+<h3><span class="section-number">9.1.3.2. </span>複数のメトリクスの数式（Metrics）を利用したアラーム<a class="headerlink" href="#metrics" title="この見出しへのパーマリンク">¶</a></h3>
+<p>複数のメトリクスを数式で組み合わせて一つのメトリクスとして定義し、アラートに利用することができる。
+以下の例では、m1とm2としてSQSのApproximateNumberOfMessagesVisibleとApproximateNumberOfMessagesNotVisibleを定義して、その合計を一つのメトリクスとして、定義してその値をアラームにしている。</p>
+<p><img alt="" src="../../_images/cloudwatch_alarm_metrics.png" /></p>
+<p>複数のメトリクスを組み合わせてアラームを作成する場合プロパティに&quot;Metrics&quot;を定義する。
+&quot;Metrics&quot;を利用すると、その配下に利用するメトリクスの定義を行うため、アラームのプロパティでは&quot;Period&quot;/&quot;Namespace&quot;/&quot;MetricName&quot;/&quot;Dimentions&quot;/&quot;Statistic&quot;を定義しなくなる。</p>
+<p>CloudFormationの設定イメージは以下</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MetricDataQuery（m1+m2などの数式の結果で最終的に利用したいメトリクス）</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MetricDataQuery(m1：通常の単独メトリクス)</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MetricDataQuery(m2：通常の単独メトリクス)</span>
+</pre></div>
+</div>
+<section id="metricdataquery">
+<h4><span class="section-number">9.1.3.2.1. </span>MetricDataQuery<a class="headerlink" href="#metricdataquery" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Metricsでは以下のMetricDataQueryを配列で複数定義することで、利用するメトリクスの定義(MetricStat)、もしくは、それらのメトリクスを利用した数式の定義（Expression）が可能。最終的にアラームとして利用するメトリクスについてReturnDataをTrueとする。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nt">Id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">Label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">ReturnData</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Boolean</span>
+<span class="w">    </span><span class="nt">Expression</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">    </span><span class="nt">MetricStat</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">MetricStat</span>
+</pre></div>
+</div>
+<p>それぞれのプロパティの役割は以下</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>プロパティ名</p></th>
+<th class="head text-left"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Id</p></td>
+<td class="text-left"><p>定義するメトリクスの論理名で数式計算の時にはこの論理名で数式を書く</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Label</p></td>
+<td class="text-left"><p>人間向けのLabel</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ReturnData</p></td>
+<td class="text-left"><p>一つだけTrueとして定義し、その値がアラームのメトリクスとして利用される</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>MetricStat※</p></td>
+<td class="text-left"><p>利用するメトリクスについて定義する</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Expression※</p></td>
+<td class="text-left"><p>MetricStatで定義したメトリクスを利用した数式を定義する</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="metricstat">
+<h4><span class="section-number">9.1.3.2.2. </span>MetricStat<a class="headerlink" href="#metricstat" title="この見出しへのパーマリンク">¶</a></h4>
+<p>MetricStatを利用して、計算に利用するメトリクスの定義を行う</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nt">Metric</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">Namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">        </span><span class="nt">MetricName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+<span class="w">        </span><span class="nt">Dimensions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dimension</span>
+<span class="w">    </span><span class="nt">Period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Integer</span>
+<span class="w">    </span><span class="nt">Stat</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+</pre></div>
+</div>
+<p>それぞれのプロパティの役割は以下</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>プロパティ名</p></th>
+<th class="head text-left"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Metric</p></td>
+<td class="text-left"><p>利用するメトリクスの定義</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Period</p></td>
+<td class="text-left"><p>統計が適用される期間(sec)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Stat</p></td>
+<td class="text-left"><p>アラームに関連付けられたメトリックの統計方法（SumやAverageなど）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cloudformation">
+<h4><span class="section-number">9.1.3.2.3. </span>CloudFormationの例<a class="headerlink" href="#cloudformation" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Metricsを利用して、SQSのメトリクスの合計値を一つのメトリクスとして定義してアラームを作成する際のCloudFormationの例は以下。以下をコピペして実行すれば単独で作成可能。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2010-09-09&quot;</span>
+<span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A template with only sqs_test queue and CloudWatch alarm</span>
+
+<span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">SQSTestQueue</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AWS::SQS::Queue&quot;</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">QueueName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;sqs_test&quot;</span>
+
+<span class="w">  </span><span class="nt">SQSMessagesTotalAlarm</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AWS::CloudWatch::Alarm&quot;</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">AlarmName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;TotalMessagesVisibleAndNotVisible&quot;</span>
+<span class="w">      </span><span class="nt">AlarmDescription</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Alarm</span><span class="nv"> </span><span class="s">when</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">sum</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">visible</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">visible</span><span class="nv"> </span><span class="s">messages</span><span class="nv"> </span><span class="s">exceeds</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">threshold.&quot;</span>
+<span class="w">      </span><span class="nt">ComparisonOperator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GreaterThanOrEqualToThreshold&quot;</span>
+<span class="w">      </span><span class="nt">EvaluationPeriods</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">Threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">      </span><span class="nt">Metrics</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">Id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;e1&quot;</span>
+<span class="w">          </span><span class="nt">ReturnData</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">Expression</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;SUM([m1,</span><span class="nv"> </span><span class="s">m2])&quot;</span>
+<span class="w">          </span><span class="nt">Label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Total</span><span class="nv"> </span><span class="s">Visible</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">Not</span><span class="nv"> </span><span class="s">Visible</span><span class="nv"> </span><span class="s">Messages&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w">   </span>
+<span class="w">          </span><span class="nt">Id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;m1&quot;</span>
+<span class="w">          </span><span class="nt">ReturnData</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">          </span><span class="nt">Label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Visible</span><span class="nv"> </span><span class="s">Messages&quot;</span>
+<span class="w">          </span><span class="nt">MetricStat</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">Metric</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">Namespace</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AWS/SQS&quot;</span>
+<span class="w">              </span><span class="nt">MetricName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ApproximateNumberOfMessagesVisible&quot;</span>
+<span class="w">              </span><span class="nt">Dimensions</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">                  </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;QueueName&quot;</span>
+<span class="w">                  </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SQSTestQueue.QueueName</span>
+<span class="w">            </span><span class="nt">Period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">            </span><span class="nt">Stat</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Maximum&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">          </span><span class="nt">Id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;m2&quot;</span>
+<span class="w">          </span><span class="nt">ReturnData</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">          </span><span class="nt">Label</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Not</span><span class="nv"> </span><span class="s">Visible</span><span class="nv"> </span><span class="s">Messages&quot;</span>
+<span class="w">          </span><span class="nt">MetricStat</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">Metric</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">Namespace</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AWS/SQS&quot;</span>
+<span class="w">              </span><span class="nt">MetricName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ApproximateNumberOfMessagesNotVisible&quot;</span>
+<span class="w">              </span><span class="nt">Dimensions</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">                  </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;QueueName&quot;</span>
+<span class="w">                  </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SQSTestQueue.QueueName</span>
+<span class="w">            </span><span class="nt">Period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">            </span><span class="nt">Stat</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Maximum&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../CloudWatch.html" class="btn btn-neutral float-left" title="9. CloudWatch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../Storage.html" class="btn btn-neutral float-right" title="10. Storage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

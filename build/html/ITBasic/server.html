@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. サーバー &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="6. カーネル" href="kernel.html" />
+    <link rel="prev" title="4. SoftWareArchitecture" href="SWA.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. サーバー</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#os">5.1. OS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#unix">5.1.1. Unix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux">5.1.2. Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windowsos">5.1.3. WindowsOS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">5.2. Linuxのディストリビューション</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu">5.2.1. Ubuntu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redhatenterpriselinux">5.2.2. RedHatEnterpriseLinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#centos">5.2.3. CentOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#amazon-linux">5.2.4. Amazon Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">5.3. Linux系のファイル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">5.4. サービスとデーモン</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">5.4.1. コマンド</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">5.4.2. デーモンの代表例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">5.5. ユーザー</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">5.5.1. Linux</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#root">5.5.1.1. スーパーユーザー(root)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">5.5.1.2. 一般ユーザー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">5.5.1.3. システムユーザー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">5.5.1.4. グループ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">5.5.1.5. ユーザー変更・権限変更</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">5.5.2. Windows</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#administrator">5.5.2.1. Administrator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#standard-user">5.5.2.2. 標準ユーザー（Standard User）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#guest-user">5.5.2.3. ゲストユーザー（Guest User）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">5.5.2.4. システムアカウント</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>サーバー</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/ITBasic/server.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">5. </span>サーバー<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="os">
+<h2><span class="section-number">5.1. </span>OS<a class="headerlink" href="#os" title="この見出しへのパーマリンク">¶</a></h2>
+<p>代表的なOSの系統は「Unix」「Linux」「Windows」3つ</p>
+<section id="unix">
+<h3><span class="section-number">5.1.1. </span>Unix<a class="headerlink" href="#unix" title="この見出しへのパーマリンク">¶</a></h3>
+<p>1960年に開発された古いOSで、後発に影響を与えたOSで、macOSはUnixの系譜。</p>
+</section>
+<section id="linux">
+<h3><span class="section-number">5.1.2. </span>Linux<a class="headerlink" href="#linux" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Unixに影響を受けたオープンソースのOS。様々なディストリビューションが存在。
+具体的には、Ubuntu・CentOS・RedHatEnterpriseLinux(RHEL)などがある。</p>
+</section>
+<section id="windowsos">
+<h3><span class="section-number">5.1.3. </span>WindowsOS<a class="headerlink" href="#windowsos" title="この見出しへのパーマリンク">¶</a></h3>
+<p>マイクロソフトが開発したOSでWindowsServerやWindows10などで利用されている・</p>
+</section>
+</section>
+<section id="id2">
+<h2><span class="section-number">5.2. </span>Linuxのディストリビューション<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Linuxには様々なディストリビューションが存在する。</p>
+<section id="ubuntu">
+<h3><span class="section-number">5.2.1. </span>Ubuntu<a class="headerlink" href="#ubuntu" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ユーザーフレンドリーで利用しやすいのが特徴。
+Windowsのような使いやすいインターフェースがある。</p>
+</section>
+<section id="redhatenterpriselinux">
+<h3><span class="section-number">5.2.2. </span>RedHatEnterpriseLinux<a class="headerlink" href="#redhatenterpriselinux" title="この見出しへのパーマリンク">¶</a></h3>
+<p>商用サポートが保証されているエンタープライズ版のLinuxディストリビューション。</p>
+</section>
+<section id="centos">
+<h3><span class="section-number">5.2.3. </span>CentOS<a class="headerlink" href="#centos" title="この見出しへのパーマリンク">¶</a></h3>
+<p>RHELのクローンで、商用サポートなしの無料版。その代わりコミュニティーサポートが充実している。</p>
+</section>
+<section id="amazon-linux">
+<h3><span class="section-number">5.2.4. </span>Amazon Linux<a class="headerlink" href="#amazon-linux" title="この見出しへのパーマリンク">¶</a></h3>
+<p>AWSのEC2で利用することができるAmazonLinuxは正式にはどのLinuxディストリビューションをベースにしているか発表されていないが、RHEL、CentOSをベースにしているらしい。</p>
+</section>
+</section>
+<section id="id3">
+<h2><span class="section-number">5.3. </span>Linux系のファイル<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>サーバーに配置される代表的なディレクトリとその役割を以下にまとめる。
+'yum install'でソフトウェアパッケージのインストールをすると、以下のディレクトリに必要なファイルが配置される。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ディレクトリ</p></th>
+<th class="head"><p>由来</p></th>
+<th class="head"><p>代表的な内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/</p></td>
+<td><p>ファイルシステムの最上位ディレクトリ</p></td>
+<td><p>全てのファイルとディレクトリのルート</p></td>
+</tr>
+<tr class="row-odd"><td><p>/bin</p></td>
+<td><p>&quot;Binaries&quot;の略</p></td>
+<td><p>システムの基本的なコマンド（例: <code class="docutils literal notranslate"><span class="pre">ls</span></code>, <code class="docutils literal notranslate"><span class="pre">cp</span></code>, <code class="docutils literal notranslate"><span class="pre">mv</span></code>, <code class="docutils literal notranslate"><span class="pre">rm</span></code>, <code class="docutils literal notranslate"><span class="pre">cat</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>/boot</p></td>
+<td><p>ブートローダとカーネルのイメージ</p></td>
+<td><p>ブートに必要なファイル（例: <code class="docutils literal notranslate"><span class="pre">vmlinuz</span></code>, <code class="docutils literal notranslate"><span class="pre">initrd.img</span></code>, <code class="docutils literal notranslate"><span class="pre">grub</span></code>）</p></td>
+</tr>
+<tr class="row-odd"><td><p>/dev</p></td>
+<td><p>&quot;Devices&quot;の略</p></td>
+<td><p>デバイスファイル（例: <code class="docutils literal notranslate"><span class="pre">sda</span></code>, <code class="docutils literal notranslate"><span class="pre">tty</span></code>, <code class="docutils literal notranslate"><span class="pre">null</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>/etc</p></td>
+<td><p>&quot;Editable Text Configuration&quot;の略</p></td>
+<td><p>システム設定ファイル（例: <code class="docutils literal notranslate"><span class="pre">passwd</span></code>, <code class="docutils literal notranslate"><span class="pre">fstab</span></code>, <code class="docutils literal notranslate"><span class="pre">ssh/sshd_config</span></code>）</p></td>
+</tr>
+<tr class="row-odd"><td><p>/home</p></td>
+<td><p>ユーザーのホームディレクトリ</p></td>
+<td><p>各ユーザーの個人データ（例: <code class="docutils literal notranslate"><span class="pre">/home/user1</span></code>, <code class="docutils literal notranslate"><span class="pre">/home/user2</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>/lib</p></td>
+<td><p>&quot;Libraries&quot;の略</p></td>
+<td><p>基本的な共有ライブラリ（例: <code class="docutils literal notranslate"><span class="pre">libc.so.6</span></code>, <code class="docutils literal notranslate"><span class="pre">ld-linux.so.2</span></code>）</p></td>
+</tr>
+<tr class="row-odd"><td><p>/media</p></td>
+<td><p>リムーバブルメディアのマウントポイント</p></td>
+<td><p>リムーバブルメディア（例: <code class="docutils literal notranslate"><span class="pre">/media/cdrom</span></code>, <code class="docutils literal notranslate"><span class="pre">/media/usb</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>/mnt</p></td>
+<td><p>&quot;Mount&quot;の略</p></td>
+<td><p>一時的なマウントポイント（例: <code class="docutils literal notranslate"><span class="pre">/mnt/mydisk</span></code>）</p></td>
+</tr>
+<tr class="row-odd"><td><p>/opt</p></td>
+<td><p>&quot;Optional&quot;の略</p></td>
+<td><p>サードパーティのソフトウェア（例: <code class="docutils literal notranslate"><span class="pre">/opt/lampp</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>/proc</p></td>
+<td><p>&quot;Processes&quot;の略</p></td>
+<td><p>カーネルとプロセスの情報（例: <code class="docutils literal notranslate"><span class="pre">/proc/cpuinfo</span></code>, <code class="docutils literal notranslate"><span class="pre">/proc/meminfo</span></code>）</p></td>
+</tr>
+<tr class="row-odd"><td><p>/root</p></td>
+<td><p>rootユーザーのホームディレクトリ</p></td>
+<td><p>システム管理者専用ディレクトリ（例: <code class="docutils literal notranslate"><span class="pre">/root</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>/run</p></td>
+<td><p>システムの一時ファイル</p></td>
+<td><p>一時ファイル（例: <code class="docutils literal notranslate"><span class="pre">/run/lock</span></code>, <code class="docutils literal notranslate"><span class="pre">/run/shm</span></code>）</p></td>
+</tr>
+<tr class="row-odd"><td><p>/sbin</p></td>
+<td><p>&quot;System Binaries&quot;の略</p></td>
+<td><p>システム管理コマンド（例: <code class="docutils literal notranslate"><span class="pre">ifconfig</span></code>, <code class="docutils literal notranslate"><span class="pre">shutdown</span></code>, <code class="docutils literal notranslate"><span class="pre">reboot</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>/srv</p></td>
+<td><p>&quot;Service&quot;の略</p></td>
+<td><p>サーバー関連のデータ（例: <code class="docutils literal notranslate"><span class="pre">/srv/ftp</span></code>, <code class="docutils literal notranslate"><span class="pre">/srv/www</span></code>）</p></td>
+</tr>
+<tr class="row-odd"><td><p>/sys</p></td>
+<td><p>システムデバイスの情報</p></td>
+<td><p>カーネルとデバイスの情報（例: <code class="docutils literal notranslate"><span class="pre">/sys/class/net</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>/tmp</p></td>
+<td><p>&quot;Temporary&quot;の略</p></td>
+<td><p>一時ファイル（例: アプリケーションの一時ファイル）</p></td>
+</tr>
+<tr class="row-odd"><td><p>/usr</p></td>
+<td><p>&quot;Unix System Resources&quot;の略</p></td>
+<td><p>ユーザープログラムとデータ（例: <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code>, <code class="docutils literal notranslate"><span class="pre">/usr/lib</span></code>, <code class="docutils literal notranslate"><span class="pre">/usr/share</span></code>）</p></td>
+</tr>
+<tr class="row-even"><td><p>/var</p></td>
+<td><p>&quot;Variable&quot;の略</p></td>
+<td><p>変動するデータ（例: <code class="docutils literal notranslate"><span class="pre">/var/log</span></code>, <code class="docutils literal notranslate"><span class="pre">/var/spool</span></code>）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<h2><span class="section-number">5.4. </span>サービスとデーモン<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<p>サーバー内で動作する特定の機能を提供するプログラムやプロセスをサービスと呼ぶ。
+例えばWebサーバー（Apache/Nginx）やDBサーバー（MySQL/Postgres）、メールサーバー。
+これらのサービスはシステムの中でユーザーや他のサービスに対して特定の機能を提供している。</p>
+<p>ユーザーが操作しないバックグラウンドでこれらのサービスが動作しているときにデーモンと呼ぶ。
+ギリシャ神話のデーモンが、目に見えないところで様々な影響を与えているところから名前がつけられている。
+デーモンは、システムの起動時に自動で開始され、システム停止時には自動で終了する。</p>
+<section id="id5">
+<h3><span class="section-number">5.4.1. </span>コマンド<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>システム起動時に自動的に開始するように有効化されているサービス（デーモン）を確認する</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="nb">list</span><span class="o">-</span><span class="n">unit</span><span class="o">-</span><span class="n">files</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">service</span> <span class="o">--</span><span class="n">state</span><span class="o">=</span><span class="n">enabled</span>
+</pre></div>
+</div>
+<p>現在実行中のサービスを確認する</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="nb">list</span><span class="o">-</span><span class="n">units</span> <span class="o">--</span><span class="nb">type</span><span class="o">=</span><span class="n">service</span> <span class="o">--</span><span class="n">state</span><span class="o">=</span><span class="n">running</span>
+</pre></div>
+</div>
+<p>特定のサービスの状態を確認する</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">status</span> <span class="o">&lt;</span><span class="n">サービス名</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3><span class="section-number">5.4.2. </span>デーモンの代表例<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>有効化されている代表的なデーモンの例は以下</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>デーモン名</p></th>
+<th class="head"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>auditd.service</p></td>
+<td><p>Linuxの監査デーモン。システムのセキュリティ監査を行う。</p></td>
+</tr>
+<tr class="row-odd"><td><p>chronyd.service</p></td>
+<td><p>時刻同期デーモン。NTP(Network Time Protocol)を使用してシステム時間を同期。</p></td>
+</tr>
+<tr class="row-even"><td><p>crond.service</p></td>
+<td><p>cronデーモン。スケジュールされたタスクを実行する。</p></td>
+</tr>
+<tr class="row-odd"><td><p>dbus.service</p></td>
+<td><p>D-Busメッセージバスシステム。プロセス間通信を提供。</p></td>
+</tr>
+<tr class="row-even"><td><p>firewalld.service</p></td>
+<td><p>動的なファイアウォールデーモン。ネットワーク接続の制御。</p></td>
+</tr>
+<tr class="row-odd"><td><p>irqbalance.service</p></td>
+<td><p>IRQバランスデーモン。システムの割り込み負荷を分散。</p></td>
+</tr>
+<tr class="row-even"><td><p>iscsid.service</p></td>
+<td><p>iSCSIデーモン。iSCSIターゲットに接続する。</p></td>
+</tr>
+<tr class="row-odd"><td><p>kdump.service</p></td>
+<td><p>kdumpカーネルクラッシュダンプメカニズムのデーモン。</p></td>
+</tr>
+<tr class="row-even"><td><p>network.service</p></td>
+<td><p>レガシーなネットワークスクリプトのデーモン。</p></td>
+</tr>
+<tr class="row-odd"><td><p>NetworkManager.service</p></td>
+<td><p>ネットワーク管理デーモン。ネットワークの設定と管理。</p></td>
+</tr>
+<tr class="row-even"><td><p>postfix.service</p></td>
+<td><p>Postfixメール転送エージェントのデーモン。メールの送受信。</p></td>
+</tr>
+<tr class="row-odd"><td><p>rhel-dmesg.service</p></td>
+<td><p>カーネルメッセージをログに記録するデーモン。</p></td>
+</tr>
+<tr class="row-even"><td><p>rhsmcertd.service</p></td>
+<td><p>Red Hat Subscription Manager証明書デーモン。サブスクリプション証明書の管理。</p></td>
+</tr>
+<tr class="row-odd"><td><p>rsyslog.service</p></td>
+<td><p>ロギングデーモン。システムログを収集し、ログファイルに書き込む。</p></td>
+</tr>
+<tr class="row-even"><td><p>sshd.service</p></td>
+<td><p>OpenSSHデーモン。SSHによるリモートログインを提供。</p></td>
+</tr>
+<tr class="row-odd"><td><p>systemd-journald.service</p></td>
+<td><p>systemdのログデーモン。ログメッセージを収集。</p></td>
+</tr>
+<tr class="row-even"><td><p>systemd-logind.service</p></td>
+<td><p>ユーザーログイン管理デーモン。ユーザーセッションを管理。</p></td>
+</tr>
+<tr class="row-odd"><td><p>systemd-udevd.service</p></td>
+<td><p>デバイスイベントデーモン。デバイスのイベントを処理。</p></td>
+</tr>
+<tr class="row-even"><td><p>tuned.service</p></td>
+<td><p>パフォーマンス調整デーモン。システムパフォーマンスを最適化。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id7">
+<h2><span class="section-number">5.5. </span>ユーザー<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id8">
+<h3><span class="section-number">5.5.1. </span>Linux<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Linuxではいくつかのユーザーの種類とグループという概念が存在する。</p>
+<section id="root">
+<h4><span class="section-number">5.5.1.1. </span>スーパーユーザー(root)<a class="headerlink" href="#root" title="この見出しへのパーマリンク">¶</a></h4>
+<p>システム全体に対して全ての権限を持つユーザー。</p>
+</section>
+<section id="id9">
+<h4><span class="section-number">5.5.1.2. </span>一般ユーザー<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
+<p>システムにログインできるユーザーで、自分のホームディレクトリとその配下のファイルに対して権限を持つ。</p>
+</section>
+<section id="id10">
+<h4><span class="section-number">5.5.1.3. </span>システムユーザー<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
+<p>特定のサービスやデーモンの実行用のユーザーで、通常はログインせずにサービス実行専門となる。</p>
+</section>
+<section id="id11">
+<h4><span class="section-number">5.5.1.4. </span>グループ<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ユーザーをまとめて管理するための単位。</p>
+</section>
+<section id="id12">
+<h4><span class="section-number">5.5.1.5. </span>ユーザー変更・権限変更<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Linuxではsuコマンドを利用して、ユーザーの変更を行うことができる。</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># root ユーザーに変更</span>
+su<span class="w"> </span>-
+<span class="c1"># 特定のユーザーに変更</span>
+su<span class="w"> </span>-<span class="w"> </span>username
+</pre></div>
+</div>
+<p>また、sudoコマンドを利用することで、特定ユーザーの権限を利用したコマンド実行も可能</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># 管理者権限でコマンドを実行</span>
+sudo<span class="w"> </span><span class="nb">command</span>
+
+<span class="c1"># 特定のユーザーとしてコマンドを実行</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>username<span class="w"> </span><span class="nb">command</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="windows">
+<h3><span class="section-number">5.5.2. </span>Windows<a class="headerlink" href="#windows" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="administrator">
+<h4><span class="section-number">5.5.2.1. </span>Administrator<a class="headerlink" href="#administrator" title="この見出しへのパーマリンク">¶</a></h4>
+<p>初期インストール時に作成される最初のユーザーアカウントは通常、管理者権限を持っている。</p>
+</section>
+<section id="standard-user">
+<h4><span class="section-number">5.5.2.2. </span>標準ユーザー（Standard User）<a class="headerlink" href="#standard-user" title="この見出しへのパーマリンク">¶</a></h4>
+<p>基本的な操作がかのう。、システム設定の変更やソフトウェアのインストールには管理者権限が必要。
+安全性のために、日常的な操作は標準ユーザーで行うことが推奨される。</p>
+</section>
+<section id="guest-user">
+<h4><span class="section-number">5.5.2.3. </span>ゲストユーザー（Guest User）<a class="headerlink" href="#guest-user" title="この見出しへのパーマリンク">¶</a></h4>
+<p>制限された権限を持つ一時的なユーザー。システム設定などの権限は制限される</p>
+</section>
+<section id="id13">
+<h4><span class="section-number">5.5.2.4. </span>システムアカウント<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Windowsの内部システムプロセスやサービスが使用するためのアカウント。
+ユーザーが意識することは少ない。</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SWA.html" class="btn btn-neutral float-left" title="4. SoftWareArchitecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="kernel.html" class="btn btn-neutral float-right" title="6. カーネル" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

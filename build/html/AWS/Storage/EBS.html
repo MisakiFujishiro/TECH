@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10.3. EBS &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="11. DB" href="../../DB.html" />
+    <link rel="prev" title="10.2. EFS" href="EFS.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../Storage.html">10. Storage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Storage.html">10.1. Storage全体像</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EFS.html">10.2. EFS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10.3. EBS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">10.3.1. クラウドストレージのメリット</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">10.3.2. EBSの基本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">10.3.3. ボリュームタイプ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#block">10.3.3.1. Blockストレージの種類</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">10.3.3.2. EBSの性能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">10.3.3.3. EBSの種類</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">10.3.4. スナップショットとリストア</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">10.3.5. EBSのセキュリティ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../Storage.html"><span class="section-number">10. </span>Storage</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">10.3. </span>EBS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/AWS/Storage/EBS.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ebs">
+<h1><span class="section-number">10.3. </span>EBS<a class="headerlink" href="#ebs" title="この見出しへのパーマリンク">¶</a></h1>
+<p>EBSはAWSが提供する複数のストレージサービスのうち、Blockストレージにあたる。
+EC2向けの永続的なストレージサービス。</p>
+<p><img alt="" src="../../_images/Storage_service.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-Elastic-Block-Store-Basic_1209_v1.pdf">Amazon Elastic Block Store(Amazon EBS) 基礎編【AWS Black Belt】</a></p>
+<p>Blockタイプのストレージは、Blockと呼ばれる固定朝の単位でデータを扱う。
+ブロックのため階層構造を持たず、低レイテンシーを実現可能であり、低レイテンシーが要求されるワークロードに適している。<br />
+また、低レイテンシーのために、AZ内で独立しているアーキテクチャとなっている。
+よく利用されるプロトコルはNVMe。</p>
+<p><img alt="" src="../../_images/Storage_type.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-Elastic-Block-Store-Basic_1209_v1.pdf">Amazon Elastic Block Store(Amazon EBS) 基礎編【AWS Black Belt】</a></p>
+<section id="id1">
+<h2><span class="section-number">10.3.1. </span>クラウドストレージのメリット<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>オンプレミスと比較して、ストレージに関する専門性があまりなくても高い機能性と非機能性を有するストレージを扱うことができる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>項目</p></th>
+<th class="head text-left"><p>EBS (Elastic Block Store)</p></th>
+<th class="head text-left"><p>オンプレミスストレージ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>設計の簡単さ</p></td>
+<td class="text-left"><p>AWSが管理するため設計がシンプル。要件に応じてサイズやタイプを選択するだけで利用可能。</p></td>
+<td class="text-left"><p>ハードウェア、ネットワーク、バックアップの要件をすべて自分で設計する必要があるため、設計が複雑化しやすい。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>オペレーションの簡単さ</p></td>
+<td class="text-left"><p>管理コンソールやCLIでプロビジョニング、スナップショット、リサイズが簡単にできる。</p></td>
+<td class="text-left"><p>ハードウェアの管理、RAID設定、ファームウェアのアップデートなどの手動操作が多い。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>スケーラビリティ</p></td>
+<td class="text-left"><p>容量の増減が柔軟で、必要に応じてすぐにスケールアップまたはダウンが可能。</p></td>
+<td class="text-left"><p>ストレージ容量を増やすにはハードウェアの購入や設置が必要で、柔軟性が低い。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>可用性</p></td>
+<td class="text-left"><p>AWSが複数のアベイラビリティゾーンにわたる冗長性を提供。高い可用性が確保されている。</p></td>
+<td class="text-left"><p>冗長性を確保するには自前でRAIDや複数拠点にデータを複製する必要があり、コストと手間がかかる。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>コスト</p></td>
+<td class="text-left"><p>初期投資が不要で、使用量に応じた課金モデル。特定の要件に応じてコスト最適化が可能。</p></td>
+<td class="text-left"><p>初期投資が高く、ハードウェア、電力、保守費用が継続的に発生する。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>セキュリティ</p></td>
+<td class="text-left"><p>デフォルトで暗号化がサポートされ、アクセス制御もAWS IAMで一元管理可能。</p></td>
+<td class="text-left"><p>暗号化やアクセス制御は独自に実装・管理する必要がある。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>パフォーマンス</p></td>
+<td class="text-left"><p>IOPSやスループットを選択できるため、要件に応じて調整可能。</p></td>
+<td class="text-left"><p>パフォーマンスを向上させるにはハードウェアやネットワークの構成を変更する必要がある。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id2">
+<h2><span class="section-number">10.3.2. </span>EBSの基本<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>EC2に対して、永続的なblockストレージを提供するサービス。
+EBSは、AZごとに独立しているため、EC2にアタッチする際に、同一のAZ内のEC2からのみアクセスが可能。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">10.3.3. </span>ボリュームタイプ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="block">
+<h3><span class="section-number">10.3.3.1. </span>Blockストレージの種類<a class="headerlink" href="#block" title="この見出しへのパーマリンク">¶</a></h3>
+<p>EC2におけるBlockストレージは2種類</p>
+<ul class="simple">
+<li><p>Amazon EBS</p></li>
+<li><p>EC2 インスタンスストア</p></li>
+</ul>
+<p>インスタントストアは、非永続的なディスク領域でEC2に元から付属しているキャッシュ領域のようなもの。</p>
+<p><img alt="" src="../../_images/ebs_instance_store.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-Elastic-Block-Store-Basic_1209_v1.pdf">Amazon Elastic Block Store(Amazon EBS) 基礎編【AWS Black Belt】</a></p>
+</section>
+<section id="id4">
+<h3><span class="section-number">10.3.3.2. </span>EBSの性能<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>EBSではベースラインとバーストモードが提供されている。
+クレジットを消費することでバーストモードとして高い性能を提供できるが、クレジットを使い切ってしまうとベースラインの性能しか出ないことに注意。</p>
+<p><img alt="" src="../../_images/ebs_performance.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-Elastic-Block-Store-Basic_1209_v1.pdf">Amazon Elastic Block Store(Amazon EBS) 基礎編【AWS Black Belt】</a></p>
+<p>EBSでは、HDDタイプがクレジットに基づいて性能が変化し、SSDタイプは一貫した性能を担保する。</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">10.3.3.3. </span>EBSの種類<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>EBSでは、大きく4つのタイプが提供されている。
+これらの変更はコンソールやAPIを利用して実行することが可能。ただし、サイズの縮小はできない点に注意。</p>
+<p><img alt="" src="../../_images/ebs_type.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-Elastic-Block-Store-Basic_1209_v1.pdf">Amazon Elastic Block Store(Amazon EBS) 基礎編【AWS Black Belt】</a></p>
+<section id="iops">
+<h4><span class="section-number">10.3.3.3.1. </span>スループットとIOPS<a class="headerlink" href="#iops" title="この見出しへのパーマリンク">¶</a></h4>
+<p>EBSの指標となるIOPSとスループットについて簡単に述べておく。
+スループットは、転送できるファイルサイズ、IOPSは処理できるデータの回数を示す。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>項目</p></th>
+<th class="head text-left"><p>定義</p></th>
+<th class="head text-left"><p>単位</p></th>
+<th class="head text-left"><p>特徴</p></th>
+<th class="head text-left"><p>適用タイプ</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>スループット</p></td>
+<td class="text-left"><p>ストレージが1秒間に転送できるデータ量</p></td>
+<td class="text-left"><p>MB/s</p></td>
+<td class="text-left"><p>大きなデータ転送のスピードを重視</p></td>
+<td class="text-left"><p>シーケンシャルアクセス（HDDに強い）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>IOPS</p></td>
+<td class="text-left"><p>ストレージが1秒間に処理できるデータの読み書き操作（入出力操作）の回数</p></td>
+<td class="text-left"><p>回/秒（4KBブロック単位）</p></td>
+<td class="text-left"><p>小さなデータを頻繁に読み書きする速度</p></td>
+<td class="text-left"><p>ランダムアクセス（SSDに強い）</p></td>
+</tr>
+</tbody>
+</table>
+<p>EBSで提供されている各タイプのIOPSおよびスループット以下。gp3にはgp2という旧世代もあるがパフォーマンス及び費用でgp3にメリットがあるため割愛。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>ボリュームタイプ</p></th>
+<th class="head text-left"><p>主なユースケース</p></th>
+<th class="head text-left"><p>耐久性</p></th>
+<th class="head text-left"><p>ボリュームサイズ</p></th>
+<th class="head text-left"><p>ボリューム毎の最大IOPS</p></th>
+<th class="head text-left"><p>インスタンス毎の最大IOPS (複数ボリューム)</p></th>
+<th class="head text-left"><p>ボリューム毎の最大スループット</p></th>
+<th class="head text-left"><p>インスタンス毎の最大スループット (複数ボリューム)</p></th>
+<th class="head text-left"><p>マルチアタッチ</p></th>
+<th class="head text-left"><p>月額料金 (東京リージョン)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>io2 Block Express</p></td>
+<td class="text-left"><p>ミッションクリティカルアプリケーション</p></td>
+<td class="text-left"><p>100.00%</p></td>
+<td class="text-left"><p>4GiB - 64TiB</p></td>
+<td class="text-left"><p>256000</p></td>
+<td class="text-left"><p>420000</p></td>
+<td class="text-left"><p>4,000 MiB/sec</p></td>
+<td class="text-left"><p>12,500 MiB/sec</p></td>
+<td class="text-left"><p>○</p></td>
+<td class="text-left"><p>$0.142/GB + $0.074/設定IOPS値 (#32000まで) + $0.052/(設定IOPS値 - 32000) (#64000まで) + $0.036/(設定IOPS値 - 64000)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>汎用SSD (gp3)</p></td>
+<td class="text-left"><p>ブートボリューム、アプリケーション</p></td>
+<td class="text-left"><p>99.8% - 99.9%</p></td>
+<td class="text-left"><p>1GiB - 16TiB</p></td>
+<td class="text-left"><p>16000</p></td>
+<td class="text-left"><p>260000</p></td>
+<td class="text-left"><p>1,000 MiB/sec</p></td>
+<td class="text-left"><p>12,500 MiB/sec</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>$0.096/GB + $0.006/(設定IOPS値 - 3000) + $0.048/(設定スループット値 - 125)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>スループット最適化HDD (st1)</p></td>
+<td class="text-left"><p>ビッグデータ、DWH、ログデータ処理</p></td>
+<td class="text-left"><p>99.8% - 99.9%</p></td>
+<td class="text-left"><p>125GiB - 16TiB</p></td>
+<td class="text-left"><p>500</p></td>
+<td class="text-left"><p>500</p></td>
+<td class="text-left"><p>500 MiB/sec</p></td>
+<td class="text-left"><p>12,500 MiB/sec</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>$0.045/GB</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>コールドHDD (sc1)</p></td>
+<td class="text-left"><p>アクセス頻度が低いデータ</p></td>
+<td class="text-left"><p>99.8% - 99.9%</p></td>
+<td class="text-left"><p>125GiB - 16TiB</p></td>
+<td class="text-left"><p>250</p></td>
+<td class="text-left"><p>250</p></td>
+<td class="text-left"><p>250 MiB/sec</p></td>
+<td class="text-left"><p>7,500 MiB/sec</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>$0.018/GB</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/ebs/latest/userguide/ebs-volume-types.html?utm_source=chatgpt.com">Amazon EBS ボリュームタイプ</a></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>性能的にはプロビジョンドSSDが最も性能が高い。一方でHDD系は費用が安い。
+また、上記で述べたとおりEBSでは、HDDタイプがクレジットに基づいて性能が変化し、SSDタイプは一貫した性能を担保する点にも注意。</p>
+</section>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">10.3.4. </span>スナップショットとリストア<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
+<p>EBSのスナップショット機能を利用すると、S3にスナップショットを配信することができる。
+スナップショットは増分アップデートであり、自動で世代管理まで対応してくれる。
+<img alt="" src="../../_images/ebs_snap1.png" />
+<img alt="" src="../../_images/ebs_snap2.png" />
+<a class="reference external" href="https://pages.awscloud.com/rs/112-TZM-766/images/AWS-Black-Belt_2024_Amazon-Elastic-Block-Store-Basic_1209_v1.pdf">Amazon Elastic Block Store(Amazon EBS) 基礎編【AWS Black Belt】</a></p>
+<p>リストアする際の手順は以下</p>
+<ol class="arabic simple">
+<li><p>スナップショットからEBSを新規作成</p></li>
+<li><p>新しいEBSをEC2にアタッチ</p></li>
+<li><p>古いEBSをEC2からデタッチ</p></li>
+<li><p>古いEBSを削除</p></li>
+</ol>
+</section>
+<section id="id7">
+<h2><span class="section-number">10.3.5. </span>EBSのセキュリティ<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
+<p>EBSでは、暗号化の設定を有効化にするだけで、KMSのキーを利用したEBSの暗号化が行われるとともに、復号化に関してはEC2で透過的に行われるため、サーバー側やアプリ側で意識する必要性がない。</p>
+<p>暗号化はEBSを作成するときにのみ実行することができる点に注意。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="EFS.html" class="btn btn-neutral float-left" title="10.2. EFS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../DB.html" class="btn btn-neutral float-right" title="11. DB" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

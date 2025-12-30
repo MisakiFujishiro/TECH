@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. セキュアな通信 &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="1. エクセル" href="../ProgramingCode/Excel.html" />
+    <link rel="prev" title="1. CORS" href="cors.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cors.html">1. CORS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. セキュアな通信</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ssl-tlshttps">2.1. SSL/TLSとHTTPS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ssl-tls">2.1.1. SSL/TLSの暗号化のながれ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2.1.2. なりすましの防止</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ssl">2.1.3. SSL証明書の確認</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cassl">2.2. CAとSSL証明書</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ca">2.2.1. CA(証明書発行機関)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">2.2.1.1. 申請者の認証</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2.2.2. SSL証明書の発行</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.2.2.1. デジタル署名</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.2.2.2. ルート証明書</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#aws">2.3. AWSのサービスによるウェブサイトのセキュリティ確保の流れ</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>セキュアな通信</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Security/SSL.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">2. </span>セキュアな通信<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="ssl-tlshttps">
+<h2><span class="section-number">2.1. </span>SSL/TLSとHTTPS<a class="headerlink" href="#ssl-tlshttps" title="この見出しへのパーマリンク">¶</a></h2>
+<p>SSL(Secure Socket Layer)/TLS(Transport Layer Security)とは、インターネット上でやり取りされるデータの「盗聴」、「改ざん」「なりすまし」を防ぐための暗号化のプロトコルである。</p>
+<p>HTTPSとは、インターネットを通じてWebサイトを閲覧するプロトコルであるHTTPをSSL/TLSを利用して暗号化しているプロトコルである。</p>
+<section id="ssl-tls">
+<h3><span class="section-number">2.1.1. </span>SSL/TLSの暗号化のながれ<a class="headerlink" href="#ssl-tls" title="この見出しへのパーマリンク">¶</a></h3>
+<p>以下の暗号化の流れにより、暗号化による盗聴対策が行われるとともに、CA（認証局）とSSL証明書を利用することでなりすましを防止することができる。改ざんについては別途、デジタル署名などを利用して防止している。</p>
+<ol class="arabic simple">
+<li><p>クライアントはサーバーへ通信要求<br />
+クライアント（例えばブラウザ）がサーバーにHTTPS通信をリクエストします。この段階ではまだ暗号化されていない通信です。</p></li>
+<li><p>サーバーはSSL証明書（公開鍵を含む）をクライアントに送信<br />
+サーバーは自分のSSL証明書をクライアントに送信します。この証明書にはサーバーの公開鍵と、証明書発行機関（CA）によるサーバーの信頼性を証明する署名が含まれています。</p></li>
+<li><p>クライアントはSSL証明書を検証<br />
+クライアントは、サーバーから受け取ったSSL証明書の信頼性を確認します。具体的には、証明書が信頼できるCAから発行されているか、証明書が有効期限内かどうか、証明書に含まれるドメイン名が接続先と一致しているかなどをチェックします。この検証が成功すると、クライアントはそのサーバーが正当なものであると判断します。</p></li>
+<li><p>クライアントは共通鍵を生成し、公開鍵で暗号化<br />
+クライアントは、この後の通信で使う「共通鍵（セッションキー）」を生成します。この共通鍵は、サーバーとクライアントの間で通信データを暗号化するために使用されます。そして、共通鍵をサーバーから受け取った公開鍵で暗号化します。</p></li>
+<li><p>暗号化された共通鍵をサーバーに送信<br />
+クライアントは、サーバーから受け取った公開鍵で暗号化した共通鍵をサーバーに送信します。公開鍵で暗号化されたデータは、サーバーの秘密鍵でしか復号化できません。</p></li>
+<li><p>サーバーは秘密鍵を使って共通鍵を復号化<br />
+サーバーは自分の秘密鍵を使って、クライアントから送信された暗号化された共通鍵を復号化します。これにより、サーバーとクライアントが同じ共通鍵を共有することになります。</p></li>
+<li><p>共通鍵を使って暗号化された通信を開始<br />
+以降、サーバーとクライアントはこの共通鍵を使用して通信データを暗号化し、やり取りします。共通鍵暗号は処理が速いため、効率的に通信を行うことができます。これにより、通信の盗聴やデータ改ざんが防止されます。</p></li>
+</ol>
+</section>
+<section id="id2">
+<h3><span class="section-number">2.1.2. </span>なりすましの防止<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SSL/TLSでは、SSL証明書とCA（認証局）を用いて、通信相手が正当なウェブサイトであることを確認し、なりすましを防止している。</p>
+<p>事前にCAがサイト運営者の存在証明や妥当性を確認してからSSL証明書を発行しておき、クライアントからの問い合わせにSSL証明書が信頼できることを保証することで、クライアントはCAを通じてサイト運営者が信頼できることと、通信先がなりすまししていないことを確認できる。</p>
+</section>
+<section id="ssl">
+<h3><span class="section-number">2.1.3. </span>SSL証明書の確認<a class="headerlink" href="#ssl" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ウェブサイトのURLのアドレスバーから、発行されているSSL証明書などを確認することができる。
+SSL証明書により、サイトを運営している会社などを確認することや、サイトがセキュアな通信であることを確認することができる。</p>
+<p>例えば、yahooのwebサイトから証明書を確認すると、運営会社と証明書を発行した会社が確認できる。</p>
+<p><img alt="" src="../_images/SSL_certificatate.png" /></p>
+</section>
+</section>
+<section id="cassl">
+<h2><span class="section-number">2.2. </span>CAとSSL証明書<a class="headerlink" href="#cassl" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="ca">
+<h3><span class="section-number">2.2.1. </span>CA(証明書発行機関)<a class="headerlink" href="#ca" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CA(証明書発行機関)とは、SSL証明書を発行する機関であり、以下の役割を担う</p>
+<ul class="simple">
+<li><p>申請者の認証</p></li>
+<li><p>SSL証明書発行</p></li>
+<li><p>証明書に対するデジタル署名</p></li>
+<li><p>ルート証明書の管理</p></li>
+</ul>
+<section id="id3">
+<h4><span class="section-number">2.2.1.1. </span>申請者の認証<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
+<p>サイト運営者はCAにSSL証明書の作成を依頼する時に証明書の署名リクエスト（Certificate Signing Request：CSR）をCAへ提出する。
+CSRには、企業名や住所など、申請元に関する情報が含まれている。</p>
+<p>CAはCSRや申請元の企業について調査を行い、存在するかどうかや信頼に足るかなどの確認を行う。
+確認には以下3つのレベルがあり、レベルによって費用や信頼度が異なる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>証明書の種類</p></th>
+<th class="head text-left"><p>認証内容</p></th>
+<th class="head text-left"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>DV証明書 （Domain Validation）</p></td>
+<td class="text-left"><p>ドメイン所有権の確認</p></td>
+<td class="text-left"><p>最も基本的な認証レベル。サイト運営者の身元は確認しない。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>OV証明書 （Organization Validation）</p></td>
+<td class="text-left"><p>ドメイン所有権 + 組織の実在性確認</p></td>
+<td class="text-left"><p>運営者の組織の存在が確認される。認証プロセスが厳格。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>EV証明書 （Extended Validation）</p></td>
+<td class="text-left"><p>ドメイン所有権 + 組織の詳細な実在性確認</p></td>
+<td class="text-left"><p>最も高い認証レベル。認証プロセスが非常に厳密。URLバーが緑色になる（対応ブラウザ）。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id4">
+<h3><span class="section-number">2.2.2. </span>SSL証明書の発行<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>存在確認を取ることができたら、SSL証明書を発行する。
+証明書には、保証されるWebサイトやサイト運営者および保証をしているCAの情報が含まれる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>項目名</p></th>
+<th class="head text-left"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>ドメイン名</p></td>
+<td class="text-left"><p>証明書が適用されるウェブサイトのドメイン名。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>公開鍵</p></td>
+<td class="text-left"><p>SSL通信で使用されるウェブサイトの公開鍵。クライアントがこれを使ってデータを暗号化する。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>証明書発行者（CA）情報</p></td>
+<td class="text-left"><p>証明書を発行した認証局（CA）の名前。例: DigiCert, GlobalSign, Let's Encryptなど。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>サブジェクト（サイト運営者）情報</p></td>
+<td class="text-left"><p>ウェブサイトの所有者や運営者の情報（OVやEV証明書の場合、企業名や所在地が含まれる）。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>有効期間</p></td>
+<td class="text-left"><p>SSL証明書の発行日と有効期限。証明書はこの期間内でのみ有効。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>署名アルゴリズム</p></td>
+<td class="text-left"><p>証明書に使用された署名アルゴリズム。例: SHA-256など。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>デジタル署名</p></td>
+<td class="text-left"><p>CAによるデジタル署名。この署名により、証明書が正当なものであり改ざんされていないことが保証される。</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id5">
+<h4><span class="section-number">2.2.2.1. </span>デジタル署名<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
+<p>SSL証明書の中にはデジタル署名が含まれており、このデジタル署名を利用することでCAが発行したものであることを確認することができる。</p>
+</section>
+<section id="id6">
+<h4><span class="section-number">2.2.2.2. </span>ルート証明書<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ルート証明書とは、インターネットの根幹となる技術であり、OSやブラウザは元々信頼できるCAを登録している。
+このルート証明書が信頼できるからこそ、CAが信頼されることになる。</p>
+</section>
+</section>
+</section>
+<section id="aws">
+<h2><span class="section-number">2.3. </span>AWSのサービスによるウェブサイトのセキュリティ確保の流れ<a class="headerlink" href="#aws" title="この見出しへのパーマリンク">¶</a></h2>
+<p>AWSにおいて、SSL証明書を利用する場合、ACM(AWS Certificate Manager)を利用する。<br />
+ACMでSSL証明書の発行を発行することもでき、サードパーティで発行されたSSL証明書をImportすることもできる。<br />
+※ACMで証明書のImportを行う場合は、us-east-1で行う必要がある点に注意</p>
+<p>APIGW、CloudFrontやALBに対してACMで登録したSSL証明書を適用することが可能で、これによってSSL/TLSの暗号化を複合することができる<br />
+※関連サービスとACMを連携させる際にACMは同じリージョンに存在する必要がある点に注意</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cors.html" class="btn btn-neutral float-left" title="1. CORS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../ProgramingCode/Excel.html" class="btn btn-neutral float-right" title="1. エクセル" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

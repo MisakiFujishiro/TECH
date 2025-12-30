@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8.3. CloudFormationのパラメータ参照 &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="8.4. CloudFormationの条件関数" href="CloudFormation_control.html" />
+    <link rel="prev" title="8.2. CloudFormationのテンプレートファイルの書き方" href="CloudFormation_template.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">7. S3</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../CloudFormation.html">8. CloudFormation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation.html">8.1. CloudFormationの基本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_template.html">8.2. CloudFormationのテンプレートファイルの書き方</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.3. CloudFormationのパラメータ参照</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">8.3.1. テンプレート内のパラメータの参照</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">8.3.2. テンプレート間のパラメータ参照</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">8.3.2.1. クロススタックリファレンス</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">8.3.2.2. ネステッドスタックでの参照</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">8.3.2.3. ダイナミックリファレンス</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_control.html">8.4. CloudFormationの条件関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_Automation.html">8.5. CloudFormationのGitOps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_CustomeResource.html">8.6. カスタムリソース</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../CloudFormation.html"><span class="section-number">8. </span>CloudFormation</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.3. </span>CloudFormationのパラメータ参照</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/AWS/CloudFormation/CloudFormation_parameter.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cloudformation">
+<h1><span class="section-number">8.3. </span>CloudFormationのパラメータ参照<a class="headerlink" href="#cloudformation" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="id1">
+<h2><span class="section-number">8.3.1. </span>テンプレート内のパラメータの参照<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>RefやGetAttを利用して、参照する場合、CloudFormationは自動で依存関係を解決してくれる。</p>
+<p>!Subを利用して、ARNを組み立てると依存関係を解決してくれない点に注意。
+どうしても！Subを利用する場合は、DependsOnリソースを利用して、作成順序を担保する</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyRole</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::IAM::Role</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">RoleName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role-for-my-bucket</span>
+<span class="w">      </span><span class="nt">AssumeRolePolicyDocument</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2012-10-17&#39;</span>
+<span class="w">        </span><span class="nt">Statement</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Effect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Allow</span>
+<span class="w">            </span><span class="nt">Principal</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">Service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3.amazonaws.com</span>
+<span class="w">            </span><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sts:AssumeRole</span>
+
+<span class="w">  </span><span class="nt">MyBucket</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::S3::Bucket</span>
+<span class="w">    </span><span class="nt">DependsOn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyRole</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">BucketName</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;my-bucket-${AWS::Region}-${AWS::AccountId}&#39;</span>
+<span class="w">      </span><span class="nt">LifecycleConfiguration</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">BucketPolicy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">PolicyDocument</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2012-10-17&#39;</span>
+<span class="w">          </span><span class="nt">Statement</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Effect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Allow</span>
+<span class="w">              </span><span class="nt">Principal</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">AWS</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;arn:aws:iam::${AWS::AccountId}:role/role-for-my-bucket&#39;</span>
+<span class="w">              </span><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;s3:*&#39;</span>
+<span class="w">              </span><span class="nt">Resource</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;arn:aws:s3:::my-bucket-${AWS::Region}-${AWS::AccountId}/*&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2><span class="section-number">8.3.2. </span>テンプレート間のパラメータ参照<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id3">
+<h3><span class="section-number">8.3.2.1. </span>クロススタックリファレンス<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ExportとImportを利用することで、同一アカウントのリージョン内でパラメータを参照することが可能。
+依存関係となるので、Import側を削除してからでないと、Export側は削除できなくなる。</p>
+<p>具体例としては、出力側でエクスポート（Output）の定義を行う。<code class="docutils literal notranslate"><span class="pre">MyVPCId</span></code>という値で、VPCのIDがエクスポートされている。注意点として、エクスポートする際のエクスポート名はアカウント内のリージョンでユニークになる必要がある。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyVPC</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::VPC</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
+
+<span class="nt">Outputs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">VPCId</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;VPC</span><span class="nv"> </span><span class="s">ID&quot;</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPC</span>
+<span class="w">    </span><span class="nt">Export</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPCId</span>
+</pre></div>
+</div>
+<p>Import側では先ほどのImportValueの構文を利用する。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MySubnet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::Subnet</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">VpcId</span><span class="p">:</span><span class="w"> </span><span class="kt">!ImportValue</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPCId</span>
+<span class="w">      </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.1.0/24</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3><span class="section-number">8.3.2.2. </span>ネステッドスタックでの参照<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ネステッドスタックにおいては、クロススタックリファレンスのようにImportValueを利用せず、NestedStack-AでExportした値をroot-stackで受け取って、GetAttとして受け取ることができる。これをパラメータとして別のNestedStack-Bに渡すことができる。<a class="reference external" href="https://repost.aws/ja/knowledge-center/cloudformation-nested-stacks-values">re:Postの記事参照</a></p>
+<p>この方法を利用することで、NestedStack内での依存関係をCloudFormationが自動で解決してくれるとともに、人間の目線でもRootStackで把握しやすくなるというメリットがある。一方でImportValueを利用した場合、AWS側は自動では依存関係を解決してくれない点に注意。</p>
+<p>具体的例を挙げると、Nested-AではOutputsセクションで値をエクスポート</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyVPC</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::VPC</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
+
+<span class="nt">Outputs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">VPCId</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;VPC</span><span class="nv"> </span><span class="s">ID&quot;</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPC</span>
+</pre></div>
+</div>
+<p>RootStackではNested-AがOutputした値をGetAttで取得し、Nested-Bに対してパラメータとして渡す。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">NestedStackA</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::CloudFormation::Stack</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">TemplateURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://s3.amazonaws.com/mybucket/NestedStackA.template&quot;</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="nt">NestedStackB</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::CloudFormation::Stack</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">TemplateURL</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://s3.amazonaws.com/mybucket/NestedStackB.template&quot;</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">VPCId</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NestedStackA.Outputs.VPCId</span>
+</pre></div>
+</div>
+<p>最終的にNested-Bではパラメータセクションで受け取るだけで良い</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">VPCId</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">String</span>
+
+<span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MySubnet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::Subnet</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">VpcId</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VPCId</span>
+<span class="w">      </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.1.0/24</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3><span class="section-number">8.3.2.3. </span>ダイナミックリファレンス<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>パラメータストアやシークレットマネージャーに格納されている値を直接参照することができる。</p>
+<p>CloudFormationのリソースセクションで記述すると、CloudFormationのリソースセクションやMappingセクションに機密情報を残すことなく参照を解決することができるという強みがある。</p>
+<section id="id6">
+<h4><span class="section-number">8.3.2.3.1. </span>パラメータストアの参照<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<p>パラメータストアの2つのパターンに対応している</p>
+<ul class="simple">
+<li><p>ssm: Systems Manager パラメータストアのプレーンテキストパラメータ。</p></li>
+<li><p>ssm-secure: Systems Manager パラメータストアの安全な文字列パラメータ。</p></li>
+</ul>
+<p>記述としては以下で構成される</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;{{resolve:ssm:parameter-name:version}}&#39;</span>
+<span class="s1">&#39;{{resolve:ssm-secure:parameter-name:version}}&#39;</span>
+</pre></div>
+</div>
+<p>以下のように記述することで、参照が可能であり、!Subや!Refは不要</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="nt">MyS3Bucket</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;AWS::S3::Bucket&#39;</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">AccessControl</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{{resolve:ssm:S3AccessControl:2}}&#39;</span><span class="w"> </span>
+</pre></div>
+</div>
+<p>安全な文字鉄を解決するときは以下のように記述</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">MyIAMUser</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::IAM::User</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">UserName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;MyUserName&#39;</span>
+<span class="w">      </span><span class="nt">LoginProfile</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Password</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{{resolve:ssm-secure:IAMUserPassword:10}}&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h4><span class="section-number">8.3.2.3.2. </span>シークレットマネージャの参照<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
+<p>記述方法はパラメータストアと同様</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span>`{{resolve:secretsmanager:secret-id:secret-string:json-key:version-stage:version-id}}`
+</pre></div>
+</div>
+<p>具体例は以下</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">MyRDSInstance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;AWS::RDS::DBInstance&#39;</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">DBName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyRDSInstance</span>
+<span class="w">      </span><span class="nt">AllocatedStorage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;20&#39;</span>
+<span class="w">      </span><span class="nt">DBInstanceClass</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db.t2.micro</span>
+<span class="w">      </span><span class="nt">Engine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mysql</span>
+<span class="w">      </span><span class="nt">MasterUsername</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{{resolve:secretsmanager:MyRDSSecret:SecretString:username}}&#39;</span>
+<span class="w">      </span><span class="nt">MasterUserPassword</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{{resolve:secretsmanager:MyRDSSecret:SecretString:password}}&#39;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CloudFormation_template.html" class="btn btn-neutral float-left" title="8.2. CloudFormationのテンプレートファイルの書き方" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CloudFormation_control.html" class="btn btn-neutral float-right" title="8.4. CloudFormationの条件関数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

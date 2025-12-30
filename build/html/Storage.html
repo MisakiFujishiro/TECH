@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10. Storage &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="10.1. Storage全体像" href="AWS/Storage/Storage.html" />
+    <link rel="prev" title="9.1. CloudWatchAlarm" href="AWS/CloudWatch/CloudWatchAlarm.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">10. Storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="AWS/Storage/Storage.html">10.1. Storage全体像</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AWS/Storage/EFS.html">10.2. EFS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AWS/Storage/EBS.html">10.3. EBS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">10. </span>Storage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Storage.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="storage">
+<h1><span class="section-number">10. </span>Storage<a class="headerlink" href="#storage" title="この見出しへのパーマリンク">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Storage:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AWS/Storage/Storage.html">10.1. Storage全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWS/Storage/EFS.html">10.2. EFS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWS/Storage/EBS.html">10.3. EBS</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="AWS/CloudWatch/CloudWatchAlarm.html" class="btn btn-neutral float-left" title="9.1. CloudWatchAlarm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="AWS/Storage/Storage.html" class="btn btn-neutral float-right" title="10.1. Storage全体像" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7.1. S3の基本情報 &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="7.2. S3のオブジェクト管理" href="Object.html" />
+    <link rel="prev" title="7. S3" href="../../S3.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../S3.html">7. S3</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.1. S3の基本情報</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">7.1.1. オブジェクトストレージ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">7.1.1.1. バケット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">7.1.1.2. キー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">7.1.1.3. メタデータ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">7.1.1.4. バージョン</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">7.1.2. S3内のフォルダの扱い</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">7.1.2.1. 空フォルダについて</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">7.1.2.2. S3上でのオブジェクトの管理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">7.1.3. 耐久性と可用性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">7.1.4. ストレージの種類</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">7.1.5. S3のコスト</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">7.1.5.1. S3リクエスタ支払い</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Object.html">7.2. S3のオブジェクト管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lifecycle.html">7.3. バージョニング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lifecycle.html#id6">7.4. ライフサイクル</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">7.5. S3のアクセスコントロール</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Athena.html">7.6. Athena</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Processing.html">7.7. S3に対する操作</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../S3.html"><span class="section-number">7. </span>S3</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7.1. </span>S3の基本情報</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/AWS/S3/basic.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="s3">
+<h1><span class="section-number">7.1. </span>S3の基本情報<a class="headerlink" href="#s3" title="この見出しへのパーマリンク">¶</a></h1>
+<p>S3（Amazon Simple Storage Service)は高い耐久性と可用性を備える無制限のオブジェクト型ストレージである。</p>
+<section id="id1">
+<h2><span class="section-number">7.1.1. </span>オブジェクトストレージ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>オブジェクト型とは、ストレージに保管するデータをオブジェクトという単位で管理するストレージ。
+オブジェクトに対してはキーやメタデータが付与される。</p>
+<section id="id2">
+<h3><span class="section-number">7.1.1.1. </span>バケット<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>オブジェクトの格納場所であり、オブジェクトを保管するルートとなる。
+オブジェクトを指し示すURLにも利用されるため、<code class="docutils literal notranslate"><span class="pre">全てのAWSアカウトでユニークである必要がある</span></code>。</p>
+</section>
+<section id="id3">
+<h3><span class="section-number">7.1.1.2. </span>キー<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>オブジェクトを指し示すパスであり、</p>
+<p>オブジェクトに割り当てることができるファイル名。
+キーに対して、プレフィックスというフォルダ構成を付与することができる。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">7.1.1.3. </span>メタデータ<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>アップロードしたオブジェクトの属性を記載したキーバリュー型のデータ。
+AWSが用意しているファイルシステム定義とユーザーが任意に設定できるものもある。</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">7.1.1.4. </span>バージョン<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>バージョン指定をすることによってオブジェクトに対してバージョンIDを払い出してバージョン管理をすることが可能となる。</p>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">7.1.2. </span>S3内のフォルダの扱い<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
+<p>クラスメソッドの<a class="reference external" href="https://dev.classmethod.jp/articles/amazon-s3-folders/">Amazon S3における「フォルダ」という幻想をぶち壊し、その実体を明らかにする</a>は読んでおきたい。</p>
+<p>ポイントは、S3はkey-valueとしてオブジェクトを管理しており、フォルダという概念はない。
+以下の例では、あくまで&quot;foo/&quot;はキーの一部である。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(ルート)
+ └ foo/
+    └ hoge.txt
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>キー（フルパス名）</p></th>
+<th class="head text-left"><p>バリュー（ファイルの内容）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>foo/hoge.txt</p></td>
+<td class="text-left"><p>hogehoge</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id7">
+<h3><span class="section-number">7.1.2.1. </span>空フォルダについて<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GUIやCLIでもS3に対してからのフォルダ&quot;baz/&quot;は作成することができる。
+その場合は、ファイルサイズが0の&quot;baz/&quot;というオブジェクトが作成される。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(ルート)
+ └ baz/
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>キー（フルパス名）</p></th>
+<th class="head text-left"><p>バリュー（ファイルの内容）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>baz/</p></td>
+<td class="text-left"><p>-</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id8">
+<h3><span class="section-number">7.1.2.2. </span>S3上でのオブジェクトの管理<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>空のファイル&quot;baz/&quot;を作成してからその配下にファイル&quot;fuga.txt&quot;を作成した場合と&quot;foo/hoge.txt&quot;を一気に作成した場合、フォルダ構成上は以下となるので同じような構成が2つあるように見える</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(ルート)
+ ├ foo/
+ │  ├ hoge.txt
+ ├ baz/
+ │  ├ fuga.txt
+</pre></div>
+</div>
+<p>一方で、AWS上の管理は以下のようになっている。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>キー（フルパス名）</p></th>
+<th class="head text-left"><p>バリュー（ファイルの内容）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>foo/</p></td>
+<td class="text-left"><p>-</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>foo/hoge.txt</p></td>
+<td class="text-left"><p>hogehoge</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>baz/fuga.txt</p></td>
+<td class="text-left"><p>fugafuga</p></td>
+</tr>
+</tbody>
+</table>
+<p>どのように作成されていたのかに依存して、AWS上の管理が異なる点に注意したい。
+また、上記の管理上&quot;fuga.txt&quot;が削除された場合、同時に&quot;baz/&quot;も削除されてしまう。</p>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">7.1.3. </span>耐久性と可用性<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
+<p>S3は耐久性（どれだけデータをロストしないか）について、イレブンナインを補償しており、データのロストは限りなく低い。
+また、可用性についても自動で複数のAZに配置されるため、99.9％を補償している。</p>
+</section>
+<section id="id10">
+<h2><span class="section-number">7.1.4. </span>ストレージの種類<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h2>
+<p>S3はイレブンナインを補償するなど高い可用性を担保しており、データの取り出しに関しても秒単位での取り出しが可能である。
+ユースケースに応じては過剰なスペックとなっているため、耐久性や取り出し時間を犠牲にすることで、費用を低減するようなストレージが準備されている。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-center"><p>耐久性</p></th>
+<th class="head text-right"><p>速度</p></th>
+<th class="head text-right"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>S3標準</p></td>
+<td class="text-center"><p>3つのAZ</p></td>
+<td class="text-right"><p>高スループット、低レイテンシー</p></td>
+<td class="text-right"><p>標準</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>S3 標準 – IA</p></td>
+<td class="text-center"><p>3つのAZ</p></td>
+<td class="text-right"><p>高スループット、低レイテンシー</p></td>
+<td class="text-right"><p>アクセスが少ない場合料金が安い</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>S3 Intelligent-Tiering</p></td>
+<td class="text-center"><p>3つのAZ</p></td>
+<td class="text-right"><p>高スループット、低レイテンシー</p></td>
+<td class="text-right"><p>自動でIAと標準を使い分ける</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>S3 1 ゾーン – IA</p></td>
+<td class="text-center"><p>1つのAZ</p></td>
+<td class="text-right"><p>高スループット、低レイテンシー</p></td>
+<td class="text-right"><p>可用性を落として費用を削減</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>S3 Glacier Instant Retrieval</p></td>
+<td class="text-center"><p>1つのAZに障害が発生しても復元可能</p></td>
+<td class="text-right"><p>高スループット、低レイテンシー</p></td>
+<td class="text-right"><p>アクセスがほとんど無いがミリ秒単位のアクセスが必要</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>S3 Glacier Flexible Retrieval (旧 S3 Glacier)</p></td>
+<td class="text-center"><p>1つのAZに障害が発生しても復元可能</p></td>
+<td class="text-right"><p>数分から数時間のアクセス時間</p></td>
+<td class="text-right"><p>ほぼ利用されないデータで即時性が求められないもの</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Amazon S3 Glacier Deep Archive</p></td>
+<td class="text-center"><p>3つのAZ</p></td>
+<td class="text-right"><p>取り出し時間は 12 時間以内</p></td>
+<td class="text-right"><p>7～10 年以上データセットを保管するように設計</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id11">
+<h2><span class="section-number">7.1.5. </span>S3のコスト<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
+<p>正確には、公式ドキュメントの<a class="reference external" href="https://aws.amazon.com/jp/s3/pricing/">Amazon S3 の料金</a>参照。</p>
+<p>ざっくり理解したい場合には<a class="reference external" href="https://zenn.dev/mryhryki/articles/2020-10-09-hatena-aws-s3-pricing">AWS S3 の料金をざっくり10GB単位で見る</a>が参考になる。</p>
+<section id="id12">
+<h3><span class="section-number">7.1.5.1. </span>S3リクエスタ支払い<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>S3へのリクエストした側にリクエスト料金とデータ転送料金を請求することができる。</p>
+<p>支払いが関連するのでAWSアカウントからしかアクセスできなくなる。
+リクエストヘッダーに必ず<code class="docutils literal notranslate"><span class="pre">x-amz-request-payer</span></code>を追加する必要があり、このリクエストヘッダーを持って支払いに了承したとして扱う。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../S3.html" class="btn btn-neutral float-left" title="7. S3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Object.html" class="btn btn-neutral float-right" title="7.2. S3のオブジェクト管理" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

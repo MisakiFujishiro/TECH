@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7.5. S3のアクセスコントロール &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="7.6. Athena" href="Athena.html" />
+    <link rel="prev" title="7.3. バージョニング" href="Lifecycle.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../S3.html">7. S3</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">7.1. S3の基本情報</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Object.html">7.2. S3のオブジェクト管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lifecycle.html">7.3. バージョニング</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lifecycle.html#id6">7.4. ライフサイクル</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.5. S3のアクセスコントロール</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">7.5.1. 推奨</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">7.5.2. ブロックパブリックアクセス</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">7.5.2.1. パブリックアクセスとは</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">7.5.2.2. ブロックパブリックアクセスの種類</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">7.5.3. バケットポリシー</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#acl-access-control-list">7.5.4. ACL（Access Control List）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">7.5.4.1. 被付与者</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">7.5.4.2. アクセスの種類</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Athena.html">7.6. Athena</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Processing.html">7.7. S3に対する操作</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../S3.html"><span class="section-number">7. </span>S3</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">7.5. </span>S3のアクセスコントロール</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/AWS/S3/security.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="s3">
+<h1><span class="section-number">7.5. </span>S3のアクセスコントロール<a class="headerlink" href="#s3" title="この見出しへのパーマリンク">¶</a></h1>
+<p>S3はインターネットからも直接アクセス可能であり、セキュリティ事故が非常に起きやすいため、アクセスコントロールについては慎重に扱う必要がある。</p>
+<p>AWSでは、S3に対して３つのアクセスコントロールの機能を提供している。</p>
+<ul class="simple">
+<li><p>ブロックパブリックアクセス</p></li>
+<li><p>バケットポリシー</p></li>
+<li><p>ACL（Access Control List）</p></li>
+</ul>
+<p>上記の設定に関しての優先度は以下</p>
+<blockquote>
+<div><p>ブロックパブリックアクセス　＞　バケットポリシー　＞　オブジェクトACL ＞　バケットACL</p>
+</div></blockquote>
+<section id="id1">
+<h2><span class="section-number">7.5.1. </span>推奨<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>AWSは<a class="reference external" href="https://aws.amazon.com/jp/about-aws/whats-new/2022/12/amazon-s3-automatically-enable-block-public-access-disable-access-control-lists-buckets-april-2023/">公式サイト</a>で2023年４月から、<code class="docutils literal notranslate"><span class="pre">ブロックパブリックの有効とACLの無効化</span></code>をデフォルト設定として採用しており、推奨している。</p>
+<p>パブリックアクセスをブロックすることで、意図しないオブジェクトの公開を防ぐことができ、ACLを無効とすることでよりシンプルなアクセス制御が可能となるため、このような設定が推奨されている。</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">7.5.2. </span>ブロックパブリックアクセス<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>アカウントやバケット単位で、意図しないパブリックアクセスを抑止するための機能。
+ブロックパブリックアクセス設定をしておくことで、意図しないパブリック設定がされそうになったり、されていたとしても全て無視してパブリックアクセスを許可しない。</p>
+<p>明示的に不特定多数のアクセス元を認め利用されることを想定していない限りは、ブロックパブリックアクセスは有効化することが推奨されている。</p>
+<section id="id3">
+<h3><span class="section-number">7.5.2.1. </span>パブリックアクセスとは<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>パブリックアクセスとは、AWSの認証を受けていない接続元からのアクセスのこと。
+S3所有者が明示的に許可を記述していない接続元からのアクセスをパブリックアクセスと呼ぶ。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">7.5.2.2. </span>ブロックパブリックアクセスの種類<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>オプション名</p></th>
+<th class="head text-left"><p>効果</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>BlockPublicAcls</p></td>
+<td class="text-left"><p>パブリックアクセスを許可するACLの設定の更新を禁止する。<br>また、パブリックアクセス設定されたオブジェクトのアップロードを許可しない。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>IgnorePulicAcls</p></td>
+<td class="text-left"><p>パブリックアクセスを許可するACLやオブジェクトが存在してもパブリックアクセスをさせない。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>BlockPublicPolicy</p></td>
+<td class="text-left"><p>パブリックアクセスを許可するバケットポリシーの設定・更新を禁止する。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>RestrictPublicBuckeds</p></td>
+<td class="text-left"><p>パブリックアクセスを許可するバケットポリシーが存在してもパブリックアクセスやクロスアカウントを無視する。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">7.5.3. </span>バケットポリシー<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
+<p>バケットポリシーはS3におけるリソースベースポリシーである。
+S3においてバケットに対するアクセス制御をする場合はバケットポリシーの利用が基本となる。</p>
+<p>以下のようなユースケースが想定される</p>
+<ul class="simple">
+<li><p>クロスアカウントの設定</p></li>
+<li><p>Conditionを利用した接続元の制限</p></li>
+</ul>
+<p>ポリシーは以下の構成要素で成り立っている。詳細は<a class="reference external" href="https://misakifujishiro.github.io/TECH/AWS/IAM/policy.html">AWS/IAM/Policy</a>参照</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="s2">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Statement&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;①&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Action&quot;</span><span class="p">:</span> <span class="s2">&quot;②&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Resource&quot;</span><span class="p">:</span> <span class="s2">&quot;③&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Principal&quot;</span><span class="p">:</span> <span class="s2">&quot;④&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Condition⑤&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;</span><span class="si">{Operator⑥}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;Key⑦&quot;</span><span class="p">:</span> <span class="s2">&quot;Value⑧&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="acl-access-control-list">
+<h2><span class="section-number">7.5.4. </span>ACL（Access Control List）<a class="headerlink" href="#acl-access-control-list" title="この見出しへのパーマリンク">¶</a></h2>
+<p>被付与者に対する、バケットとオブジェクトのアクセス許可を管理する設定。
+ACLを利用することによって、アクセス元とアクセスの種類を定義し、バケットやオブジェクトに対するアクセス制御を定義する</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>対象（バケットorオブジェクト） ＊ 被付与者 ＊ アクセス設定
+</pre></div>
+</div>
+<p>被付与者とアクセスの種類が複数あるため、順を追って説明する。</p>
+<p>※ただし、オブジェクトごとの個別のアクセス制御という特定のユースケースを除き、ACLの利用は非推奨となっていてS3作成寺のデフォルトではACLは無効化されている。</p>
+<section id="id6">
+<h3><span class="section-number">7.5.4.1. </span>被付与者<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>被付与者は大きく4つの種類に分類される。AllUsersやAuthenticatedUsersはどちらもパブリックアクセス。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>被付与者の種類</p></th>
+<th class="head text-left"><p>対象</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>AWSアカウント</p></td>
+<td class="text-left"><p>個別のAWSユーザーで正規ユーザーIDによって指定する。デフォルトではバケットの所有者のみが設定されている</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>All Users　グループ</p></td>
+<td class="text-left"><p>世の中全てのユーザー</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Authenticated Usersグループ</p></td>
+<td class="text-left"><p>任意のAWSのユーザー（広さでいうとAllUsersとそれほど変わらない）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Log Delivery グループ</p></td>
+<td class="text-left"><p>S3のサーバアクセスログ記録のために配信するグループ。ACLが非推奨になってからは、ログ配信設定もポリシーを通じて設定されるように変更された</p></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="" src="../../_images/s3_acl.png" /></p>
+</section>
+<section id="id7">
+<h3><span class="section-number">7.5.4.2. </span>アクセスの種類<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>全部で5種類のアクセス制御があり、バケットを対象にした時とオブジェクトを対象にした時で挙動が異なる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>アクションの種類</p></th>
+<th class="head text-left"><p>バケット設定寺</p></th>
+<th class="head text-left"><p>オブジェクト設定寺</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>READ</p></td>
+<td class="text-left"><p>バケット内のオブジェクトのリストが可能</p></td>
+<td class="text-left"><p>対象オブジェクトとメタデータの取得が可能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>WRITE</p></td>
+<td class="text-left"><p>バケット上にオブジェクトをアップロードできる</p></td>
+<td class="text-left"><p>ー</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>READ_ACP</p></td>
+<td class="text-left"><p>バケットのACLを読み込める</p></td>
+<td class="text-left"><p>オブジェクトのACLを読み込める</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>WTITE_ACP</p></td>
+<td class="text-left"><p>バケットのACLを更新できる</p></td>
+<td class="text-left"><p>オブジェクトのACLを更新できる</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>FULL_CONTROL</p></td>
+<td class="text-left"><p>上記全てを被付与者に与える</p></td>
+<td class="text-left"><p>上記全てを被付与者に与える</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Lifecycle.html" class="btn btn-neutral float-left" title="7.3. バージョニング" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Athena.html" class="btn btn-neutral float-right" title="7.6. Athena" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

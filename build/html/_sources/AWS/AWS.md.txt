@@ -1,0 +1,65 @@
+# AWSについて
+
+## ドキュメント
+わからないことがあったら最初に[公式ドキュメント](https://docs.aws.amazon.com/ja_jp/)を最初に確認する。
+
+対象のサービスについて検索して以下を確認する
+- ユーザーガイド：実践的な手順や設定方法など
+- デベロッパーガイド：プログラムの例などの開発者向け資料
+- APIリファレンス：各リソースを操作するときのAPIに関するガイド
+
+## ベストプラクティス
+### ホワイトペーパー
+ベストプラクティスとしてホワイトペーパが公開されているがかなり膨大な量になっている。
+
+- [AWS ホワイトペーパー](https://aws.amazon.com/jp/whitepapers/?whitepapers-main.sort-by=item.additionalFields.sortDate&whitepapers-main.sort-order=desc&awsf.whitepapers-content-type=*all&awsf.whitepapers-global-methodology=*all&awsf.whitepapers-tech-category=*all&awsf.whitepapers-industries=*all&awsf.whitepapers-business-category=*all)
+
+### Well-Architected Framework
+Well-Architected Frameworkとは、ベストプラクティスを基に規範的なアドバイスを提供する資料。
+システム設計・運用の対極的な考え方とベストプラクティスが記述されている。
+
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/ja_jp/wellarchitected/latest/framework/welcome.html)
+
+6つの柱が定義されている
+- 運用上の優秀性
+- セキュリティ
+- 信頼性
+- パフォーマンス効率
+- コスト最適化
+- サステナビリティ
+
+
+
+### 解説資料
+ドキュメントをもう少し噛み砕いて、理解したい場合は[blackbelt](https://aws.amazon.com/jp/events/aws-event-resource/archive/?cards.sort-by=item.additionalFields.SortDate&cards.sort-order=desc&awsf.tech-category=*all)が参考になる。
+
+### アーキテクチャパターン
+サーバーレスのユースケースと実装例
+- [形で考えるサーバーレス設計](https://aws.amazon.com/jp/serverless/patterns/serverless-pattern/)
+
+## AWSのインフラ
+AWSは世界中の多数のデータセンターから200のサービスを提供している。
+莫大なリソースを活用して、必要なときに必要な場所でアプリケーションを構築できる。
+
+AWSで提供している拠点はリージョン、アベイラビリティーゾーン（AZ）、エッジロケーションに分類できる。
+### リージョン
+AWSがサービスを展開している国や拠点であり、リージョン間は地理的に離れた場所に配置されており、独立している。
+リージョン間は、高速広帯域のネットワークで接続され、自動で暗号化されている。全33のリージョン（2024年)
+
+### AZ
+各リージョンは複数のAZで構成されている。
+AZは1つ以上のデータセンターで構成される、AZ同士は地理的、電源的、ネットワーク的に他のAZからは独立している。
+具体的には、数十キロほどの地理的に離れているデータセンターをイメージすると良い。
+数十キロ離れているものの、リージョン内のAZは高速な専用線で接続されており、ネットワーク遅延はほとんど考えなくて良い。全105のAZ（2024年)
+シングルAZだと、単体のデータセンターと同様の耐障害性を得られる。AWS内部では1つのAZに障害が出ても稼働し続けられるアーキテクチャーとなっているため、複数のAZを利用したマルチAZ構成とすることで高い信頼性を確保する事ができる。
+
+AZは「AZ ID」によってどのアカウトから見ても同じAZを表す識別子によって「apne-1-az4」のように表記される。
+一方で「ap-northeast-1a」のようにリージョンコード+英字1文字の表記はアカウントごとにどの「AZ ID」に紐づいているかが決まっている点に注意。
+
+### エッジロケーション
+AWSはリージョンとは別に200以上のエッジロケーションを持つ。
+リージョンよりもエンドユーザーに物理的に近い場所でコンテンツ配信が可能である。
+CloudFrontのようなエッジサービスが提供される。全600+のAZ（2024年)
+
+
+エッジロケーションとリージョンはAWSの高速なバックボーンで接続され、低遅延で安定したAWSリソースへの接続を提供する。
