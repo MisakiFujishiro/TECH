@@ -1,27 +1,29 @@
-/* =========================
-   見出しレベルごとの色分け
-   ========================= */
+/* =========================================
+   トップレベルのセクションだけカード化（区切りが明確）
+   ========================================= */
+.wy-nav-content .rst-content .document > .section {
+  background: #eef7ff;
+  color: #032b44;
+  padding: 16px 18px;
+  margin: 0 0 1.4em 0;
+  border-left: 5px solid #2b9edc;
+  border-radius: 8px;
+}
 
-/* # 見出し（h1） */
-.rst-content h1 {
-  color: #0b5394;            /* 濃い青 */
+/* 見出しレベルごとの強調（# / ## / ###） */
+.wy-nav-content .rst-content h1 {
+  color: #0b5394;
   border-bottom: 2px solid #0b5394;
   padding-bottom: 4px;
+  margin-top: 0;
 }
 
-/* ## 見出し（h2） */
-.rst-content h2 {
-  color: #1c7ed6;            /* 少し明るい青 */
+.wy-nav-content .rst-content h2 {
+  color: #1c7ed6;
   border-left: 4px solid #1c7ed6;
-  padding-left: 8px;
+  padding-left: 10px;
 }
 
-/* ### 見出し（h3） */
-.rst-content h3 {
-  color: #228be6;            /* さらに薄い青 */
-}
-
-/* #### 見出し（h4） */
-.rst-content h4 {
-  color: #4dabf7;
+.wy-nav-content .rst-content h3 {
+  color: #228be6;
 }

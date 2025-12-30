@@ -9,7 +9,7 @@
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: AWS:
 
    AWS/AWS.md
@@ -31,7 +31,7 @@
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: GCP:
 
    GCP/GCP.md
