@@ -107,14 +107,32 @@ GCPでは、プロジェクトを作成した時点でdefaultという名前のV
 Google Cloudのマネージドサービス（GCS/Firestore etc..）を論理的な境界で囲うことで外部へのデータ流出を防ぐ。
 具体的には、「誰か」という認証に加えて、「どこから」アクセスまで確認する。
 
+### VPC内から外部への通信
 #### Private Service Connect(PSC)
-Private Service Connect (PSC) は、Google Cloud のマネージドサービス（Cloud SQL など）を「サービス」として公開し、利用側 VPC からプライベート IP でアクセスできるようにする仕組みです。
+Private Service Connect (PSC) は、Google Cloud のサービスや外部 SaaS を、VPC 内のプライベート IP として利用できるようにする仕組みである。
 
-ポイントは：
-- 通信は常に Google の内部ネットワーク
+PSC の本質は、「外部サービスを VPC の内部リソースのように扱える」点にある。
+PSC の設計思想
+- 通信は 常に Google の内部バックボーン
+- インターネット・NAT を通らない
 - VPC ピアリング不要
-- Producer（提供側）/ Consumer（利用側）が明確
+- Producer（提供側） / Consumer（利用側）モデル
 
+PSC を使うことで、「どの VPC が、どのサービスに、どの IP で接続できるか」をネットワーク構造として明示的に制御できる。
+
+###### PSC の基本構造（仕組み目線）
+1. Producer 側
+  - サービス（Cloud SQL、内部サービス、SaaS など）をPSC 経由で公開可能な「サービス」として定義
+  - この時点では Consumer 側の IP は存在しない
+2. Consumer 側
+  - 自身の VPC に PSC エンドポイントを作成
+  - VPC 内に プライベート IP（RFC1918） が割り当てられる
+  - この IP 宛の通信が、Google バックボーン経由で Producer に転送される
+3. 通信の性質
+  - 送信元・宛先ともにプライベート IP
+  - firewall / routing 的にも「VPC 内通信」として扱える
+
+###### PSCの代表利用例
 例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える
 1. Cloud SQL 側で PSC サービスを公開する（Producer）
    - Cloud SQL を Private Service Connect 経由で利用可能なサービスとして公開する
@@ -139,6 +157,23 @@ Google内部バックボーン
 Cloud SQL
 ```
 
+#### Private Google Access
+
+Private Google Access（PGA）は、外部 IP を持たない VM や GKE ノードから、Google APIs にアクセスできるようにする仕組みである。
+
+PSC と違い、PGA は「API 呼び出しのための特例ルート」 という位置づけになる。
+
+##### Private Google Access の考え方
+通常、Cloud Storage API などの Google APIs はインターネット上のパブリック IP 宛先として見える。
+そのため、外部 IPもしくは Cloud NATがない VM からは到達できない。
+
+Private Google Access を有効にすると、Google APIs 宛の通信だけをインターネット扱いせずGoogle の内部バックボーンにルーティングするという例外ルールが VPC に追加される。
+
+PGA の特徴
+- 宛先 IP は パブリック IP のまま
+- ただし通信はインターネットを通らない
+- サブネット単位で有効化
+- 主に Google APIs（Cloud Storage, BigQuery など）向け
 
 
 

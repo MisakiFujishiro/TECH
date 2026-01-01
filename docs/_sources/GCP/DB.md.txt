@@ -1,4 +1,4 @@
-# データベースサービス
+# DB
 GCPで提供される代表的なデータサービスにはRDS系（CloudSQL/AlloyDB/Spanner）とNoSQL系（Firestore/Bigtable）の大きく二つがある。
 
 簡単なまとめは以下の通り。

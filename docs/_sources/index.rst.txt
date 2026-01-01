@@ -39,22 +39,22 @@
    GCP/GCP.md
    GCP/IAM.md
    GCP/API.md
-   GCP/GKE.md
    GCP/Network.md
-   GCP/Storage.md
-   GCP/CloudLogging.md
-   GCP/DB.md
-   GCP/DataAnalytics.md
-   GCP/AI.md
+   GCP/ArtifactRegistry.md
    GCP/GCE.md
    GCP/Container.md
    GCP/Serverless.md
+   GCP/GKE.md
+   GCP/APIGW.md
+   GCP/Storage.md
+   GCP/CloudLogging.md
+   GCP/DB.md
    GCP/Workflows.md
    GCP/CloudScheduler.md
    GCP/Pub-Sub.md
-   GCP/Redis.md
-   GCP/ArtifactRegistry.md
-   GCP/Apigee.md
+   GCP/DataAnalytics.md
+   GCP/AI.md
+   GCP/Redis.md   
    GCP/misc.md
 
 .. toctree::

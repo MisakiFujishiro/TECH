@@ -20,7 +20,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
     <link rel="next" title="7. Cloud Logging" href="CloudLogging.html" />
-    <link rel="prev" title="5. Network" href="Network.html" /> 
+    <link rel="prev" title="API Gateway" href="APIGW.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -73,10 +73,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#id5">6.1.5. ストレージクラス</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">6.1.6. バージョニング</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">6.1.7. ライフサイクル管理</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">6.1.8. オブジェクトの暗号化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">6.1.8. バケットロック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">6.1.9. オブジェクトの暗号化</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#google">Google 管理鍵</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">顧客管理鍵</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id10">顧客提供鍵</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">顧客管理鍵</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">顧客提供鍵</a></li>
 </ul>
 </li>
 </ul>
@@ -84,7 +85,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">7. Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">8. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">9. データ分析サービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AI.html">10. AIサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GCE.html">11. GCE(Google Compute Engine)</a></li>
@@ -95,8 +96,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">16. Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">17. Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">18. ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Apigee.html">19. Apigee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">20. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">19. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
@@ -315,7 +315,12 @@ Cloud Storageはリージョンベースのリソースであるが簡単にグ�
 </ul>
 </section>
 <section id="id8">
-<h3><span class="section-number">6.1.8. </span>オブジェクトの暗号化<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">6.1.8. </span>バケットロック<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>バケットロック（Bucket Lock）を使うと、保持期間（Retention Period）が経過するまで、オブジェクトの削除や上書きができなくなります。</p>
+<p>一度ロックされた保持期間は、管理者を含めて変更・解除できないため、意図的・偶発的なデータ削除を防止できます。</p>
+</section>
+<section id="id9">
+<h3><span class="section-number">6.1.9. </span>オブジェクトの暗号化<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
 <p>GCSに保存されるオブジェクトは保存時に自動的に暗号化される。　　
 暗号化には3つの方式があり、暗号化鍵の管理方法およびアプリ側が何を意識するべきかという点がポイントである。</p>
 <table class="docutils align-default">
@@ -348,13 +353,13 @@ Cloud Storageはリージョンベースのリソースであるが簡単にグ�
 <h4>Google 管理鍵<a class="headerlink" href="#google" title="この見出しへのパーマリンク">¶</a></h4>
 <p>デフォルトの暗号化方式であり、全てGoogleが管理するため、ユーザー側は暗号化を一切指揮しなくて良い。</p>
 </section>
-<section id="id9">
-<h4>顧客管理鍵<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id10">
+<h4>顧客管理鍵<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
 <p>鍵は、Cloud KMSで顧客が管理する。
 IAMを利用して、「誰が複合して良いのか」を制御する。</p>
 </section>
-<section id="id10">
-<h4>顧客提供鍵<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id11">
+<h4>顧客提供鍵<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h4>
 <p>鍵は顧客が生成・保持し、毎回のAPIリクエストで鍵を提示する。かなり厳しい主権要件があるなどの特殊用途向け。<br />
 鍵をHTTPSリクエストのヘッダに含めて送信し、鍵とSHA256ハッシュの両方を送信する。
 どちらかが欠けていると4XXのエラーが返ってくる。</p>
@@ -367,7 +372,7 @@ IAMを利用して、「誰が複合して良いのか」を制御する。</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Network.html" class="btn btn-neutral float-left" title="5. Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="APIGW.html" class="btn btn-neutral float-left" title="API Gateway" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="CloudLogging.html" class="btn btn-neutral float-right" title="7. Cloud Logging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
