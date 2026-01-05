@@ -34,3 +34,16 @@ endpoint:
 ```
 - 実行時にクエリして通信
     - 呼び出し元（frontend）は、`「ecommerce-prod の inventory サービスを教えて」`と問い合わせ
+
+## Cloud Trace
+Cloud Trace は Google Cloud が提供する分散トレースのバックエンドであり、
+OpenTelemetry で生成されたトレースデータを受信・保存・可視化できる。
+OpenTelemetry は計装の標準であり、Cloud Trace はその実行基盤である。
+
+## workforce identity federation
+workforce identity federation は、Google Cloud Console に人間のユーザー（従業員）が外部 IdP のアカウントでシングルサインオンできるようにする機能です。
+これを用いると、ユーザーがコンソールにログインした際に、外部 IdP 側のユーザー情報（名前や写真など）を Google Cloud に渡すことができ、属性マッピングによりアカウントを紐づけて表示情報をパーソナライズできます。
+
+## Cloud Profiler
+Cloud Profiler は、Google Cloud が提供するプロファイリングツールで、Go を含む複数の言語をサポートします。
+CPU時間やメモリ使用量などを継続的にサンプリングし、フレームグラフ（Flame Graph）を提供してどの関数がどれだけリソースを使っているか可視化します。

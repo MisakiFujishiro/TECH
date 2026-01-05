@@ -72,10 +72,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#sa">2.4.2. SAのメリット</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#workload-identity">2.5. Workload Identity</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#k8sworkload-identity">2.5.1. K8SにおけるWorkload Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">2.5. クロスプロジェクト</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api">2.5.1. 補足：API 有効化が必要なマネージドサービス</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#workload-identity">2.6. Workload Identity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#k8sworkload-identity">2.6.1. K8SにおけるWorkload Identity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#identity-aware-proxy-iap">2.7. Identity-Aware Proxy (IAP)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
@@ -83,7 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Network.html">5. Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">6. ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">7. Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DB.html">8. データベースサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">8. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">9. データ分析サービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AI.html">10. AIサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GCE.html">11. GCE(Google Compute Engine)</a></li>
@@ -93,9 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">15. Cloud Scheduler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">16. Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">17. Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">18. ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Apigee.html">19. Apigee</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">20. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">18. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
@@ -375,12 +378,33 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 <p>SAは、サービスアカウントキー（秘密鍵と公開鍵）を発行することができ、その情報を利用することでSAに許可されている権限を行使することができる。注意点として、サービスアカウントキーをgithubなどに後悔しないように注意する。</p>
 </section>
 </section>
+<section id="id4">
+<h2><span class="section-number">2.5. </span>クロスプロジェクト<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GCP におけるプロジェクト間をまたいだリソース操作は、
+「実行主体（principal）」と「リソース所有側（resource）」を分離して設計する。</p>
+<ol class="arabic simple">
+<li><p>実行主体となるプロジェクト（principal 側）でサービスアカウント（SA）を作成する</p></li>
+<li><p>実行主体の SA を用いて、アプリケーション（Cloud Run / Functions など）を実行する</p></li>
+<li><p>リソース所有側（resource 側）で、IAM ポリシーに以下を指定し、リソースにバインディングする</p>
+<ul class="simple">
+<li><p>member: principal 側の SA</p></li>
+<li><p>role: 必要最小限の Role</p></li>
+</ul>
+</li>
+</ol>
+<section id="api">
+<h3><span class="section-number">2.5.1. </span>補足：API 有効化が必要なマネージドサービス<a class="headerlink" href="#api" title="この見出しへのパーマリンク">¶</a></h3>
+<p>一部の GCP マネージドサービス（例：Cloud SQL）は、リソースへのアクセス時に内部的に管理 API を呼び出す。</p>
+<p>そのため、クロスプロジェクト構成では IAM 設定に加えて、実行主体側・リソース側の両プロジェクトで該当 API（例：Cloud SQL Admin API）を有効化する必要がある。</p>
+<p>これは IAM 権限とは別の「サービス利用可否」の設定であり、権限が正しく付与されていても API が無効な場合は接続に失敗する。</p>
+</section>
+</section>
 <section id="workload-identity">
-<h2><span class="section-number">2.5. </span>Workload Identity<a class="headerlink" href="#workload-identity" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">2.6. </span>Workload Identity<a class="headerlink" href="#workload-identity" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Workload Identityとは、外部のワークロード（k8s/VM/他クラウド）が、GCPのIAMSAとして振る舞うための仕組みである。
 代表的な利用例は、K8Sである。</p>
 <section id="k8sworkload-identity">
-<h3><span class="section-number">2.5.1. </span>K8SにおけるWorkload Identity<a class="headerlink" href="#k8sworkload-identity" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.6.1. </span>K8SにおけるWorkload Identity<a class="headerlink" href="#k8sworkload-identity" title="この見出しへのパーマリンク">¶</a></h3>
 <p>K8SにおいてWorkload Identityを利用すると、Kubernetes ServiceAccount（KSA）と GCP IAM ServiceAccount（GSA）という異なる認証ドメインに属する ID を安全に関連付けることができる。</p>
 <ul class="simple">
 <li><p>KSA（Kubernetes ServiceAccount）</p>
@@ -406,6 +430,14 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 </ul>
 <p>この構成により、Pod は 短命な認証情報を用いてGSA の権限で GCP API を呼び出すことが可能となる。</p>
 </section>
+</section>
+<section id="identity-aware-proxy-iap">
+<h2><span class="section-number">2.7. </span>Identity-Aware Proxy (IAP)<a class="headerlink" href="#identity-aware-proxy-iap" title="この見出しへのパーマリンク">¶</a></h2>
+<p>IAP は Google Cloud が提供する認証・認可プロキシであり、
+アプリケーションの前段に配置され、Google アカウントを用いたアクセス制御を提供する。
+Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できる</p>
+<p>IAP のアクセス制御は IAM に基づいて行われ、
+IP やネットワークではなく「誰がアクセスしているか」を基準とする。</p>
 </section>
 </section>
 

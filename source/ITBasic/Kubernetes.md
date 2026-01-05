@@ -10,6 +10,7 @@ ECSと比較しながら、	Kubernetesで扱われる用語を整理すると以
 |Node|ECSのFargate/ECSインスタンス|Podが実行されるホスト（EC2またはFargate上で動作）。|
 |Deployment|ECSのサービス|Podの管理をする仕組み。スケーリングやローリングアップデートを管理。|
 |Service|ECSのロードバランサ|内部/外部向けにPodを公開し、負荷分散を提供。|
+|Namespace|1つの Kubernetes クラスタの中を論理的に区切るための「仮想的な区画」|
 |ConfigMap/Secret|ECSのタスク定義の環境変数管理|設定値や機密情報（DBパスワードなど）を管理。|
 
 ### Pod
@@ -37,6 +38,66 @@ Serviceは、ネットワーク・発見・安定アドレスの責務を担う
 - L4のロードバランシング
 
 具体的には、Service が 代表となる IP アドレスや DNS 名を持ち、その宛先に届いた通信を 内部の Pod 群のいずれかへ振り分けることで、呼び出し元から Pod の存在や入れ替わりを意識させない仕組みを提供する。
+
+### namespace
+Namespace を使うと、同一クラスタ内で以下を分離できる。
+- Pod
+- Deployment
+- Service
+- ConfigMap / Secret
+- RBAC（権限）
+- ResourceQuota（使用量）
+
+```
+cluster
+ ├─ namespace: team-a
+ │   ├─ deployment: api
+ │   └─ service: api
+ ├─ namespace: team-b
+ │   ├─ deployment: api
+ │   └─ service: api
+```
+
+Namespace は 「置き場所を分ける」だけ であって：
+- 誰が操作できるか
+- どれだけリソースを使えるか
+
+は 別途設定が必要。
+
+#### 権限制御：RBAC（Role-Based Access Control）
+「誰が」「どの名前空間で」「何をしていいか」を決める仕組み
+
+- チーム A：
+    - team-a namespace で
+    - Pod / Deployment を操作できる
+- チーム B：
+    - team-b namespace だけ操作可能
+- 他の namespace にはアクセス不可
+
+
+#### リソース制御：リソースクォータ（ResourceQuota）
+「この名前空間は、ここまでしか使ってはいけない」という上限
+- 1チームの暴走でクラスタ全体が遅くなるのを防ぐ
+- 性能（パフォーマンス）を安定させる
+
+```
+limits:
+  cpu: "8"
+  memory: "32Gi"
+pods: "50"
+```
+
+#### 分離まとめ
+K8sにおける分離の種別をまとめると以下
+
+|レベル|手段|コスト|
+|:----|:----|:----|
+|論理分離|Namespace|低|
+|権限制御|RBAC|低|
+|資源制御|ResourceQuota|低|
+|物理分離|複数クラスタ|高|
+
+
 
 ### Podの起動数の制御
 |項目|略称|詳細|

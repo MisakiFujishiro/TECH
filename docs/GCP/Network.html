@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="18. ArtifactRegistry" href="ArtifactRegistry.html" />
+    <link rel="next" title="CICD" href="CICD.html" />
     <link rel="prev" title="3. Google Cloud APIs" href="API.html" /> 
 </head>
 
@@ -71,22 +71,35 @@
 <li class="toctree-l3"><a class="reference internal" href="#igw">5.1.4. IGW</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cloud-nat">5.1.5. Cloud NAT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#firewall">5.1.6. Firewall</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">5.1.7. ネットワークの拡張</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">5.1.7. ネットワークの拡張</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vpc-shared-vpc">共有 VPC（Shared VPC）</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">5.1.8. デフォルトネットワーク</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">5.1.9. ネットワークの安全性</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#vcp-service-contorls-vcp-sc">VCP Service Contorls(VCP SC)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vpc-service-contorls-vpc-sc">VPC Service Contorls(VPC SC)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">5.1.10. VPC内から外部への通信</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#private-service-connect-psc">Private Service Connect(PSC)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#google-cloud">5.2. Google Cloud における通信レイヤーの整理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vpc-vm-gke">5.2.1. VPC 内通信（VM / GKE）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vpc-google">5.2.2. VPC 内 → Google サービス</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#private-google-access">Private Google Access</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pga">PGAの必要性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">PGAの仕組み</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">5.2.3. 外部サービスをVPC内として扱う</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#private-service-connect-psc">Private Service Connect(PSC)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#serverless-vpc">Serverless実行環境と VPCの接続</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-load-balancing">5.2. Cloud Load Balancing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-cdn">5.3. Cloud CDN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-dns">5.4. Cloud DNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-load-balancing">5.3. Cloud Load Balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-cdn">5.4. Cloud CDN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-dns">5.5. Cloud DNS</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">6. ストレージ</a></li>
@@ -101,8 +114,7 @@
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">15. Cloud Scheduler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">16. Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">17. Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ArtifactRegistry.html">18. ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">19. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">18. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
@@ -398,6 +410,13 @@ VPCネットワークごとに<code class="docutils literal notranslate"><span c
 </tr>
 </tbody>
 </table>
+<section id="vpc-shared-vpc">
+<h4>共有 VPC（Shared VPC）<a class="headerlink" href="#vpc-shared-vpc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>複数のプロジェクトを跨いでネットワークを構成する際には、Shared VPCが選択肢となる。</p>
+<p>Shared VPC は、VPC ネットワークを Host Project に集約し、複数の Service Project（アプリPJ/DB PJ）から共通利用する仕組み。
+Shared VPC は通信経路の機能ではなく、「ネットワーク資産（Subnet/FW/Route）を誰が所有し、どこまで統制するか」を決めるための運用レイヤー。</p>
+<p>PSC は “サービス単位で接続する仕組み”、Shared VPC は “ネットワークを中央集権で管理する枠組み” として位置づける。</p>
+</section>
 </section>
 <section id="id4">
 <h3><span class="section-number">5.1.8. </span>デフォルトネットワーク<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
@@ -407,14 +426,50 @@ VPCネットワークごとに<code class="docutils literal notranslate"><span c
 </section>
 <section id="id5">
 <h3><span class="section-number">5.1.9. </span>ネットワークの安全性<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
-<section id="vcp-service-contorls-vcp-sc">
-<h4>VCP Service Contorls(VCP SC)<a class="headerlink" href="#vcp-service-contorls-vcp-sc" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="vpc-service-contorls-vpc-sc">
+<h4>VPC Service Contorls(VPC SC)<a class="headerlink" href="#vpc-service-contorls-vpc-sc" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Google Cloudのマネージドサービス（GCS/Firestore etc..）を論理的な境界で囲うことで外部へのデータ流出を防ぐ。
 具体的には、「誰か」という認証に加えて、「どこから」アクセスまで確認する。</p>
+<p>なぜ VPC Service Controls が必要なのかというとIAM だけでは、次のようなリスクを防げない。</p>
+<ul class="simple">
+<li><p>正しいユーザー・サービスアカウントが誤って、または悪意を持って社外・インターネット経由からデータにアクセスする</p></li>
+<li><p>IAM は 認証・認可（Who / What） は制御できるが、</p></li>
+<li><p>通信経路（Where） までは制御できない。</p></li>
+</ul>
+<p>そこで VPC Service Controls を使う。</p>
 </section>
+</section>
+</section>
+<section id="google-cloud">
+<h2><span class="section-number">5.2. </span>Google Cloud における通信レイヤーの整理<a class="headerlink" href="#google-cloud" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="vpc-vm-gke">
+<h3><span class="section-number">5.2.1. </span>VPC 内通信（VM / GKE）<a class="headerlink" href="#vpc-vm-gke" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>通常の RFC1918 アドレス通信</p></li>
+<li><p>firewall / routing がそのまま適用される</p></li>
+</ul>
+</section>
+<section id="vpc-google">
+<h3><span class="section-number">5.2.2. </span>VPC 内 → Google サービス<a class="headerlink" href="#vpc-google" title="この見出しへのパーマリンク">¶</a></h3>
+<p>VPC 内部（外部 IP を持たない VM や GKE ノード）から、Google のマネージドサービスにアクセスする場合の考え方を整理する。</p>
+<section id="private-google-access">
+<h4>Private Google Access<a class="headerlink" href="#private-google-access" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Private Google Access（PGA）は、外部 IP を持たない VM や GKE ノードから、Google APIs にアクセスできるようにする仕組みである。
+PGA は、一般的なインターネット通信ではなく、「Google APIs 向けの特例ルート」として位置づけられる。</p>
+</section>
+<section id="pga">
+<h4>PGAの必要性<a class="headerlink" href="#pga" title="この見出しへのパーマリンク">¶</a></h4>
+<p>通常、Cloud Storage API や BigQuery API などの Google APIs は、ネットワーク上では インターネット上のパブリック IP 宛の通信として見える。</p>
+<p>そのため、外部 IP を持たない VM、Cloud NAT を構成していない環境からは、Google APIs に到達できない。</p>
 </section>
 <section id="id6">
-<h3><span class="section-number">5.1.10. </span>VPC内から外部への通信<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<h4>PGAの仕組み<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Private Google Access を有効にすると、Google APIs 宛の通信だけを対象に、インターネット通信として扱わずGoogle の内部バックボーン経由でルーティングするという 例外的な経路が VPC に追加される。</p>
+<p>これにより、外部 IP や Cloud NAT を持たない VPC 内リソースからでも、Google APIs へ安全にアクセスできるようになる。</p>
+</section>
+</section>
+<section id="id7">
+<h3><span class="section-number">5.2.3. </span>外部サービスをVPC内として扱う<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="private-service-connect-psc">
 <h4>Private Service Connect(PSC)<a class="headerlink" href="#private-service-connect-psc" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Private Service Connect (PSC) は、Google Cloud のサービスや外部 SaaS を、VPC 内のプライベート IP として利用できるようにする仕組みである。</p>
@@ -452,8 +507,8 @@ PSC の設計思想</p>
 <li><p>firewall / routing 的にも「VPC 内通信」として扱える</p></li>
 </ul>
 </section>
-<section id="id7">
-<h5>PSCの代表利用例<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h5>
+<section id="id8">
+<h5>PSCの代表利用例<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h5>
 <p>例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える</p>
 <ol class="arabic simple">
 <li><p>Cloud SQL 側で PSC サービスを公開する（Producer）</p>
@@ -468,7 +523,7 @@ PSC の設計思想</p>
 <li><p>この IP 宛ての通信が Cloud SQL にルーティングされる</p></li>
 </ul>
 </li>
-<li><p>Cloud Run 側で Serverless VPC Access コネクタを作成する</p>
+<li><p>Cloud Run 側で Serverless VPC Access（後述） コネクタを作成する</p>
 <ul class="simple">
 <li><p>Cloud Run の通信を VPC に流し、PSC エンドポイントへ到達可能にする</p></li>
 </ul>
@@ -493,28 +548,27 @@ Cloud SQL
 </div>
 </section>
 </section>
-<section id="private-google-access">
-<h4>Private Google Access<a class="headerlink" href="#private-google-access" title="この見出しへのパーマリンク">¶</a></h4>
-<p>Private Google Access（PGA）は、外部 IP を持たない VM や GKE ノードから、Google APIs にアクセスできるようにする仕組みである。</p>
-<p>PSC と違い、PGA は「API 呼び出しのための特例ルート」 という位置づけになる。</p>
-<section id="id8">
-<h5>Private Google Access の考え方<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h5>
-<p>通常、Cloud Storage API などの Google APIs はインターネット上のパブリック IP 宛先として見える。
-そのため、外部 IPもしくは Cloud NATがない VM からは到達できない。</p>
-<p>Private Google Access を有効にすると、Google APIs 宛の通信だけをインターネット扱いせずGoogle の内部バックボーンにルーティングするという例外ルールが VPC に追加される。</p>
-<p>PGA の特徴</p>
-<ul class="simple">
-<li><p>宛先 IP は パブリック IP のまま</p></li>
-<li><p>ただし通信はインターネットを通らない</p></li>
-<li><p>サブネット単位で有効化</p></li>
-<li><p>主に Google APIs（Cloud Storage, BigQuery など）向け</p></li>
-</ul>
-</section>
+<section id="serverless-vpc">
+<h4>Serverless実行環境と VPCの接続<a class="headerlink" href="#serverless-vpc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Cloud Run や Cloud Functions は、VPC の外で実行されるサーバレス環境である。
+そのため、VPC 内のリソース（Private IP）にはデフォルトでは到達できない。</p>
+<p>サーバレス環境から VPC 内へ通信するための出口（egress）を提供する仕組みとして、Serverless VPC Access コネクタが利用される。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Run
+  ↓
+(Serverless VPC Access)
+  ↓
+PSC Endpoint（自分のVPC内IP）
+  ↓
+Google内部バックボーン
+  ↓
+Cloud SQL
+</pre></div>
+</div>
 </section>
 </section>
 </section>
 <section id="cloud-load-balancing">
-<h2><span class="section-number">5.2. </span>Cloud Load Balancing<a class="headerlink" href="#cloud-load-balancing" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">5.3. </span>Cloud Load Balancing<a class="headerlink" href="#cloud-load-balancing" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud Load Balancing は、Google Cloud 上の Compute Engine や Cloud Storage などのバックエンドに対してトラフィックを自動で分散させるフルマネージドなサービスです。以下の特徴を持つ。</p>
 <ul class="simple">
 <li><p>グローバル / リージョン / ゾーン間にまたがる負荷分散が可能</p></li>
@@ -566,7 +620,7 @@ Cloud SQL
 </table>
 </section>
 <section id="cloud-cdn">
-<h2><span class="section-number">5.3. </span>Cloud CDN<a class="headerlink" href="#cloud-cdn" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">5.4. </span>Cloud CDN<a class="headerlink" href="#cloud-cdn" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud CDN は、Google Cloud が提供する グローバルエッジキャッシュネットワーク。</p>
 <ul class="simple">
 <li><p>Google の世界中のエッジロケーションで静的/動的コンテンツをキャッシュし、低レイテンシ・高速配信を実現</p></li>
@@ -576,7 +630,7 @@ Cloud SQL
 </ul>
 </section>
 <section id="cloud-dns">
-<h2><span class="section-number">5.4. </span>Cloud DNS<a class="headerlink" href="#cloud-dns" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">5.5. </span>Cloud DNS<a class="headerlink" href="#cloud-dns" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud DNS は、Google Cloud が提供する高可用性・低レイテンシのスケーラブルなDNSサービス。</p>
 <ul class="simple">
 <li><p>ドメイン名とIPアドレスの変換（名前解決）を行う</p></li>
@@ -590,7 +644,7 @@ Cloud SQL
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="API.html" class="btn btn-neutral float-left" title="3. Google Cloud APIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ArtifactRegistry.html" class="btn btn-neutral float-right" title="18. ArtifactRegistry" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="CICD.html" class="btn btn-neutral float-right" title="CICD" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

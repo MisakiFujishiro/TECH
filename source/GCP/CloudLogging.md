@@ -7,6 +7,7 @@ GCPのログ収集・管理サービス。各種サービスから集まるロ�
 - どのサービス由来かをどう見分けるのか？ – ログエントリに付与される resource.type と ラベルによる自動分類
 - どうやってアラートにつなげるのか？ – Cloud Monitoring と連携したログベースのメトリクスとアラートポリシー設定
 
+
 ## ログの収集
 Cloud Logging は GCP 上で発生したすべてのログを一箇所に集約する仕組み。Compute Engine（GCE）や GKE、Cloud Run、Cloud Functions といった主要サービスのログは、特別な設定をしなくても自動的に Cloud Logging に収集される。
 
@@ -16,6 +17,23 @@ Cloud Logging は GCP 上で発生したすべてのログを一箇所に集約�
 一方、オンプレミスやカスタムアプリケーションのログ、あるいはファイルに直接出力しているログなど自動収集の対象外となるログについても、Cloud Logging に送信する方法が用意されている。例えば GCEのVM 上で動くアプリケーションのログファイルは Ops エージェントを導入してログパイプラインを設定することで収集可能。
 また、任意のプログラムから Cloud Logging API を使ってログを書き込むこともできる。
 こうした方法で「それ以外のログもすべてまず Cloud Logging に集める」ことが可能となる。
+
+## Cloud Logging のログエントリ構造（全体像）
+Cloud Loggingで収集されたログで出力される項目は以下が主要なものになる。
+
+|項目名|意味 / 役割|出力内容の例|補足|
+|:----|:----|:----|:----|
+|timestamp|ログ発生時刻|2025-01-01T12:00:00Z|実行時刻。遅延送信でも保持|
+|severity|ログレベル|DEBUG / INFO / ERROR|Monitoring アラートと直結|
+|logName|ログの論理的分類|projects/xxx/logs/stdout|stdout / stderr / custom|
+|resource.type|発生元サービス種別|k8s_container|GKE / Cloud Run 判別の要|
+|resource.labels|リソース識別情報|cluster_name, pod_name|自動付与される|
+|textPayload|非構造化ログ本文|order failed|プレーンテキスト|
+|jsonPayload|構造化ログ本文|{ "order_id": 123 }|検索・分析に最適|
+|labels|任意の補助メタ情報|env=prod|ユーザー定義|
+|trace|Cloud Trace ID|projects/.../traces/...|分散トレーシング|
+|spanId|Trace 内のスパン|a1b2c3|マイクロサービス向け|
+|httpRequest|HTTP リクエスト情報|status / latency|L7 ログで自動付与|
 
 
 ## resource.typeとlabel
@@ -121,4 +139,3 @@ Logging の ログルーター (Logs Router) は受け取った各ログエン�
 - BigQuery – ログを BigQuery のデータセットにエクスポートできます。これにより、ログデータをSQLでクエリし高度な分析を行ったり、長期間（Cloud Loggingの標準保持期間以上に）データを保持してトレンドを分析したりできる。例えば1年間分のアプリケーションログを BigQuery に貯めておき、後からエラーの発生傾向を統計的に調べる、といった使い方が可能。
 - Cloud Storage – ログを Cloud Storage バケットにエクスポートすれば、アーカイブとして長期保存したり、生ログファイルとして保管できる。規制遵守や監査の目的でログを削除せず保管したい場合に有用。また、圧縮・ライフサイクル管理など Cloud Storage の機能を活用してコスト効率よく保存できる。
 - Pub/Sub – ログを Pub/Sub トピックにストリーミング配信することもできる。Pub/Sub に流したログは独自のログ処理パイプラインやサードパーティ製の解析基盤に連携可能。たとえばリアルタイムにログを Pub/Sub 経由でデータ処理基盤（DatadogやSplunk、自社の分析システムなど）に送り込み、モニタリングや機械学習のフィードとするといった応用ができる。
-

@@ -40,7 +40,7 @@
    GCP/IAM.md
    GCP/API.md
    GCP/Network.md
-   GCP/ArtifactRegistry.md
+   GCP/CICD.md
    GCP/GCE.md
    GCP/Container.md
    GCP/Serverless.md

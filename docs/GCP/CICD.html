@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CICD &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="11. GCE(Google Compute Engine)" href="GCE.html" />
+    <link rel="prev" title="5. Network" href="Network.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">4. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">6. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">7. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">8. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">9. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">10. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">11. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">12. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">17. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">18. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">CICD</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GCP/CICD.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cicd">
+<h1>CICD<a class="headerlink" href="#cicd" title="この見出しへのパーマリンク">¶</a></h1>
+<p>GCP には、AWS の CodePipeline のような「これがパイプラインです」と明示された単一サービスは存在しない。</p>
+<p>その代わりに <code class="docutils literal notranslate"><span class="pre">GCP</span> <span class="pre">では、複数のサービスが役割分担し、イベントと</span> <span class="pre">API</span> <span class="pre">呼び出しによって“流れ”が生まれる</span></code>
+という思想で CI/CD が構成される。
+つまり「pipeline という箱は無い。pipeline は振る舞いとして現れる」というのが GCP CI/CD の前提である。</p>
+<p>GCPにおける代表的なCI/CD構成</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Build
+    └─ ビルド・テスト・署名
+        ↓
+Artifact Registry
+    └─ 成果物（コンテナ）を保管
+        ↓
+Cloud Deploy
+    └─ 環境（EX：Dev / Test / Prod） への配布と昇格管理
+        ↓
+GKE
+    └─ 実行
+        ↑
+Binary Authorization
+    └─ 実行してよいかの最終チェック
+</pre></div>
+</div>
+<p>AWSのCodePipelineのように、Pipelineサービスがあるわけではなく、複数のサービスを“役割分担”で組み合わせて結果としてパイプラインになる。<br />
+それぞれのサービスの役割は以下の通りで、各サービスの詳細を説明した後に具体的なpipelineの流れのイメージを説明する。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>レイヤ</p></th>
+<th class="head text-left"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>実行</p></td>
+<td class="text-left"><p>Cloud Build</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>状態管理</p></td>
+<td class="text-left"><p>Cloud Deploy</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>成果物保管</p></td>
+<td class="text-left"><p>Artifact Registry</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>自動化の接着剤</p></td>
+<td class="text-left"><p>Pub/Sub + Trigger</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>最終ガード</p></td>
+<td class="text-left"><p>Binary Authorization</p></td>
+</tr>
+</tbody>
+</table>
+<section id="cloud-build">
+<h2>Cloud Build<a class="headerlink" href="#cloud-build" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud Buildの役割は、「CI を担う実行基盤」</p>
+<ul class="simple">
+<li><p>ソースコードからコンテナをビルド</p></li>
+<li><p>テスト・スキャン</p></li>
+<li><p>Binary Authorization 用の attestation を生成可能</p></li>
+<li><p>Cloud Deploy を操作するコマンドを実行することはあるが、昇格判断は行わない</p></li>
+</ul>
+</section>
+<section id="artifactregistry">
+<h2>ArtifactRegistry<a class="headerlink" href="#artifactregistry" title="この見出しへのパーマリンク">¶</a></h2>
+<p>ArtifactRegistryの役割は、「保管場所」</p>
+<ul class="simple">
+<li><p>コンテナイメージを保存</p></li>
+<li><p>Cloud Build が push</p></li>
+<li><p>Cloud Deploy / GKE が pull</p></li>
+</ul>
+</section>
+<section id="cloud-deploy">
+<h2>Cloud Deploy<a class="headerlink" href="#cloud-deploy" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud Deployの役割は、「CDを担う：状態管理・昇格ルール」</p>
+<ul class="simple">
+<li><p>Target（例: Dev / Test / Prod）を順序付きで定義する</p></li>
+<li><p>各リリースがどの環境まで到達したかを管理する</p></li>
+<li><p>promote（昇格）という明示的な操作で次の環境へ進める</p></li>
+<li><p>CI（ビルド・テスト）とは分離され、CD に専念する</p></li>
+</ul>
+</section>
+<section id="binary-authorization">
+<h2>Binary Authorization<a class="headerlink" href="#binary-authorization" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Binary Authorizationの役割は、「強制セキュリティゲート」</p>
+<ul class="simple">
+<li><p>GKE が Pod を起動する直前にチェック</p></li>
+<li><p>「このイメージは信頼できるか？」</p></li>
+<li><p>署名（attestation）がないと 実行不可</p></li>
+</ul>
+</section>
+<section id="gcpcicd">
+<h2>GCPにおけるCICDの流れ<a class="headerlink" href="#gcpcicd" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GCPにおける上記のサービスを組み合わせた際のCICDの流れのイメージ。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Developer
+   ↓
+Cloud Build
+   ↓
+Artifact Registry
+   ↓
+Cloud Deploy（Dev）
+   ↓
+GKE ← Binary Authorization
+   ↓
+Cloud Deploy（状態）
+   ↓
+Pub/Sub（clouddeploy-operations）
+   ↓
+Cloud Build Trigger
+   ↓
+Cloud Deploy（promote）
+
+※ clouddeploy-operations は Cloud Deploy の状態変化を通知するための
+   Pub/Sub トピックであり、promote を実行するわけではない。
+   promote の実行には「実行主体」が必要であり、
+   CI/CD の文脈では Cloud Build がその役割を担うことが多い。
+</pre></div>
+</div>
+<p>それぞれの役割のイメージ</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Step</p></th>
+<th class="head text-left"><p>フェーズ</p></th>
+<th class="head text-left"><p>主体</p></th>
+<th class="head text-left"><p>何が起きるか</p></th>
+<th class="head text-left"><p>関連サービス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>①</p></td>
+<td class="text-left"><p>開発</p></td>
+<td class="text-left"><p>開発者</p></td>
+<td class="text-left"><p>ソースコードを Git リポジトリに push</p></td>
+<td class="text-left"><p>Git</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>②</p></td>
+<td class="text-left"><p>CI</p></td>
+<td class="text-left"><p>Cloud Build</p></td>
+<td class="text-left"><p>コンテナをビルドし、テスト・スキャンを実行</p></td>
+<td class="text-left"><p>Cloud Build</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>成果物を Artifact Registry に push</p></td>
+<td class="text-left"><p>Artifact Registry</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>必要に応じて attestation（署名）を生成</p></td>
+<td class="text-left"><p>Binary Authorization</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>③</p></td>
+<td class="text-left"><p>CD開始</p></td>
+<td class="text-left"><p>Cloud Deploy</p></td>
+<td class="text-left"><p>リリースを作成し、進行状況を管理</p></td>
+<td class="text-left"><p>Cloud Deploy</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>Dev / Test / Prod の順序を定義</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>まず Dev 環境へロールアウト</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>④</p></td>
+<td class="text-left"><p>実行</p></td>
+<td class="text-left"><p>Google Kubernetes Engine</p></td>
+<td class="text-left"><p>Pod を起動</p></td>
+<td class="text-left"><p>GKE</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>起動直前に署名を検証</p></td>
+<td class="text-left"><p>Binary Authorization</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>正しければ実行、なければ拒否</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>⑤</p></td>
+<td class="text-left"><p>自動化</p></td>
+<td class="text-left"><p>Cloud Deploy</p></td>
+<td class="text-left"><p>成功・失敗をイベントとして通知</p></td>
+<td class="text-left"><p>Pub/Sub</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>clouddeploy-operations にイベント発行</p></td>
+<td class="text-left"><p>clouddeploy-operations</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>Cloud Build</p></td>
+<td class="text-left"><p>イベントをトリガーに次の処理を実行</p></td>
+<td class="text-left"><p>Cloud Build Trigger</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p></p></td>
+<td class="text-left"><p>promote などの追加操作</p></td>
+<td class="text-left"><p>Cloud Deploy API</p></td>
+</tr>
+</tbody>
+</table>
+<section id="clouddeploy-operations">
+<h3>clouddeploy-operationsトピック<a class="headerlink" href="#clouddeploy-operations" title="この見出しへのパーマリンク">¶</a></h3>
+<p>clouddeploy-operations は、<br />
+Cloud Deploy が発生させる「状態変化イベント」を通知するための Pub/Sub トピック<br />
+である。</p>
+<p>Cloud Deploy は以下のような事実を内部で把握している。</p>
+<ul class="simple">
+<li><p>Dev 環境へのロールアウトが成功した</p></li>
+<li><p>ロールアウトが失敗した</p></li>
+<li><p>promote が完了した</p></li>
+</ul>
+<p>しかし Cloud Deploy 自身は、</p>
+<ul class="simple">
+<li><p>「成功したら次を自動で実行する」</p></li>
+<li><p>「条件分岐して外部処理を起動する」</p></li>
+</ul>
+<p>といった 実行責務を持たない。</p>
+<p>その代わりに、「何が起きたか」だけをイベントとして外部に通知するための出口として
+clouddeploy-operations という Pub/Sub トピックが用意されている。</p>
+</section>
+<section id="cloud-builds">
+<h3>cloud-buildsトピック<a class="headerlink" href="#cloud-builds" title="この見出しへのパーマリンク">¶</a></h3>
+<p>cloud-buildsという、Cloud Build 自身の実行状態を通知するための Pub/Sub トピックも存在する。</p>
+<p>Cloud Build が</p>
+<ul class="simple">
+<li><p>ビルド開始</p></li>
+<li><p>成功</p></li>
+<li><p>失敗</p></li>
+</ul>
+<p>といった 自分自身のイベントについてはこちらのPub/Subトピックを参照する。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Network.html" class="btn btn-neutral float-left" title="5. Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GCE.html" class="btn btn-neutral float-right" title="11. GCE(Google Compute Engine)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
