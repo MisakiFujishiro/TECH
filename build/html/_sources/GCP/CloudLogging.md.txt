@@ -21,19 +21,64 @@ Cloud Logging は GCP 上で発生したすべてのログを一箇所に集約�
 ## Cloud Logging のログエントリ構造（全体像）
 Cloud Loggingで収集されたログで出力される項目は以下が主要なものになる。
 
-|項目名|意味 / 役割|出力内容の例|補足|
-|:----|:----|:----|:----|
-|timestamp|ログ発生時刻|2025-01-01T12:00:00Z|実行時刻。遅延送信でも保持|
-|severity|ログレベル|DEBUG / INFO / ERROR|Monitoring アラートと直結|
-|logName|ログの論理的分類|projects/xxx/logs/stdout|stdout / stderr / custom|
-|resource.type|発生元サービス種別|k8s_container|GKE / Cloud Run 判別の要|
-|resource.labels|リソース識別情報|cluster_name, pod_name|自動付与される|
-|textPayload|非構造化ログ本文|order failed|プレーンテキスト|
-|jsonPayload|構造化ログ本文|{ "order_id": 123 }|検索・分析に最適|
-|labels|任意の補助メタ情報|env=prod|ユーザー定義|
-|trace|Cloud Trace ID|projects/.../traces/...|分散トレーシング|
-|spanId|Trace 内のスパン|a1b2c3|マイクロサービス向け|
-|httpRequest|HTTP リクエスト情報|status / latency|L7 ログで自動付与|
+|大分類（所属）|中分類|項目名|意味 / 役割|出力例|補足|
+|:----|:----|:----|:----|:----|:----|
+|LogEntry メタ情報|識別|insertId|ログ一意ID|1abcd1234|重複排除用|
+| |時刻|timestamp|ログ発生時刻|2025-01-01T12:00:00Z|遅延送信でも保持|
+| |重要度|severity|ログレベル|INFO / ERROR|Monitoringと直結|
+| |分類|logName|ログの論理名|projects/xxx/logs/stdout|stdout / stderr / custom|
+|発生元リソース|種別|resource.type|どのサービス由来か|k8s_container|最重要フィールド|
+| |識別|resource.labels|リソース固有情報|cluster / pod / container|自動付与|
+|補助メタ情報|ラベル|labels|追加のキー情報|env=prod|検索・整理用|
+|ログ本文（Payload）|非構造|textPayload|プレーンテキスト|order failed|grep的検索|
+| |構造化|jsonPayload|JSONログ本文|{ "order_id": 123 }|分析・集計向き|
+|分散トレース|Trace|trace|Trace ID|projects/.../traces/...|Cloud Trace連携|
+| |Span|spanId|スパンID|a1b2c3|マイクロサービス|
+|HTTP 情報|L7|httpRequest|HTTP詳細|status / latency|LB / Run / Ingress|
+
+jso形式の例では以下となる
+```
+{
+    "insertId": "1abcd1234",
+    "timestamp": "2025-01-01T12:00:00.123456Z",
+    "severity": "ERROR",
+    "logName": "projects/my-project/logs/stdout",
+
+    "resource": {
+        "type": "k8s_container",
+        "labels": {
+            "project_id": "my-project",
+            "location": "asia-northeast1",
+            "cluster_name": "prod-cluster",
+            "namespace_name": "default",
+            "pod_name": "orders-api-7c9f9d6d5b-abcde",
+            "container_name": "orders-api"
+        }
+    },
+
+    "labels": {
+        "compute.googleapis.com/resource_name": "gke-prod-cluster-default-pool-12345"
+    },
+
+    "textPayload": "order failed: database timeout",
+    "jsonPayload": {
+    "order_id": 123,
+    "user_id": "u-999",
+    "error": "timeout"
+    }
+
+    "trace": "projects/my-project/traces/105445aa7843bc8bf206b120001000",
+    "spanId": "a1b2c3d4e5f6",
+
+    "httpRequest": {
+        "requestMethod": "POST",
+        "requestUrl": "/orders",
+        "status": 500,
+        "latency": "1.234s",
+        "userAgent": "curl/8.0"
+    }
+}
+```
 
 
 ## resource.typeとlabel
