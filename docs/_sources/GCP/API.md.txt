@@ -1,12 +1,12 @@
 
-## Google Cloud APIs
+# Google Cloud APIs
 Google Cloud APIsは、GCPが提供するAPI群が定義されている。
 - [Google Cloud APIS](https://cloud.google.com/apis/docs/overview?hl=ja)
 
 Google Cloud APIsは、gRPCをベースにして設計されている。  
 `gRPC`は、googleが開発した`Protocol Buffers`をベースとした、軽量・高速な`RPC(Remote Procedure Call)`フレームワークであり、通信の効率性と型安全性を重視した設計となっている。
 
-### Protobuf(Protocol Buffers)
+## Protobuf(Protocol Buffers)
 ProtobufはGoogleが開発したデータ定義のフレームワークであり、`「APIで利用するデータ構造」と「そのインターフェース（RPC）」を宣言的に定義するフォーマット`。
 
 このフォーマットの最大の特徴は、単なるデータ形式（例：JSONやYAML）の代替ではなく、`定義されたスキーマ（.protoファイル）がなければ開発を始められないという点`。
@@ -49,12 +49,12 @@ Protobufで定義されたスキーマがなければ開発を始められない
 
 
 
-### RPC
+## RPC
 RPC(Remote Procedure Call)とは、離れた場所（リモート）にある関数を、ローカルの関数のように呼び出す仕組み。
 通信処理の実装を抽象化し、開発者はシンプルな関数呼び出しの形でAPIを利用できる。
 
 
-### gRPC
+## gRPC
 Googleが開発したRPC通信フレームワークであり、Protobufで定義されたAPI仕様に基づいて、Stubコードを自動生成して双方向通信を行う。
 
 開発者は .proto ファイルでサービスとメッセージの定義を行い、それをコンパイルして得られるStubコードを使ってAPIを呼び出す。
@@ -84,7 +84,7 @@ print(response.name)
 このコードでは、stub.GetUser(...) が関数呼び出しのように見えるが、実際には gRPC を通じてネットワーク越しのリモートAPIを呼び出している。
 
 
-### Google Cloud SDKにおける gRPC と REST の切り替え
+## Google Cloud SDKにおける gRPC と REST の切り替え
 Google Cloud SDK のクライアントライブラリには、主に2種類のAPI層が存在しており、開発者は transport オプションを指定することで、gRPC通信かREST通信かを選択することができる。
 
 |レイヤー|概要|例|
@@ -123,7 +123,7 @@ client_rest = pubsub_v1.PublisherClient(transport="rest")
 
 デフォルトはサービスによって異なるが、性能重視ならgRPC、環境制約やデバッグ性重視ならRESTを選択することが多い。
 
-### フィーチャーフラグ
+## フィーチャーフラグ
 gRPC では、次のような変更が特にリスクになりやすい。
 - レスポンス構造の変更
 - 処理ロジックの差し替え

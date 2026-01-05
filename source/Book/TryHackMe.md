@@ -870,7 +870,7 @@ PORT      STATE    SERVICE         VERSION
 
 ### smbclientへの攻撃
 smbclinetを利用して共有フォルダを探索してみると、anonymousユーザーでログインできるBillySMBファイルを発見。その中のファイルを3つDLできる
-```sh
+```
 ┌──(kali㉿kali)-[~/7DaysHacking/Day7]
 └─$ smbclient -L \\\\blog.thm                    
 Password for [WORKGROUP\kali]:
@@ -924,7 +924,7 @@ WordPressは利用者が多いアプリケーションのため、専用のス�
 wpscanというコマンドを実行してユーザーを炙り出すと以下のユーザーがいることがわかる
 - kwheel
 - bjoel
-```sh
+```
 ┌──(kali㉿kali)-[~/7DaysHacking/Day7]
 └─$ wpscan --url http://blog.thm --enumerate u
 _______________________________________________________________

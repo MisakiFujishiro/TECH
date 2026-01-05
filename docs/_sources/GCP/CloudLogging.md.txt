@@ -88,63 +88,96 @@ Cloud Logging に全ログが集まった後、重要になるのが各ログエ
 
 代表的なresource.typeとlabelを整理すると以下。
 
-|サービス|リソースタイプ (resource.type)|主なリソースラベル (resource.labels 等)|
-|:----|:----|:----|
-|GKE（コンテナログ）|k8s_container|クラスタ名、Namespace名、Pod名、コンテナ名、ロケーション（リージョン/ゾーン）|
-|Cloud Run（サービス）|cloud_run_revision|サービス名、リビジョン名、リージョン（※）|
-|Cloud Run（ジョブ）|cloud_run_job|ジョブ名、実行名（Execution）、タスク番号（インデックス）、リージョン|
-|Cloud Functions|cloud_function|関数名、リージョン|
+|サービス|resource.type|階層|対応する resource.labels|
+|:----|:----|:----|:----|
+|GKE|k8s_container|Cluster|cluster_name|
+| | |Namespace|namespace_name|
+| | |Pod|pod_name|
+| | |Container|container_name|
+| | |Location|location|
+|Cloud Run（Service）|cloud_run_revision|Service|service_name|
+| | |Revision|revision_name|
+| | |Location|location|
+|Cloud Run（Job）|cloud_run_job|Job|job_name|
+| | |Execution|execution_name|
+| | |Task|task_index|
+| | |Location|location|
+|Cloud Functions|cloud_function|Function|function_name|
+| | |Location|location|
+
 
 これらの情報のおかげで、「このログはどのプロジェクトのどのサービス・どのリソースから出力されたものか」を機械的に判別で可能。
 クラスタ名やサービス名、関数名などが自動でログに紐づくため、後述するフィルタで「どのクラスタのログだけを見る」「どのCloud Runサービスのエラーのみ抽出する」といった絞り込みが簡単に行える。
 
 
 ## フィルタリング
-Cloud Logging でログを検索したりログをエクスポート（後述のシンク）する際には、ログフィルタ（クエリ）を記述して条件を指定する。
-フィルタの書式は比較的シンプルだが、効果的に使うためには以下の順序で条件を組み立てるとよい。
+Cloud Logging では、ログの検索やログシンク（BigQuery / Pub/Sub などへのエクスポート）を行う際に
+ログフィルタ（クエリ） を記述して対象ログを指定する。
 
-- リソースタイプ (resource.type) で大枠を絞る  
-    - まず対象とするサービスやリソースの種類を限定。
-    - 例えば「GKE のコンテナログ」に絞るなら resource.type="k8s_container" のように指定。
-    - こうすることで関係ないサービスのログを一気に除外することができる。
-- 必要に応じてラベルでリソース個別に絞る  
-    - リソースタイプ内でさらに特定のリソースだけに絞りたい場合は、該当するラベルを条件に加える。
-    - 例えば GKE ならクラスタ名やネームスペース名、Cloud Run ならサービス名などを指定することでさらにログを限定。
-- ログ内容やレベル（severity）で条件追加  
-    - 最後に、ログの本文中に含まれるキーワードや、ログレベル（INFO、ERRORなど）による絞り込み条件を追加。
-    - メッセージ中の文字列マッチは textPayload:"文字列" のようにダブルクオートで囲んで指定し、ログレベルの指定は例えば severity>=ERROR のように表現する。
-
-この順序でフィルタを書くことで、まず対象のログ種別を限定し（大量のログから目的のサービス関連ログだけを選出）、次に必要なら個別リソースまで絞り、最後に内容レベルで条件を課す、といった効率的な検索が可能。
-
-### フィルタ記述の例
-GKE において Namespace が "backend" の Pod から出力された ERROR レベル以上のログだけを検索する場合:  
-「GKEコンテナのログ」の中から「Namespaceがbackendのもの」に限定し、さらにログレベルが ERROR 以上（ERRORやCRITICAL、ALERTなど）のログだけを対象にする。
-実際のフィルタ文字列では改行は論理積（AND）として扱われ、すべての条件を満たすログエントリのみが結果に残る。
+Cloud Logging のクエリでは、改行は論理積（AND）として扱われる。
 ```
 resource.type="k8s_container"
 resource.labels.namespace_name="backend"
 severity>=ERROR
 ```
+これは次の意味を持つ：
+- GKE コンテナログのうち、
+- Namespace が backend で、
+- かつ ERROR 以上のログだけを表示する
 
-Cloud Run Job のログの中から、メッセージに特定のエラーID（例：e.abc.）を含むものだけをカウントしたい場合:  
-Cloud Run Job の実行ログから 'e.abc.' という文字列が本文中に現れるログを抽出するフィルタ。
+### フィルタの記述例
+Cloud Run Job のログから特定エラーIDを含むものを抽出
 ```
 resource.type="cloud_run_job"
 textPayload:"e.abc."
 ```
+- Cloud Run Job の実行ログのみ
+- メッセージ本文に e.abc. を含むログを検索
 
-さらに、特定のサフィックス（例えば e.abc.001）を除外したい場合、除外条件としてハイフン（-）を先頭に付けた条件を追加可能。
-以下のように記載すると 'e.abc.' を含むログのうち 'e.abc.001' を含むものは除外され、001以外のIDで終わるログだけがヒットする。
+特定のエラーIDだけを除外する
 ```
 resource.type="cloud_run_job"
 textPayload:"e.abc."
 -textPayload:"e.abc.001"
 ```
+- e.abc. を含むログは対象
+- ただし e.abc.001 を含むものは除外
 
-このように、Cloud Logging のクエリ言語では 包含条件はそのまま、除外条件は先頭に - を付けて指定。
-また大文字小文字は基本区別されない（正規表現を除く）。
-なお、ログのJSONペイロード内のフィールド（構造化ログの場合）も jsonPayload.フィールド名="値" のように指定可能で、柔軟な検索が可能。
 
+### 構造化ログ（jsonPayload）の検索
+アプリケーションが JSON 形式でログを出力している場合、フィールド単位での検索が可能になる。
+```
+jsonPayload.order_id=123
+jsonPayload.error_code="TIMEOUT"
+```
+- フィールド検索
+- インデックスが効く
+- 集計・メトリクス化に最適
+
+### フィルタ演算子の整理
+Cloud Logging のフィルタでは、
+「どのフィールドに対して検索しているか」 によって使える演算子と意味が変わる。
+
+特に混乱しやすいのが、
+- = と =~
+- :（payload検索）
+の使い分け。
+
+結論としては以下を意識する。
+- 構造化されたフィールド（resource / labels / jsonPayloadのフィールド）
+    - → = / >= / =~ を使う
+- ログ本文（文字列）
+    - → : を使う
+- 除外したい条件
+    - → 先頭に - を付ける
+
+|用途|対象フィールド|書き方|意味|補足|
+|:----|:----|:----|:----|:----|
+|完全一致|resource / labels / jsonPayload.<field>|=|値が完全一致|インデックスが効く|
+|範囲比較|severity / timestamp|>=|大小比較|ERROR以上など|
+|正規表現|resource / labels / jsonPayload.<field>|=~|正規表現一致|prefix検索で多用|
+|文字列包含|textPayload / jsonPayload.<field>|:|部分一致（含む）|grep的検索|
+|除外条件|すべて|-条件|NOT 条件|組み合わせ可|
 
 ## アラート
 Cloud Logging 単体では、ログを閲覧・検索・フィルタリングすることができるが、ログ発の通知（アラート） 機能は持っていない。

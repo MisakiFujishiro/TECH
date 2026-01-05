@@ -54,9 +54,9 @@
 <li class="toctree-l2"><a class="reference internal" href="security.html">7.5. S3のアクセスコントロール</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">7.6. Athena</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">7.6.1. Athenaの使い方</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#s3">データをS3に保存</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">テーブルを定義</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">クエリの実行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#s3">7.6.1.1. データをS3に保存</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">7.6.1.2. テーブルを定義</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">7.6.1.3. クエリの実行</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#handson">7.6.2. HandsOn</a></li>
@@ -80,22 +80,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">1. GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">2. IAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">3. Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">4. GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">5. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">6. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">7. Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">8. データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">10. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">12. コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">9. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/APIGW.html">10. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">13. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">14. Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">17. Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">19. Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">20. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
@@ -189,19 +189,19 @@ Athenaを利用することで、S3に配置されたデータのDLなどをせ�
 </ol>
 <p><img alt="" src="../../_images/athena_console.png" /></p>
 <section id="s3">
-<h3>データをS3に保存<a class="headerlink" href="#s3" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">7.6.1.1. </span>データをS3に保存<a class="headerlink" href="#s3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ログなどをS3に配信する場合は、Kinesisを利用する。
 もしくは直接S3にデータをアップロードするなどする。</p>
 </section>
 <section id="id2">
-<h3>テーブルを定義<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">7.6.1.2. </span>テーブルを定義<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Athenaでは、クエリを発行するためにデータに対してテーブル定義が必要となる。
 メタデータ定義を通じて、AthenaにS3上のデータをどのように解釈するかを指定することができる。
 具体的には、S3に保管されているデータの中身や、パスを指定してテーブル定義を行う。</p>
 <p>デフォルトでは、Apache Hive Metastoreと互換性のあるAWS Glue Data Catalogのデータ定義を使用する。
 AWS Glue Data Catalogにテーブル定義を利用するためにAthena DDLを利用する。</p>
 <section id="athena-ddl">
-<h4>Athena DDL<a class="headerlink" href="#athena-ddl" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">7.6.1.2.1. </span>Athena DDL<a class="headerlink" href="#athena-ddl" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Athena DDLでは、HiveQL形式で記述する。</p>
 <table class="docutils align-default">
 <thead>
@@ -236,7 +236,7 @@ AWS Glue Data Catalogにテーブル定義を利用するためにAthena DDLを�
 <p><img alt="" src="../../_images/athena_ddl.png" /></p>
 </section>
 <section id="id3">
-<h4>データ形式<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">7.6.1.2.2. </span>データ形式<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
 <p>データ形式（STORED AS）の部分については以下のような形式がサポートされている。</p>
 <table class="docutils align-default">
 <thead>
@@ -278,7 +278,7 @@ AWS Glue Data Catalogにテーブル定義を利用するためにAthena DDLを�
 </table>
 </section>
 <section id="hive">
-<h4>データ定義具体例(Hive型の場合)<a class="headerlink" href="#hive" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">7.6.1.2.3. </span>データ定義具体例(Hive型の場合)<a class="headerlink" href="#hive" title="この見出しへのパーマリンク">¶</a></h4>
 <p>S3のパスがHive型だった場合のテーブル定義例を上げる。</p>
 <p>S3のファイルパスは以下のように、month=08などHive型であるとする。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">logs</span><span class="o">/</span><span class="n">year</span><span class="o">=</span><span class="mi">2024</span><span class="o">/</span><span class="n">month</span><span class="o">=</span><span class="mi">08</span><span class="o">/</span><span class="n">day</span><span class="o">=</span><span class="mi">24</span><span class="o">/</span><span class="n">hour</span><span class="o">=</span><span class="mi">10</span><span class="o">/</span><span class="n">logs</span><span class="o">.</span><span class="n">json</span>
@@ -359,7 +359,7 @@ AWS Glue Data Catalogにテーブル定義を利用するためにAthena DDLを�
 </table>
 </section>
 <section id="id4">
-<h4>データ定義具体例(Hive型ではない場合)<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">7.6.1.2.4. </span>データ定義具体例(Hive型ではない場合)<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h4>
 <p>S3のパスが以下のようにHive型ではない場合、PARTITIONで利用するための列の追加には工夫が必要</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">logs</span><span class="o">/</span><span class="mi">2024</span><span class="o">/</span><span class="mi">08</span><span class="o">/</span><span class="mi">24</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="n">logs</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
@@ -401,7 +401,7 @@ AWS Glue Data Catalogにテーブル定義を利用するためにAthena DDLを�
 </section>
 </section>
 <section id="id5">
-<h3>クエリの実行<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">7.6.1.3. </span>クエリの実行<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <p>基本的にはSELECTやFROMなど一般的なSQS文を利用することができる。</p>
 </section>
 </section>

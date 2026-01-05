@@ -62,22 +62,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../GCP/GCP.html">1. GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/IAM.html">2. IAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/API.html">3. Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">4. GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">5. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">6. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">7. Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">8. データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">10. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">12. コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">9. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/APIGW.html">10. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">13. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">14. Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">17. Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">19. Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">20. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
@@ -113,14 +113,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#id2">1.1. データベースとしてのエクセル</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id3">1.1.1. 原則</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">1.1.2. データ</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id5">日付・時刻について</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">1.1.2.1. 日付・時刻について</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#tips">1.1.3. Tips</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id6">ショートカット</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">便利関数</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">便利機能</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">おせっかい機能の停止</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">1.1.3.1. ショートカット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">1.1.3.2. 便利関数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">1.1.3.3. 便利機能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">1.1.3.4. おせっかい機能の停止</a></li>
 </ul>
 </li>
 </ul>
@@ -217,7 +217,7 @@
 <li><p>数式・関数</p></li>
 </ul>
 <section id="id5">
-<h4>日付・時刻について<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.1.2.1. </span>日付・時刻について<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
 <p>日付は、実態としてはシリアル値で管理されており、実態は「1900年1月1日」を1として、その日からの日数で管理されている。
 そのため、エクセルにおいては必ず日付は西暦まで含めて管理されている点に注意。</p>
 <p>時刻もシリアル値として管理されており、1以上の数字は日付に利用されているので0から1までの少数の間を利用している。00:00:00を0として、具体的には1秒ごとに86,400分の1の数字を足す。
@@ -227,7 +227,7 @@
 <section id="tips">
 <h3><span class="section-number">1.1.3. </span>Tips<a class="headerlink" href="#tips" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="id6">
-<h4>ショートカット<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.1.3.1. </span>ショートカット<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -272,7 +272,7 @@
 </table>
 </section>
 <section id="id7">
-<h4>便利関数<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.1.3.2. </span>便利関数<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>機能</p></th>
@@ -332,7 +332,7 @@
 </table>
 </section>
 <section id="id8">
-<h4>便利機能<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.1.3.3. </span>便利機能<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>機能</p></th>
@@ -353,7 +353,7 @@
 </table>
 </section>
 <section id="id9">
-<h4>おせっかい機能の停止<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">1.1.3.4. </span>おせっかい機能の停止<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>機能</p></th>

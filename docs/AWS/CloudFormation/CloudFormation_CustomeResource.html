@@ -55,10 +55,10 @@
 <li class="toctree-l2"><a class="reference internal" href="CloudFormation_Automation.html">8.5. CloudFormationのGitOps</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">8.6. カスタムリソース</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lambda">8.6.1. Lambdaの呼び出し</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#cloudfomation">CloudFomation側の指定</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cloudformationevent">CloudFormationの呼び出しEvent</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">Lambda側の設定</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#physical-resource-id">Physical Resource ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cloudfomation">8.6.1.1. CloudFomation側の指定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cloudformationevent">8.6.1.2. CloudFormationの呼び出しEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">8.6.1.3. Lambda側の設定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#physical-resource-id">8.6.1.4. Physical Resource ID</a></li>
 </ul>
 </li>
 </ul>
@@ -79,22 +79,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">1. GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">2. IAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">3. Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">4. GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">5. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">6. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">7. Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">8. データベースサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">9. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">10. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">11. GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">12. コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">9. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/APIGW.html">10. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">13. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">14. Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">17. Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/ArtifactRegistry.html">18. ArtifactRegistry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../GCP/Apigee.html">19. Apigee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">19. Redis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">20. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
@@ -185,7 +185,7 @@
 <section id="lambda">
 <h2><span class="section-number">8.6.1. </span>Lambdaの呼び出し<a class="headerlink" href="#lambda" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="cloudfomation">
-<h3>CloudFomation側の指定<a class="headerlink" href="#cloudfomation" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">8.6.1.1. </span>CloudFomation側の指定<a class="headerlink" href="#cloudfomation" title="この見出しへのパーマリンク">¶</a></h3>
 <p>CloudFormationでは、TypeとしてCustomeを指定した上で、ServiceTokeとして、lambdaのARNを指定する。
 また、同じテンプレート内で作成したリソースの値をパラメータとして渡すことができ、作成したリソースに対する操作をテンプレート内で実施することができる。</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">SampleCustomResource</span><span class="p">:</span><span class="w"> </span>
@@ -198,7 +198,7 @@
 </div>
 </section>
 <section id="cloudformationevent">
-<h3>CloudFormationの呼び出しEvent<a class="headerlink" href="#cloudformationevent" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">8.6.1.2. </span>CloudFormationの呼び出しEvent<a class="headerlink" href="#cloudformationevent" title="この見出しへのパーマリンク">¶</a></h3>
 <p>CloudFormationからCustomeResourceとしてLambdaを呼び出す際には、以下のEventがLambdaへ渡される。
 CustomeResourceの作成・削除・更新のステータスを表すRequestTypeや、Parameterとして指定した値を格納しているResourcePropertiesなどが重要。</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -220,7 +220,7 @@ CustomeResourceの作成・削除・更新のステータスを表すRequestType
 参照</p>
 </section>
 <section id="id2">
-<h3>Lambda側の設定<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">8.6.1.3. </span>Lambda側の設定<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>CustomeResourceが実行されるタイミングはCloudFormationが実行されるタイミングであり、そのリクエストのタイプには以下の3つがある</p>
 <ul class="simple">
 <li><p>作成時（Create）</p></li>
@@ -250,7 +250,7 @@ Lambda側でもそれぞれのEventタイプに応じた場合分けを行う。
 </div>
 </section>
 <section id="physical-resource-id">
-<h3>Physical Resource ID<a class="headerlink" href="#physical-resource-id" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">8.6.1.4. </span>Physical Resource ID<a class="headerlink" href="#physical-resource-id" title="この見出しへのパーマリンク">¶</a></h3>
 <p>CustomeReosurceでUpdate処理を行なった際、CloudFormationのCleanUpのタイミングでDeleteの実行がされてしまう問題が発生した。これは、PhysicalResourceIDの扱いが正しく行われていないために発生していた。</p>
 <p>CloudFormationからカスタムリソースに対して、Update実行する際にPhysicalResourceIDをやりとりしている。
 Lambda側から返すPhysicalResourceIDとCloudFormation側で管理しているPhysicalResourceIDが異なると、CloudFormatinでは、新しいカスタムリソースに更新されていると認識し、古いカスタムリソースを削除する動作をする。そのため、Deleteが流れてしまう。</p>
@@ -287,7 +287,7 @@ Lambda側から返すPhysicalResourceIDとCloudFormation側で管理している
 </div>
 <p><a class="reference external" href="https://qiita.com/willco21/items/534436ba89a3c6f217ac">【AWS】【Cloudformation】CustomResource作ったら、Stack更新時にDeleteアクション実行してしまう件</a></p>
 <section id="cfn-response">
-<h4>cfn-responseモジュール<a class="headerlink" href="#cfn-response" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">8.6.1.4.1. </span>cfn-responseモジュール<a class="headerlink" href="#cfn-response" title="この見出しへのパーマリンク">¶</a></h4>
 <p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/cfn-lambda-function-code-cfnresponsemodule.html">cfn-response モジュールの公式ドキュメント</a>
 で記載されているように、Lambda側のソースコードでphysicalResourceIdを指定しないと、CloudWatchのログストリームが指定される。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>physicalResourceId
@@ -298,7 +298,7 @@ PhysicalResourceId に返された値は、カスタムリソース更新オペ�
 </div>
 </section>
 <section id="id3">
-<h4>対策<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">8.6.1.4.2. </span>対策<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
 <p>CustomeResourceのLambdaの設計として、Updateのタイミングでも同じPhysicalResoruceIDを返すような仕組み作りが必要。以下のようにリクエストEventに含まれているPhysicalResoruceIDをそのままレスポンスとして返す。</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span>        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s1">&#39;RequestType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Update&#39;</span><span class="p">:</span>
             <span class="c1"># 更新イベントに対応する処理</span>

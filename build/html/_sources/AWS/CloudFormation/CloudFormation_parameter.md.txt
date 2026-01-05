@@ -155,7 +155,7 @@ CloudFormationのリソースセクションで記述すると、CloudFormation�
 
 #### シークレットマネージャの参照
 記述方法はパラメータストアと同様
-```yaml
+```
 `{{resolve:secretsmanager:secret-id:secret-string:json-key:version-stage:version-id}}`
 ```
 

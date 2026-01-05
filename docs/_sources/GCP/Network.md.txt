@@ -156,7 +156,7 @@ PSC の設計思想
 
 PSC を使うことで、「どの VPC が、どのサービスに、どの IP で接続できるか」をネットワーク構造として明示的に制御できる。
 
-###### PSC の基本構造（仕組み目線）
+##### PSC の基本構造（仕組み目線）
 1. Producer 側
   - サービス（Cloud SQL、内部サービス、SaaS など）をPSC 経由で公開可能な「サービス」として定義
   - この時点では Consumer 側の IP は存在しない
@@ -168,7 +168,7 @@ PSC を使うことで、「どの VPC が、どのサービスに、どの IP �
   - 送信元・宛先ともにプライベート IP
   - firewall / routing 的にも「VPC 内通信」として扱える
 
-###### PSCの代表利用例
+##### PSCの代表利用例
 例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える
 1. Cloud SQL 側で PSC サービスを公開する（Producer）
    - Cloud SQL を Private Service Connect 経由で利用可能なサービスとして公開する

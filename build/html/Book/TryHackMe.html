@@ -1199,7 +1199,7 @@ WordPressに対して、自書攻撃をしてアプリにログインをした�
 <section id="smbclient">
 <h3><span class="section-number">1.7.2. </span>smbclientへの攻撃<a class="headerlink" href="#smbclient" title="この見出しへのパーマリンク">¶</a></h3>
 <p>smbclinetを利用して共有フォルダを探索してみると、anonymousユーザーでログインできるBillySMBファイルを発見。その中のファイルを3つDLできる</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
 └─$ smbclient -L \\\\blog.thm                    
 Password for [WORKGROUP\kali]:
 
@@ -1253,7 +1253,7 @@ wpscanというコマンドを実行してユーザーを炙り出すと以下�
 <li><p>kwheel</p></li>
 <li><p>bjoel</p></li>
 </ul>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──(kali㉿kali)-[~/7DaysHacking/Day7]
 └─$ wpscan --url http://blog.thm --enumerate u
 _______________________________________________________________
          __          _______   _____

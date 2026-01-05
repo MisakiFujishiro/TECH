@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CICD &mdash; project  ドキュメント</title>
+  <title>5. CICD &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="11. GCE(Google Compute Engine)" href="GCE.html" />
-    <link rel="prev" title="5. Network" href="Network.html" /> 
+    <link rel="next" title="6. GCE(Google Compute Engine)" href="GCE.html" />
+    <link rel="prev" title="4. Network" href="Network.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -58,25 +58,38 @@
 <li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GKE.html">4. GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Network.html">5. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Storage.html">6. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">7. Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DB.html">8. DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">9. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AI.html">10. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">11. GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">12. コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Serverless.html">13. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">4. Network</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. CICD</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-build">5.1. Cloud Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#artifactregistry">5.2. ArtifactRegistry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-deploy">5.3. Cloud Deploy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binary-authorization">5.4. Binary Authorization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gcpcicd">5.5. GCPにおけるCICDの流れ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#clouddeploy-operations">5.5.1. clouddeploy-operationsトピック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-builds">5.5.2. cloud-buildsトピック</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">9. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIGW.html">10. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">13. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Workflows.html">14. Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">15. Cloud Scheduler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">16. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">17. Redis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">18. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">19. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">20. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
@@ -143,7 +156,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">CICD</li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>CICD</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/CICD.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -154,7 +167,7 @@
            <div itemprop="articleBody">
              
   <section id="cicd">
-<h1>CICD<a class="headerlink" href="#cicd" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">5. </span>CICD<a class="headerlink" href="#cicd" title="この見出しへのパーマリンク">¶</a></h1>
 <p>GCP には、AWS の CodePipeline のような「これがパイプラインです」と明示された単一サービスは存在しない。</p>
 <p>その代わりに <code class="docutils literal notranslate"><span class="pre">GCP</span> <span class="pre">では、複数のサービスが役割分担し、イベントと</span> <span class="pre">API</span> <span class="pre">呼び出しによって“流れ”が生まれる</span></code>
 という思想で CI/CD が構成される。
@@ -203,7 +216,7 @@ Binary Authorization
 </tbody>
 </table>
 <section id="cloud-build">
-<h2>Cloud Build<a class="headerlink" href="#cloud-build" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">5.1. </span>Cloud Build<a class="headerlink" href="#cloud-build" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud Buildの役割は、「CI を担う実行基盤」</p>
 <ul class="simple">
 <li><p>ソースコードからコンテナをビルド</p></li>
@@ -213,7 +226,7 @@ Binary Authorization
 </ul>
 </section>
 <section id="artifactregistry">
-<h2>ArtifactRegistry<a class="headerlink" href="#artifactregistry" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">5.2. </span>ArtifactRegistry<a class="headerlink" href="#artifactregistry" title="この見出しへのパーマリンク">¶</a></h2>
 <p>ArtifactRegistryの役割は、「保管場所」</p>
 <ul class="simple">
 <li><p>コンテナイメージを保存</p></li>
@@ -222,7 +235,7 @@ Binary Authorization
 </ul>
 </section>
 <section id="cloud-deploy">
-<h2>Cloud Deploy<a class="headerlink" href="#cloud-deploy" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">5.3. </span>Cloud Deploy<a class="headerlink" href="#cloud-deploy" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud Deployの役割は、「CDを担う：状態管理・昇格ルール」</p>
 <ul class="simple">
 <li><p>Target（例: Dev / Test / Prod）を順序付きで定義する</p></li>
@@ -232,7 +245,7 @@ Binary Authorization
 </ul>
 </section>
 <section id="binary-authorization">
-<h2>Binary Authorization<a class="headerlink" href="#binary-authorization" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">5.4. </span>Binary Authorization<a class="headerlink" href="#binary-authorization" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Binary Authorizationの役割は、「強制セキュリティゲート」</p>
 <ul class="simple">
 <li><p>GKE が Pod を起動する直前にチェック</p></li>
@@ -241,7 +254,7 @@ Binary Authorization
 </ul>
 </section>
 <section id="gcpcicd">
-<h2>GCPにおけるCICDの流れ<a class="headerlink" href="#gcpcicd" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">5.5. </span>GCPにおけるCICDの流れ<a class="headerlink" href="#gcpcicd" title="この見出しへのパーマリンク">¶</a></h2>
 <p>GCPにおける上記のサービスを組み合わせた際のCICDの流れのイメージ。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Developer
    ↓
@@ -365,7 +378,7 @@ Cloud Deploy（promote）
 </tbody>
 </table>
 <section id="clouddeploy-operations">
-<h3>clouddeploy-operationsトピック<a class="headerlink" href="#clouddeploy-operations" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">5.5.1. </span>clouddeploy-operationsトピック<a class="headerlink" href="#clouddeploy-operations" title="この見出しへのパーマリンク">¶</a></h3>
 <p>clouddeploy-operations は、<br />
 Cloud Deploy が発生させる「状態変化イベント」を通知するための Pub/Sub トピック<br />
 である。</p>
@@ -385,7 +398,7 @@ Cloud Deploy が発生させる「状態変化イベント」を通知するた�
 clouddeploy-operations という Pub/Sub トピックが用意されている。</p>
 </section>
 <section id="cloud-builds">
-<h3>cloud-buildsトピック<a class="headerlink" href="#cloud-builds" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">5.5.2. </span>cloud-buildsトピック<a class="headerlink" href="#cloud-builds" title="この見出しへのパーマリンク">¶</a></h3>
 <p>cloud-buildsという、Cloud Build 自身の実行状態を通知するための Pub/Sub トピックも存在する。</p>
 <p>Cloud Build が</p>
 <ul class="simple">
@@ -402,8 +415,8 @@ clouddeploy-operations という Pub/Sub トピックが用意されている。
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Network.html" class="btn btn-neutral float-left" title="5. Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="GCE.html" class="btn btn-neutral float-right" title="11. GCE(Google Compute Engine)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Network.html" class="btn btn-neutral float-left" title="4. Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GCE.html" class="btn btn-neutral float-right" title="6. GCE(Google Compute Engine)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
