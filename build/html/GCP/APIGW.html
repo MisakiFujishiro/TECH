@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10. API Gateway &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="11. ストレージ" href="Storage.html" />
+    <link rel="prev" title="9. GKE" href="GKE.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">9. GKE</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">10. API Gateway</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-endpoint">10.1. Cloud Endpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apigee">10.2. Apigee</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">10.2.1. Apigeeによるホスティング</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#eivironment">10.2.1.1. Eivironment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#environment-group">10.2.1.2. Environment Group</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cloudendpointapigee">10.2.2. CloudEndpointとApigeeの違い</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">13. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">19. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">10. </span>API Gateway</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GCP/APIGW.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-gateway">
+<h1><span class="section-number">10. </span>API Gateway<a class="headerlink" href="#api-gateway" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="cloud-endpoint">
+<h2><span class="section-number">10.1. </span>Cloud Endpoint<a class="headerlink" href="#cloud-endpoint" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud Endpoints は、Google Cloud が提供するパブリック API 向けの軽量な API 管理サービスである。</p>
+<p>API の実装とは独立して、API の入口（フロント）での制御を担うことを目的としている。<br />
+特徴は、<code class="docutils literal notranslate"><span class="pre">技術的な</span> <span class="pre">API</span> <span class="pre">を安全に公開するためのサービス</span></code></p>
+<p>主な役割は、</p>
+<ul class="simple">
+<li><p>API 呼び出し元の 認証・認可（APIキー、JWT など）</p></li>
+<li><p>過剰なリクエストの制御（クォータ・レート制限）</p></li>
+<li><p>API の メトリクス収集と可視化</p></li>
+</ul>
+<p>Cloud Run、GKE、Compute Engine、App Engine など、さまざまなバックエンドと組み合わせて利用できる。
+REST / gRPC の両方をサポートしており、API の仕様（OpenAPI / proto）を定義することで管理を有効化する。
+アプリケーション側のコードを大きく変更せずに、安全で運用しやすいパブリックAPIを提供できるのが特徴。</p>
+</section>
+<section id="apigee">
+<h2><span class="section-number">10.2. </span>Apigee<a class="headerlink" href="#apigee" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Apigee は、Google Cloud が提供する API 管理（API Management）プラットフォーム。<br />
+Apigee は API Gateway ではなく、<code class="docutils literal notranslate"><span class="pre">API</span> <span class="pre">Management</span> <span class="pre">Platform</span></code>である。</p>
+<p>Apigee はアプリケーションのバックエンドの前段に配置される API のエントリポイントとして機能し、以下のような責務を担う。</p>
+<ul class="simple">
+<li><p>認証・認可（OAuth 2.0、JWT、API キーなど）</p></li>
+<li><p>レート制限・スロットリング・クォータ管理</p></li>
+<li><p>API 利用者ごとのプラン管理（サブスクリプション管理）</p></li>
+<li><p>トラフィック制御・不正アクセス対策</p></li>
+<li><p>API 利用状況の分析・モニタリング</p></li>
+</ul>
+<p>これにより、Apigee は単なる API の公開手段ではなく、API を「プロダクト」として安全かつスケーラブルに提供・運用するための機能群を提供する。</p>
+<section id="id1">
+<h3><span class="section-number">10.2.1. </span>Apigeeによるホスティング<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Apigee では、Cloud Run や GKE、Compute Engine などで動作している 既存のバックエンド API の前段に配置され、
+外部からのリクエストを受け付け、制御したうえでバックエンドへ中継する役割を担う。</p>
+<p>Apigee では、API を安全に外部公開するために、</p>
+<ul class="simple">
+<li><p>API を実行する場所(Environment)</p></li>
+<li><p>API を公開する URL(Host名)</p></li>
+</ul>
+<p>を明確に分離して管理する設計が採られている。</p>
+<section id="eivironment">
+<h4><span class="section-number">10.2.1.1. </span>Eivironment<a class="headerlink" href="#eivironment" title="この見出しへのパーマリンク">¶</a></h4>
+<p>まず、API は <code class="docutils literal notranslate"><span class="pre">Environment</span></code> と呼ばれる論理的な環境にデプロイされる。
+Environment は、テスト用・本番用といった APIの実行環境を表す単位であり、同じ API であっても test 用と prod 用で別々に管理される。</p>
+<p>一方で、外部から API にアクセスする際に使用されるホスト名（ドメイン名） は、Environment そのものには直接割り当てられない。</p>
+</section>
+<section id="environment-group">
+<h4><span class="section-number">10.2.1.2. </span>Environment Group<a class="headerlink" href="#environment-group" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Apigee では、ホスト名は Environment Group という別の概念に紐づけて管理される。
+Environment Group は、「この URL で公開してよい API の環境はどれか」を定義するための単位である。</p>
+<p>Environment Group に特定の Environment を関連付けることで、その Environment にデプロイされた API だけが、対応するホスト名を使って外部公開される。</p>
+<p>この仕組みにより、</p>
+<ul class="simple">
+<li><p>テスト環境の API が、本番用の URL で公開される</p></li>
+<li><p>本番環境の API が、テスト用の URL で呼び出される</p></li>
+</ul>
+<p>といった状態は、設定ミスや運用ルールに関係なく構造上発生しない。</p>
+<p>つまり Apigee では、どの API が、どの環境で、どの URL を使って公開されるかという関係そのものを、API の契約としてプラットフォームが保証する。</p>
+</section>
+</section>
+<section id="cloudendpointapigee">
+<h3><span class="section-number">10.2.2. </span>CloudEndpointとApigeeの違い<a class="headerlink" href="#cloudendpointapigee" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>Cloud Endpoints</p>
+<ul>
+<li><p>シンプルなパブリックAPIの入口管理</p></li>
+<li><p>開発目線（技術的なAPI）</p></li>
+</ul>
+</li>
+<li><p>Apigee</p>
+<ul>
+<li><p>本格的な API プラットフォーム / API ビジネス</p></li>
+<li><p>ビジネス目線（APIの商用利用）</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="GKE.html" class="btn btn-neutral float-left" title="9. GKE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Storage.html" class="btn btn-neutral float-right" title="11. ストレージ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

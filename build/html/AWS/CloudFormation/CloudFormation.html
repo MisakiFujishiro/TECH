@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8.1. CloudFormationの基本 &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="検索" href="../../search.html" />
+    <link rel="next" title="8.2. CloudFormationのテンプレートファイルの書き方" href="CloudFormation_template.html" />
+    <link rel="prev" title="8. CloudFormation" href="../../CloudFormation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../S3.html">7. S3</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../CloudFormation.html">8. CloudFormation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.1. CloudFormationの基本</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">8.1.1. CloudFormationの価値</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">8.1.2. 公式ドキュメント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">8.1.3. テンプレートファイルとスタックとリソース</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">8.1.4. ネステッドスタック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">8.1.5. CloudFormationの実行と更新</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">8.1.5.1. 実行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">8.1.5.2. チェンジセット</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">8.1.5.3. ドリフト検出</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">8.1.6. 組み込み関数と疑似パラメータ</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">8.1.6.1. 組み込み関数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ref">8.1.6.2. Ref詳細</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getatt">8.1.6.3. GetAtt詳細</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sub">8.1.6.4. Sub詳細</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#findinmap">8.1.6.5. FindInMap詳細</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#importvalut">8.1.6.6. ImportValut詳細</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">8.1.6.7. 条件関数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">8.1.6.8. 疑似パラメータ</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_template.html">8.2. CloudFormationのテンプレートファイルの書き方</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_parameter.html">8.3. CloudFormationのパラメータ参照</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_control.html">8.4. CloudFormationの条件関数</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_Automation.html">8.5. CloudFormationのGitOps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CloudFormation_CustomeResource.html">8.6. カスタムリソース</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/GKE.html">9. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/APIGW.html">10. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DB.html">13. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/Redis.html">19. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../CloudFormation.html"><span class="section-number">8. </span>CloudFormation</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">8.1. </span>CloudFormationの基本</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/AWS/CloudFormation/CloudFormation.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cloudformation">
+<h1><span class="section-number">8.1. </span>CloudFormationの基本<a class="headerlink" href="#cloudformation" title="この見出しへのパーマリンク">¶</a></h1>
+<p>テンプレートファイルと呼ばれるAWSリソースの定義を記述したyamlやjson形式ファイルを実行することで記述されたAWSリソースを自動で管理することができるIaCの技術。</p>
+<section id="id1">
+<h2><span class="section-number">8.1.1. </span>CloudFormationの価値<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<p>インフラについてコードとして記述することで以下のメリットが得られる</p>
+<ul class="simple">
+<li><p>再現性の担保による実行の品質を担保できる</p></li>
+<li><p>実行と削除の作業効率向上</p></li>
+<li><p>コードとして管理することによるバージョン管理</p></li>
+</ul>
+<p>AWSのWell-Architectedの柱である「運用上の優秀性」のポイントとして「運用をコードとして実行する」が定義されている。</p>
+</section>
+<section id="id2">
+<h2><span class="section-number">8.1.2. </span>公式ドキュメント<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>CloudFormationの基本的な挙動については以下を確認すると良い。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">Userガイド</a></p></li>
+</ul>
+<p>実際にCloudFormationを記述するときには各リソースの定義方法を以下で確認すると良い。</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">リソースリファレンス</a></p></li>
+</ul>
+</section>
+<section id="id3">
+<h2><span class="section-number">8.1.3. </span>テンプレートファイルとスタックとリソース<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<p>テンプレートファイルを実行することで作成されるリソースのセットをスタックと呼ぶ。
+スタックによって作成されたAWSのサービスひとつひとつはリソースと呼ばれる。</p>
+<p>テンプレートファイルを実行する際に、リソース間の依存関係などは解決される。
+例えば、リソースAの値をリソースBで参照するような記述をしておけば、自動でCloudFormationはリソースAを作成してからリソースBを作成してくれる。</p>
+<p><img alt="" src="../../_images/cloudformation_stack.png" /></p>
+</section>
+<section id="id4">
+<h2><span class="section-number">8.1.4. </span>ネステッドスタック<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<p>CloudFormationで作成するリソースとして、CloudFormationを指定することで、親スタックと子スタックの関係性を定義することができる。親スタックのことをRootStack、子スタックのことをNestedStackと呼ぶ。</p>
+<p><img alt="" src="../../_images/cloudformation_nestedstack.png" /></p>
+</section>
+<section id="id5">
+<h2><span class="section-number">8.1.5. </span>CloudFormationの実行と更新<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id6">
+<h3><span class="section-number">8.1.5.1. </span>実行<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CloudFormationの実行は、テンプレートファイルを使用してスタックの作成や更新を行います。テンプレートファイルのアップロード時には、Amazon S3バケットを指定するか、直接アップロードするかを選択できます。直接アップロードした場合でも、テンプレートは自動的にS3に保存される点に注意してください。</p>
+<p>初回実行時にはスタックが作成され、2回目以降は更新処理が行われます。更新処理の際には、変更内容を反映するチェンジセットが作成されます。</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">8.1.5.2. </span>チェンジセット<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>チェンジセットでは、現在のスタックの構成と新しいテンプレートファイルとの間の差分を確認できます。具体的には、リソースの変更（Modify）、削除（Remove）、追加（Add）などの差分が確認できます。しかし、詳細な変更内容の把握は難しい場合があります。</p>
+<p>注意点として、チェンジセットは前回実行したテンプレートファイルとの差分を表示するため、実際のリソースに手動で行われた変更は反映されません。このため、新しいテンプレートファイルで上書きされます。実際のリソースとテンプレートファイルとの差分を確認するには、ドリフト検出を利用します。</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">8.1.5.3. </span>ドリフト検出<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ドリフト検出は、現在のテンプレートファイルと実際のリソース構成を比較し、差分を確認する機能です。ドリフト検出により、リソースのプロパティや設定がテンプレートと一致しているかどうかを確認できます。ただし、ドリフト検出がサポートされているリソースに対してのみ有効である点に注意が必要です。</p>
+<p>詳細については、<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/resource-import-supported-resources.html">公式ドキュメント</a>で確認。</p>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">8.1.6. </span>組み込み関数と疑似パラメータ<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id10">
+<h3><span class="section-number">8.1.6.1. </span>組み込み関数<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>AWSが準備している関数であり、実行されるまでわからない値などを代入する際に利用する。
+よく利用するものを以下に整理するが、一覧は<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference.html">公式ドキュメント</a>参照</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>組み込み関数名</p></th>
+<th class="head text-left"><p>説明</p></th>
+<th class="head text-left"><p>利用例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Ref</p></td>
+<td class="text-left"><p>指定したパラメータやリソースの物理名を参照することができる。リソースの物理名は名前だったり、ARNだったりする点に注意</p></td>
+<td class="text-left"><p>!Ref logicalName</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Fn::GetAtt</p></td>
+<td class="text-left"><p>論理名で指定したAWSリソースの属性を参照することができる。どのような属性が定義されているかは参照先のAWSのリソースに依存</p></td>
+<td class="text-left"><p>!GetAtt logicalNameOfResource.attributeName</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Fn::Sub</p></td>
+<td class="text-left"><p>入力文字列の変数を、指定した値に置き換える</p></td>
+<td class="text-left"><p>!Sub 'arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:vpc/${vpc}'</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Fn::FindInMap</p></td>
+<td class="text-left"><p>Mappingセクションと合わせて利用して、Mappingセクションで指定された値を参照することができる。</p></td>
+<td class="text-left"><p>!FindInMap [ MapName, TopLevelKey, SecondLevelKey ]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Fn::ImportValue</p></td>
+<td class="text-left"><p>クロススタック参照を利用して、別スタックの出力を参照する場合に利用する</p></td>
+<td class="text-left"><p>!ImportValue sharedValueToImport</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>条件関数</p></td>
+<td class="text-left"><p>Fn::If、Fn::Equals、Fn::Not などの組み込み関数を使用して、条件付きでスタックリソースを作成</p></td>
+<td class="text-left"><p>ConditionとFn::If、Fn::Equals、Fn::Notの組み合わせ</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ref">
+<h3><span class="section-number">8.1.6.2. </span>Ref詳細<a class="headerlink" href="#ref" title="この見出しへのパーマリンク">¶</a></h3>
+<p>指定したパラメータやリソース、組み込み関数に応じた値を返却する</p>
+<ul class="simple">
+<li><p>パラメータの論理名を指定すると、それはパラメータの値を返します。</p></li>
+<li><p>リソースの論理名を指定すると、それはそのリソースを参照するために通常使用できる値を返します (物理 ID)。</p></li>
+<li><p>組み込み関数を指定すると、その関数の出力を返します。</p></li>
+</ul>
+<p>リソース名を指定した場合、参照されるものは物理IDであり、リソースの種別によってARNや名前になるため、公式ドキュメントの<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">リソースリファレンス</a>を確認する。</p>
+<p>以下の例ではEC2InstacneのインスタンスIDがRefで返却される。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">MyEIP</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AWS::EC2::EIP&quot;</span>
+<span class="w">  </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">InstanceId</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyEC2Instance</span>
+</pre></div>
+</div>
+<p>Refを利用すると、CloudFormation側で自動で作成順序を制御してくれる。
+参照されるリソースを作成してから参照する側のリソースを作成してくれる。</p>
+</section>
+<section id="getatt">
+<h3><span class="section-number">8.1.6.3. </span>GetAtt詳細<a class="headerlink" href="#getatt" title="この見出しへのパーマリンク">¶</a></h3>
+<p>テンプレートのリソースから属性の値を返却する。</p>
+<p>GetAttを利用した際に参照できる属性の値についてはリソースごとに異なるため、公式ドキュメントの<a class="reference external" href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">リソースリファレンス</a>を確認する。</p>
+<p>例えば、LoadBalancerの公式ドキュメントを確認すると、5つの属性が定義されている。
+<img alt="" src="../../_images/cloudformation_getatt_ex.png" /></p>
+<p>上記を利用したテンプレートの例は以下。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2010-09-09</span>
+<span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">myELB</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::ElasticLoadBalancing::LoadBalancer</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">AvailabilityZones</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1a</span>
+<span class="w">      </span><span class="nt">Listeners</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">LoadBalancerPort</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;80&#39;</span>
+<span class="w">          </span><span class="nt">InstancePort</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;80&#39;</span>
+<span class="w">          </span><span class="nt">Protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HTTP</span>
+<span class="w">  </span><span class="nt">myELBIngressGroup</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::SecurityGroup</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">GroupDescription</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ELB ingress group</span>
+<span class="w">      </span><span class="nt">SecurityGroupIngress</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">IpProtocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tcp</span>
+<span class="w">          </span><span class="nt">FromPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">          </span><span class="nt">ToPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">80</span>
+<span class="w">          </span><span class="nt">SourceSecurityGroupOwnerId</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myELB.SourceSecurityGroup.OwnerAlias</span>
+<span class="w">          </span><span class="nt">SourceSecurityGroupName</span><span class="p">:</span><span class="w"> </span><span class="kt">!GetAtt</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myELB.SourceSecurityGroup.GroupName</span>
+</pre></div>
+</div>
+<p>GetAttを利用すると、CloudFormation側で自動で作成順序を制御してくれる。
+参照されるリソースを作成してから参照する側のリソースを作成してくれる。</p>
+</section>
+<section id="sub">
+<h3><span class="section-number">8.1.6.4. </span>Sub詳細<a class="headerlink" href="#sub" title="この見出しへのパーマリンク">¶</a></h3>
+<p>対象のStringに対して、パラメータの埋め込みをしてくれる。</p>
+<p>記述方法としては以下のように、指定したStringに対して、埋め込むパラメータを定義する。
+定義するパラメータには疑似パラメータやRef、GetAttも利用可能</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;www.${Domain}&#39;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Domain</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RootDomainName</span>
+</pre></div>
+</div>
+<p>省略形を利用した記述だと以下になり、疑似パラメータとvpcに対してのRefをパラメータとして埋め込む</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:vpc/${vpc}&#39;</span>
+</pre></div>
+</div>
+<p>長い文字列の場合リテラルブロックを使用することができる</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="kt">!Sub</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:vpc/${vpc}</span>
+</pre></div>
+</div>
+<p>Subは単純に文字列操作として利用されるため、!Refや!GetAttを利用しないで、!SubだけでARNを組み立てるとCloudFormationで自動で作成順序を制御してくれない点に注意。
+例えば以下のIAM Roleを!Subだけで組み立てると、作成順序は制御されない。</p>
+<p>以下の例では、IAMを作成して、BucketPolicyでその値を!Subで参照しているため、作成順序は担保されない。
+BucketPolicy作成時に、ROleがないためエラーになる可能性がある。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyRole</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::IAM::Role</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">RoleName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role-for-my-bucket</span>
+<span class="w">      </span><span class="nt">AssumeRolePolicyDocument</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2012-10-17&#39;</span>
+<span class="w">        </span><span class="nt">Statement</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Effect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Allow</span>
+<span class="w">            </span><span class="nt">Principal</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">Service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3.amazonaws.com</span>
+<span class="w">            </span><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sts:AssumeRole</span>
+
+<span class="w">  </span><span class="nt">MyBucket</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::S3::Bucket</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">BucketName</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;my-bucket-${AWS::Region}-${AWS::AccountId}&#39;</span>
+<span class="w">      </span><span class="nt">LifecycleConfiguration</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">BucketPolicy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">PolicyDocument</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">Version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2012-10-17&#39;</span>
+<span class="w">          </span><span class="nt">Statement</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Effect</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Allow</span>
+<span class="w">              </span><span class="nt">Principal</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">AWS</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;arn:aws:iam::${AWS::AccountId}:role/role-for-my-bucket&#39;</span>
+<span class="w">              </span><span class="nt">Action</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;s3:*&#39;</span>
+<span class="w">              </span><span class="nt">Resource</span><span class="p">:</span><span class="w"> </span><span class="kt">!Sub</span><span class="w"> </span><span class="s">&#39;arn:aws:s3:::my-bucket-${AWS::Region}-${AWS::AccountId}/*&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="findinmap">
+<h3><span class="section-number">8.1.6.5. </span>FindInMap詳細<a class="headerlink" href="#findinmap" title="この見出しへのパーマリンク">¶</a></h3>
+<p>組み込み関数 Fn::FindInMap は、CloudFormationのテンプレートでマッピングを使用して、キーと値のペアを検索するための関数です。</p>
+<p>構文としては以下</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="kt">!FindInMap</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">マップ名</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">トップレベルキー</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">セカンドレベルキー</span><span class="w"> </span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>マップ名: Mappingsセクションで定義されたマップの名前</p></li>
+<li><p>トップレベルキー: マップの最初のキー</p></li>
+<li><p>セカンドレベルキー: トップレベルキーの下にある具体的なキー</p></li>
+</ul>
+<p>まずは、Mappingセクションでマップとキーを設定する</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Mappings</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">RegionMap</span><span class="p">:</span><span class="w">                        </span><span class="c1"># マップ名</span>
+<span class="w">    </span><span class="nt">us-east-1</span><span class="p">:</span><span class="w">                      </span><span class="c1"># トップレベルキー</span>
+<span class="w">      </span><span class="nt">AMI</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ami-0abcdef1234567890</span><span class="w">    </span><span class="c1"># セカンドレベルキー: Value</span>
+<span class="w">    </span><span class="nt">us-west-1</span><span class="p">:</span><span class="w">                      </span><span class="c1"># トップレベルキー</span>
+<span class="w">      </span><span class="nt">AMI</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ami-1abcdef1234567890</span><span class="w">    </span><span class="c1"># セカンドレベルキー: Value</span>
+<span class="w">    </span><span class="nt">eu-west-1</span><span class="p">:</span><span class="w">                      </span><span class="c1"># トップレベルキー</span>
+<span class="w">      </span><span class="nt">AMI</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ami-2abcdef1234567890</span><span class="w">    </span><span class="c1"># セカンドレベルキー: Value</span>
+</pre></div>
+</div>
+<p>参照時には、構文を利用して値を取得する</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyEC2Instance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::Instance</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">InstanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">t2.micro</span>
+<span class="w">      </span><span class="nt">ImageId</span><span class="p">:</span><span class="w"> </span><span class="kt">!FindInMap</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">RegionMap</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="s">&#39;AWS::Region&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">AMI</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">Tags</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name</span>
+<span class="w">          </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyEC2Instance</span>
+</pre></div>
+</div>
+</section>
+<section id="importvalut">
+<h3><span class="section-number">8.1.6.6. </span>ImportValut詳細<a class="headerlink" href="#importvalut" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ImportValueは、CloudFormationのスタック間でリソースや値を共有するために使用される関数です。あるスタックでエクスポートされた値を他のスタックでインポートして使用することができます。
+スタック間でパラメータをやり取りすることをクロススタックリファレンスと呼ぶ。</p>
+<p>構文としては以下</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="kt">!ImportValue</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">エクスポート名</span>
+</pre></div>
+</div>
+<p>具体例としては、出力側でエクスポート（Output）の定義を行う。<code class="docutils literal notranslate"><span class="pre">MyVPCId</span></code>という値で、VPCのIDがエクスポートされている。注意点として、エクスポートする際のエクスポート名はアカウント内のリージョンでユニークになる必要がある。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MyVPC</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::VPC</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
+
+<span class="nt">Outputs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">VPCId</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;VPC</span><span class="nv"> </span><span class="s">ID&quot;</span>
+<span class="w">    </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPC</span>
+<span class="w">    </span><span class="nt">Export</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPCId</span>
+</pre></div>
+</div>
+<p>Import側では先ほどのImportValueの構文を利用する。</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MySubnet</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AWS::EC2::Subnet</span>
+<span class="w">    </span><span class="nt">Properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">VpcId</span><span class="p">:</span><span class="w"> </span><span class="kt">!ImportValue</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyVPCId</span>
+<span class="w">      </span><span class="nt">CidrBlock</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.1.0/24</span>
+</pre></div>
+</div>
+<p>注意点として、ExportとImportをしている場合、Export側のスタックを削除しようとするとエラーが出る。先にImport側を削除して依存関係を取り除かないといけない。</p>
+</section>
+<section id="id11">
+<h3><span class="section-number">8.1.6.7. </span>条件関数<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>条件関数については、<a class="reference external" href="https://misakifujishiro.github.io/TECH/AWS/CloudFormation/CloudFormation_control.html">別ページ</a>に整理しているので参照。</p>
+</section>
+<section id="id12">
+<h3><span class="section-number">8.1.6.8. </span>疑似パラメータ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>AWSが事前に定義したパラメータであり、アカウントIDやリージョンが準備されており、実行環境によって参照してくれる。
+組み込み関数の&quot;Sub&quot;や&quot;Ref&quot;で利用することができる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>疑似パラメータ</p></th>
+<th class="head text-left"><p>返却値</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>AWS::AccountId</p></td>
+<td class="text-left"><p>スタックが作成されているアカウントの AWS アカウント ID</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>AWS::Partition</p></td>
+<td class="text-left"><p>リソースがあるパーティション。標準の AWS リージョンの場合、パーティションは aws</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>AWS::Region</p></td>
+<td class="text-left"><p>リソースが作成されているリージョンを表す文字列(ap-northeast-1)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>AWS::StackId</p></td>
+<td class="text-left"><p>スタックの ID</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>AWS::StackName</p></td>
+<td class="text-left"><p>スタックの名前</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>AWS::URLSuffix</p></td>
+<td class="text-left"><p>ドメインのサフィックスを返します。サフィックスは、通常 &quot;amazonaws.com&quot;</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>AWS::NoValue</p></td>
+<td class="text-left"><p>Fn::If 組み込み関数の戻り値として指定すると、対応するリソースプロパティは作成されない</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>AWS::NotificationARNs</p></td>
+<td class="text-left"><p>CloudFormation スタックが通知を送信する SNS トピックの一覧</p></td>
+</tr>
+</tbody>
+</table>
+<p>例えば、作成されるリソースのタグにStackNameを付与するとリソースからStackを参照することができる</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Tags</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">Key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CreatedBy</span>
+<span class="w">        </span><span class="nt">Value</span><span class="p">:</span><span class="w"> </span><span class="kt">!Ref</span><span class="w"> </span><span class="s">&quot;AWS::StackName&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../CloudFormation.html" class="btn btn-neutral float-left" title="8. CloudFormation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CloudFormation_template.html" class="btn btn-neutral float-right" title="8.2. CloudFormationのテンプレートファイルの書き方" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

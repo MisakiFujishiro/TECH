@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Agile &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="3. Network" href="Network.html" />
+    <link rel="prev" title="1. V字モデル" href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">9. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/APIGW.html">10. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">13. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">19. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Agile</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">2.1. Agileの基本</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-agile">2.1.1. what Agile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-agile">2.1.2. why Agile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-scrum">2.1.3. what Scrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role">2.1.4. Role</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#product-owner">2.1.4.1. Product Owner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scrum-master">2.1.4.2. Scrum Master</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dev">2.1.4.3. Dev</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2.1.5. イベント</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">2.1.5.1. スプリントプランニング</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.1.5.2. スプリントプランニング(前半)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.1.5.3. スプリントプランニング(後半)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rv">2.1.5.4. スプリントRV</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.1.5.5. デイリー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">2.1.5.6. レトロスペクティブ（振り返り）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">2.1.5.7. バックロググルーミング/リファインメント</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">2.1.6. 成果物</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#product">2.1.6.1. Product</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">2.1.6.2. チーム</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pruduct-backlog">2.1.6.3. Pruduct BackLog</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#spring-backlog">2.1.6.4. Spring BackLog</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">2.2. Agileの始め方</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">2.2.1. インセプションデッキを作る</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id13">2.2.1.1. 我々はなぜここにいるのか</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">2.2.1.2. エレベータピッチを作る</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">2.2.1.3. パッケージデザインを作る</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">2.2.1.4. やらないことリストを作る</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">2.2.1.5. ご近所さんを探せ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">2.2.1.6. 解決案を描く</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">2.2.1.7. 夜も眠れないようなもんだはなんだろう</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">2.2.1.8. 期間を見極める</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id21">2.2.1.9. 何を諦めるのかはっきりさせる</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id22">2.2.1.10. 何がどれだけ必要なのか</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">2.2.2. Agileで計画を立てる</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id24">2.2.2.1. ユーザーストーリーを集める</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">2.2.2.2. 見積りを行う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id26">2.2.2.3. 計画を立てる</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pbl">2.2.2.4. PBLの作成</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mmf">2.2.2.5. MMFの範囲決定</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id27">2.2.2.6. イテレーションの範囲決定とベロシティの計測</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">2.2.2.7. 必要イテレーション数の算出</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id29">2.2.2.8. 概算スケジュールの算出</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30">2.2.2.9. スコープとスケジュールのトレードオフの調整継続</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id31">2.2.2.10. Agileの計画まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">2.2.3. Agileを運営する</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id33">2.2.3.1. 開発の流れ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id37">2.2.3.2. 意思疎通の方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id43">2.2.3.3. 環境作り</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id44">2.2.4. アジャイルなプログラミング</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id45">2.2.4.1. ユニットテスト</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id46">2.2.4.2. リファクタリング</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tdd">2.2.4.3. テスト駆動開発（TDD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id47">2.2.4.4. 継続的なインテグレーション</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id48">2.3. アジャイルの思想</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id49">2.3.1. アジャイルソフトウェア開発宣言</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id50">2.3.1.1. 個人との対話(自己組織化/心理的安全性)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mvp">2.3.1.2. 動くソフトウェア(MVP)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id51">2.3.1.3. 顧客との協調（提供する価値）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id52">2.3.1.4. 変化への対応（変化はチャンス）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id53">2.3.2. アジャイル宣言の背後にある原則</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#agile7p">2.4. Agileで意識する7つのP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id54">2.4.1. Product</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id55">2.4.1.1. 顧客インサイト</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id56">2.4.1.2. 完成したソフトウェアの使用率とMVP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id57">2.4.1.3. 贅肉を落としたProduct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id58">2.4.1.4. Productの価値を測る</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#people-team">2.4.2. People(Team)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id59">2.4.2.1. 自己組織化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id60">2.4.2.2. 心理的安全性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id61">2.4.2.3. 共通理解を育む</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id62">2.4.2.4. インセプションデッキ</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#project">2.4.3. Project</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id63">2.4.3.1. ストーリーポイント</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id64">2.4.3.2. スプリントレベルでの計画</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id65">2.4.3.3. 毎日の計画</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id66">2.4.3.4. 長期間の計画（リリースプランニング）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#process">2.4.4. Process</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id67">2.4.4.1. 少しづつ作る（インクリメンタル）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id68">2.4.4.2. 反復的に作る（イテレーティブ）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id69">2.4.4.3. イテレーション・スプリント</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#practice">2.4.5. Practice</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id70">2.4.5.1. 見える化する</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id71">2.4.5.2. ペア/モブプラグラミング</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pattern">2.4.6. Pattern</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>Agile</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/ITBasic/Agile.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="agile">
+<h1><span class="section-number">2. </span>Agile<a class="headerlink" href="#agile" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="id1">
+<h2><span class="section-number">2.1. </span>Agileの基本<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="what-agile">
+<h3><span class="section-number">2.1.1. </span>what Agile<a class="headerlink" href="#what-agile" title="この見出しへのパーマリンク">¶</a></h3>
+<p>&quot;Agile&quot;は機敏さ俊敏さを表しているが、このスピードはゴールに辿り着くまでの速さではない。<br />
+俊敏さは以下の事柄に対する素早い対応と意思決定を意味する。</p>
+<ul class="simple">
+<li><p>市場の変化に対する対応の速さ</p></li>
+<li><p>リリースによって生まれたユーザーからのフィードバックの速さ</p></li>
+<li><p>開発者自身の気づきに対する開発サイクルの改善の速さ</p></li>
+</ul>
+<p>ウォーターフォールと比較すると、不確実性に対して向き合い、不確実性を味方としてビジネスチャンスを掴む開発手法になる。<br />
+ウォーターフォールの上位互換ではない。
+必要機能や作るべきものが決まっているのであればウォーターフォールを採用する。</p>
+</section>
+<section id="why-agile">
+<h3><span class="section-number">2.1.2. </span>why Agile<a class="headerlink" href="#why-agile" title="この見出しへのパーマリンク">¶</a></h3>
+<p>「俊敏な開発」とは、開発を短い時間（タイムボックス）の中で、</p>
+<ul class="simple">
+<li><p>何を作るのか決める</p></li>
+<li><p>どうやって作るのかを決める</p></li>
+<li><p>実際に動くものを作りきる（リリースする）</p></li>
+</ul>
+<p>という一連の流れを繰り返し続けることを指している。</p>
+<p>この考え方の背景には、ソフトウェア開発において本当に重要なものは何か、という問いがある。
+それは「予定通りに作ること」ではなく、ソフトウェアが顧客にとって重要な課題を解決し続けること、言い換えれば、価値のあるプロダクトであり続けることである。</p>
+<p>しかし現実の世界では、市場や技術、顧客の状況は常に変化する。
+そのため、一度作ったものをそのまま提供し続けるだけでは、価値はすぐに陳腐化してしまう。
+Agileが「継続的な開発」と「サービスの向上」を重視するのは、この前提に立っているからである。</p>
+<p>このような考え方を踏まえたとき、Agileの目的は次のように整理できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>開発行為を少しづつ反復しながら進めていくことで、  
+経験に基づき、チームとプロダクトをkaizenしていき、  
+変化に強い価値のあるプロダクトを世に送り出し続けることである。  
+</pre></div>
+</div>
+<p>Agileが生まれた背景には、従来のソフトウェア開発が抱えてきた構造的な課題がある。</p>
+<ol class="arabic simple">
+<li><p>プロジェクト開始時に全ての要求を集めることはできない</p></li>
+<li><p>集めたところで要求はどれも必ずと言っていいほどかわる</p></li>
+<li><p>やるべきことはいつだって与えられた時間と資金よりも多い</p></li>
+</ol>
+<p>事前に全ての要望を洗い出し計画通りに開発を進めるという開発は苦渋の思いをしてきた。
+Agileは、こうした課題を「例外」ではなく「前提」として受け入れる。
+その上で、次のようなアプローチを取る。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>顧客と共に開発を進め、  
+取捨選択することでやるべきことを限定して、やれる範囲での開発を行うという  
+現実に適用する計画を立てる
+</pre></div>
+</div>
+<p>ここで重要なのは、「計画しない」のではなく、経験と結果に基づいて計画を見直し続ける点にある。
+まとめると、Agileは次の目的のために、短いタイムボックスの中で、少しずつ、繰り返し開発を行う。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>目的①：価値のあるプロダクトであり続けるため  
+目的②：変化に強いTeamを生み出すため  
+目的③：非常に難しいソフトウェア開発を実現するため  
+</pre></div>
+</div>
+</section>
+<section id="what-scrum">
+<h3><span class="section-number">2.1.3. </span>what Scrum<a class="headerlink" href="#what-scrum" title="この見出しへのパーマリンク">¶</a></h3>
+<p>スクラムはアジャイル開発手法の１つ。</p>
+<p>スクラムでは以下の特徴がある。</p>
+<ul class="simple">
+<li><p>タイムボックス</p>
+<ul>
+<li><p>固定の短い時間に区切って、開発を行う</p></li>
+</ul>
+</li>
+<li><p>透明性</p>
+<ul>
+<li><p>現在の状況や問題点を常に可視化する</p></li>
+</ul>
+</li>
+<li><p>検査</p>
+<ul>
+<li><p>定期的に進捗状況やプロダクトの期待値と現状を比較し、確認を行う</p></li>
+</ul>
+</li>
+<li><p>適応</p>
+<ul>
+<li><p>透明性と検査の結果明らかになった課題に対してkaizenを目指して新しい取り組みを取り入れる</p></li>
+</ul>
+</li>
+</ul>
+<p>まとめると、ScrumではAgileの原理原則を満たすために、以下のように開発を進める</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>タイムボックスという短い時間に区切ることで、少しづつ、繰り返しながら開発を進める  
+透明化により、開発を進めていく上での現状や問題をいつだれでも分かる状態とする  
+検査により、プロダクトと現状のギャップを明らかにする  
+適応により、透明化と検査で判明した課題に対して、タイムボックスを繰り返す中で試行錯誤的に解決を目指していく  
+上記を経て、変化に強いチームとなり、価値のあるプロダクトを作り続ける  
+</pre></div>
+</div>
+</section>
+<section id="role">
+<h3><span class="section-number">2.1.4. </span>Role<a class="headerlink" href="#role" title="この見出しへのパーマリンク">¶</a></h3>
+<p>スクラムには以下３つのRoleがある。</p>
+<ul class="simple">
+<li><p>Product Owner<br />
+プロダクトの価値を最大化する</p></li>
+<li><p>Scrum Master<br />
+Scrumの仕組みを正常に回す</p></li>
+<li><p>Dev Team<br />
+チームとして最大効率でプロダクトを開発する</p></li>
+</ul>
+<section id="product-owner">
+<h4><span class="section-number">2.1.4.1. </span>Product Owner<a class="headerlink" href="#product-owner" title="この見出しへのパーマリンク">¶</a></h4>
+<p>プロダクトの責任者であり、プロダクトの価値を高めるための情熱を持った人。<br />
+POは真実の源であり、積極的にプロダクトに興味を持ってくれることが成功に直結するため、たとえお客さまであっても積極的にチームに巻きこむ。</p>
+<p>■what's is</p>
+<ul class="simple">
+<li><p>プロダクトの価値最大化に責任を持つ</p></li>
+<li><p>必要機能（PBL）を明確にし、優先順位を定める</p></li>
+<li><p>1人の人間であり、複数人を構成しない</p></li>
+</ul>
+<p>■目的<br />
+開発チームを活用して、そのプロダクトが生み出す価値を最大化する責任がある。</p>
+<p>■実施内容</p>
+<ul class="simple">
+<li><p>プロダクトのビジョンを明らかにする</p></li>
+<li><p>リリース計画および予算を管理する</p></li>
+<li><p>PBLの内容を詳細化する</p></li>
+<li><p>PBLが完了しているかを確認する</p></li>
+</ul>
+</section>
+<section id="scrum-master">
+<h4><span class="section-number">2.1.4.2. </span>Scrum Master<a class="headerlink" href="#scrum-master" title="この見出しへのパーマリンク">¶</a></h4>
+<p>一番Agile開発やスクラム開発に対して知見を有しており、正常にAgile開発ができるようにチームに影響を与えられる人。</p>
+<p>■what's is</p>
+<ul class="simple">
+<li><p>スクラムの促進と支援に責任を持つ</p></li>
+<li><p>スクラムのルールや進め方をPOとDEVに理解させ、実践を促す</p></li>
+<li><p>チームが機能するための障害を取り除く</p></li>
+</ul>
+<p>■目的<br />
+スクラム外部からスクラムを守り、スクラム内ではスクラムをスムーズに行われるように促す</p>
+<p>■実施内容</p>
+<ul class="simple">
+<li><p>POやDevチームにAgileやScrumについて説明する</p></li>
+<li><p>プランニングやレトロスペクティブの会議を進行する</p></li>
+<li><p>POとDevの会話を促す</p></li>
+<li><p>スクラムの生産性が上がるように足りていない部分のフォローをする</p></li>
+</ul>
+</section>
+<section id="dev">
+<h4><span class="section-number">2.1.4.3. </span>Dev<a class="headerlink" href="#dev" title="この見出しへのパーマリンク">¶</a></h4>
+<p>具体的な開発を行うチームであり、個人ではなく全体として成果を出すチーム</p>
+<p>■what's is</p>
+<ul class="simple">
+<li><p>プロダクトを作るために必要な専門家</p></li>
+<li><p>自分達自身を管理する体制と権限がある</p></li>
+<li><p>開発メンバの責任はチームで担う</p></li>
+</ul>
+<p>■実施内容<br />
+機能横断的なチームであることが望ましい。<br />
+すなわち、特定のことしか行わない専門のサブチームで構成されるのではなく、作業を進めていく過程でなるべく個人が複数のことをできるようなっているべき。</p>
+<p>また、自己組織化されていることが望ましい。<br />
+すなわち、自分達がなぜここにいるのかを理解し、お互いの強みがわかっているために最適なフォーメーションを組んで、ビジョンに向けて自走できる組織であるべき。
+各個人は、チームの一員として成果のために最善を尽くすことが望まれる。Devチームだけでなくスクラム全体が最善を尽くしていることがもちろん前提。</p>
+</section>
+</section>
+<section id="id2">
+<h3><span class="section-number">2.1.5. </span>イベント<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>スクラムには以下５つのイベントがある</p>
+<ul class="simple">
+<li><p>スプリントプランニング<br />
+スプリントで何をどうやって作るのかを検討する</p></li>
+<li><p>スプリントRV<br />
+スプリントで作成した成果物を確認し、フィードバックを得る</p></li>
+<li><p>デイリー<br />
+開発チームが毎日行い、課題を明らかにする</p></li>
+<li><p>レトロスペクティブ<br />
+チームとして振り返りを行い、kaizenを目指す</p></li>
+<li><p>バックロググルーミング/リファインメント<br />
+PBLについて詳細化、具体化を行い、プランニングの準備を行う</p></li>
+</ul>
+<section id="id3">
+<h4><span class="section-number">2.1.5.1. </span>スプリントプランニング<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
+<p>スプリントの中で何を作るのか、どうやって作るのかを対話する。(1ヶ月のスプリントで8時間の時間を割く)</p>
+<p>■what's is<br />
+区切られたタイムボックスの中で、何を成果物として生み出すのかの計画を立てる取り組みがスプリントプランニングである。<br />
+POが主体となって開催する、何を作るのかを説明するスプリントプランニング一部とDevが主体となって開催する、どのように作るのかを対話するスプリント計画二部がある。</p>
+<p>■目的<br />
+名前がスプリント<code class="docutils literal notranslate"><span class="pre">プランニング</span></code>であることから分かる通り、重要視されているのは計画（スケジュール表）ではなく、<code class="docutils literal notranslate"><span class="pre">計画作り</span></code><br />
+計画づくりの中で対話をすることで、POとDev間で期待値の擦り合わせやDev内部での実装の観点を擦り合わせていく。</p>
+<p>そのため、不一致こそタスクの理解度を揃えるきっかけとなる。
+計画が早く終わることが期待されているのではなく、計画を立てる際の意見の不一致や対話のプロセスが重視される。</p>
+<p>そもそもAgileでは精密な計画は価値が少ないとしている。
+なぜなら、精密な計画を準備したところで、スプリントを経て得られたフィードバックによって変更される可能性が高いためである。
+そのため、長期の計画は相対見積もりを利用したざっくりとした見積もりを行う。
+一方で、短期の計画は確実性を高めることが求められ、スプリントプランニングにおいて立てた計画に対してはDevチームはコミットすることが求められる。</p>
+<p><img alt="" src="../_images/sprint_planning.png" /></p>
+</section>
+<section id="id4">
+<h4><span class="section-number">2.1.5.2. </span>スプリントプランニング(前半)<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h4>
+<p>■what's is<br />
+POがスプリントで何を作成するのかということを説明する。<br />
+基本的にはPBLの上位にあるものから開発をしていくため、上位から説明することになる。</p>
+<p>■実施内容<br />
+スプリントプランニング自体は最終確認の場として、この時点では、既にPOとDevで対象となるPBLについては合意できている状態が望ましい。</p>
+<p>スプリントプランニングの前から、事前準備としてバックロググルーミング/リファインメントを通じて、
+PBL上位の項目について、詳細化しておくことが必須である。</p>
+</section>
+<section id="id5">
+<h4><span class="section-number">2.1.5.3. </span>スプリントプランニング(後半)<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
+<p>■what's is<br />
+Devチームが、前半で説明されたPBLに対して、具体的な作業を洗い出すことで作業計画を立てる。</p>
+<p>■実施内容<br />
+PBLを作業レベルに分割し、それぞれの作業に対して時間単位での見積りを行う。個々の作業は1日で終わる範囲に分割することが望ましい。
+これは、１日以上だと作業ステータスの変化が捉えにくくなるため、透明性を阻害するためのである。</p>
+<p>スプリント計画を経て、得られるプロダクトバックログ項目と作業の一覧を合わせてスプリントバックログと呼ぶ。</p>
+<p><img alt="" src="../_images/pbi_spi.png" /></p>
+<p>なお、開発チームはスプリントプランニングでコミットした内容は、完成させるために最善を尽くす必要があるが、完成することを約束しているわけではない点に注意。
+すなわち、完成させることにフォーカスしてしまうと、テストが適当になったり長時間残業して対応したりすることになり、開発チームのコンスタントな能力が不透明になってしまうという問題がある。</p>
+</section>
+<section id="rv">
+<h4><span class="section-number">2.1.5.4. </span>スプリントRV<a class="headerlink" href="#rv" title="この見出しへのパーマリンク">¶</a></h4>
+<p>■what's is<br />
+プロダクトオーナー主催でスプリントの成果をレビューするイベント</p>
+<p>Devチームの成果物を関係者にデモを行う。</p>
+<p>■目的<br />
+プロダクトに対するフィードバックを得ること</p>
+<p>■実施内容</p>
+<ul class="simple">
+<li><p>プロダクトのデモ</p></li>
+<li><p>フィードバックの獲得</p></li>
+<li><p>PBLの見直しおよび全体の進捗確認</p></li>
+<li><p>今後の予定や見通しの共有</p></li>
+</ul>
+</section>
+<section id="id6">
+<h4><span class="section-number">2.1.5.5. </span>デイリー<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<p>■what's is<br />
+開発チームのための会議であり、開発チームの透明化を行うための取り組み。</p>
+<p>■目的<br />
+スプリングバックログの残作業を確認し、このまま進めることでスプリントのゴールが達成できるのかを確認する。</p>
+<p>■実施内容<br />
+毎日、同じ時間、同じ場所にメンバーが集まって「昨日やったこと・今日やること・困っていること」を共有する。</p>
+<p>絶対に15分というタイムボックスで終わらせることがルールであり、具体的な議論は２次会で行う。</p>
+</section>
+<section id="id7">
+<h4><span class="section-number">2.1.5.6. </span>レトロスペクティブ（振り返り）<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
+<p>■what's is<br />
+タイムボックスの中で行動した結果を振り返り、Teamが成長するためのネクストアクションを模索する適応のプロセス。</p>
+<p>■目的<br />
+アジャイルの成果物は、プロダクトとチームである。チームが育つために、定期的に振り返りを行う。
+すなわち、Agileではプロダクトを開発するプロセスの中にチームや個人の成長戦略を織り込んでいる。</p>
+<p>■実施内容<br />
+振り返りの中でKPT分析などを行う</p>
+<p>Keepに関しては、チームで実施されている良い取り組みに対して感謝をして、継続する理由付けを行う。
+せっかく、チームのために作業を拾ったり支援してくれた人がいるのに、フィードバックがないと継続されなくなってしまう。
+やる価値があるのかというのが分かりにくいが、keepとしてあげたり、感謝を伝えることで、チームのブラッシュアップに繋がる</p>
+<p>スプリントの中で発見したチームの課題(Ploblem)に対しての解決策(Try)については必ず次のスプリントで実践する
+対策については、PBLに取り入れる</p>
+</section>
+<section id="id8">
+<h4><span class="section-number">2.1.5.7. </span>バックロググルーミング/リファインメント<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
+<p>POとDEVで未来のスプリントに向けて、PBLを着手可能な状態にするための取り組み(全体の5-10%の時間を割く)</p>
+<p>■what's is<br />
+アジャイル開発にでは、対話をしながら一緒に考える時間を重視しているため、POは開発チームを巻き込んでプロダクトバックログをメンテナンスをする。
+このメンテナンスする活動を「プロダクトバックログリファインメント」と呼ぶ</p>
+<p>■目的<br />
+POとDevが共に議論を交わすことで、技術的な視点や全体を俯瞰したシステム構築により抜け漏れや曖昧性を減らすことができる。
+手戻りが少なく、必要な機能を必要なだけ作ることで、要望とのすり合わせや作業の不安を軽減して停滞感を打破することができる。</p>
+<p>■実施内容<br />
+大きなバックログの内容を把握するために受入条件を明確化したり、PBLの分割を行うことで以下の項目が準備できていることを確認する</p>
+<ul class="simple">
+<li><p>実施する価値が明確</p>
+<ul>
+<li><p>最終顧客に価値があるという根拠や仮説がある</p></li>
+</ul>
+</li>
+<li><p>着手可能な状態である</p>
+<ul>
+<li><p>具体的な情報が準備されている</p></li>
+<li><p>チームにとって開発可能な大きなサイズに分解されている</p></li>
+<li><p>テスト可能な受け入れ条件がある</p></li>
+<li><p>開発チームの能力で開発可能な基準である</p></li>
+</ul>
+</li>
+<li><p>タイミングが明確</p>
+<ul>
+<li><p>優先順位で並び替えられている</p></li>
+<li><p>見積もりが完了している</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="../_images/product-backlog-refinement.jp.png" /></p>
+</section>
+</section>
+<section id="id9">
+<h3><span class="section-number">2.1.6. </span>成果物<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<p>スクラムには以下4つの成果物がある</p>
+<ul class="simple">
+<li><p>Product<br />
+顧客の課題を解決し、価値を提供するProduct</p></li>
+<li><p>Team<br />
+変化に強く、最大効率でPruductの開発を行うTeam</p></li>
+<li><p>PBL<br />
+Productを開発する項目一覧と優先順位</p></li>
+<li><p>SBL<br />
+スプリントの中で開発する項目の具体的な作業</p></li>
+</ul>
+<section id="product">
+<h4><span class="section-number">2.1.6.1. </span>Product<a class="headerlink" href="#product" title="この見出しへのパーマリンク">¶</a></h4>
+<p>スプリント単位でプロダクトに対してリリースが行われ、評価可能なインクリメントを作成することが求められる。
+動作されるソフトウェアとして提供され、スプリント終了時点で正常に動作する必要がある。</p>
+</section>
+<section id="id10">
+<h4><span class="section-number">2.1.6.2. </span>チーム<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
+<p>スプリント単位でレトロスペクティブなどを通じてチームとしてのkaizenを繰り返していく。
+このチームはDevチームではなくスクラム全員のことを意味している。</p>
+<p>最終的に、以下の要素を踏まえたチームとなることを目指している</p>
+<ul class="simple">
+<li><p>心理的安全性がある</p></li>
+<li><p>機能横断的である</p></li>
+<li><p>自己組織化されている</p></li>
+</ul>
+<p>そしてこのような要素を踏まえたチームというのは、変化に強く、価値のあるプロダクトを提供し続けることができる。</p>
+</section>
+<section id="pruduct-backlog">
+<h4><span class="section-number">2.1.6.3. </span>Pruduct BackLog<a class="headerlink" href="#pruduct-backlog" title="この見出しへのパーマリンク">¶</a></h4>
+<p>■what's is<br />
+機能や要求、要望、修正などプロダクトに必要なものの一覧をプロダクトバックログと呼ばれるリストで管理する。<br />
+必ず、プロダクトにつき１つであり、順番が明確に決められている必要がある。</p>
+<p>POの最大の役割はこのPBLを管理すること。</p>
+<p>■目的<br />
+開発全体はこのプロダクトバックログを軸に進んでいく。<br />
+上の方から順番に開発が行われるため、上位にあるものほど詳細化され見積もられている必要がある。</p>
+</section>
+<section id="spring-backlog">
+<h4><span class="section-number">2.1.6.4. </span>Spring BackLog<a class="headerlink" href="#spring-backlog" title="この見出しへのパーマリンク">¶</a></h4>
+<p>■what's is<br />
+スプリント計画を経て、得られるプロダクトバックログ項目と作業の一覧を合わせてスプリントバックログと呼ぶ。</p>
+<p>■目的<br />
+スプリントで行われる具体的な開発プロセスはこのSBLに従って行われる。</p>
+<p>個々の作業は1日で終わる範囲に分割することが望ましい。
+これは、１日以上だと作業ステータスの変化が捉えにくくなるため、透明性を阻害するためのである。</p>
+<p><img alt="" src="../_images/pbi_spi.png" /></p>
+</section>
+</section>
+</section>
+<section id="id11">
+<h2><span class="section-number">2.2. </span>Agileの始め方<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
+<p>具体的にAgileを始める手順について解説する</p>
+<p>以下の4つの手順で説明する</p>
+<ol class="arabic simple">
+<li><p>インセプションデッキを作る<br />
+プロジェクトの方向性を一致させる</p></li>
+<li><p>計画を立てる<br />
+実装内容といつ終わるかの目安を立てる</p></li>
+<li><p>運営する<br />
+ミーティングやボードで意思疎通する</p></li>
+<li><p>プログラムを書く
+プラクティスに従ってAgileな実際の開発を行う</p></li>
+</ol>
+<section id="id12">
+<h3><span class="section-number">2.2.1. </span>インセプションデッキを作る<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>プロジェクトを始めるにあたり、プロダクトチーム内でプロダクトに関するチームについて認識を揃えておかなければならない。
+認識が揃っていない中でPJが始まってしまうと認識がずれ、プロジェクトは空中崩壊する。</p>
+<p>プロダクトチーム内で認識を揃えるため、手強い10の質問で構成されるインセプションデッキを作成するという取り組みを行う。
+作成される10の解答（パワポで整理することが多い）も重要であるが、もっと重要なのはプロダクトチーム全員でこの質問に回答したプロセス。
+そしてこの質問と回答を通じで、顧客（PO）がどれだけプロジェクトにコミットしてくれるか、コミットを必要としていることをアピールすることもできる。</p>
+<p>具体的な10の質問とその意図は以下である。前半の５つはプロダクトの「なぜ」をはっきりさせる。後半の5つはプロダクトの「どうやって」をはっきりさせる。</p>
+<ol class="arabic simple">
+<li><p>我々はなぜここにいるのか<br />
+すべての判断の源流であり、ミッションステートメント</p></li>
+<li><p>エレベータピッチを作る<br />
+プロダクトの価値を3行で伝える</p></li>
+<li><p>パッケージデザインを作る<br />
+顧客が享受する効用を伝える</p></li>
+<li><p>やらないことリストを作る<br />
+プロダクトのスコープを「やらないこと」で伝える</p></li>
+<li><p>ご近所さんを探せ<br />
+プロジェクトに関わる可能性のある人と信頼関係を気付く</p></li>
+<li><p>解決案を描く<br />
+全体アーキテクチャと利用する技術を共有する</p></li>
+<li><p>夜も眠れないようなもんだはなんだろう<br />
+リスクについて最初に話し合う</p></li>
+<li><p>期間を見極める<br />
+スケジュールを制御できる範囲に限定する</p></li>
+<li><p>何を諦めるのかはっきりさせる<br />
+QCDSの中の優先順位をはっきりとさせる</p></li>
+<li><p>何がどれだけ必要なのか<br />
+ステークホルダーに役割を認識してもらいながら、上記と必要なQCについて伝える</p></li>
+</ol>
+<p><img alt="" src="../_images/inception_deck.png" /></p>
+<section id="id13">
+<h4><span class="section-number">2.2.1.1. </span>我々はなぜここにいるのか<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>すべての判断の源流であり、ミッションステートメント</p>
+</div></blockquote>
+<p>なぜプロダクトを作るのか、何を解決するために存在しているのかということを理解するプロセスである。
+最も、有効的なことは実際の現場を体験することである。</p>
+<p>プロセスを経て得られた短い文章のミッションステートメントは常に目に入る場所に置かれ、判断すべての基準となる。</p>
+</section>
+<section id="id14">
+<h4><span class="section-number">2.2.1.2. </span>エレベータピッチを作る<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>プロダクトの価値を3行で伝える</p>
+</div></blockquote>
+<p>プロダクトの目線としてその価値を述べる
+「誰の」「どのペインポイントに効果があり」「プロダクトの気付き」と「差異化要素」が明確であるような文章にする。</p>
+</section>
+<section id="id15">
+<h4><span class="section-number">2.2.1.3. </span>パッケージデザインを作る<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>顧客が享受する効用を伝える</p>
+</div></blockquote>
+<p>顧客の目線として、どうしてプロダクトが欲しくなるのかを述べる。<br />
+プロダクトのすごいところではなく、「顧客が享受する効用」を伝える。「ドリルが欲しいのではなく穴を開けたい」</p>
+</section>
+<section id="id16">
+<h4><span class="section-number">2.2.1.4. </span>やらないことリストを作る<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>プロダクトのスコープを「やらないこと」で伝える</p>
+</div></blockquote>
+<p>プロダクトにおいて、やること、やらないこと、後で決めることを一覧化する。
+やらないことを明確にしながら、プロダクトのスコープを共有する。</p>
+</section>
+<section id="id17">
+<h4><span class="section-number">2.2.1.5. </span>ご近所さんを探せ<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>プロジェクトに関わる可能性のある人と信頼関係を気付く</p>
+</div></blockquote>
+<p>プロジェクトに関わる人間は考えているよりも必ず多くなる。
+そのような人々とご近所さんとなり、信頼関係（価値を認め評価する）ことは助けを求めやすくなる。</p>
+</section>
+<section id="id18">
+<h4><span class="section-number">2.2.1.6. </span>解決案を描く<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>全体アーキテクチャと利用する技術を共有する</p>
+</div></blockquote>
+<p>全体のアーキテクチャ図を描いてチームで対話することで、全体像や技術への期待やリスクをチームで合意する</p>
+</section>
+<section id="id19">
+<h4><span class="section-number">2.2.1.7. </span>夜も眠れないようなもんだはなんだろう<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>リスクについて最初に話し合う</p>
+</div></blockquote>
+<p>余裕あるうちにリスクについて対話することで健全な議論をすることができる<br />
+爆発する前に解決することや共有して話し合い、気持ちを軽くしてくれる</p>
+</section>
+<section id="id20">
+<h4><span class="section-number">2.2.1.8. </span>期間を見極める<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>スケジュールを制御できる範囲に限定する</p>
+</div></blockquote>
+<p>スポンサーに対してざっくりしたスケジュールを伝えること必要。<br />
+長期間のスケジュールにならないように６ヶ月以内でリリース内容を伝える。<br />
+Agileの基本的な考え方として、最善を尽くすあてづっぽうであることであり、必ずスケジュールを守れるわけではないことを理解してもらうこと</p>
+</section>
+<section id="id21">
+<h4><span class="section-number">2.2.1.9. </span>何を諦めるのかはっきりさせる<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>QCDSの中の優先順位をはっきりとさせる</p>
+</div></blockquote>
+<p>PJにおいては守らなくてはならない力（フォース）が存在する。
+この全てを同時に満たすことは不可能に近く、求め続けると空中分解をする。</p>
+<p>特にフォースとして上がるのが以下の4＋１である。</p>
+<ul class="simple">
+<li><p>Q：固定→アジャイルでは品質は一定の水準を定義して固定とする</p></li>
+<li><p>C：固定→アジャイルでは人は一定であるとして増やすことは考えないのが基本</p></li>
+<li><p>D：固定→アジャイルではタイムボックスという小さい単位もスケジュールも一定であるとして変更を許さない</p></li>
+<li><p>S：可変→アジャイルでは開発機能や計画を変更する</p></li>
+<li><p>Intagible：優先度をつける→言葉にできないアピールポイントやコンセプト</p></li>
+</ul>
+<p>上記の中でも必ず優先順位をつけるためにトレードオフスライダーを顧客に作ってもらう。
+優先順位をつけることは、最下位のものを諦めるわけではない。全てに最善を尽くすが、優先度をつけるということを伝える。</p>
+</section>
+<section id="id22">
+<h4><span class="section-number">2.2.1.10. </span>何がどれだけ必要なのか<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h4>
+<blockquote>
+<div><p>ステークホルダーに役割を認識してもらいながら、上記と必要なQCについて伝える</p>
+</div></blockquote>
+<p>これまでの検討内容を踏まえて、何がどれだけ必要となるのかについてステークホルダーに伝える。<br />
+その中で、役割についてもあらためて伝え、POがどれだけ重要で積極的にPJコミットメントすることがPJの成功に直結するかを伝える。</p>
+</section>
+</section>
+<section id="id23">
+<h3><span class="section-number">2.2.2. </span>Agileで計画を立てる<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Agileにおいては、以下のステップで計画を立てていく</p>
+<ol class="arabic simple">
+<li><p>ユーザーストーリーを集める</p></li>
+<li><p>見積りを行う</p></li>
+<li><p>計画を立てる</p></li>
+</ol>
+<p>それぞれについて詳しく見ていくが、Agileにおける重要な考え方について押さえておくとなぜこのような計画の立て方をするかを知ることができる。</p>
+<ul class="simple">
+<li><p>ユーザーが欲するものは日々刻々と変化し、文書化は齟齬の温床となる<br />
+だから、ユーザーストーリーという必要なものをざっくりと集める</p></li>
+<li><p>見積もりは所詮最善を尽くす、楽観的な予測にすぎない<br />
+だから、相対見積もりでポイントを利用して大雑把な見積りを行う</p></li>
+<li><p>上記を踏まえ、計画は変わりゆくものである<br />
+だから、スコープを変化させながら、相対ポイントとベロシティで、現実に沿ったざっくり計画を立て続ける</p></li>
+</ul>
+<section id="id24">
+<h4><span class="section-number">2.2.2.1. </span>ユーザーストーリーを集める<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h4>
+<p>顧客がソフトウェアで実現したいことのポイントを付箋に書く。</p>
+<p>気をつけなくてはいけないのは顧客目線で提供される効用の単位で記述すること。例えば</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>「アカウント登録ができる」</p></li>
+<li><p>「通知が受け取れる」</p></li>
+<li><p>「フィルタリングができる」</p></li>
+</ul>
+</div></blockquote>
+<p>といったように顧客目線での記述をする。
+その裏側には</p>
+<blockquote>
+<div><p>「誰の」「何を」解決するのか「なぜ」解決するのか</p>
+</div></blockquote>
+<p>というメモをしておく。</p>
+<p>このようなユーザーストーリを記述しておき、それぞれのユーザーストーリを優先順位に並べることで開発を行なっていく。</p>
+<p>その際、ユーザーストーリーには、6つのポイントがありINVESTであることが求められる</p>
+<ul class="simple">
+<li><p>Independent:独立している</p></li>
+<li><p>Negotiatable:交渉可能（松竹梅がある）</p></li>
+<li><p>Valuable:価値がある</p></li>
+<li><p>Estimatable:見積りが可能である)</p></li>
+<li><p>Small:ある程度小さい(1-5日)</p></li>
+<li><p>Testable：テスト可能</p></li>
+</ul>
+<p>なお、大きさが5日を超えるような場合はエピックと呼ぶ。</p>
+<p>エピック（分解していくつかのユーザーストーリにしても良い）やユーザーストーリを優先順位に並べるとPBLとなる。</p>
+</section>
+<section id="id25">
+<h4><span class="section-number">2.2.2.2. </span>見積りを行う<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h4>
+<p>先ほど述べた通り、Agileにおいて見積もりとは</p>
+<blockquote>
+<div><p>超楽観的な予測にすぎない</p>
+</div></blockquote>
+<p>という前提が置かれており、事前の見積りはほぼ不可能であるという前提が置かれている。</p>
+<p>そのため、アジャイルでは、ストーリー単位でポイントを利用した相対見積を行う。</p>
+<ul class="simple">
+<li><p>相対見積<br />
+人間は絶対的に見積もるよりも相対的に見積もることが得意であり、</p></li>
+<li><p>ポイント見積<br />
+日付で見積もると、理想１日について考えたり、ポイントのずれが発生した時に構成すると日付が逆に考え辛くなる</p></li>
+</ul>
+<p>具体的には以下の手順でみうtもる</p>
+<ol class="arabic simple">
+<li><p>大中小の相対基準となるストーリを決める</p></li>
+<li><p>比較しながら大中小にすべてのストーリーを割り振る</p></li>
+<li><p>ポーカーを利用して(1,2,3,5,8)の見積りをする。ただし8はエピック用</p></li>
+</ol>
+<p>※見積りが難しいストーリについては、「スパイク」といって、限られたタイムボックスの中で調査を行なって、見積もる</p>
+</section>
+<section id="id26">
+<h4><span class="section-number">2.2.2.3. </span>計画を立てる<a class="headerlink" href="#id26" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Agileにおける計画の算出方法はシンプル</p>
+<blockquote>
+<div><p>PBLすべてのポイント/ベロシティ=必要なイテレーション数</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>PBLすべてのポイント：顧客が必要としている機能に対するストーリーポイント（概算見積り）</p></li>
+<li><p>ベロシティ：Devチームがイテレーションで消化することができるストーリーポイントの期待値（計測値）</p></li>
+</ul>
+<p>注意することは、前者は概算見積もりであり、後者は期待値であること。
+すなわち、楽観的な見積り値であり、<code class="docutils literal notranslate"><span class="pre">絶対にこの初期見積りをステークホルダーにコミットしてはいけない</span></code>。<br />
+Agileでは長期の計画は変化する前提であるという考えであり、どうしてもざっくりのスケジュールを出すために以下の方法で算出している。</p>
+<p>Agileに限らず、ソフトウェア開発において、以下のような内外の要因は失敗を誘発する</p>
+<ul class="simple">
+<li><p>メンバーの入れ替わり</p></li>
+<li><p>開発速度の理想との乖離</p></li>
+<li><p>要求の変更</p></li>
+<li><p>期日の変更</p></li>
+</ul>
+<p>これらの課題に向き合っていくために、Agileでは、以下の順に沿って計画を立てていく</p>
+<ol class="arabic simple">
+<li><p>PBLの作成</p></li>
+<li><p>MMF(Minimal Marketable FeatureSet)の範囲決定</p></li>
+<li><p>イテレーションの範囲決定とベロシティの計測</p></li>
+<li><p>必要イテレーション数の算出</p></li>
+<li><p>概算スケジュールの算出</p></li>
+<li><p>スコープとスケジュールのトレードオフの確認の継続</p></li>
+</ol>
+<p>この方法について順を追って説明する。</p>
+</section>
+<section id="pbl">
+<h4><span class="section-number">2.2.2.4. </span>PBLの作成<a class="headerlink" href="#pbl" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ユーザーストーリーを集めることができたら、それらを一覧化して優先度をつけることでPBLを作成する<br />
+作成したPBLに対して、Devチームは相対見積りをしながらストーリーポイントを付与する。<br />
+注意するべきはPBLは管理が可能な6ヶ月程度の内容にする。</p>
+</section>
+<section id="mmf">
+<h4><span class="section-number">2.2.2.5. </span>MMFの範囲決定<a class="headerlink" href="#mmf" title="この見出しへのパーマリンク">¶</a></h4>
+<p>PBLは最大6ヶ月であるとしたが、さらに細かい範囲としてMMFも決定する。<br />
+MMFはユーザーが一気通貫で、価値を感じることができる単位のことである。<br />
+※MVPはMMFの中でも一番最初にリリースされるもの</p>
+</section>
+<section id="id27">
+<h4><span class="section-number">2.2.2.6. </span>イテレーションの範囲決定とベロシティの計測<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h4>
+<p>PBLおよびMMFは概算の見通しであり、変更があり得るものである。<br />
+一方で、Agileでは、イテレーションという比較的短い期間については、全力を尽くしコミットする。</p>
+<p>イテレーションを繰り返すことにより、Devチームが1イテレーションあたりで消化することができるポイントを算出し、ベロシティと呼ぶ。<br />
+ベロシティは継続的に監視することで、チームの状況を把握することができる健康指標になる。</p>
+</section>
+<section id="id28">
+<h4><span class="section-number">2.2.2.7. </span>必要イテレーション数の算出<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Agileにおける計画の算出方法はシンプル</p>
+<blockquote>
+<div><p>PBLすべてのポイント/ベロシティ=必要なイテレーション数</p>
+</div></blockquote>
+<p>注意することは、前者は概算見積もりであり、後者は期待値であること。
+すなわち、楽観的な見積り値であり、<code class="docutils literal notranslate"><span class="pre">絶対にこの初期見積りをステークホルダーにコミットしてはいけない</span></code>。<br />
+Agileでは長期の計画は変化する前提であるという考えであり、どうしてもざっくりのスケジュールを出すために以下の方法で算出している。</p>
+</section>
+<section id="id29">
+<h4><span class="section-number">2.2.2.8. </span>概算スケジュールの算出<a class="headerlink" href="#id29" title="この見出しへのパーマリンク">¶</a></h4>
+<p>上記の計算により、必要なイテレーション数が把握できれば、スケジュールを算出することができる。</p>
+<p>これまでの、PBLのストーリーポイント、ベロシティ、概算計画、通算消化ポイント、残りのポイントを一覧化できるのがバーンダウンチャートである。</p>
+<p><img alt="" src="../_images/agile_barndown.png" /></p>
+</section>
+<section id="id30">
+<h4><span class="section-number">2.2.2.9. </span>スコープとスケジュールのトレードオフの調整継続<a class="headerlink" href="#id30" title="この見出しへのパーマリンク">¶</a></h4>
+<p>バーンダウンチャートを利用して、計画を立てることができたが、計画は必ず想定外が発生する。<br />
+このような想定外に対してAgileの対応方法は２つ</p>
+<ol class="arabic simple">
+<li><p>スコープを変更する</p></li>
+<li><p>期日を変更する</p></li>
+</ol>
+<p>トレードオフになるので顧客と事前に優先順位を合意しておくべきだし、その度に合意形成する。<br />
+開発スピードを上げようとすることが多いが、人を追加してもすぐにはスピードは上がらないし、前提として最善を尽くしているので上記のどちらかで解決する現実案を見るべき。</p>
+</section>
+<section id="id31">
+<h4><span class="section-number">2.2.2.10. </span>Agileの計画まとめ<a class="headerlink" href="#id31" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Agileの計画では、上記のことを守ることで、以下の効果がある</p>
+<ol class="arabic simple">
+<li><p>顧客にとって価値があるものをリリースできる計画になる<br />
+優先度に従ってMMFがリリースされていく</p></li>
+<li><p>透明性があり、ありのままを占める計画になる<br />
+できないことはできないし、間に合わないものは間に合わないとはっきりわかる</p></li>
+<li><p>約束したことを守れる計画になる<br />
+ベロシティに沿って、スプリントという短い期間で約束を守っていく</p></li>
+<li><p>必要に応じて変更できる計画になる<br />
+透明性があり、できることがわかっているので、現実に沿ってスコープかスケジュールという計画を変更することができる。</p></li>
+</ol>
+</section>
+</section>
+<section id="id32">
+<h3><span class="section-number">2.2.3. </span>Agileを運営する<a class="headerlink" href="#id32" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Agileでは、インセプションデッキを経てProjectの方針をチーム内で一致させ、計画を経て進め方を計画した。<br />
+Agileの運営では、実際にストーリ（PBI）を<code class="docutils literal notranslate"><span class="pre">動くプロダクト</span></code>にしていくかについて話す。</p>
+<p>具体的には以下の3点に整理して解説する</p>
+<ul class="simple">
+<li><p>開発の流れ</p></li>
+<li><p>意思疎通の方法</p></li>
+<li><p>環境作り</p></li>
+</ul>
+<section id="id33">
+<h4><span class="section-number">2.2.3.1. </span>開発の流れ<a class="headerlink" href="#id33" title="この見出しへのパーマリンク">¶</a></h4>
+<p>開発を経て、ユーザーストーリを動くプロダクトという金塊に変えていく</p>
+<p>そのためには３つの工程を経る</p>
+<ol class="arabic simple">
+<li><p>分析</p></li>
+<li><p>開発</p></li>
+<li><p>テスト</p></li>
+</ol>
+<section id="id34">
+<h5><span class="section-number">2.2.3.1.1. </span>分析<a class="headerlink" href="#id34" title="この見出しへのパーマリンク">¶</a></h5>
+<p>分析では、具体的な整理内容としては、フローチャートによる想定の挙動や利用者のペルソナ、受け入れ条件について開発と顧客で認識を合わせる。<br />
+具体的に分析する際には<code class="docutils literal notranslate"><span class="pre">必要な分を必要な時に</span></code>というのがキーワードになる。</p>
+<p>「必要な分を」というのは、すべての内容をドキュメントに落とし込むことはできないし、時間がかかるということを意識している。<br />
+Teamのコミュニケーションの度合いに応じて、どれだけドキュメント化するかを模索していく。</p>
+<p>「必要な時に」というのは、未来は変化するのだから、先の分析まで時間をかけすぎないということを意識している。<br />
+対象のストーリの開発が近づいてきた段階で間に合うようにストーリーを整理する。</p>
+</section>
+<section id="id35">
+<h5><span class="section-number">2.2.3.1.2. </span>開発<a class="headerlink" href="#id35" title="この見出しへのパーマリンク">¶</a></h5>
+<p>分析されたストーリーを開発する際、意識すること<code class="docutils literal notranslate"><span class="pre">コードや開発環境は住む家である</span></code>という考え方。<br />
+快適に過ごしたいと思えるように開発環境やコードは常にメンテナンスをしておく。</p>
+<p>Agileにおいては、イテレーション0と呼ばれる、開発環境を準備するイテレーションを設ける</p>
+</section>
+<section id="id36">
+<h5><span class="section-number">2.2.3.1.3. </span>テスト<a class="headerlink" href="#id36" title="この見出しへのパーマリンク">¶</a></h5>
+<p>受け入れ条件がクリアされていることをデモを通じて顧客にアピールする。</p>
+<p>いつでも、受け入れ試験およびリリース可能である状態に保つことが求められる。</p>
+</section>
+</section>
+<section id="id37">
+<h4><span class="section-number">2.2.3.2. </span>意思疎通の方法<a class="headerlink" href="#id37" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Agileにおいて、顧客とDevでコミュニケーションを取るために4つのミーティングと1つの自主的な集まりが催される。</p>
+<p>4つのミーティング</p>
+<ul class="simple">
+<li><p>ストーリー計画（グルーミング/リファインメント)</p></li>
+<li><p>ショーケース（イテレーションRV）</p></li>
+<li><p>イテレーションプランニング</p></li>
+<li><p>振り返り</p></li>
+</ul>
+<p>1つの集まり</p>
+<ul class="simple">
+<li><p>デイリー</p></li>
+</ul>
+<section id="id38">
+<h5><span class="section-number">2.2.3.2.1. </span>ストーリー計画（グルーミング/リファインメント)<a class="headerlink" href="#id38" title="この見出しへのパーマリンク">¶</a></h5>
+<p>ユーザーストーリーを分析した結果についての確認を行う。</p>
+<p>受け入れ条件の確認や見積もりの確認を行い、このプロセスを経てストーリーを準備完了にする。<br />
+準備ができていないストーリーについて、着手することを防ぐという働きもある。</p>
+</section>
+<section id="id39">
+<h5><span class="section-number">2.2.3.2.2. </span>ショーケース（イテレーションRV）<a class="headerlink" href="#id39" title="この見出しへのパーマリンク">¶</a></h5>
+<p>動くプロダクトをデモをしながらイテレーションで開発したプロダクトのフィードバックを獲得する</p>
+</section>
+<section id="id40">
+<h5><span class="section-number">2.2.3.2.3. </span>イテレーションプランニング<a class="headerlink" href="#id40" title="この見出しへのパーマリンク">¶</a></h5>
+<p>イテレーション単位の作業計画を立てる場<br />
+ベロシティの確認やどれだけのストーリーが消化できそうかなど、バーンダウンチャートを確認しながら健康状態を確認する。</p>
+</section>
+<section id="id41">
+<h5><span class="section-number">2.2.3.2.4. </span>振り返り<a class="headerlink" href="#id41" title="この見出しへのパーマリンク">¶</a></h5>
+<p>チームとしての成長を促すために、心理的安全性がある中でKPTを行いkaizen点を探す。</p>
+</section>
+<section id="id42">
+<h5><span class="section-number">2.2.3.2.5. </span>デイリー<a class="headerlink" href="#id42" title="この見出しへのパーマリンク">¶</a></h5>
+<p>これはDevチームが自主的に行うものであり、チーム内での情報共有を行う。</p>
+</section>
+</section>
+<section id="id43">
+<h4><span class="section-number">2.2.3.3. </span>環境作り<a class="headerlink" href="#id43" title="この見出しへのパーマリンク">¶</a></h4>
+<p>チームの状況を張り出すなど、全員が確認できる環境を作り出すことで透明性を高める。<br />
+透明性の高まりはファクトに基づいた議論や何をするかのフォーカスに効果がある。</p>
+<p>張り出すものとしては以下が挙げられる</p>
+<ul class="simple">
+<li><p>インセプションデッキ<br />
+プロジェクトの灯台であり、判断基準である。
+判断の源流を確認することができる。</p></li>
+<li><p>リリースボード<br />
+これまでに消化したストーリーとこれから消化するストーリのボード<br />
+チームとして積み上げてきたことを確認できる。</p></li>
+<li><p>ストーリーボード<br />
+現在のイテレーションの進捗状況を示すボード<br />
+今のイテレーションをどうやって成功させるかを確認できる。</p></li>
+<li><p>リリースバーンダウンチャート<br />
+ベロシティと残ストーリーを踏まえた着地計画<br />
+プロジェクトのQCDSの影響はこのボードを見ると確認できる。</p></li>
+</ul>
+</section>
+</section>
+<section id="id44">
+<h3><span class="section-number">2.2.4. </span>アジャイルなプログラミング<a class="headerlink" href="#id44" title="この見出しへのパーマリンク">¶</a></h3>
+<p>実際に開発を行う上で、自信を持って繰り返し開発を行い、リリースしていくためには、以下の4つは必ず採用するべきであるというようなプラクティス。</p>
+<ul class="simple">
+<li><p>ユニットテスト</p></li>
+<li><p>リファクタリング</p></li>
+<li><p>テスト駆動開発</p></li>
+<li><p>継続的なインテグレーション</p></li>
+</ul>
+<section id="id45">
+<h4><span class="section-number">2.2.4.1. </span>ユニットテスト<a class="headerlink" href="#id45" title="この見出しへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">ユニットテストはプログラムの一つ一つのネジ</span></code></p>
+<p>小さなレベルでテストを書いていくことで、以下のようなAgileな開発が可能となる</p>
+<ul class="simple">
+<li><p>低コストなリグレテスト</p></li>
+<li><p>でバグ対象の絞り込み</p></li>
+<li><p>自信のあるデプロイ</p></li>
+</ul>
+<p>バグを見つけたらまずは再現するテストを作成してから修正を行う。
+再現するテストを書くことで、以下のメリットを得られる</p>
+<ul class="simple">
+<li><p>バグの本質の理解</p></li>
+<li><p>バグの修正完了の定義</p></li>
+<li><p>バグが二度と出現しない</p></li>
+</ul>
+</section>
+<section id="id46">
+<h4><span class="section-number">2.2.4.2. </span>リファクタリング<a class="headerlink" href="#id46" title="この見出しへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">開発環境とソースコードは自分の家</span></code></p>
+<p>リファクタリングとは機能的なinput/outputは変化させないで、コードのメンテナンス性を向上させること。
+リファクタリングを怠ると、技術的負債が溜まり、改修へのリスクとコストが高ま利、変更が怖くなる。</p>
+<p>リファクタリングは顧客にとってみると価値の創出には見えないのでまとまって実施するのではなく、こまめに実施する。</p>
+</section>
+<section id="tdd">
+<h4><span class="section-number">2.2.4.3. </span>テスト駆動開発（TDD)<a class="headerlink" href="#tdd" title="この見出しへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">困難は分割せよ</span></code></p>
+<p>TDDは、ユニットテストとリファクタリングのサイクルをテストドリブンで行う開発方法である。具体的なステップは以下</p>
+<ul class="simple">
+<li><p>プロダクトコードがあるつもりでレッド（失敗）のテストコードを書く</p></li>
+<li><p>テストコードをクリアできるプロダクトコードを書く</p></li>
+<li><p>作成したプロダクトコードをリファクタリングする</p></li>
+</ul>
+<p>この作業を繰り返していきながら、危ない箇所を全てテストしながら開発する。
+全部を開発してからテストするのではなく、一つ一つ危ないところを潰しながら開発を進めることで１つの問題に集中することができる。</p>
+<p>結果として、危ない箇所を確認する1本１本のねじ（ユニットテスト）と整理整頓された家（プロダクトコード）を得ることができる。</p>
+</section>
+<section id="id47">
+<h4><span class="section-number">2.2.4.4. </span>継続的なインテグレーション<a class="headerlink" href="#id47" title="この見出しへのパーマリンク">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">プロダクトの本番は一行目を書いた時から始まっている</span></code></p>
+<p>継続的なインテグレーション(CI)とは、SWの変更を取り込んでビルド、インテグレーション、デプロイの一連の作業を自動化し、当たり前にするという文化である。</p>
+<p>常に開発中であっても、このコードが本番環境にリリースされるということが当たり前であるということを文化にするため、開発からリリースまでの距離を短くするためのプラクティスといえる。</p>
+<p>具体的には以下の手順をとることが多い</p>
+<ol class="arabic simple">
+<li><p>gitのmasterから最新版コードを取得</p></li>
+<li><p>開発を行い、変更を加える</p></li>
+<li><p>テストを実施する</p></li>
+<li><p>開発中の変更をmasterから取得</p></li>
+<li><p>テストを実施する</p></li>
+<li><p>作成したコードをmasterにマージする</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="id48">
+<h2><span class="section-number">2.3. </span>アジャイルの思想<a class="headerlink" href="#id48" title="この見出しへのパーマリンク">¶</a></h2>
+<p>アジャイルの基本的な思想と、Agileで重要とされている用語との関係性は以下のように整理できる。</p>
+<section id="id49">
+<h3><span class="section-number">2.3.1. </span>アジャイルソフトウェア開発宣言<a class="headerlink" href="#id49" title="この見出しへのパーマリンク">¶</a></h3>
+<p>アジャイルソフトウェア開発宣言は、以下の文書である。<br />
+注意点として。重要なことは左のことがらに価値があることを認めている点。左側が不要とは言っていない。</p>
+<blockquote>
+<div><p>私たちは、ソフトウェア開発の実践あるいは実践の手助けをする活動を通じて、より良い開発方法を見つけ出そうとしている。この活動を通じて、私たちは以下の価値に至った<br />
+・プロセスやツールよりも個人との対話を、<br />
+・包括的なドキュメントよりも動くソフトウェアを、<br />
+・契約交渉よりも顧客との協調を、<br />
+・計画に従うことよりも変化への対応を、<br />
+価値とする。すなわち、左記のことがらに価値があることを認めながらも、私たちは右記のことがらに価値をおく。</p>
+</div></blockquote>
+<section id="id50">
+<h4><span class="section-number">2.3.1.1. </span>個人との対話(自己組織化/心理的安全性)<a class="headerlink" href="#id50" title="この見出しへのパーマリンク">¶</a></h4>
+<p>対話とは、相手の価値観を尊重し、共に考えていく取り組みのこと。心理的安全性のあるチームであること。<br />
+Agileのチームでは前提として、自分達がなぜここにいるのかを理解し、お互いの強みがわかっているために最適なフォーメーションを組んで、ビジョンに向けて自走できる自己組織化された組織であるべき。</p>
+<p>プロダクトを自分ごととして捉え、お互いを理解し尊重し合いながら行う対話が行われることで、情報共有が活発に行われ、複数視点からkaizenや懸念点の洗い出しが行われる。</p>
+</section>
+<section id="mvp">
+<h4><span class="section-number">2.3.1.2. </span>動くソフトウェア(MVP)<a class="headerlink" href="#mvp" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ソフトウェアは何かしらの課題を解決するためのものであり、プロダクト開発は「この方法は課題を解決する」という仮説の検証である。
+ただし、仮説は仮説のため、本来必要なものとのギャップが存在する。</p>
+<p>「動くソフトウェア」とは仮説の正しさをいち早く検証し、仮説と欲しいもののギャップを洗い出すための取り組みである。
+Agileにおいては、仮説の価値を提供できる実用的で最小限の範囲のプロダクトであるMVPを作成し、仮説検証をいち早く行う。</p>
+</section>
+<section id="id51">
+<h4><span class="section-number">2.3.1.3. </span>顧客との協調（提供する価値）<a class="headerlink" href="#id51" title="この見出しへのパーマリンク">¶</a></h4>
+<p>顧客は、共に価値を創り出す大切なパートナーである。
+顧客からのフィードバックはプロダクトをより良くするための宝です。ただし、顧客の言いなりになってモノづくりをするということではない。</p>
+<p>顧客の抱える課題を分析し、その課題に対して効果のあるプロダクトを生み出すことで価値を高める。</p>
+</section>
+<section id="id52">
+<h4><span class="section-number">2.3.1.4. </span>変化への対応（変化はチャンス）<a class="headerlink" href="#id52" title="この見出しへのパーマリンク">¶</a></h4>
+<p>顧客のニーズや市場環境の変化は大きな成功を掴むためのチャンスである。
+Agileの成果物はプロダクトとチーム。変化に強いチームを生み出すことで、変化し続ける市場において優位性を保って戦い続けることができる。</p>
+</section>
+</section>
+<section id="id53">
+<h3><span class="section-number">2.3.2. </span>アジャイル宣言の背後にある原則<a class="headerlink" href="#id53" title="この見出しへのパーマリンク">¶</a></h3>
+<p>アジャイルソフトウェア開発宣言のマインドセットを実現するための行動指針として、「アジャイル宣言の背後にある原則」がある。</p>
+<blockquote>
+<div><p>・顧客満足を最優先し、価値のあるソフトウェアを継続的に提供します<br />
+・要求の変更はたとえ開発後期であっても歓迎します<br />
+・変化を味方につけることによって、お客様の競争力を引き上げます<br />
+・動くソフトウェアを2-3週間から2-3ヶ月という出来るだけ短い間隔でリリースします<br />
+・ビジネス側の人と開発者はプロジェクトを通じて日々一緒に働かなければなりません<br />
+・意欲に満ちた人々を集めてプロジェクトを構成します<br />
+・環境と支援を与え仕事が無事終わるまで彼らを信頼します<br />
+・情報を伝える最も効率的で効果的な方法はface2faceで話をすることです<br />
+・動くソフトウェアこそ最も重要な尺度です<br />
+・アジャイル・プロセスは持続可能な開発を促進します。一定のペースを継続的に維持できるようにしなければなりません<br />
+・技術的卓越性と優れ設計に対する普段の注意が機敏さを高めます<br />
+・シンプルさ（無駄なく作れる量を最大化すること)が本質です<br />
+・最良のアーキテクチャ・要求・設計は自己組織的なチームから生み出されます<br />
+・チームがもっと効率を高めることができるかを定期的に振り返り、それに基づいて自分達のやり方を最適に調整します</p>
+</div></blockquote>
+</section>
+</section>
+<section id="agile7p">
+<h2><span class="section-number">2.4. </span>Agileで意識する7つのP<a class="headerlink" href="#agile7p" title="この見出しへのパーマリンク">¶</a></h2>
+<p>以下の7つを意識してAgileを運営していくと整理的にわかりやすい</p>
+<ol class="arabic simple">
+<li><p>Product<br />
+Productは、Agileの成果物の一つ。顧客にとって解決する価値のある課題を解決するプロダクトを生み出す。</p></li>
+<li><p>People(Team)<br />
+People(Team)はAgileの生活部の一つ。自己組織化された心理的安全性のあるチームとして、変化に対応して成長し続ける、Teamを目指す。</p></li>
+<li><p>Project<br />
+成果物であるProductとTeamを生み出すために、開発期間やコストなどProjectとして着地点を検討し続ける。</p></li>
+<li><p>Process<br />
+Projectを推進する中で、Processを少しづつ繰り返し回し続ける。</p></li>
+<li><p>Practice<br />
+Processを推進する中で溜まったノウハウや習慣など、Teamのパフォーマンスを高めて、Projectを成功に導く方法論</p></li>
+<li><p>Pattern<br />
+Practiceをパターン化して組織間で情報共有、展開できるようにする。</p></li>
+<li><p>Performance<br />
+相互作用する上記6つのPのPerfomanceを最大化する</p></li>
+</ol>
+<section id="id54">
+<h3><span class="section-number">2.4.1. </span>Product<a class="headerlink" href="#id54" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Productは、Agileの成果物の一つ。顧客にとって解決する価値のある課題を解決するプロダクトを生み出す。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Productの価値は顧客の課題に届いているか</span></code> リリースの回数にとらわれるビルドトラップにかからずに、顧客の課題を解決する価値あるプロダクトにする必要がある。</p>
+<section id="id55">
+<h4><span class="section-number">2.4.1.1. </span>顧客インサイト<a class="headerlink" href="#id55" title="この見出しへのパーマリンク">¶</a></h4>
+<p>どのように顧客にとって解決する価値のある課題を抽出するのか。
+もちろん顧客の声は重要であるが、ユーザー自身が気づいていない課題や動機も存在する。</p>
+<blockquote>
+<div><p>マクドナルド顧客の「健康的なメニューが欲しい」という声を聞いて「サラダマック」を発売したが、売り上げは芳しくなかった。
+一方で、ビックマックよりもパティを増やした「クオーターパウンダー」は大ヒットした。</p>
+</div></blockquote>
+<p>ヘルシーなものが食べたいと言っているのに、実際は真逆の行動をとるのは顧客の声は嘘ではなく、本当に欲しいものがわかっていない。
+ユーザー自身が気づいていない本音や動機をProducetに結びつけるために<code class="docutils literal notranslate"><span class="pre">顧客インサイト</span></code>は重要</p>
+</section>
+<section id="id56">
+<h4><span class="section-number">2.4.1.2. </span>完成したソフトウェアの使用率とMVP<a class="headerlink" href="#id56" title="この見出しへのパーマリンク">¶</a></h4>
+<p>スタンディッシュグループの調査によると、完成したソフトウェアのうち60%は利用されない。
+利用者が表明している「欲しいもの」を開発者が理解し、プロダクトを開発して、初めて「欲しいもの」と「本当に必要なもの」のギャップに気づく。
+だからこそAgileではMVPを作成して、実際に動かしてもらう中でユーザーの「本当に必要なもの」を探り、作り上げていく。</p>
+</section>
+<section id="id57">
+<h4><span class="section-number">2.4.1.3. </span>贅肉を落としたProduct<a class="headerlink" href="#id57" title="この見出しへのパーマリンク">¶</a></h4>
+<p>プロダクトの根幹をなす部分が<code class="docutils literal notranslate"><span class="pre">背骨</span></code>だとして、利用者の課題を解決する機能は<code class="docutils literal notranslate"><span class="pre">筋肉</span></code>、使われない機能は<code class="docutils literal notranslate"><span class="pre">贅肉</span></code>にあたる。
+贅肉が増えることは開発と保守運用のコストを要するためにプロダクトの競争力を落とす。
+一度始めたことを止めるのは大きな労力を要する、何をリリースするのか、何を贅肉として機能から落とすのか覚悟と勇気を持って取り組む。</p>
+<blockquote>
+<div><p>実際に必要となるまでは追加しない<br />
+シンプルな設計が成功への鍵</p>
+</div></blockquote>
+</section>
+<section id="id58">
+<h4><span class="section-number">2.4.1.4. </span>Productの価値を測る<a class="headerlink" href="#id58" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Productへの不満の声が上がったり、不満がなくても使われていなかったりするのは開発したものが顧客の課題に届いていないことを意味する。
+期待した効果が得られているのか、利用されているのかという定量的なデータを取得する機構を構築して、価値を測る取り組みを継続する。</p>
+</section>
+</section>
+<section id="people-team">
+<h3><span class="section-number">2.4.2. </span>People(Team)<a class="headerlink" href="#people-team" title="この見出しへのパーマリンク">¶</a></h3>
+<p>People(Team)はAgileの生活部の一つ。自己組織化された心理的安全性のあるチームとして、変化に対応して成長し続ける、Teamを目指す。</p>
+<p>Team自体も少しづつ、繰り返してkaizenが行われることで、最終的に自己組織化されており、心理的安全性が確保されたチームとなる。<br />
+このようなチームは、変化に強く、価値の高いProductを生み出し続けることができるようなる。</p>
+<section id="id59">
+<h4><span class="section-number">2.4.2.1. </span>自己組織化<a class="headerlink" href="#id59" title="この見出しへのパーマリンク">¶</a></h4>
+<p>自分達がなぜここにいるのかを理解し、お互いの強みがわかっているために最適なフォーメーションを組んで、ビジョンに向けて自走できる組織</p>
+</section>
+<section id="id60">
+<h4><span class="section-number">2.4.2.2. </span>心理的安全性<a class="headerlink" href="#id60" title="この見出しへのパーマリンク">¶</a></h4>
+<p>チームのメンバーがこのチームに所属していいということを認識しており、全員が意見を言い合えるような環境のこと。</p>
+</section>
+<section id="id61">
+<h4><span class="section-number">2.4.2.3. </span>共通理解を育む<a class="headerlink" href="#id61" title="この見出しへのパーマリンク">¶</a></h4>
+<p>以下の3つの観点でチーム内で共通認識を持つことはチームビルディングの上で重要</p>
+<ul class="simple">
+<li><p>プロジェクト/プロダクトレベル：インセプションデッキでPJやチームの目的や目標、制約を理解する</p></li>
+<li><p>チームメンバーレベル：メンバーの考え方や得意技を理解する</p></li>
+<li><p>チーム活動レベル：協働のためのルールや約束事を理解する</p></li>
+</ul>
+</section>
+<section id="id62">
+<h4><span class="section-number">2.4.2.4. </span>インセプションデッキ<a class="headerlink" href="#id62" title="この見出しへのパーマリンク">¶</a></h4>
+<p>10個の問いに対して、チームで対話をしていくことで関係者全体で理解を揃えていくプロセスを踏む。
+重要なのは作成されるドキュメントではなく、メンバーの理解が一致していること。</p>
+<p>10個の問いでwhyとhowについて対話を重ねる。</p>
+<ul class="simple">
+<li><p>我々はなぜここにいるのか</p></li>
+<li><p>エレベータピッチ</p></li>
+<li><p>パッケージデザイン</p></li>
+<li><p>ご近所さんを探せ</p></li>
+<li><p>やらないことリスト</p></li>
+<li><p>夜も眠れない音大</p></li>
+<li><p>トレードオフスライダー</p></li>
+<li><p>技術的な解決策</p></li>
+<li><p>期間を見極める</p></li>
+<li><p>何がどれだけ必要か</p></li>
+</ul>
+<p><img alt="" src="../_images/inception_deck.png" /></p>
+</section>
+</section>
+<section id="project">
+<h3><span class="section-number">2.4.3. </span>Project<a class="headerlink" href="#project" title="この見出しへのパーマリンク">¶</a></h3>
+<p>成果物であるProductとTeamを生み出すために、開発期間やコストなどProjectとして着地点を検討し続ける。</p>
+<p>アジャイルでは、不確実性と向き合う開発手法であるため、長期間の計画は価値を保ち続けることができない。
+そのため、アジャイルでは次のようにして計画を立てていく。</p>
+<ol class="arabic simple">
+<li><p>スプリントプランニングの中で、スプリントの中で確実性の高い計画を立てる。Devはこの計画にコミットする</p></li>
+<li><p>デイリーの中で、当日の計画を立て遅れなどを素早く検知する</p></li>
+<li><p>リリース計画を行い、消化したいPBLのストーリポイント、スプリントで消化できるポイントから必要なスプリント数を割り出す</p></li>
+</ol>
+<p><img alt="" src="../_images/release_planning.png" /></p>
+<section id="id63">
+<h4><span class="section-number">2.4.3.1. </span>ストーリーポイント<a class="headerlink" href="#id63" title="この見出しへのパーマリンク">¶</a></h4>
+<p>アジャイルでは、ストーリーポイントというものを利用して、PBLの見積りを行う。</p>
+<p>ストーリーポイントの見積りでは、チーム内で合意した、すでに見積されているタスクと比較して相対的に大きいか、小さいかを見積もっていく<code class="docutils literal notranslate"><span class="pre">相対見積り</span></code>を行う。</p>
+<p>その際にフィボナッチ数列を利用したポーカーで見積りを行うことが多い。
+なぜ、フィボナッチ数列を利用した相対見積りを行うかというと、<code class="docutils literal notranslate"><span class="pre">精緻な見積ではなくざっくりとした規模感をチーム内で合意するというのが目的</span></code>であるから。</p>
+<p>アジャイルでは、精緻な見積りを作るということを極力避けるため、対象タスクが大体どのくらいの規模感なのかを算出して、そのポイントを利用して長期間のざっくりした計画を立てていく。</p>
+</section>
+<section id="id64">
+<h4><span class="section-number">2.4.3.2. </span>スプリントレベルでの計画<a class="headerlink" href="#id64" title="この見出しへのパーマリンク">¶</a></h4>
+<p>スプリントの最初に行うスプリントプランニング。PBLを入力として、SBLを出力する。
+スプリントという比較的短いタイムボックスであれば確実性が高いことを担保でき、チームで消化できる分のストーリーポイントが消化できるはず。</p>
+<p>スプリントで開発する対象機能(PBL)を決め、PBLをタスクレベルに分割しながら時間単位での見積り(SBL)を行う。<br />
+このスプリントプランニングで開発すると決めたタスクに関してはDevチームはPOに対してコミットメントをして完了するように最大限の努力をする。</p>
+</section>
+<section id="id65">
+<h4><span class="section-number">2.4.3.3. </span>毎日の計画<a class="headerlink" href="#id65" title="この見出しへのパーマリンク">¶</a></h4>
+<p>毎日行われるデイリーであり、昨日やったこと、今日やること、困っていることをDevチームで共有する。<br />
+チーム内で課題や状況を共有しあうことで、日単位で計画や修正を行い、スプリントでコミットした内容を達成することを目指す。</p>
+</section>
+<section id="id66">
+<h4><span class="section-number">2.4.3.4. </span>長期間の計画（リリースプランニング）<a class="headerlink" href="#id66" title="この見出しへのパーマリンク">¶</a></h4>
+<p>アジャイルでは、長期間の計画は精緻に立てることはできないし、どれだけやっても確実にはならない。という考えがある。<br />
+しかし、もちろん長期的なスパンでの計画は必要となる。
+そのためにストーリーポイントやベロシティから必要なスプリント数を算出するというリリースプランニングをスプリント終了時や、月に一度といったスパンで行う。</p>
+<p>具体的な手順</p>
+<ol class="arabic simple">
+<li><p>必要となるPBLをリストアップし、そのPBLのストーリーポイントを合計する</p></li>
+<li><p>いくつかのスプリントを経てわかったDevチームがスプリントで消化することができるストーリーポイント（ベロシティ）を算出する</p></li>
+<li><p>１番の数字を２番の数字で割ることで必要なスプリント数を算出する</p></li>
+</ol>
+<p>1番のストーリーポイントを合計するために、Devチームに見積りをしてもらう必要があるが、この見積もりには時間をかけない。
+Agileにおいて、未来の不確実な事柄に対して時間をかけることは避け、確実なものについて時間を使う。</p>
+</section>
+</section>
+<section id="process">
+<h3><span class="section-number">2.4.4. </span>Process<a class="headerlink" href="#process" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Projectを推進する中で、Processを少しづつ繰り返し回し続ける。</p>
+<section id="id67">
+<h4><span class="section-number">2.4.4.1. </span>少しづつ作る（インクリメンタル）<a class="headerlink" href="#id67" title="この見出しへのパーマリンク">¶</a></h4>
+<p>MVPから初めて、フィードバックの獲得、Productの調整、修正していくことでProductの価値を高め続ける。<br />
+快適な移動手段をProductとして提供する場合、スケボーから始めて改善を繰り返していくことで必要な機能や顧客の要望がすり合わせられる。<br />
+もしかしたら、顧客は自転車で満足するのかもしれないし、欲しいのはバイクだっったのかもしれない。<br />
+ウォーターフォールでは、車が欲しいというのが絶対にわかっている状態でスタートする。（本当に車が欲しいのならOK）</p>
+<p><img alt="" src="../_images/agile_incremental.png" /></p>
+<p>インクリメンタルな開発をする上で意識する点は２つ</p>
+<ul class="simple">
+<li><p>品質の維持<br />
+各機能が独立して存在できる設計であり、デプロイやテストに関しては自動化する。<br />
+マイクロサービス的なアーキテクチャを採用し、CICDの環境を構築することが重要。</p></li>
+<li><p>プロダクト全体への理解<br />
+各機能が独立している場合に、全体の構成がわかりつらくなり、何を作っているのかが曖昧になってしまう。<br />
+プロダクト全体をシステム目線ではなく、ユーザー視点で捉えるユーザーストーリーマッピングをDevチームでも意識する</p></li>
+</ul>
+</section>
+<section id="id68">
+<h4><span class="section-number">2.4.4.2. </span>反復的に作る（イテレーティブ）<a class="headerlink" href="#id68" title="この見出しへのパーマリンク">¶</a></h4>
+<p>少しづつ作る（インクリメンタル）ためのチームの基本動作が<code class="docutils literal notranslate"><span class="pre">反復的に作る(イテレーティブ)</span></code><br />
+イテレーティブに作るとは、</p>
+<blockquote>
+<div><p>チームとプロダクトの間のコミュニケーションあり方</p>
+</div></blockquote>
+<p>と言える</p>
+<p>反復的に作ることで、行動からわかった、「プロダクトについて」そして「チームについて」の事柄を学びとして次の開発期間に適応することができる。</p>
+</section>
+<section id="id69">
+<h4><span class="section-number">2.4.4.3. </span>イテレーション・スプリント<a class="headerlink" href="#id69" title="この見出しへのパーマリンク">¶</a></h4>
+<p>反復的に作るために、一定期間で時間を区切る考え方を「タイムボックス」と呼ぶ。</p>
+<p>スクラムでは「スプリント」、スクラム以外では「イテレーション」と呼ぶ。</p>
+</section>
+</section>
+<section id="practice">
+<h3><span class="section-number">2.4.5. </span>Practice<a class="headerlink" href="#practice" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Processを推進する中で溜まったノウハウや習慣など、Teamのパフォーマンスを高めて、Projectを成功に導く方法論</p>
+<p>Agileを進める中で、様々な課題を表面化させて、対策に取り組んでいく。
+そのためのツールやプラクティスを導入していく。プラクティスはすでに考案されたものでも良いし、チームで生み出しても良い。
+チームごとに表面化する課題は異なるため、同じプロダクトを開発しているチームがあったとしてもそれぞれのチームで採用されるプラクティスは異なる。
+自分達のチームで作成したプラクティスには是非愛称をつけて親しみを持つのもオススメ。
+PBLにするほどではないが、改善したいことをメモする「もやもやボード」など。</p>
+<section id="id70">
+<h4><span class="section-number">2.4.5.1. </span>見える化する<a class="headerlink" href="#id70" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Project全体として実施するべき項目の一覧であるPBL、スプリントの中で実施するべき項目の一覧であるSBL、毎日の作業の進捗情報であるタスクボードや朝会などを利用してチーム全体として状況が容易に把握できる環境にする。</p>
+<p>また、タスクだけでなく気づいたこともどんどん見える化することでTeamの成長のチャンスを拾う。</p>
+</section>
+<section id="id71">
+<h4><span class="section-number">2.4.5.2. </span>ペア/モブプラグラミング<a class="headerlink" href="#id71" title="この見出しへのパーマリンク">¶</a></h4>
+<p>■what's is<br />
+複数人（Devメンバーに限らず、POやデザインチームも含む）で画面を見ながら開発を行う方法</p>
+<p>■目的<br />
+一人でもできることを複数人で行うことは、効率を落とすように感じられるが「隙間時間があって時間を無駄にするのではないかということを懸念するよりも、価値が速く顧客の手に届く流れの効率を重視している」
+一緒に仕事をすることで得られる、共通理解の構築や育成時間の短縮、後から発生する可能性のある手戻りの無駄を削減できる効果が得られる。</p>
+</section>
+</section>
+<section id="pattern">
+<h3><span class="section-number">2.4.6. </span>Pattern<a class="headerlink" href="#pattern" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Practiceをパターン化して組織間で情報共有、展開できるようにする。</p>
+<p>自組織に留まらず、組織を跨いで情報交換をしあうことが大事。
+そのために自組織での取り組みは整理しパターン化しておく。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html" class="btn btn-neutral float-left" title="1. V字モデル" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Network.html" class="btn btn-neutral float-right" title="3. Network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

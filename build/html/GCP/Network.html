@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4. Network &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="5. CICD" href="CICD.html" />
+    <link rel="prev" title="3. Google Cloud APIs" href="API.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vpc">4.1. VPC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vcp">4.1.1. VCPネットワーク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">4.1.2. サブネット</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.1.3. ルーティング</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#igw">4.1.4. IGW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-nat">4.1.5. Cloud NAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#firewall">4.1.6. Firewall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4.1.7. ネットワークの拡張</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vpc-shared-vpc">4.1.7.1. 共有 VPC（Shared VPC）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4.1.8. デフォルトネットワーク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">4.1.9. ネットワークの安全性</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vpc-service-contorls-vpc-sc">4.1.9.1. VPC Service Contorls(VPC SC)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#google-cloud">4.2. Google Cloud における通信レイヤーの整理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vpc-vm-gke">4.2.1. VPC 内通信（VM / GKE）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vpc-google">4.2.2. VPC 内 → Google サービス</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#private-google-access">4.2.2.1. Private Google Access</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pga">4.2.2.2. PGAの必要性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">4.2.2.3. PGAの仕組み</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">4.2.3. 外部サービスをVPC内として扱う</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#private-service-connect-psc">4.2.3.1. Private Service Connect(PSC)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#serverless-vpc">4.2.3.2. Serverless実行環境と VPCの接続</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-load-balancing">4.3. Cloud Load Balancing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-cdn">4.4. Cloud CDN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-dns">4.5. Cloud DNS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">9. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIGW.html">10. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">13. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">19. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4. </span>Network</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GCP/Network.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="network">
+<h1><span class="section-number">4. </span>Network<a class="headerlink" href="#network" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="vpc">
+<h2><span class="section-number">4.1. </span>VPC<a class="headerlink" href="#vpc" title="この見出しへのパーマリンク">¶</a></h2>
+<p>VCPとは、Google Cloud内に提供される仮想ネットワーク提供サービス。</p>
+<section id="vcp">
+<h3><span class="section-number">4.1.1. </span>VCPネットワーク<a class="headerlink" href="#vcp" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Google Cloud内に構成される仮想ネットワークをVPCネットワークと呼ぶ。
+VPCネットワークはグローバルリソースであり複数のリージョンを収容可能。</p>
+<p><img alt="" src="../_images/vpc_network.png" />
+<a class="reference external" href="https://easy-study-forest.com/google-cloud-vpc/">【よくわかる Google Cloud】VPCネットワークとは</a></p>
+<p>また、リージョン内のサブネットに作成されたVNなどには内部IPが割り当てられ、VPC内の通信に関しては異なるサブネットに所属していても内部IPを利用して通信が行われるため、特別なルーティング設定なしに可能である。
+すなわち、GCPにおいては、VPCを構築するだけでマルチリージョン構成を構築できる。</p>
+</section>
+<section id="id1">
+<h3><span class="section-number">4.1.2. </span>サブネット<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>サブネットとは、ネットワークのIPアドレスを論理的に分解した小さなネットワークである。
+サブネットは、CIDR表記を利用されて表現される。
+VPC内部においてサブネットを定義する際にはVPC内でCIDRが重複しないよう設定を行う必要がある。</p>
+<p>サブネットはリージョンリソースであり、複数のZoneに跨いで定義することができる。
+<img alt="" src="../_images/vpc_subnet_zone.png" />
+<a class="reference external" href="https://easy-study-forest.com/google-cloud-vpc/">【よくわかる Google Cloud】VPCネットワークとは</a></p>
+</section>
+<section id="id2">
+<h3><span class="section-number">4.1.3. </span>ルーティング<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ルーティング（経路制御）では、VPC内のトラフィックをどこに転送するかのルールを定義する。
+VPCネットワークごとに<code class="docutils literal notranslate"><span class="pre">ルートテーブル</span></code>が存在し、宛先CIDRごとに送り先を定義する。</p>
+<p>VPCネットワークを作成したタイミングでデフォルトとして<code class="docutils literal notranslate"><span class="pre">デフォルトルート</span></code>と<code class="docutils literal notranslate"><span class="pre">サブネットルート</span></code>という2種類の自動毛色が自動で登録される。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-left"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>サブネット間ルート</p></td>
+<td class="text-left"><p>VPC作成時に、自動生成。すべてのサブネット間通信を許可するルート（削除不可）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>デフォルトルート</p></td>
+<td class="text-left"><p>VPC作成時に、自動生成。。IGW（default-internet-gateway）に向く</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>カスタムルート</p></td>
+<td class="text-left"><p>特定のCIDRをVPN、Peering、VMインスタンスなどに向けるための追加ルート</p></td>
+</tr>
+</tbody>
+</table>
+<p>例としては以下のような設定を行う。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>宛先</p></th>
+<th class="head text-left"><p>次ホップ</p></th>
+<th class="head text-left"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>10.128.0.0/9</p></td>
+<td class="text-left"><p>local</p></td>
+<td class="text-left"><p>自動生成（同じVPC内の他サブネット）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>0.0.0.0/0</p></td>
+<td class="text-left"><p>default-internet-gateway</p></td>
+<td class="text-left"><p>インターネット向け（デフォルト）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>10.0.0.0/16</p></td>
+<td class="text-left"><p>vpn-tunnel-1</p></td>
+<td class="text-left"><p>オンプレミスVPN</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>192.168.0.0/24</p></td>
+<td class="text-left"><p>instance-1</p></td>
+<td class="text-left"><p>ルータ代わりのVMなど</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="igw">
+<h3><span class="section-number">4.1.4. </span>IGW<a class="headerlink" href="#igw" title="この見出しへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">デフォルトインターネットゲートウェイ</span></code>は、GCP環境内に自動で作成される、インターネット接続ポイントであり、VPCネットワーク作成時に自動で有効化されており、削除もできない。
+ルートの設定は、VPC全体に適用されるため、サブネット単位でインターネット接続の可能不可能を制御しない。つまり、GCPにおいては、Public SubnetやPrivate Subnetといった考えは存在しない。GCPにおいて、外部への接続の制御は、Firewallで行う。</p>
+<p>また、外部IPを持っている場合は外部IPを利用してIGWを経由してアクセスを行うが、外部IPを持たせたくない場合はNATを経由してアクセスする。</p>
+</section>
+<section id="cloud-nat">
+<h3><span class="section-number">4.1.5. </span>Cloud NAT<a class="headerlink" href="#cloud-nat" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Google Cloud でインスタンス（例：Compute Engine）からインターネットに接続するには、通常は外部IPアドレスを付与する必要がある。ただし、外部からの通信は受け付けたくない、つまりインバウンド通信を遮断したい場合には、外部IPを付与せずにアウトバウンド通信だけを有効にしたくなる。このようなケースで利用するのが <code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">NAT</span></code>（Network Address Translation） である。</p>
+<p>Cloud NAT を構成するためには、<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Router</span></code> がセットで必要となる。Cloud Router は、Cloud NAT のルーティングを制御する役割を担う動的ルーティング機能であり、NATゲートウェイのバックエンド的存在。</p>
+<p>Cloud NAT は、対象となるサブネットまたはサブネット内のIPレンジ（例：特定のVMのプライベートIP範囲）を指定することで、そのサブネットからのアウトバウンド通信を自動で変換してくれる。つまり、VM やアプリケーション側では NAT の存在を意識する必要はない。</p>
+</section>
+<section id="firewall">
+<h3><span class="section-number">4.1.6. </span>Firewall<a class="headerlink" href="#firewall" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Firewallとは、ターゲットへの通信において、ポリシーを定義することで許可または拒否するセキュリティ機能。</p>
+<p>GCPにおいては、VPCに対してFirewallを定義することができ、インバウンドやアウトバンドの通信についてポリシーを適用することができる。具体的には、以下のようにルールを適用できる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>要素</p></th>
+<th class="head text-left"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>direction</p></td>
+<td class="text-left"><p>INGRESS（受信） or EGRESS（送信）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>action</p></td>
+<td class="text-left"><p>ALLOW または DENY</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>sourceRanges / destinationRanges</p></td>
+<td class="text-left"><p>INGRESSでは送信元、EGRESSでは宛先をCIDRで指定</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>protocols / ports</p></td>
+<td class="text-left"><p>TCP/UDPなどとポート番号の組み合わせ</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>targetTags / targetServiceAccounts</p></td>
+<td class="text-left"><p>このルールを&quot;どのVMに&quot;適用するか（タグ or SA）</p></td>
+</tr>
+</tbody>
+</table>
+<p>INGRESSとEGRESSでそれぞれの要素の具体的な意味合いが異なるのでそれぞれについてまとめると以下。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>要素</p></th>
+<th class="head text-left"><p>INGRESS時の意味</p></th>
+<th class="head text-left"><p>EGRESS時の意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>action</p></td>
+<td class="text-left"><p>ALLOW or DENY（受信の許可/拒否）</p></td>
+<td class="text-left"><p>ALLOW or DENY（送信の許可/拒否）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>sourceRanges</p></td>
+<td class="text-left"><p>通信の送信元IP（例：0.0.0.0/0）</p></td>
+<td class="text-left"><p>使用しない（EGRESSでは指定不可）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>destinationRanges</p></td>
+<td class="text-left"><p>使用しない（INGRESSでは指定不可）</p></td>
+<td class="text-left"><p>通信の宛先IP（例：8.8.8.8/32）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>protocols / ports</p></td>
+<td class="text-left"><p>どのポートを許可するか（例：tcp:22）</p></td>
+<td class="text-left"><p>どのポートを許可するか（例：tcp:443）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>targetTags / targetServiceAccounts</p></td>
+<td class="text-left"><p>通信を受けるVMの指定</p></td>
+<td class="text-left"><p>通信を出すVMの指定</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>priority</p></td>
+<td class="text-left"><p>優先度。数値が小さいほど優先</p></td>
+<td class="text-left"><p>優先度。数値が小さいほど優先</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id3">
+<h3><span class="section-number">4.1.7. </span>ネットワークの拡張<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>VCPを拡張し、他のVPCやオンプレミスと通信する方法には以下のようなものがある。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>拡張手段</p></th>
+<th class="head text-left"><p>接続対象</p></th>
+<th class="head text-left"><p>特徴</p></th>
+<th class="head text-left"><p>用途例</p></th>
+<th class="head text-left"><p>帯域/性能</p></th>
+<th class="head text-left"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>VPCピアリング</p></td>
+<td class="text-left"><p>GCP内の他のVPC（同一 or 他プロジェクト）</p></td>
+<td class="text-left"><p>GCP内の2つのVPCを内部IPベースで直接接続。</p></td>
+<td class="text-left"><p>組織内の複数VPCを統合したい場合など</p></td>
+<td class="text-left"><p>高性能（GCP内バックボーン使用）</p></td>
+<td class="text-left"><p>双方向に明示的な設定が必要。トラフィックの転送/制御はやや限定的</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>共有VPC</p></td>
+<td class="text-left"><p>同一組織内の複数プロジェクト</p></td>
+<td class="text-left"><p>ホストプロジェクトでVPCを作成。<br>サービスプロジェクトのリソースをホストプロジェクトVPCで起動</p></td>
+<td class="text-left"><p>セキュリティとネットワーク管理の一元化</p></td>
+<td class="text-left"><p>高性能</p></td>
+<td class="text-left"><p>ホストプロジェクトとサービスプロジェクトの関係で構成</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Cloud VPN</p></td>
+<td class="text-left"><p>オンプレミス or 他クラウド</p></td>
+<td class="text-left"><p>IPsecベースのVPN接続。すぐに使える柔軟な構成</p></td>
+<td class="text-left"><p>小～中規模のハイブリッドクラウド構成</p></td>
+<td class="text-left"><p>数百Mbps～最大10Gbps程度</p></td>
+<td class="text-left"><p>HA VPNを使うと冗長化可能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cloud Interconnect</p></td>
+<td class="text-left"><p>オンプレミス or データセンター</p></td>
+<td class="text-left"><p>高帯域・低レイテンシの専用回線。DedicatedとPartnerの2種がある</p></td>
+<td class="text-left"><p>大規模な企業の本番環境や高性能要件</p></td>
+<td class="text-left"><p>10Gbps〜100Gbps</p></td>
+<td class="text-left"><p>接続にはCloud Routerが必要</p></td>
+</tr>
+</tbody>
+</table>
+<p>Cloud Interconnectについては、さらに専用線のDedicatedとパートナー事業者を通じたParterがある。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-left"><p>概要</p></th>
+<th class="head text-left"><p>接続場所</p></th>
+<th class="head text-left"><p>導入難易度</p></th>
+<th class="head text-left"><p>備考</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Dedicated</p></td>
+<td class="text-left"><p>Googleと直接物理接続する専用線</p></td>
+<td class="text-left"><p>GoogleのPOP（相互接続拠点）</p></td>
+<td class="text-left"><p>高</p></td>
+<td class="text-left"><p>専用ポートと帯域（10Gbps単位）を選択可能</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Partner</p></td>
+<td class="text-left"><p>Googleのパートナー（通信事業者など）を通じて接続</p></td>
+<td class="text-left"><p>任意の場所（パートナーが提供）</p></td>
+<td class="text-left"><p>中</p></td>
+<td class="text-left"><p>柔軟な帯域・地域対応。事前の契約が必要</p></td>
+</tr>
+</tbody>
+</table>
+<section id="vpc-shared-vpc">
+<h4><span class="section-number">4.1.7.1. </span>共有 VPC（Shared VPC）<a class="headerlink" href="#vpc-shared-vpc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>複数のプロジェクトを跨いでネットワークを構成する際には、Shared VPCが選択肢となる。</p>
+<p>Shared VPC は、VPC ネットワークを Host Project に集約し、複数の Service Project（アプリPJ/DB PJ）から共通利用する仕組み。
+Shared VPC は通信経路の機能ではなく、「ネットワーク資産（Subnet/FW/Route）を誰が所有し、どこまで統制するか」を決めるための運用レイヤー。</p>
+<p>PSC は “サービス単位で接続する仕組み”、Shared VPC は “ネットワークを中央集権で管理する枠組み” として位置づける。</p>
+</section>
+</section>
+<section id="id4">
+<h3><span class="section-number">4.1.8. </span>デフォルトネットワーク<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GCPでは、プロジェクトを作成した時点でdefaultという名前のVPCネットワークが作成されている。
+各リージョンにサブネットまで準備されており、ルーティング設定やFirewallについても準備できている。
+簡単な検証であればdefaultを利用して開始できる。</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">4.1.9. </span>ネットワークの安全性<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="vpc-service-contorls-vpc-sc">
+<h4><span class="section-number">4.1.9.1. </span>VPC Service Contorls(VPC SC)<a class="headerlink" href="#vpc-service-contorls-vpc-sc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Google Cloudのマネージドサービス（GCS/Firestore etc..）を論理的な境界で囲うことで外部へのデータ流出を防ぐ。
+具体的には、「誰か」という認証に加えて、「どこから」アクセスまで確認する。</p>
+<p>なぜ VPC Service Controls が必要なのかというとIAM だけでは、次のようなリスクを防げない。</p>
+<ul class="simple">
+<li><p>正しいユーザー・サービスアカウントが誤って、または悪意を持って社外・インターネット経由からデータにアクセスする</p></li>
+<li><p>IAM は 認証・認可（Who / What） は制御できるが、</p></li>
+<li><p>通信経路（Where） までは制御できない。</p></li>
+</ul>
+<p>そこで VPC Service Controls を使う。</p>
+</section>
+</section>
+</section>
+<section id="google-cloud">
+<h2><span class="section-number">4.2. </span>Google Cloud における通信レイヤーの整理<a class="headerlink" href="#google-cloud" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="vpc-vm-gke">
+<h3><span class="section-number">4.2.1. </span>VPC 内通信（VM / GKE）<a class="headerlink" href="#vpc-vm-gke" title="この見出しへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><p>通常の RFC1918 アドレス通信</p></li>
+<li><p>firewall / routing がそのまま適用される</p></li>
+</ul>
+</section>
+<section id="vpc-google">
+<h3><span class="section-number">4.2.2. </span>VPC 内 → Google サービス<a class="headerlink" href="#vpc-google" title="この見出しへのパーマリンク">¶</a></h3>
+<p>VPC 内部（外部 IP を持たない VM や GKE ノード）から、Google のマネージドサービスにアクセスする場合の考え方を整理する。</p>
+<section id="private-google-access">
+<h4><span class="section-number">4.2.2.1. </span>Private Google Access<a class="headerlink" href="#private-google-access" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Private Google Access（PGA）は、外部 IP を持たない VM や GKE ノードから、Google APIs にアクセスできるようにする仕組みである。
+PGA は、一般的なインターネット通信ではなく、「Google APIs 向けの特例ルート」として位置づけられる。</p>
+</section>
+<section id="pga">
+<h4><span class="section-number">4.2.2.2. </span>PGAの必要性<a class="headerlink" href="#pga" title="この見出しへのパーマリンク">¶</a></h4>
+<p>通常、Cloud Storage API や BigQuery API などの Google APIs は、ネットワーク上では インターネット上のパブリック IP 宛の通信として見える。</p>
+<p>そのため、外部 IP を持たない VM、Cloud NAT を構成していない環境からは、Google APIs に到達できない。</p>
+</section>
+<section id="id6">
+<h4><span class="section-number">4.2.2.3. </span>PGAの仕組み<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Private Google Access を有効にすると、Google APIs 宛の通信だけを対象に、インターネット通信として扱わずGoogle の内部バックボーン経由でルーティングするという 例外的な経路が VPC に追加される。</p>
+<p>これにより、外部 IP や Cloud NAT を持たない VPC 内リソースからでも、Google APIs へ安全にアクセスできるようになる。</p>
+</section>
+</section>
+<section id="id7">
+<h3><span class="section-number">4.2.3. </span>外部サービスをVPC内として扱う<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="private-service-connect-psc">
+<h4><span class="section-number">4.2.3.1. </span>Private Service Connect(PSC)<a class="headerlink" href="#private-service-connect-psc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Private Service Connect (PSC) は、Google Cloud のサービスや外部 SaaS を、VPC 内のプライベート IP として利用できるようにする仕組みである。</p>
+<p>PSC の本質は、「外部サービスを VPC の内部リソースのように扱える」点にある。
+PSC の設計思想</p>
+<ul class="simple">
+<li><p>通信は 常に Google の内部バックボーン</p></li>
+<li><p>インターネット・NAT を通らない</p></li>
+<li><p>VPC ピアリング不要</p></li>
+<li><p>Producer（提供側） / Consumer（利用側）モデル</p></li>
+</ul>
+<p>PSC を使うことで、「どの VPC が、どのサービスに、どの IP で接続できるか」をネットワーク構造として明示的に制御できる。</p>
+<section id="psc">
+<h5><span class="section-number">4.2.3.1.1. </span>PSC の基本構造（仕組み目線）<a class="headerlink" href="#psc" title="この見出しへのパーマリンク">¶</a></h5>
+<ol class="arabic simple">
+<li><p>Producer 側</p></li>
+</ol>
+<ul class="simple">
+<li><p>サービス（Cloud SQL、内部サービス、SaaS など）をPSC 経由で公開可能な「サービス」として定義</p></li>
+<li><p>この時点では Consumer 側の IP は存在しない</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Consumer 側</p></li>
+</ol>
+<ul class="simple">
+<li><p>自身の VPC に PSC エンドポイントを作成</p></li>
+<li><p>VPC 内に プライベート IP（RFC1918） が割り当てられる</p></li>
+<li><p>この IP 宛の通信が、Google バックボーン経由で Producer に転送される</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>通信の性質</p></li>
+</ol>
+<ul class="simple">
+<li><p>送信元・宛先ともにプライベート IP</p></li>
+<li><p>firewall / routing 的にも「VPC 内通信」として扱える</p></li>
+</ul>
+</section>
+<section id="id8">
+<h5><span class="section-number">4.2.3.1.2. </span>PSCの代表利用例<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h5>
+<p>例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える</p>
+<ol class="arabic simple">
+<li><p>Cloud SQL 側で PSC サービスを公開する（Producer）</p>
+<ul class="simple">
+<li><p>Cloud SQL を Private Service Connect 経由で利用可能なサービスとして公開する</p></li>
+<li><p>この時点では IP は作成されない</p></li>
+</ul>
+</li>
+<li><p>Cloud Run 側の VPC に PSC エンドポイントを作成する（Consumer）</p>
+<ul class="simple">
+<li><p>VPC 内にプライベート IP が払い出される</p></li>
+<li><p>この IP 宛ての通信が Cloud SQL にルーティングされる</p></li>
+</ul>
+</li>
+<li><p>Cloud Run 側で Serverless VPC Access（後述） コネクタを作成する</p>
+<ul class="simple">
+<li><p>Cloud Run の通信を VPC に流し、PSC エンドポイントへ到達可能にする</p></li>
+</ul>
+</li>
+<li><p>Cloud SQL Language Connectors を利用して接続する</p>
+<ul class="simple">
+<li><p>IAM 認証、TLS、接続管理をアプリ側で簡潔に扱える</p></li>
+<li><p>別プロジェクトの場合は権限設定と API 有効化が必要</p></li>
+</ul>
+</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Run
+  ↓
+(Serverless VPC Access)
+  ↓
+PSC Endpoint（自分のVPC内IP）
+  ↓
+Google内部バックボーン
+  ↓
+Cloud SQL
+</pre></div>
+</div>
+</section>
+</section>
+<section id="serverless-vpc">
+<h4><span class="section-number">4.2.3.2. </span>Serverless実行環境と VPCの接続<a class="headerlink" href="#serverless-vpc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Cloud Run や Cloud Functions は、VPC の外で実行されるサーバレス環境である。
+そのため、VPC 内のリソース（Private IP）にはデフォルトでは到達できない。</p>
+<p>サーバレス環境から VPC 内へ通信するための出口（egress）を提供する仕組みとして、Serverless VPC Access コネクタが利用される。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Run
+  ↓
+(Serverless VPC Access)
+  ↓
+PSC Endpoint（自分のVPC内IP）
+  ↓
+Google内部バックボーン
+  ↓
+Cloud SQL
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="cloud-load-balancing">
+<h2><span class="section-number">4.3. </span>Cloud Load Balancing<a class="headerlink" href="#cloud-load-balancing" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud Load Balancing は、Google Cloud 上の Compute Engine や Cloud Storage などのバックエンドに対してトラフィックを自動で分散させるフルマネージドなサービスです。以下の特徴を持つ。</p>
+<ul class="simple">
+<li><p>グローバル / リージョン / ゾーン間にまたがる負荷分散が可能</p></li>
+<li><p>トラフィック量に応じて 自動スケーリング</p></li>
+<li><p>ヘルスチェック機能によって正常なバックエンドへのみルーティング</p></li>
+<li><p>HTTP(S)、TCP/SSL、UDP レベルでのロードバランシングをサポート</p></li>
+</ul>
+<p>種類別の分類（用途・プロトコル・接続方式）</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>分類</p></th>
+<th class="head text-left"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>アプリケーションLB</p></td>
+<td class="text-left"><p>L7（HTTP(S)）レイヤで動作。Cloud CDNと連携可能。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>プロキシ型ネットワークLB</p></td>
+<td class="text-left"><p>L4（TCP/SSL）レイヤのプロキシ型LB。IP非公開アクセスに対応。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>パススルー型ネットワークLB</p></td>
+<td class="text-left"><p>L3/L4パススルーで構成、オンプレやVMのNICへ直接到達するケース向け。</p></td>
+</tr>
+</tbody>
+</table>
+<p>デプロイモードの違い</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>項目</p></th>
+<th class="head text-left"><p>外部LB（External）</p></th>
+<th class="head text-left"><p>内部LB（Internal）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>接続元</p></td>
+<td class="text-left"><p>インターネットからのトラフィック</p></td>
+<td class="text-left"><p>VPC内部からの通信</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>主な用途</p></td>
+<td class="text-left"><p>Webアプリ、API公開用など</p></td>
+<td class="text-left"><p>社内システム、サービス間通信など</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>グローバル対応</p></td>
+<td class="text-left"><p>アプリケーションLBはグローバルに対応</p></td>
+<td class="text-left"><p>内部LBはリージョン単位（グローバル不可）</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cloud-cdn">
+<h2><span class="section-number">4.4. </span>Cloud CDN<a class="headerlink" href="#cloud-cdn" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud CDN は、Google Cloud が提供する グローバルエッジキャッシュネットワーク。</p>
+<ul class="simple">
+<li><p>Google の世界中のエッジロケーションで静的/動的コンテンツをキャッシュし、低レイテンシ・高速配信を実現</p></li>
+<li><p>バックエンドとして Cloud Load Balancing（特にHTTP(S) LB）とセットで使用する</p></li>
+<li><p>オリジンサーバは Compute Engine, Cloud Run, GKE, Cloud Storage などが利用可能</p></li>
+<li><p>CDN の利用には外部HTTP(S)ロードバランサのバックエンド設定が必要</p></li>
+</ul>
+</section>
+<section id="cloud-dns">
+<h2><span class="section-number">4.5. </span>Cloud DNS<a class="headerlink" href="#cloud-dns" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud DNS は、Google Cloud が提供する高可用性・低レイテンシのスケーラブルなDNSサービス。</p>
+<ul class="simple">
+<li><p>ドメイン名とIPアドレスの変換（名前解決）を行う</p></li>
+<li><p>ゾーンの作成 → レコード（A, AAAA, CNAMEなど）の定義 により、独自ドメインの管理が可能</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="API.html" class="btn btn-neutral float-left" title="3. Google Cloud APIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CICD.html" class="btn btn-neutral float-right" title="5. CICD" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

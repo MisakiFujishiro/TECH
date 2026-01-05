@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. ソフトウェア開発現場の「失敗」集めてみた &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="1. Sphinxとは" href="../Sphinx/sphinx.html" />
+    <link rel="prev" title="1. 7日間でハッキングを始める本まとめ" href="TryHackMe.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GCE.html">6. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Container.html">7. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Serverless.html">8. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">9. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/APIGW.html">10. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">11. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">12. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">13. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">14. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">17. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">18. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">19. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">20. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">5. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">6. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">7. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">11. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">12. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. ソフトウェア開発現場の「失敗」集めてみた</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2.1. デスマーチとは</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2.2. 失敗ケーススタディ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2.2.1. 企画で失敗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">2.2.2. 要件定義で失敗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">2.2.3. 基本設計で失敗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">2.2.4. 詳細設計で失敗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">2.2.5. 進捗管理で失敗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">2.2.6. 品質評価で失敗</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">2.2.7. リリース後に失敗</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>ソフトウェア開発現場の「失敗」集めてみた</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Book/ソフトウェア開発の失敗42.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">2. </span>ソフトウェア開発現場の「失敗」集めてみた<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<p><a class="reference external" href="https://www.amazon.co.jp/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E7%8F%BE%E5%A0%B4%E3%81%AE%E3%80%8C%E5%A4%B1%E6%95%97%E3%80%8D%E9%9B%86%E3%82%81%E3%81%A6%E3%81%BF%E3%81%9F%E3%80%82-42%E3%81%AE%E5%A4%B1%E6%95%97%E4%BA%8B%E4%BE%8B%E3%81%A7%E5%AD%A6%E3%81%B6%E3%83%81%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA%E3%81%AE%E3%81%86%E3%81%BE%E3%81%84%E9%80%B2%E3%82%81%E3%81%8B%E3%81%9F-%E5%87%BA%E7%9F%B3-%E8%81%A1%E5%8F%B2/dp/4798185183">ソフトウェア開発現場の「失敗」集めてみた。 42の失敗事例で学ぶチーム開発のうまい進めかた</a>
+は、ソフトウェア開発プロジェクトにおける様々な失敗例を具体的に紹介し、デスマーチ状態に陥らないための知見を提供するノウハウ本。現場で起こりがちな失敗エピソードを疑似体験し、プロジェクトを成功に導くための教訓が42のケーススタディを通じて述べられている。本書の内容に沿ってソフトウェア開発の各フェーズで起こりうる失敗とその対策をまとめる。</p>
+<section id="id2">
+<h2><span class="section-number">2.1. </span>デスマーチとは<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>ソフトウェア開発における最悪の失敗は、プロジェクトが<code class="docutils literal notranslate"><span class="pre">デスマーチ</span></code>状態に陥ること
+デスマーチとは、<code class="docutils literal notranslate"><span class="pre">成功の見込みがほとんどないのに、過酷な条件下で無理に進められるプロジェクト</span></code>を指す言葉で、QCDの全てが崩壊している状態といえる。つまり、「大量の開発作業を、少ない人数で、短いスケジュール内に完了させなければならない」無謀なプロジェクト状態。</p>
+<p>ちなみに「デスマーチ（Death March）」という言葉は、十分な食料や水も与えられず暴力や過酷な環境下で捕虜や非戦闘員を長距離行進させ、多数の死者を出した出来事（いわゆる死の行進）に由来する。それほどまでに過酷でプロジェクトメンバーを消耗させる状況を表現している。</p>
+<p>どうしてQCDが崩れたデスマーチとなってしまうのか、主な要因は以下</p>
+<ul class="simple">
+<li><p>要求面（Quality/Scope）:<br />
+顧客やステークホルダーからの要求を際限なくすべて取り込んでしまい、仕様が肥大化する（いわゆるスコープの暴走）。注意点として、品質を落とすことはシステムリリースに悪影響しかないため、課題は機能が膨大になること。</p></li>
+<li><p>コスト面（Cost）:<br />
+見積もりが楽観的すぎたり難易度の見誤りによって必要な人員・予算を確保できない（リソース不足）。</p></li>
+<li><p>納期面（Delivery）:<br />
+ビジネス上の理由などで不合理に厳しいリリース期限が設定され、スケジュールに無理がある。</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2><span class="section-number">2.2. </span>失敗ケーススタディ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id4">
+<h3><span class="section-number">2.2.1. </span>企画で失敗<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>プロジェクト企画・計画の段階では、最初の見積もりや方針のミスが後々のデスマーチ要因につながることがある。
+大切なことは、本当に使われる機能に絞ったシンプルなソフトウェアにすること、作業を全て洗い出すこと、現実に作業する「人」に焦点を当てること。
+典型的な失敗として、以下の点が挙げられる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>失敗</p></th>
+<th class="head text-left"><p>発生する問題</p></th>
+<th class="head text-left"><p>対策・ベストプラクティス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>顧客からの追加要望を全て受け入れてしまう（要求の肥大化）</p></td>
+<td class="text-left"><p>スケジュールのバッファが消失し、計画にない作業が増えてプロジェクトがパンクする。</p></td>
+<td class="text-left"><p>新たな要望は必ずバックログに積み、優先度の低い項目を後回しにするなど調整する。<br>安易にバッファを潰して対応しないこと。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>要望を鵜呑みにして「本当に必要か」を検討しない</p></td>
+<td class="text-left"><p>不要な機能まで追加してソフトウェアが肥大化し、開発工数が増大する。無駄な実装にリソースが割かれる。</p></td>
+<td class="text-left"><p>要望の背景や真の目的を深掘りし、本当に必要な機能か見極めてから取り込む。<br>ソフトウェアはシンプルであるほど良い。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>「隠れ成果物」（内部ツール等）の洗い出し漏れ</p></td>
+<td class="text-left"><p>想定外の付随作業が後から発覚してスケジュールが逼迫する。計画になかった成果物作成に時間を取られる。</p></td>
+<td class="text-left"><p>成果物ベースでWBSを作成し、内部ツールなど含めすべての成果物を最初に洗い出す。<br>抜け漏れのない計画立案を心がける。<br>WBSのWorkはそもそも成果物という意味なので成果物を一覧化してから作業に落とし込む。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>未熟メンバーも最初からフル稼働前提で計画<br>育成する側の工数を検討していない</p></td>
+<td class="text-left"><p>育成やOJTに上級者の手が取られ、生産性が当初見積より低下する。<br>新人を戦力と見なした計画通りに進まず破綻する。</p></td>
+<td class="text-left"><p>チームメンバーの成長・育成コストを考慮し、余裕ある人員計画にする。<br>初心者は一人前としてカウントせず、指導時間も見込んで計画する。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>社内の人事異動・政治を考慮しない</p></td>
+<td class="text-left"><p>チームが順調だと他部署から人を引き抜かれるなどして、気づけば人手不足になる。<br>計画していた戦力が維持できなくなる。</p></td>
+<td class="text-left"><p>社内のリソース異動の動きを常に把握し、必要に応じて増員の検討や引き留めを行う。<br>上層部とも調整しチームの人的資源を確保・維持する。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>輝きポイントが失われる</p></td>
+<td class="text-left"><p>初期企画の輝きポイントが気づいたら競合に負けていたり、必要性がなくなっていたりする。</p></td>
+<td class="text-left"><p>社企画当初に設定したソフトウェアの輝きポイントを常に意識する。<br>世の中の変化に応じて輝きポイントが失われていないか市場調査や脅威を確認する。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id5">
+<h3><span class="section-number">2.2.2. </span>要件定義で失敗<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>要件定義のフェーズでは、ユーザー要求をどれだけ明確にできるかが重要。
+要件の詰めが甘いと後工程で大きな手戻りを招く。典型的な失敗として、以下の点が挙げられる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>失敗</p></th>
+<th class="head text-left"><p>発生する問題</p></th>
+<th class="head text-left"><p>対策・ベストプラクティス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>要件が曖昧なまま進めてしまう</p></td>
+<td class="text-left"><p>基本設計に入ってから隠れた仕様が浮上し、設計のやり直しや見積もりミスが発覚する。<br>最悪の場合、実装後に要件漏れが判明する。</p></td>
+<td class="text-left"><p>要件定義の段階で不明点を洗い出し、仕様を具体化してから次工程に進む。<br>曖昧さを残さず、仕様書に明記することで認識齟齬をなくす。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id6">
+<h3><span class="section-number">2.2.3. </span>基本設計で失敗<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>基本設計（アーキテクチャ設計や外部設計）の段階では、仕様の伝達不足や技術選定ミスが後の問題を引き起こす。
+典型的な失敗として、以下の点が挙げられる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>失敗</p></th>
+<th class="head text-left"><p>発生する問題</p></th>
+<th class="head text-left"><p>対策・ベストプラクティス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>基本設計の詰めが甘いまま外部に委託する</p></td>
+<td class="text-left"><p>ベンダーや他チームが仕様を誤解し、要件とずれた実装を行ってしまう。<br>成果物受け入れ時に手戻りが発生し、当初見積もりを超える工数がかかる。</p></td>
+<td class="text-left"><p>「仕様は伝わらないもの」と捉え、委託前に受入テスト項目や期待する動作を明文化しておく。<br>受入れ検査仕様書を用意し、事前に認識合わせを徹底してから委託する。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>専門用語や定義の共有不足（用語の曖昧さ）</p></td>
+<td class="text-left"><p>メンバー間でドメイン知識の前提がずれ、UXや設計に不整合が生じる。<br>誤解に基づく設計は後で作り直しが必要になり、無駄な手戻りが増える。</p></td>
+<td class="text-left"><p>プロジェクト内で用語定義書（グロッサリー）を作成・共有しておく。<br>用語の意味やルールを明確に定義し、誰もが共通認識を持てるようにする。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>新規技術やライブラリを安易に採用する</p></td>
+<td class="text-left"><p>技術検証不足により、導入した新技術が要件を満たせなかったり想定以上に実装工数を要したりする。<br>トラブル対応に追われ、計画が大幅に狂うリスク。</p></td>
+<td class="text-left"><p>採用予定の新技術は早い段階でPoC（検証）を行い、問題点を洗い出しておく。<br>チームに経験者がいない技術は慎重に扱い、代替案やフォールバックプランも用意しておく。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id7">
+<h3><span class="section-number">2.2.4. </span>詳細設計で失敗<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>詳細設計から実装・テストにかけてのフェーズでは、チーム内の連携不備や開発プロセスの問題が不具合の多発や効率低下を招く。
+典型的な失敗として、以下の点が挙げられる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>失敗</p></th>
+<th class="head text-left"><p>発生する問題</p></th>
+<th class="head text-left"><p>対策・ベストプラクティス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>システム全体の設計思想・方針が共有されていない</p></td>
+<td class="text-left"><p>各メンバーが独自判断で改修を行い、大きな影響範囲の変更や一貫性のない実装が生まれる。<br>結果としてバグや品質低下を招き、後で再修正が必要になる。</p></td>
+<td class="text-left"><p>アーキテクチャや設計原則を文書化し、レビューや勉強会を通じてチーム全員に周知する。<br>設計の意図や判断基準を共有し、勝手な改変を防ぐ。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>リポジトリ管理のルール不備</p></td>
+<td class="text-left"><p>ソースコードやドキュメントのバージョン管理が徹底されず、必要な成果物がリポジトリに揃わない。<br>属人的な管理になると共有漏れや変更履歴不明による手戻りが発生する。</p></td>
+<td class="text-left"><p>リポジトリの構成や運用ルール（ディレクトリ構成、命名規則、登録対象物など）を定めて徹底する。<br>全ての成果物を一元管理し、常に最新の情報を共有できる状態にする。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>開発者が設計～保守の一連の経験を積んでいない</p></td>
+<td class="text-left"><p>設計の勘所が身についておらず、変更による影響範囲を誤ったり非効率な実装をしてしまう。<br>設計意図を理解しない改修が重なると、システムの構造が劣化する。</p></td>
+<td class="text-left"><p>開発者自身が詳細設計から実装、そして保守まで担当する機会を設け、設計の勘所を習得させる。<br>経験を通じて初めて得られる知見を重視し、人材育成に反映する。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>場当たり的なバグ修正の繰り返し</p></td>
+<td class="text-left"><p>その場しのぎのバグ修正が新たな不具合を生み、修正の無限ループに陥る。<br>「バグ修正地獄」となりスケジュール遅延や品質低下を招いてしまう。</p></td>
+<td class="text-left"><p>焦って対処療法的に修正するのではなく、不具合の真因を徹底的に究明する。<br>一度立ち止まり、再発防止策も含めた根本的な解決策を講じてから修正に当たる。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id8">
+<h3><span class="section-number">2.2.5. </span>進捗管理で失敗<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>進捗管理とは、計画（TOBE）に対する実績（ASIS）の状況把握と、GAPを埋めるための改善活動。
+GAPを埋めるために課題を早期に明らかにし、早め早めに課題の目を積むことが目的であり、計画通りに進んでいることを確認する場ではない。
+ポイントは、課題を早期に発見するための環境づくりを行い、課題に対してアクションをセットで提供し、手戻りを減らすこと。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>失敗</p></th>
+<th class="head text-left"><p>発生する問題</p></th>
+<th class="head text-left"><p>対策・ベストプラクティス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>計画の失敗（時間ベースの見積もり）</p></td>
+<td class="text-left"><p>作業時間が十分に確保できず、計画が遅延する。（実際の作業時間は1日の半分程度に留まる）</p></td>
+<td class="text-left"><p>見積もりは時間ではなく実績ベースで行う。※ 例：Agileのストーリーポイント方式</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>計画の失敗（作業時間の確保不足）</p></td>
+<td class="text-left"><p>会議が多く、開発のための時間を確保できない。</p></td>
+<td class="text-left"><p>不要な会議を削減し、開発者の作業時間を確保する。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>計画の失敗（計画遵守の優先）</p></td>
+<td class="text-left"><p>計画を守ることに固執するあまり、進捗上の課題が隠されてしまう。</p></td>
+<td class="text-left"><p>進捗会議は課題を早期発見する場と位置づけ、課題を正直に共有できる環境を整える。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>課題発見の失敗（心理的安全性の欠如）</p></td>
+<td class="text-left"><p>チーム内に心理的安全性がなく、計画と実績のGAPから課題を抽出できない。<br>（メンバーが課題を指摘しづらい雰囲気になっている）</p></td>
+<td class="text-left"><p>「チームVS課題」の構図を作り、メンバーを課題解決の参謀役に位置づける。<br>課題には対応策をセットで提示し、チームが一体となって取り組むことで、問題解決がシステム開発に良い影響を与えるという効力感を醸成する。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>課題発見の失敗（コミュニケーション不足）</p></td>
+<td class="text-left"><p>職場の雰囲気が悪く、コミュニケーション不足によりメンバーが疲弊する。</p></td>
+<td class="text-left"><p>リーダーが率先して職場の雰囲気を良好に保ち、円滑なコミュニケーションを促進する。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>改善活動の失敗（施策の乱発）</p></td>
+<td class="text-left"><p>振り返りで多数の改善策を同時に実施すると、メンバーの発言が減ってしまう。</p></td>
+<td class="text-left"><p>課題をリストアップして一般化し、効果が高</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id9">
+<h3><span class="section-number">2.2.6. </span>品質評価で失敗<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<p>品質評価とは、そのソフトウェアが顧客の業務課題を本当に解決できるのかを見極めるための重要なプロセスである。
+品質の悪いソフトウェアは、どれだけ時間と労力をかけて開発しても、ユーザーに使われず、結果として負債になる。ユーザーの不満を生み、現場での定着も阻害される。「やっぱり使えない」「結局Excelに戻った」というような最悪の結末につながりかねない。</p>
+<p>だからこそ、QCDの中で最も守るべきは“Q（品質）”。
+品質を維持できないなら、無理にスコープを広げるべきではない。品質を守るために、機能の削減や納期の調整を選ぶべき。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>失敗</p></th>
+<th class="head text-left"><p>発生する問題</p></th>
+<th class="head text-left"><p>対策・ベストプラクティス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>バグを出し切れない（開発者目線のみのテスト）</p></td>
+<td class="text-left"><p>想定パターンが狭く、実際のユースケースで不具合が多発する。<br>ユーザーの操作方法や業務実態とズレたテストになる。</p></td>
+<td class="text-left"><p>ユーザー目線を早い段階から取り入れ、実運用に近いパターンを含めたテストケースを設計する。<br>実際のユーザーが行いそうな操作や例外パターンを反映させる。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>非機能要件の検証が後回しになる</p></td>
+<td class="text-left"><p>リリース直前に性能問題が発覚し、対応の時間が確保できずスケジュール遅延や品質低下につながる。</p></td>
+<td class="text-left"><p>重要機能については早い段階で非機能要件（パフォーマンス、負荷、セキュリティ）を検証する。<br>他の機能も、ボトルネックになりそうな処理については先んじて確認する。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>すべてのバグを修正しようとする</p></td>
+<td class="text-left"><p>些細なバグ修正に時間を割きすぎ、クリティカルな品質課題や納期への影響を見落とす。<br>バグ修正が新たなバグを生み出す可能性もある。</p></td>
+<td class="text-left"><p>全バグ修正を前提としない。<br>影響範囲と修正コストを冷静に見極め、ステークホルダーと合意の上で「割り切りバグ」は残す判断をする。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>テスト＝品質担保だと誤認している</p></td>
+<td class="text-left"><p>テストは品質確認のプロセス。そもそもの要件や設計が間違っていれば意味がない。<br>テスト工程だけで品質は保証できない。</p></td>
+<td class="text-left"><p>テストはあくまで「品質の確認」であり、品質そのものは上流（企画・要件・設計）で作り込むもの。<br>課題の本質を定義し、正しい要件・設計に落とし込むことが最重要。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id10">
+<h3><span class="section-number">2.2.7. </span>リリース後に失敗<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>品質評価においては、テスト工程でどれだけ綿密なケースを用意しても、実運用では想定外の使われ方がされることを前提にする必要がある。
+ユーザーは仕様書通りには動かない。奇想天外な操作、想定外の環境、再現しないバグ…。その中でもソフトウェアが耐えうるだけの設計と運用体制が求められる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>失敗</p></th>
+<th class="head text-left"><p>発生する問題</p></th>
+<th class="head text-left"><p>対策・ベストプラクティス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>保守・対応メンバーの計画漏れ</p></td>
+<td class="text-left"><p>リリース後の障害対応や問い合わせ対応が既存開発メンバーに集中し、次フェーズの開発が遅延する。<br>保守対応が後手に回り、ユーザーの信頼も損なわれる。</p></td>
+<td class="text-left"><p>保守・運用対応を開発工程の一部として捉え、企画段階から必要人員を見積もっておく。<br>「リリース＝完了」ではなく「リリース＝運用の始まり」であるという意識を全体に浸透させる。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>再現しない障害への備え不足</p></td>
+<td class="text-left"><p>奇抜な操作や想定外の環境差により、本番環境でしか再現しない不具合が発生する。<br>原因不明のまま対応に時間がかかり、開発者の消耗が激しくなる。</p></td>
+<td class="text-left"><p>想定外を前提とし、十分なログ設計と例外ハンドリングを組み込んでおく。<br>再現性に依存しないトラブルシュートが可能なように、重要処理の状況や引数、状態を残す設計を心がける。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>振り返りで個人を責める構図</p></td>
+<td class="text-left"><p>レトロスペクティブ（振り返り）が個人攻撃や責任追及に傾き、チームの士気と心理的安全性が損なわれる。<br>次のプロジェクトに悪い空気を引きずる。</p></td>
+<td class="text-left"><p>評価対象は常に「人」ではなく「プロセス」。<br>失敗の原因を仕組みとして分析し、個人の責任ではなく構造的な改善につなげる文化を作る。<br>チームが前向きに「次にどう活かすか」に集中できるように仕組みと進行を設計する。</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="TryHackMe.html" class="btn btn-neutral float-left" title="1. 7日間でハッキングを始める本まとめ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Sphinx/sphinx.html" class="btn btn-neutral float-right" title="1. Sphinxとは" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
