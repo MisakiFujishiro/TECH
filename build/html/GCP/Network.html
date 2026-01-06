@@ -83,7 +83,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#google-cloud">4.2. Google Cloud における通信レイヤーの整理</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#vpc-vm-gke">4.2.1. VPC 内通信（VM / GKE）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#vpc-google">4.2.2. VPC 内 → Google サービス</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vpc-google">4.2.2. VPC内 → Google サービス</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#private-google-access">4.2.2.1. Private Google Access</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pga">4.2.2.2. PGAの必要性</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id6">4.2.2.3. PGAの仕組み</a></li>
@@ -91,7 +91,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">4.2.3. 外部サービスをVPC内として扱う</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#private-service-connect-psc">4.2.3.1. Private Service Connect(PSC)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#serverless-vpc">4.2.3.2. Serverless実行環境と VPCの接続</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">4.2.4. VPC外 → Google サービス</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#serverless-vpc">4.2.4.1. Serverless実行環境と VPCの接続</a></li>
 </ul>
 </li>
 </ul>
@@ -452,7 +455,7 @@ Shared VPC は通信経路の機能ではなく、「ネットワーク資産（
 </ul>
 </section>
 <section id="vpc-google">
-<h3><span class="section-number">4.2.2. </span>VPC 内 → Google サービス<a class="headerlink" href="#vpc-google" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.2.2. </span>VPC内 → Google サービス<a class="headerlink" href="#vpc-google" title="この見出しへのパーマリンク">¶</a></h3>
 <p>VPC 内部（外部 IP を持たない VM や GKE ノード）から、Google のマネージドサービスにアクセスする場合の考え方を整理する。</p>
 <section id="private-google-access">
 <h4><span class="section-number">4.2.2.1. </span>Private Google Access<a class="headerlink" href="#private-google-access" title="この見出しへのパーマリンク">¶</a></h4>
@@ -510,7 +513,7 @@ PSC の設計思想</p>
 </ul>
 </section>
 <section id="id8">
-<h5><span class="section-number">4.2.3.1.2. </span>PSCの代表利用例<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h5>
+<h5><span class="section-number">4.2.3.1.2. </span>PSCの代表利用例（クロスプロジェクト）<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h5>
 <p>例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える</p>
 <ol class="arabic simple">
 <li><p>Cloud SQL 側で PSC サービスを公開する（Producer）</p>
@@ -550,8 +553,11 @@ Cloud SQL
 </div>
 </section>
 </section>
+</section>
+<section id="id9">
+<h3><span class="section-number">4.2.4. </span>VPC外 → Google サービス<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="serverless-vpc">
-<h4><span class="section-number">4.2.3.2. </span>Serverless実行環境と VPCの接続<a class="headerlink" href="#serverless-vpc" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.2.4.1. </span>Serverless実行環境と VPCの接続<a class="headerlink" href="#serverless-vpc" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Cloud Run や Cloud Functions は、VPC の外で実行されるサーバレス環境である。
 そのため、VPC 内のリソース（Private IP）にはデフォルトでは到達できない。</p>
 <p>サーバレス環境から VPC 内へ通信するための出口（egress）を提供する仕組みとして、Serverless VPC Access コネクタが利用される。</p>

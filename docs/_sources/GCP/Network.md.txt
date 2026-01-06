@@ -128,7 +128,7 @@ Google Cloudのマネージドサービス（GCS/Firestore etc..）を論理的�
 - firewall / routing がそのまま適用される
 
 
-### VPC 内 → Google サービス
+### VPC内 → Google サービス
 VPC 内部（外部 IP を持たない VM や GKE ノード）から、Google のマネージドサービスにアクセスする場合の考え方を整理する。
 #### Private Google Access
 Private Google Access（PGA）は、外部 IP を持たない VM や GKE ノードから、Google APIs にアクセスできるようにする仕組みである。
@@ -168,7 +168,7 @@ PSC を使うことで、「どの VPC が、どのサービスに、どの IP �
   - 送信元・宛先ともにプライベート IP
   - firewall / routing 的にも「VPC 内通信」として扱える
 
-##### PSCの代表利用例
+##### PSCの代表利用例（クロスプロジェクト）
 例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える
 1. Cloud SQL 側で PSC サービスを公開する（Producer）
    - Cloud SQL を Private Service Connect 経由で利用可能なサービスとして公開する
@@ -192,7 +192,7 @@ Google内部バックボーン
   ↓
 Cloud SQL
 ```
-
+### VPC外 → Google サービス
 #### Serverless実行環境と VPCの接続
 Cloud Run や Cloud Functions は、VPC の外で実行されるサーバレス環境である。
 そのため、VPC 内のリソース（Private IP）にはデフォルトでは到達できない。

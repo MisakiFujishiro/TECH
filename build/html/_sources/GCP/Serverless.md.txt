@@ -18,6 +18,7 @@ App Engine は、Webアプリケーションのインフラ運用を極限まで
 `CloudFunctions`は、イベント駆動型の`関数実行環境`である。  
 開発者は、インフラ管理は一切不要であり、コードをデプロイするだけで、処理を実行することができ、AWSのLambdaのようなサービスである。
 
+
 ![](../img/GCP/Serverless/CloudFunction_illustration.png)   
 [Learn Cloud Functions in a snap!](https://cloud.google.com/blog/topics/developers-practitioners/learn-cloud-functions-snap?utm_source=ext&utm_medium=partner&utm_campaign=CDR_pve_gcp_gcpsketchnote_&utm_content=-&hl=en)
 
@@ -30,6 +31,21 @@ App Engine は、Webアプリケーションのインフラ運用を極限まで
 |最大タイムアウト|約1分（60秒）|最大60分まで拡張可能（バックグラウンドタスク）|
 |ライブラリの制約|固定ランタイム、使えるライブラリに制限あり|柔軟なライブラリ・依存管理が可能（ローカルパッケージ使用OK）|
 
+
+Lambda同様に、Cloud Functionsには実行時間の制約事項がある。
+
+|関数のトリガー|上限|
+|:----|:----|
+|HTTP 関数|最大 60 分（3,600 秒）|
+|イベントドリブン関数|最大 9 分（540 秒）|
+|Pub/Sub push / scheduled / Task queue|30 分 など条件付き制約あり|
+
+- HTTP：
+    - クライアントが待つ前提
+    - 長時間処理も想定
+- イベント：
+    - 再試行・冪等性・スケーラビリティ重視
+    - 短時間で終わる処理が前提
 
 ## Cloud Run
 `Cloud Run`とは、フルマネージドなコンテナ実行環境である。
@@ -58,7 +74,10 @@ CloudRunには、`Cloud Run Services`と`Cloud Run Jobs`の2つの機能が存�
 
 
 ### Cloud Run Jobs
-`Cloud Run Jobs`は、HTTPサーバーを立てず、一度実行して終了するバッチ的な処理に設計されたリソース。手動やスケジュールワークフローの一部など、任意のタイミングで実行される特徴がある。
+`Cloud Run Jobs`は、HTTPサーバーを立てず、一度実行して終了するバッチ的な処理に設計されたリソース。
+手動やスケジュールワークフローの一部など、任意のタイミングで実行される特徴がある。
+
+注意点として、Cloud Run Job：HTTPを待ち受けないため、実行は Admin API の jobs.run で起動する
 
 Cloud Run Jobsは下図のように`Job`、`Execution`、`Task`から構成される。
 ![](../img/GCP/Serverless/CloudRun_jobs.png)

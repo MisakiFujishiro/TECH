@@ -95,35 +95,71 @@ gcloud projects set-iam-policy my-project-id policy.json
 例えばPJに対してバインディングを行い、特定のSAをprincipalにした場合、その後はPolicyにRoleを付与していくことでSAは対象リソースへの権限を持つことができ、リソース側にバインディングする手間が省ける。
 
 ## SA(Service Account)
-サービスアカウント（SA）は、ユーザーではなくGCP内のサービスが認証・認可を行うための機能。2つの役割を持っていることを意識すると理解しやすい
-- `プリンシパル`・・・Policyでバインディングを指定する際にSAをprincipalにすることができる
-- `リソース`・・・SA自体がリソースであるので誰がSAを引き受けられるかを定義する
+### SA簡潔なまとめ
+- SA は「実行主体」であり、同時に「IAM リソース」
+- 認可は必ず2段階
+  1. SA に何ができるか
+  2. 誰がその SA を使ってよいか
+    - actAs は「SA を使ってよいか」を決める権限
+    - 実務では roles/iam.serviceAccountUser = actAs の実体
+    - AWS の iam:PassRole と同じ
 
-例として、VM などが Cloud Storage や BigQuery といった他のリソースにアクセスすることを考える。
-以下の2つのステップで認可を定義する。
+### SAとは
+サービスアカウント（SA）は  
+人ではなく、GCP 上のアプリケーションやサービスが使う ID である。
 
-- 「SAにどんな権限を与えるか？」を定義（アクセスしたいリソース側にバインディング）
-  - 対象リソース: Cloud Storage、BigQuery、Pub/Subなど
-  - Principal: サービスアカウント
-  - 付与するロール: roles/storage.objectViewer など、操作対象に応じたロール
+SA を理解する最大のポイントは、SAを利用する際は、以下2つのポイントがあること
+- 許可ポリシーの`principal`になること
+- 信頼ポリシーの`Resource`になること（※ AWSでいう信頼Policyに相当し、GCPには信頼ポリシーという言葉はない）
+
+### SAは許可ポリシーのprincipalになる
+IAM ポリシーで principal（主体） として指定できるため、
+> 「この SA に、このリソースへの権限を与える」
+
+というリソースベースの許可ポリシーで利用することができる。
+
+例：SA に「何ができるか」（アクセス先リソース側）を指定。
 ```
 gcloud storage buckets add-iam-policy-binding gs://my-bucket \
   --member="serviceAccount:my-sa@project.iam.gserviceaccount.com" \
   --role="roles/storage.objectViewer"
 ```
-- 「誰が SA を使ってよいか？」を定義（SA 自体にバインディング）
-  - 対象リソース: サービスアカウントそのもの
-  - Principal: VM やユーザー
-  - 付与するロール: roles/iam.serviceAccountUser（または roles/iam.serviceAccountTokenCreator など）
+- 対象：Cloud Storage / BigQuery / Pub/Sub など
+- Principal：サービスアカウント
+- Role：最小権限ロール
+
+→
+「この SA は、このバケットを読むことができる」
+
+### SAは信頼ポリシーのResourceになる
+SA 自体が IAM リソースであり、
+> 「誰が、この SA として実行してよいか」
+
+を SA 側の IAM ポリシーで制御できる。  
+
+誰が「その SA を使ってよいか」（SA 自体に対する権限）を指定。
 ```
 gcloud iam service-accounts add-iam-policy-binding my-sa@project.iam.gserviceaccount.com \
   --member="user:bob@example.com" \
   --role="roles/iam.serviceAccountUser"
 ```
+- 対象：サービスアカウント
+- Principal：ユーザー / CI / 別の SA
+- Role：roles/iam.serviceAccountUser
 
-### 自動バインディングに関する補足
-Cloud Run や GCE などのサービスに SA を指定してリソースを作成すると、そのリソースがSAを使うためのバインディング（上記の後半部分）はGCPが自動で設定してくれる。
-したがって、通常はユーザーが明示的に設定する必要はない。
+→ 「bob は、サービス（Cloud Functions など）にその SA を“使わせてよい”と指示できる」
+
+#### 信頼ポリシー（actAs） が必要になる理由
+Cloud Functions / Cloud Run のデプロイ時、デプロイヤーは暗黙的にこう言っている。
+`「このアプリ、この SA の権限を借りて実行してください」`
+これは 権限の委譲（なりすまし）であり、もし制限がなければ
+
+開発者が
+- Owner 権限の SA を指定
+- 即、権限昇格事故
+
+これを防ぐために GCP は「その SA を使ってよいかは、SA 自身が許可する」という対応をしている。
+
 
 ### SAのメリット
 SAを利用することで以下のようなメリットを享受できる
@@ -136,6 +172,7 @@ SAを利用することで以下のようなメリットを享受できる
 |④ 実行単位に応じた設計が可能|実行環境（VMやCloud Functionなど）に応じて別々のSAを割り当てれば、<br>最小権限の原則（Principle of Least Privilege）を実践できる。|
 
 SAは、サービスアカウントキー（秘密鍵と公開鍵）を発行することができ、その情報を利用することでSAに許可されている権限を行使することができる。注意点として、サービスアカウントキーをgithubなどに後悔しないように注意する。
+
 
 ## クロスプロジェクト
 GCP におけるプロジェクト間をまたいだリソース操作は、
@@ -180,10 +217,38 @@ K8SにおいてWorkload Identityを利用すると、Kubernetes ServiceAccount�
 この構成により、Pod は 短命な認証情報を用いてGSA の権限で GCP API を呼び出すことが可能となる。
 
 ## Identity-Aware Proxy (IAP)
+IAP は Google Cloud が提供する認証・認可プロキシである。
+アプリケーション自身にログイン処理や認証ロジックを実装しなくても、Google アカウント（Google Workspace 含む）を使った安全なアクセス制御を実現できます。
+Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できます。
 
-IAP は Google Cloud が提供する認証・認可プロキシであり、
-アプリケーションの前段に配置され、Google アカウントを用いたアクセス制御を提供する。
-Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できる
+### IAPの役割
+IAP はアプリケーションの 前段（HTTP(S) ロードバランサ等）に配置され、次を担当します。
+- ユーザー認証
+- Google アカウントでログイン
+- アクセス認可
+- IAM / Google グループでアクセス可否を判定
+- 認証済みリクエストのみをバックエンドへ転送
 
-IAP のアクセス制御は IAM に基づいて行われ、
-IP やネットワークではなく「誰がアクセスしているか」を基準とする。
+### IAPの処理詳細
+AP による認証が成功すると、IAP が署名した JWT がバックエンドに渡されます。
+- 処理イメージ
+  - ユーザーがアプリにアクセス
+  - IAP が Google アカウントで認証
+  - IAP がアクセス許可を判定
+- 許可された場合のみ
+  - JWT を HTTP ヘッダに付与
+  - バックエンド（Compute Engine / GKE / Cloud Run 等）へ転送
+- アプリ側の役割
+  - JWT の 署名検証
+  - ユーザー情報（email / ID）を参照
+  - 「認証済みユーザー」として処理する
+
+結果として、アプリは「JWT を検証するだけ」ログイン画面・OAuth 実装は不要。
+
+IAP が付与する JWT には、例えば次の情報が含まれる。
+- ユーザーの Google アカウント（email）
+- IAP が発行者であること（issuer）
+- 対象アプリ（audience）
+- 有効期限
+
+これにより、アプリは「誰が」「どのアプリに」「正しく認証されて来たか」を安全に判定できる。

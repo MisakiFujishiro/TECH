@@ -72,7 +72,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">11. ストレージ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">12. Cloud Logging</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">13. DB</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-sql">13.1. Cloud SQL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-sql">13.1. Cloud SQL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-auth-proxy">13.1.1. Cloud SQL Auth Proxy</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#alloydb">13.2. AlloyDB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#spanner">13.3. Spanner</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#firestore">13.4. Firestore</a></li>
@@ -201,6 +204,22 @@ MySQL・PostgreSQL・SQL Serverをサポートし、マシンタイプを選択�
 <p>Cloud SQLは単一リージョン内の高可用構成（マルチゾーン構成）をサポートし、自動フェイルオーバーによって99.95%の月間稼働率SLOを提供。
 必要に応じてリードレプリカを追加して読み取りスケールを拡大したり、データベースを複数リージョンに配置して耐障害性を高めることも可能。
 一方で書き込みは単一のプライマリインスタンスに集約されるためスケールアップ（垂直スケーリング）が中心で、Cloud Spannerのような水平分散はできない。</p>
+<section id="cloud-sql-auth-proxy">
+<h3><span class="section-number">13.1.1. </span>Cloud SQL Auth Proxy<a class="headerlink" href="#cloud-sql-auth-proxy" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cloud SQL Auth Proxy を一言で言うと
+「IAM 認証を使って Cloud SQL に安全に接続するための中継プロセス」</p>
+<ul class="simple">
+<li><p>Proxy プロセスを起動</p></li>
+<li><p>Proxy が サービスアカウントで IAM 認証</p></li>
+<li><p>Cloud SQL Admin API を利用してIAM 認証されたセキュアな接続（TLS）を確立</p></li>
+<li><p>ローカル（localhost）に TCP ポートを開く</p></li>
+<li><p>アプリは localhost:3306 等に接続するだけ</p></li>
+</ul>
+<p>アプリは Cloud SQL の ネットワークや認証方式を意識せず、localhost に接続するだけでよい。
+GKEやCompute Engineではよく利用される。
+※ Cloud Run では、Cloud Run ではサイドカーを公式にサポートしておらず、単一コンテナ内でプロキシとアプリをまとめる構成はオーバーヘッドや可観測性の点で推奨されません。そのため、公式の Cloud SQL 連携機能が推奨されており、自前で Cloud SQL Auth Proxy を起動するケースは少ない。</p>
+<p>権限としては、クライアント側のSAには<code class="docutils literal notranslate"><span class="pre">roles/cloudsql.client</span></code>を付与しておく。</p>
+</section>
 </section>
 <section id="alloydb">
 <h2><span class="section-number">13.2. </span>AlloyDB<a class="headerlink" href="#alloydb" title="この見出しへのパーマリンク">¶</a></h2>
@@ -247,6 +266,7 @@ MySQL・PostgreSQL・SQL Serverをサポートし、マシンタイプを選択�
 <li><p>オフラインサポートをしており、アプリ利用中のデータをキャッシュし、オンライン復帰後にSDKが同期してくれる</p></li>
 <li><p>リアルタイム更新が可能</p></li>
 </ul>
+<p>また、Firestoreはサーバレスであり、自動スケール（読み書きが増えても勝手に伸びる）ため、インスタンス常駐コストないという特徴がある。</p>
 </section>
 <section id="bidtable">
 <h2><span class="section-number">13.5. </span>Bidtable<a class="headerlink" href="#bidtable" title="この見出しへのパーマリンク">¶</a></h2>

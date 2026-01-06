@@ -231,6 +231,39 @@ GCPでは、<code class="docutils literal notranslate"><span class="pre">AppEngi
 </tr>
 </tbody>
 </table>
+<p>Lambda同様に、Cloud Functionsには実行時間の制約事項がある。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>関数のトリガー</p></th>
+<th class="head text-left"><p>上限</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>HTTP 関数</p></td>
+<td class="text-left"><p>最大 60 分（3,600 秒）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>イベントドリブン関数</p></td>
+<td class="text-left"><p>最大 9 分（540 秒）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Pub/Sub push / scheduled / Task queue</p></td>
+<td class="text-left"><p>30 分 など条件付き制約あり</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>HTTP：</p>
+<ul>
+<li><p>クライアントが待つ前提</p></li>
+<li><p>長時間処理も想定</p></li>
+</ul>
+</li>
+<li><p>イベント：</p>
+<ul>
+<li><p>再試行・冪等性・スケーラビリティ重視</p></li>
+<li><p>短時間で終わる処理が前提</p></li>
+</ul>
+</li>
+</ul>
 </section>
 <section id="cloud-run">
 <h2><span class="section-number">8.3. </span>Cloud Run<a class="headerlink" href="#cloud-run" title="この見出しへのパーマリンク">¶</a></h2>
@@ -270,7 +303,9 @@ GCPでは、<code class="docutils literal notranslate"><span class="pre">AppEngi
 </section>
 <section id="cloud-run-jobs">
 <h3><span class="section-number">8.3.2. </span>Cloud Run Jobs<a class="headerlink" href="#cloud-run-jobs" title="この見出しへのパーマリンク">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span> <span class="pre">Jobs</span></code>は、HTTPサーバーを立てず、一度実行して終了するバッチ的な処理に設計されたリソース。手動やスケジュールワークフローの一部など、任意のタイミングで実行される特徴がある。</p>
+<p><code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span> <span class="pre">Jobs</span></code>は、HTTPサーバーを立てず、一度実行して終了するバッチ的な処理に設計されたリソース。
+手動やスケジュールワークフローの一部など、任意のタイミングで実行される特徴がある。</p>
+<p>注意点として、Cloud Run Job：HTTPを待ち受けないため、実行は Admin API の jobs.run で起動する</p>
 <p>Cloud Run Jobsは下図のように<code class="docutils literal notranslate"><span class="pre">Job</span></code>、<code class="docutils literal notranslate"><span class="pre">Execution</span></code>、<code class="docutils literal notranslate"><span class="pre">Task</span></code>から構成される。
 <img alt="" src="../_images/CloudRun_jobs.png" />
 <a class="reference external" href="https://blog.g-gen.co.jp/entry/cloud-run-jobs-explained">Cloud Run jobsを徹底解説！</a></p>

@@ -9,6 +9,7 @@ ECSと比較しながら、	Kubernetesで扱われる用語を整理すると以
 |Pod|ECSのタスク|コンテナをまとめて管理する単位（1つ以上のコンテナを含む）。|
 |Node|ECSのFargate/ECSインスタンス|Podが実行されるホスト（EC2またはFargate上で動作）。|
 |Deployment|ECSのサービス|Podの管理をする仕組み。スケーリングやローリングアップデートを管理。|
+|StatefulSet|-|Pod に個体性（ID/ディスク）を持たせて管理|
 |Service|ECSのロードバランサ|内部/外部向けにPodを公開し、負荷分散を提供。|
 |Namespace|1つの Kubernetes クラスタの中を論理的に区切るための「仮想的な区画」|
 |ConfigMap/Secret|ECSのタスク定義の環境変数管理|設定値や機密情報（DBパスワードなど）を管理。|
@@ -105,6 +106,18 @@ K8sにおける分離の種別をまとめると以下
 |Horizontal Pod Autoscaler |HPA|ワークロードの負荷に応じて自動的にレプリカ数をスケールアウト・スケールインするための仕組み|
 |Vertical Pod Autodcaler|VPA|Podのリソースの割り当てを調整する仕組み|
 |Pod Dsiruption Budget|PDB|ノードのメンテナンスなどアップグレードなどによる意図的なPodの終了（Disruption）が行われる際のPod数が許容範囲内に収まるようにするための仕組み。<br>maxUnavailable: 10にすると、90%は常に稼働などの設定ができる。|
+
+### ヘルスチェック
+k8s におけるヘルスチェックでは以下が Pod に対して行われる。
+readinessProbe はトラフィック制御、livenessProbe は再起動制御を担う。
+startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐために必要な場合のみ追加する。
+
+|Probe|読み|目的|失敗したら|主な用途|
+|:----|:----|:----|:----|:----|
+|livenessProbe|ライブネス|生きてるか|コンテナ再起動|デッドロック検知|
+|readinessProbe|レディネス|受信できるか|トラフィック停止|LB ルーティング制御|
+|startupProbe|スタートアップ|起動完了したか|起動できないコンテナとして再起動される|起動が遅いアプリ|
+
 
 ## マニュフェスト(Manufest)
 Kubernetesにおける主要なコンポーネントで解説したリソースたちはManufestと呼ばれるyamlファイルで管理する。

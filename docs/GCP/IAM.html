@@ -68,11 +68,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#sa-service-account">2.4. SA(Service Account)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">2.4.1. 自動バインディングに関する補足</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#sa">2.4.2. SAのメリット</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sa">2.4.1. SA簡潔なまとめ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.4.2. SAとは</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#saprincipal">2.4.3. SAは許可ポリシーのprincipalになる</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#saresource">2.4.4. SAは信頼ポリシーのResourceになる</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#actas">2.4.4.1. 信頼ポリシー（actAs） が必要になる理由</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">2.5. クロスプロジェクト</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2.4.5. SAのメリット</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">2.5. クロスプロジェクト</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#api">2.5.1. 補足：API 有効化が必要なマネージドサービス</a></li>
 </ul>
 </li>
@@ -80,7 +86,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#k8sworkload-identity">2.6.1. K8SにおけるWorkload Identity</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#identity-aware-proxy-iap">2.7. Identity-Aware Proxy (IAP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identity-aware-proxy-iap">2.7. Identity-Aware Proxy (IAP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iap">2.7.1. IAPの役割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">2.7.2. IAPの処理詳細</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
@@ -313,48 +323,88 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 </section>
 <section id="sa-service-account">
 <h2><span class="section-number">2.4. </span>SA(Service Account)<a class="headerlink" href="#sa-service-account" title="この見出しへのパーマリンク">¶</a></h2>
-<p>サービスアカウント（SA）は、ユーザーではなくGCP内のサービスが認証・認可を行うための機能。2つの役割を持っていることを意識すると理解しやすい</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">プリンシパル</span></code>・・・Policyでバインディングを指定する際にSAをprincipalにすることができる</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">リソース</span></code>・・・SA自体がリソースであるので誰がSAを引き受けられるかを定義する</p></li>
-</ul>
-<p>例として、VM などが Cloud Storage や BigQuery といった他のリソースにアクセスすることを考える。
-以下の2つのステップで認可を定義する。</p>
-<ul class="simple">
-<li><p>「SAにどんな権限を与えるか？」を定義（アクセスしたいリソース側にバインディング）</p>
+<section id="sa">
+<h3><span class="section-number">2.4.1. </span>SA簡潔なまとめ<a class="headerlink" href="#sa" title="この見出しへのパーマリンク">¶</a></h3>
 <ul>
-<li><p>対象リソース: Cloud Storage、BigQuery、Pub/Subなど</p></li>
-<li><p>Principal: サービスアカウント</p></li>
-<li><p>付与するロール: roles/storage.objectViewer など、操作対象に応じたロール</p></li>
+<li><p>SA は「実行主体」であり、同時に「IAM リソース」</p></li>
+<li><p>認可は必ず2段階</p>
+<ol class="arabic simple">
+<li><p>SA に何ができるか</p></li>
+<li><p>誰がその SA を使ってよいか</p></li>
+</ol>
+<ul class="simple">
+<li><p>actAs は「SA を使ってよいか」を決める権限</p></li>
+<li><p>実務では roles/iam.serviceAccountUser = actAs の実体</p></li>
+<li><p>AWS の iam:PassRole と同じ</p></li>
 </ul>
 </li>
 </ul>
+</section>
+<section id="id3">
+<h3><span class="section-number">2.4.2. </span>SAとは<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>サービスアカウント（SA）は<br />
+人ではなく、GCP 上のアプリケーションやサービスが使う ID である。</p>
+<p>SA を理解する最大のポイントは、SAを利用する際は、以下2つのポイントがあること</p>
+<ul class="simple">
+<li><p>許可ポリシーの<code class="docutils literal notranslate"><span class="pre">principal</span></code>になること</p></li>
+<li><p>信頼ポリシーの<code class="docutils literal notranslate"><span class="pre">Resource</span></code>になること（※ AWSでいう信頼Policyに相当し、GCPには信頼ポリシーという言葉はない）</p></li>
+</ul>
+</section>
+<section id="saprincipal">
+<h3><span class="section-number">2.4.3. </span>SAは許可ポリシーのprincipalになる<a class="headerlink" href="#saprincipal" title="この見出しへのパーマリンク">¶</a></h3>
+<p>IAM ポリシーで principal（主体） として指定できるため、</p>
+<blockquote>
+<div><p>「この SA に、このリソースへの権限を与える」</p>
+</div></blockquote>
+<p>というリソースベースの許可ポリシーで利用することができる。</p>
+<p>例：SA に「何ができるか」（アクセス先リソース側）を指定。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">storage</span> <span class="n">buckets</span> <span class="n">add</span><span class="o">-</span><span class="n">iam</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">binding</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span> \
   <span class="o">--</span><span class="n">member</span><span class="o">=</span><span class="s2">&quot;serviceAccount:my-sa@project.iam.gserviceaccount.com&quot;</span> \
   <span class="o">--</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;roles/storage.objectViewer&quot;</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>「誰が SA を使ってよいか？」を定義（SA 自体にバインディング）</p>
-<ul>
-<li><p>対象リソース: サービスアカウントそのもの</p></li>
-<li><p>Principal: VM やユーザー</p></li>
-<li><p>付与するロール: roles/iam.serviceAccountUser（または roles/iam.serviceAccountTokenCreator など）</p></li>
+<li><p>対象：Cloud Storage / BigQuery / Pub/Sub など</p></li>
+<li><p>Principal：サービスアカウント</p></li>
+<li><p>Role：最小権限ロール</p></li>
 </ul>
-</li>
-</ul>
+<p>→
+「この SA は、このバケットを読むことができる」</p>
+</section>
+<section id="saresource">
+<h3><span class="section-number">2.4.4. </span>SAは信頼ポリシーのResourceになる<a class="headerlink" href="#saresource" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SA 自体が IAM リソースであり、</p>
+<blockquote>
+<div><p>「誰が、この SA として実行してよいか」</p>
+</div></blockquote>
+<p>を SA 側の IAM ポリシーで制御できる。</p>
+<p>誰が「その SA を使ってよいか」（SA 自体に対する権限）を指定。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">iam</span> <span class="n">service</span><span class="o">-</span><span class="n">accounts</span> <span class="n">add</span><span class="o">-</span><span class="n">iam</span><span class="o">-</span><span class="n">policy</span><span class="o">-</span><span class="n">binding</span> <span class="n">my</span><span class="o">-</span><span class="n">sa</span><span class="nd">@project</span><span class="o">.</span><span class="n">iam</span><span class="o">.</span><span class="n">gserviceaccount</span><span class="o">.</span><span class="n">com</span> \
   <span class="o">--</span><span class="n">member</span><span class="o">=</span><span class="s2">&quot;user:bob@example.com&quot;</span> \
   <span class="o">--</span><span class="n">role</span><span class="o">=</span><span class="s2">&quot;roles/iam.serviceAccountUser&quot;</span>
 </pre></div>
 </div>
-<section id="id3">
-<h3><span class="section-number">2.4.1. </span>自動バインディングに関する補足<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
-<p>Cloud Run や GCE などのサービスに SA を指定してリソースを作成すると、そのリソースがSAを使うためのバインディング（上記の後半部分）はGCPが自動で設定してくれる。
-したがって、通常はユーザーが明示的に設定する必要はない。</p>
+<ul class="simple">
+<li><p>対象：サービスアカウント</p></li>
+<li><p>Principal：ユーザー / CI / 別の SA</p></li>
+<li><p>Role：roles/iam.serviceAccountUser</p></li>
+</ul>
+<p>→ 「bob は、サービス（Cloud Functions など）にその SA を“使わせてよい”と指示できる」</p>
+<section id="actas">
+<h4><span class="section-number">2.4.4.1. </span>信頼ポリシー（actAs） が必要になる理由<a class="headerlink" href="#actas" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Cloud Functions / Cloud Run のデプロイ時、デプロイヤーは暗黙的にこう言っている。
+<code class="docutils literal notranslate"><span class="pre">「このアプリ、この</span> <span class="pre">SA</span> <span class="pre">の権限を借りて実行してください」</span></code>
+これは 権限の委譲（なりすまし）であり、もし制限がなければ</p>
+<p>開発者が</p>
+<ul class="simple">
+<li><p>Owner 権限の SA を指定</p></li>
+<li><p>即、権限昇格事故</p></li>
+</ul>
+<p>これを防ぐために GCP は「その SA を使ってよいかは、SA 自身が許可する」という対応をしている。</p>
 </section>
-<section id="sa">
-<h3><span class="section-number">2.4.2. </span>SAのメリット<a class="headerlink" href="#sa" title="この見出しへのパーマリンク">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">2.4.5. </span>SAのメリット<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
 <p>SAを利用することで以下のようなメリットを享受できる</p>
 <table class="docutils align-default">
 <thead>
@@ -380,8 +430,8 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 <p>SAは、サービスアカウントキー（秘密鍵と公開鍵）を発行することができ、その情報を利用することでSAに許可されている権限を行使することができる。注意点として、サービスアカウントキーをgithubなどに後悔しないように注意する。</p>
 </section>
 </section>
-<section id="id4">
-<h2><span class="section-number">2.5. </span>クロスプロジェクト<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id5">
+<h2><span class="section-number">2.5. </span>クロスプロジェクト<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
 <p>GCP におけるプロジェクト間をまたいだリソース操作は、
 「実行主体（principal）」と「リソース所有側（resource）」を分離して設計する。</p>
 <ol class="arabic simple">
@@ -435,11 +485,55 @@ GCPのIAM Roleは、どの操作（API 権限）を許可するかのみを定�
 </section>
 <section id="identity-aware-proxy-iap">
 <h2><span class="section-number">2.7. </span>Identity-Aware Proxy (IAP)<a class="headerlink" href="#identity-aware-proxy-iap" title="この見出しへのパーマリンク">¶</a></h2>
-<p>IAP は Google Cloud が提供する認証・認可プロキシであり、
-アプリケーションの前段に配置され、Google アカウントを用いたアクセス制御を提供する。
-Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できる</p>
-<p>IAP のアクセス制御は IAM に基づいて行われ、
-IP やネットワークではなく「誰がアクセスしているか」を基準とする。</p>
+<p>IAP は Google Cloud が提供する認証・認可プロキシである。
+アプリケーション自身にログイン処理や認証ロジックを実装しなくても、Google アカウント（Google Workspace 含む）を使った安全なアクセス制御を実現できます。
+Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できます。</p>
+<section id="iap">
+<h3><span class="section-number">2.7.1. </span>IAPの役割<a class="headerlink" href="#iap" title="この見出しへのパーマリンク">¶</a></h3>
+<p>IAP はアプリケーションの 前段（HTTP(S) ロードバランサ等）に配置され、次を担当します。</p>
+<ul class="simple">
+<li><p>ユーザー認証</p></li>
+<li><p>Google アカウントでログイン</p></li>
+<li><p>アクセス認可</p></li>
+<li><p>IAM / Google グループでアクセス可否を判定</p></li>
+<li><p>認証済みリクエストのみをバックエンドへ転送</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3><span class="section-number">2.7.2. </span>IAPの処理詳細<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>AP による認証が成功すると、IAP が署名した JWT がバックエンドに渡されます。</p>
+<ul class="simple">
+<li><p>処理イメージ</p>
+<ul>
+<li><p>ユーザーがアプリにアクセス</p></li>
+<li><p>IAP が Google アカウントで認証</p></li>
+<li><p>IAP がアクセス許可を判定</p></li>
+</ul>
+</li>
+<li><p>許可された場合のみ</p>
+<ul>
+<li><p>JWT を HTTP ヘッダに付与</p></li>
+<li><p>バックエンド（Compute Engine / GKE / Cloud Run 等）へ転送</p></li>
+</ul>
+</li>
+<li><p>アプリ側の役割</p>
+<ul>
+<li><p>JWT の 署名検証</p></li>
+<li><p>ユーザー情報（email / ID）を参照</p></li>
+<li><p>「認証済みユーザー」として処理する</p></li>
+</ul>
+</li>
+</ul>
+<p>結果として、アプリは「JWT を検証するだけ」ログイン画面・OAuth 実装は不要。</p>
+<p>IAP が付与する JWT には、例えば次の情報が含まれる。</p>
+<ul class="simple">
+<li><p>ユーザーの Google アカウント（email）</p></li>
+<li><p>IAP が発行者であること（issuer）</p></li>
+<li><p>対象アプリ（audience）</p></li>
+<li><p>有効期限</p></li>
+</ul>
+<p>これにより、アプリは「誰が」「どのアプリに」「正しく認証されて来たか」を安全に判定できる。</p>
+</section>
 </section>
 </section>
 
