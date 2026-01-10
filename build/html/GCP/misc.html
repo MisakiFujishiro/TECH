@@ -83,6 +83,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#cloud-trace">20.2. Cloud Trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#workforce-identity-federation">20.3. workforce identity federation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-profiler">20.4. Cloud Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-asset-inventory">20.5. Cloud Asset Inventory</a></li>
 </ul>
 </li>
 </ul>
@@ -92,15 +93,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">5. サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">6. カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">7. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">11. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">12. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html#id4">5. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">6. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">7. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">8. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">9. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">10. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">11. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">12. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">13. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -226,6 +228,14 @@ OpenTelemetry は計装の標準であり、Cloud Trace はその実行基盤で
 <h2><span class="section-number">20.4. </span>Cloud Profiler<a class="headerlink" href="#cloud-profiler" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud Profiler は、Google Cloud が提供するプロファイリングツールで、Go を含む複数の言語をサポートします。
 CPU時間やメモリ使用量などを継続的にサンプリングし、フレームグラフ（Flame Graph）を提供してどの関数がどれだけリソースを使っているか可視化します。</p>
+</section>
+<section id="cloud-asset-inventory">
+<h2><span class="section-number">20.5. </span>Cloud Asset Inventory<a class="headerlink" href="#cloud-asset-inventory" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud Asset Inventoryは、Google Cloudのリソースをまたがって、検索フィルタリストが可能。</p>
+<ul class="simple">
+<li><p>searchAllResources（または gcloud asset search-all-resources）で取得する</p></li>
+<li><p>query expression（検索クエリ）を渡せるので、ユーザーのフィルタ式で絞り込み可能</p></li>
+</ul>
 </section>
 </section>
 

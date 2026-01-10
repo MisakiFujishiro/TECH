@@ -47,3 +47,8 @@ workforce identity federation は、Google Cloud Console に人間のユーザ�
 ## Cloud Profiler
 Cloud Profiler は、Google Cloud が提供するプロファイリングツールで、Go を含む複数の言語をサポートします。
 CPU時間やメモリ使用量などを継続的にサンプリングし、フレームグラフ（Flame Graph）を提供してどの関数がどれだけリソースを使っているか可視化します。
+
+## Cloud Asset Inventory
+Cloud Asset Inventoryは、Google Cloudのリソースをまたがって、検索フィルタリストが可能。
+- searchAllResources（または gcloud asset search-all-resources）で取得する
+- query expression（検索クエリ）を渡せるので、ユーザーのフィルタ式で絞り込み可能

@@ -41,6 +41,7 @@
    GCP/API.md
    GCP/Network.md
    GCP/CICD.md
+   GCP/Front.md   
    GCP/GCE.md
    GCP/Container.md
    GCP/Serverless.md

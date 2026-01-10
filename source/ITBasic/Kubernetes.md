@@ -5,7 +5,7 @@ Kubernetesはコンテナのオーケストレーションサービスであり�
 ECSと比較しながら、	Kubernetesで扱われる用語を整理すると以下。
 
 |Kubernetes|ECS|説明|
-|:----|:----|:----|
+|:-|:-|:-|
 |Pod|ECSのタスク|コンテナをまとめて管理する単位（1つ以上のコンテナを含む）。|
 |Node|ECSのFargate/ECSインスタンス|Podが実行されるホスト（EC2またはFargate上で動作）。|
 |Deployment|ECSのサービス|Podの管理をする仕組み。スケーリングやローリングアップデートを管理。|
@@ -92,7 +92,7 @@ pods: "50"
 K8sにおける分離の種別をまとめると以下
 
 |レベル|手段|コスト|
-|:----|:----|:----|
+|:-|:-|:-|
 |論理分離|Namespace|低|
 |権限制御|RBAC|低|
 |資源制御|ResourceQuota|低|
@@ -102,7 +102,7 @@ K8sにおける分離の種別をまとめると以下
 
 ### Podの起動数の制御
 |項目|略称|詳細|
-|:----|:----|:----|
+|:-|:-|:-|
 |Horizontal Pod Autoscaler |HPA|ワークロードの負荷に応じて自動的にレプリカ数をスケールアウト・スケールインするための仕組み|
 |Vertical Pod Autodcaler|VPA|Podのリソースの割り当てを調整する仕組み|
 |Pod Dsiruption Budget|PDB|ノードのメンテナンスなどアップグレードなどによる意図的なPodの終了（Disruption）が行われる際のPod数が許容範囲内に収まるようにするための仕組み。<br>maxUnavailable: 10にすると、90%は常に稼働などの設定ができる。|
@@ -113,10 +113,79 @@ readinessProbe はトラフィック制御、livenessProbe は再起動制御を
 startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐために必要な場合のみ追加する。
 
 |Probe|読み|目的|失敗したら|主な用途|
-|:----|:----|:----|:----|:----|
+|:-|:-|:-|:-|:-|
 |livenessProbe|ライブネス|生きてるか|コンテナ再起動|デッドロック検知|
 |readinessProbe|レディネス|受信できるか|トラフィック停止|LB ルーティング制御|
 |startupProbe|スタートアップ|起動完了したか|起動できないコンテナとして再起動される|起動が遅いアプリ|
+
+
+
+## Kubernetes における通信と Load Balancing
+Kubernetes では、Pod は直接外部から通信を受けることを想定していない。
+そのため、外部・内部からのアクセスは、Service / Ingress / Gateway API などの
+抽象リソースを通じて公開される。
+
+## Service の役割と限界
+Service は、Pod を論理的に束ねて安定したアクセス手段を提供する仕組みである。
+- Pod の IP 変動を吸収する
+- L4（TCP/UDP）レベルで負荷分散を行う
+
+### Service の主な種類
+- ClusterIP：クラスタ内部向け
+- NodePort：ノードのポート経由で公開
+- LoadBalancer：クラウドの L4 Load Balancer を自動作成して公開
+
+Serviceの限界としてL4なので単体では、HTTP パスやホストによる振り分け（L7）はできない。
+
+
+
+## Ingress とは何か
+Ingress は Kubernetesにおける外部からクラスタ内への HTTP(S) トラフィックのルーティングルールを定義する。
+- Ingress 自体は通信を受けない
+- 「どの URL / Host を、どの Service に流すか」を宣言するためのリソース
+
+Ingress は 設計図であり、実体ではない。
+
+### GKE Ingress（GCE Ingress）の実体
+GCE Ingress では、Ingress リソースを作成すると、GCP 側にExternal HTTP(S) LBが自動作成される。
+- グローバル Anycast IP
+- L7（HTTP/HTTPS）ロードバランシング
+- Backend Service → NEG → Pod という構成
+
+
+### Multi-cluster Ingress（MCI）
+Multi-cluster Ingress は、複数の GKE クラスタを束ねて単一のグローバル IP で公開するための仕組みである。
+- Kubernetes 的には Ingress の拡張
+- 実体は Global HTTP(S) Load Balancer
+- ユーザーは最も近いリージョンのクラスタにルーティングされる
+
+### Gateway API と Multi-cluster Gateway
+Gateway API は、Ingress の後継となる Kubernetes API であり、「入口」と「ルーティング」を明確に分離する。
+- Gateway：入口（LB の種類・向き）
+- HTTPRoute：L7 ルーティングルール
+
+Multi-cluster Gateway は、複数クラスタを対象とした Gateway API の実装であり、MCI と同様にグローバル LB を実現する。
+
+### GatewayClass による LB 種別の指定
+GKE の Gateway API では、どの Load Balancer を作るかは `gatewayClassName` で決まる。
+
+代表的な GatewayClass は以下。
+- `gke-l7-global-external-managed`
+  - 外部公開
+  - グローバル HTTP(S) Load Balancer
+- `gke-l7-rilb`
+  - 内部向け
+  - リージョナル Internal HTTP(S) Load Balancer
+
+Internal / External の整理
+
+|観点|External|Internal|
+|:----|:----|:----|
+|IP|グローバル|プライベート|
+|到達元|Internet|VPC / オンプレ|
+|主な用途|公開サービス|社内・基幹連携|
+|GatewayClass|gke-l7-global-external-managed|gke-l7-rilb|
+
 
 
 ## マニュフェスト(Manufest)
@@ -126,7 +195,7 @@ Kubernetesにおける主要なコンポーネントで解説したリソース�
 Kubernetesについて実際に操作する際にはkubectlコマンドを利用する。
 ### クラスターやノードへの操作
 |コマンド|説明|
-|:----|:----|
+|:-|:-|
 |kubectl cluster-info|クラスタの情報を表示|
 |kubectl get nodes|クラスタ内のノード一覧を取得|
 |kubectl describe node <NODE_NAME>|指定したノードの詳細情報を表示|
@@ -134,7 +203,7 @@ Kubernetesについて実際に操作する際にはkubectlコマンドを利用
 
 ### Podsへの操作
 |コマンド|説明|
-|:----|:----|
+|:-|:-|
 |kubectl get pods|Pod の一覧を表示|
 |kubectl get pods -o wide|詳細な情報付きで Pod の一覧を表示|
 |kubectl describe pod <POD_NAME>|指定した Pod の詳細情報を表示|
@@ -145,7 +214,7 @@ Kubernetesについて実際に操作する際にはkubectlコマンドを利用
 
 ### Deployへの操作
 |コマンド|説明|
-|:----|:----|
+|:-|:-|
 |kubectl get deployments|Deployment の一覧を取得|
 |kubectl describe deployment <DEPLOYMENT_NAME>|Deployment の詳細情報を表示|
 |kubectl rollout status deployment <DEPLOYMENT_NAME>|Deployment のデプロイ進行状況を確認|
@@ -156,7 +225,7 @@ Kubernetesについて実際に操作する際にはkubectlコマンドを利用
 
 ### Serviceへの操作
 |コマンド|説明|
-|:----|:----|
+|:-|:-|
 |kubectl get services|Service の一覧を取得|
 |kubectl describe service <SERVICE_NAME>|Service の詳細情報を表示|
 |kubectl get service <SERVICE_NAME> -o yaml|Service のYAMLを取得|
@@ -164,7 +233,7 @@ Kubernetesについて実際に操作する際にはkubectlコマンドを利用
 
 ### ConfigMap & Secret の操作
 |コマンド|説明|
-|:----|:----|
+|:-|:-|
 |kubectl get configmaps|ConfigMap の一覧を取得|
 |kubectl describe configmap <CONFIGMAP_NAME>|ConfigMap の詳細情報を表示|
 |kubectl get secret|Secret の一覧を取得|
@@ -174,7 +243,7 @@ Kubernetesについて実際に操作する際にはkubectlコマンドを利用
 
 ### リソースの作成
 |コマンド|説明|
-|:----|:----|
+|:-|:-|
 |kubectl apply -f <FILE>.yaml|YAMLファイルを適用（作成または更新）|
 |kubectl create -f <FILE>.yaml|YAMLファイルからリソースを作成|
 |kubectl delete -f <FILE>.yaml|YAMLファイルに記載されたリソースを削除|

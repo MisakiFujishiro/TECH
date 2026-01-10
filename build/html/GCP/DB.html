@@ -78,7 +78,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#alloydb">13.2. AlloyDB</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#spanner">13.3. Spanner</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#firestore">13.4. Firestore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#firestore">13.4. Firestore</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#native-datastore-mode">13.4.1. Native/Datastore mode</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#bidtable">13.5. Bidtable</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#appprofile">13.5.1. AppProfile</a></li>
 </ul>
@@ -99,15 +102,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">5. サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">6. カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">7. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">11. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">12. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html#id4">5. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">6. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">7. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">8. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">9. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">10. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">11. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">12. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">13. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -267,6 +271,39 @@ GKEやCompute Engineではよく利用される。
 <li><p>リアルタイム更新が可能</p></li>
 </ul>
 <p>また、Firestoreはサーバレスであり、自動スケール（読み書きが増えても勝手に伸びる）ため、インスタンス常駐コストないという特徴がある。</p>
+<section id="native-datastore-mode">
+<h3><span class="section-number">13.4.1. </span>Native/Datastore mode<a class="headerlink" href="#native-datastore-mode" title="この見出しへのパーマリンク">¶</a></h3>
+<p>FirestoreにはNative modeとDatastore modeの2つが存在する。</p>
+<ul class="simple">
+<li><p>共通点</p>
+<ul>
+<li><p>NoSQL</p></li>
+<li><p>スキーマレス</p></li>
+<li><p>ドキュメント（エンティティ）型</p></li>
+<li><p>書き込み直後に即クエリ可能</p></li>
+<li><p>異なる構造のレコードを混在できる</p></li>
+</ul>
+</li>
+<li><p>Firestore in Native mode</p>
+<ul>
+<li><p>アプリケーション向けデータベース</p></li>
+<li><p>リアルタイム同期が最大の特徴</p></li>
+<li><p>複数フィールドでの並び替えが可能</p></li>
+<li><p>複合インデックスを前提に設計</p></li>
+<li><p>「購入履歴」「注文一覧」向き</p></li>
+</ul>
+</li>
+<li><p>Firestore in Datastore mode</p>
+<ul>
+<li><p>Cloud Datastore の後継</p></li>
+<li><p>サーバーサイド向け</p></li>
+<li><p>巨大スケールのバックエンド向け Key-Value ストア</p></li>
+<li><p>単純なアクセスパターン</p></li>
+<li><p>高スループット重視</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="bidtable">
 <h2><span class="section-number">13.5. </span>Bidtable<a class="headerlink" href="#bidtable" title="この見出しへのパーマリンク">¶</a></h2>

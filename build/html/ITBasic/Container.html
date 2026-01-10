@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7. コンテナ &mdash; project  ドキュメント</title>
+  <title>8. コンテナ &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="8. Kubernetes" href="Kubernetes.html" />
-    <link rel="prev" title="6. カーネル" href="kernel.html" /> 
+    <link rel="next" title="9. Kubernetes" href="Kubernetes.html" />
+    <link rel="prev" title="7. カーネル" href="kernel.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -86,21 +86,22 @@
 <li class="toctree-l1"><a class="reference internal" href="Agile.html">2. Agile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Network.html">3. Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SWA.html">4. SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">5. サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kernel.html">6. カーネル</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">7. コンテナ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">7.1. コンテナのメリット</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">7.2. コンテナの仕組み</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">7.3. オーケストレーション</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">7.4. コンテナオーケストレーションの全体像</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html#id4">5. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">6. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">7. カーネル</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. コンテナ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">8.1. コンテナのメリット</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">8.2. コンテナの仕組み</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">8.3. オーケストレーション</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">8.4. コンテナオーケストレーションの全体像</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">8. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">9. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NFS.html">10. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SaaS.html">11. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">12. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">9. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">10. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">11. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">12. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">13. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -151,7 +152,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">7. </span>コンテナ</li>
+      <li class="breadcrumb-item active"><span class="section-number">8. </span>コンテナ</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/ITBasic/Container.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -162,14 +163,14 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1><span class="section-number">7. </span>コンテナ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">8. </span>コンテナ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="id2">
-<h2><span class="section-number">7.1. </span>コンテナのメリット<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">8.1. </span>コンテナのメリット<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
 <p>2013年にDockerがリリースしたDockerによりコンテナ技術は開発者に一気に浸透した。
 アプリケーションとその依存関係を一つのコンテナイメージとして扱うことで、一貫した動作環境を提供することを可能としました。</p>
 </section>
 <section id="id3">
-<h2><span class="section-number">7.2. </span>コンテナの仕組み<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">8.2. </span>コンテナの仕組み<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
 <p>OS上にコンテナを管理するSWであるコンテナエンジン（Docker/Podman)を起動させる。
 コンテナエンジンの上にミドルウェアやアプリケーションをセットしたの含むコンテナを起動させる。
 一般的な仮想マシン(VMware/KVM etc..)と比較するとゲストOSを作らないことによる軽量さが挙げられる。
@@ -178,14 +179,14 @@
 <a class="reference external" href="https://cn.teldevice.co.jp/column/10509/">注目を浴びる「Dockerコンテナ」、従来の仮想化と何が違うのか？</a></p>
 </section>
 <section id="id4">
-<h2><span class="section-number">7.3. </span>オーケストレーション<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">8.3. </span>オーケストレーション<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h2>
 <p>実行するコンテナが増えていくと、管理する対象が増加していく。
 また、コンテナは停止や起動を頻繁に行うこともあるため、手動での管理に大きなコストがかかる。</p>
 <p>コンテナのオーケストレーションとは、コンテナのネットワークやスケジュリング、リソース管理、障害復旧といったコンテナの管理に必要な処理を自動で行い、コンテナの運用コストを低下させる技術である。</p>
 <p>代表的なオーケストレーションサービスにはKubernetesやAWS ECSが挙げられる。</p>
 </section>
 <section id="id5">
-<h2><span class="section-number">7.4. </span>コンテナオーケストレーションの全体像<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">8.4. </span>コンテナオーケストレーションの全体像<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h2>
 <p>コンテナサービスには、イメージを補完するレジストリやコンテナを実行するためのホスティングなども必要。</p>
 <table class="docutils align-default">
 <thead>
@@ -218,8 +219,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="kernel.html" class="btn btn-neutral float-left" title="6. カーネル" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Kubernetes.html" class="btn btn-neutral float-right" title="8. Kubernetes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="kernel.html" class="btn btn-neutral float-left" title="7. カーネル" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Kubernetes.html" class="btn btn-neutral float-right" title="9. Kubernetes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

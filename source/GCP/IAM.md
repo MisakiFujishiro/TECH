@@ -174,27 +174,25 @@ SAを利用することで以下のようなメリットを享受できる
 SAは、サービスアカウントキー（秘密鍵と公開鍵）を発行することができ、その情報を利用することでSAに許可されている権限を行使することができる。注意点として、サービスアカウントキーをgithubなどに後悔しないように注意する。
 
 
-## クロスプロジェクト
-GCP におけるプロジェクト間をまたいだリソース操作は、
-「実行主体（principal）」と「リソース所有側（resource）」を分離して設計する。
-
-1. 実行主体となるプロジェクト（principal 側）でサービスアカウント（SA）を作成する
-2. 実行主体の SA を用いて、アプリケーション（Cloud Run / Functions など）を実行する
-3. リソース所有側（resource 側）で、IAM ポリシーに以下を指定し、リソースにバインディングする
-   - member: principal 側の SA
-   - role: 必要最小限の Role
-
-### 補足：API 有効化が必要なマネージドサービス
-一部の GCP マネージドサービス（例：Cloud SQL）は、リソースへのアクセス時に内部的に管理 API を呼び出す。
-
-そのため、クロスプロジェクト構成では IAM 設定に加えて、実行主体側・リソース側の両プロジェクトで該当 API（例：Cloud SQL Admin API）を有効化する必要がある。
-
-これは IAM 権限とは別の「サービス利用可否」の設定であり、権限が正しく付与されていても API が無効な場合は接続に失敗する。
-
-
 ## Workload Identity
 Workload Identityとは、外部のワークロード（k8s/VM/他クラウド）が、GCPのIAMSAとして振る舞うための仕組みである。
 代表的な利用例は、K8Sである。
+
+これは、SAの`SAは信頼ポリシーのResourceになる`で解説したSAの信頼ポリシーの先をGSAにすることであると理解できる。
+
+- SAの信頼ポリシー
+```
+Resource：GSA
+Principal：ユーザー / CI / 別の SA
+Role：roles/iam.serviceAccountUser
+```
+
+- workload Identity
+```
+Resource：GSA
+Principal：KSA（または Workload Identity Pool の主体）
+Role：roles/iam.workloadIdentityUser
+```
 
 ### K8SにおけるWorkload Identity
 K8SにおいてWorkload Identityを利用すると、Kubernetes ServiceAccount（KSA）と GCP IAM ServiceAccount（GSA）という異なる認証ドメインに属する ID を安全に関連付けることができる。
@@ -216,10 +214,39 @@ K8SにおいてWorkload Identityを利用すると、Kubernetes ServiceAccount�
 
 この構成により、Pod は 短命な認証情報を用いてGSA の権限で GCP API を呼び出すことが可能となる。
 
+具体的には、GSAをリソースとして以下のポリシーを指定することになる
+```
+IAM Policy（Service Account リソースに対するポリシー）
+Resource：GSA
+Principal：KSA（または Workload Identity Pool の主体）
+Role：roles/iam.workloadIdentityUser
+```
+
+## クロスプロジェクト
+GCP におけるプロジェクト間をまたいだリソース操作は、
+「実行主体（principal）」と「リソース所有側（resource）」を分離して設計する。
+
+1. 実行主体となるプロジェクト（principal 側）でサービスアカウント（SA）を作成する
+2. 実行主体の SA を用いて、アプリケーション（Cloud Run / Functions など）を実行する
+3. リソース所有側（resource 側）で、IAM ポリシーに以下を指定し、リソースにバインディングする
+   - member: principal 側の SA
+   - role: 必要最小限の Role
+
+### 補足：API 有効化が必要なマネージドサービス
+一部の GCP マネージドサービス（例：Cloud SQL）は、リソースへのアクセス時に内部的に管理 API を呼び出す。
+
+そのため、クロスプロジェクト構成では IAM 設定に加えて、実行主体側・リソース側の両プロジェクトで該当 API（例：Cloud SQL Admin API）を有効化する必要がある。
+
+これは IAM 権限とは別の「サービス利用可否」の設定であり、権限が正しく付与されていても API が無効な場合は接続に失敗する。
+
+
+
 ## Identity-Aware Proxy (IAP)
 IAP は Google Cloud が提供する認証・認可プロキシである。
 アプリケーション自身にログイン処理や認証ロジックを実装しなくても、Google アカウント（Google Workspace 含む）を使った安全なアクセス制御を実現できます。
 Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できます。
+
+
 
 ### IAPの役割
 IAP はアプリケーションの 前段（HTTP(S) ロードバランサ等）に配置され、次を担当します。
@@ -228,6 +255,16 @@ IAP はアプリケーションの 前段（HTTP(S) ロードバランサ等）�
 - アクセス認可
 - IAM / Google グループでアクセス可否を判定
 - 認証済みリクエストのみをバックエンドへ転送
+
+### IAP と Load Balancer の関係
+IAP は 単体で通信を受けるサービスではない。
+必ず Cloud Load Balancing（HTTP(S) Load Balancer）と組み合わせて利用される。
+
+立ち位置の整理
+- IAP は HTTP(S) Load Balancer の機能の一部として動作
+- IAP は Backend Service に対して有効化される
+- クライアントは 必ず Load Balancer 経由で IAP を通過する
+
 
 ### IAPの処理詳細
 AP による認証が成功すると、IAP が署名した JWT がバックエンドに渡されます。

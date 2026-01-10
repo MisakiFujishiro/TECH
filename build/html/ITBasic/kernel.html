@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. カーネル &mdash; project  ドキュメント</title>
+  <title>7. カーネル &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="7. コンテナ" href="Container.html" />
-    <link rel="prev" title="5. サーバー" href="server.html" /> 
+    <link rel="next" title="8. コンテナ" href="Container.html" />
+    <link rel="prev" title="6. サーバー" href="server.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -86,31 +86,32 @@
 <li class="toctree-l1"><a class="reference internal" href="Agile.html">2. Agile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Network.html">3. Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SWA.html">4. SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">5. サーバー</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">6. カーネル</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">6.1. カーネルパニック</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">6.2. カーネルクラッシュ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#kdump">6.3. kdump</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#kexec">6.3.1. kexecを利用した再起動：</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">6.3.2. クラッシュカーネルの設定：</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">6.3.3. クラッシュダンプの生成：</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html#id4">5. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">6. サーバー</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">7. カーネル</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">7.1. カーネルパニック</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">7.2. カーネルクラッシュ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kdump">7.3. kdump</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kexec">7.3.1. kexecを利用した再起動：</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">7.3.2. クラッシュカーネルの設定：</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">7.3.3. クラッシュダンプの生成：</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#dump">6.4. dump</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">6.5. 解析手順</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">6.5.1. 前提</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">6.5.2. 手順</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dump">7.4. dump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">7.5. 解析手順</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">7.5.1. 前提</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">7.5.2. 手順</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">7. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">8. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">9. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NFS.html">10. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SaaS.html">11. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">12. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">9. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">10. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">11. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">12. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">13. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -161,7 +162,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">6. </span>カーネル</li>
+      <li class="breadcrumb-item active"><span class="section-number">7. </span>カーネル</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/ITBasic/kernel.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -172,47 +173,47 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1><span class="section-number">6. </span>カーネル<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">7. </span>カーネル<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="id2">
-<h2><span class="section-number">6.1. </span>カーネルパニック<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">7.1. </span>カーネルパニック<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
 <p>カーネルパニックとは、オペレーティングシステムのカーネル（核となる部分）が重大なエラーを検出し、システムの通常の運用を続けられない場合に発生するシステムエラーのことです。カーネルパニックが発生すると、システムは安全な状態に戻すために再起動が必要になります。これは、データの破損や損失を防ぐための措置です。</p>
 </section>
 <section id="id3">
-<h2><span class="section-number">6.2. </span>カーネルクラッシュ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">7.2. </span>カーネルクラッシュ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
 <p>カーネルのクラッシュとは、オペレーティングシステムのカーネルが実行中に重大なエラーに直面し、その結果システム全体が正常に動作しなくなる状態を指します。これはカーネルパニックと似ていますが、特にクラッシュという用語は、カーネルが予期せぬ状況に陥り、適切に処理できずに停止することを強調しています。</p>
 </section>
 <section id="kdump">
-<h2><span class="section-number">6.3. </span>kdump<a class="headerlink" href="#kdump" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">7.3. </span>kdump<a class="headerlink" href="#kdump" title="この見出しへのパーマリンク">¶</a></h2>
 <p>kdumpは、Linuxカーネルで利用されるクラッシュダンプメカニズムの一つです。kdumpを利用することで、カーネルパニックやカーネルクラッシュが発生した際に、システムのメモリ内容をダンプファイルとして保存することができます。これにより、クラッシュの原因を後から調査することが可能になります。</p>
 <section id="kexec">
-<h3><span class="section-number">6.3.1. </span>kexecを利用した再起動：<a class="headerlink" href="#kexec" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">7.3.1. </span>kexecを利用した再起動：<a class="headerlink" href="#kexec" title="この見出しへのパーマリンク">¶</a></h3>
 <p>kexecは、カーネルが再起動することなく新しいカーネルをロードして実行することを可能にする技術です。
 kdumpでは、この機能を利用してクラッシュ時に再起動することなくクラッシュダンプ用の新しいカーネル（クラッシュカーネル）を起動します。
 クラッシュカーネルは、現行のカーネルの状態を保存するために、システム全体が一時停止しする。この時点でプロセスやエージェントは停止される。</p>
 </section>
 <section id="id4">
-<h3><span class="section-number">6.3.2. </span>クラッシュカーネルの設定：<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">7.3.2. </span>クラッシュカーネルの設定：<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
 <p>kdumpを有効にするためには、システムブート時に特別なクラッシュカーネル（crash kernel）を予約する必要があります。
 このクラッシュカーネルは、メインカーネルがクラッシュした際に実行される軽量なカーネルです。</p>
 </section>
 <section id="id5">
-<h3><span class="section-number">6.3.3. </span>クラッシュダンプの生成：<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">7.3.3. </span>クラッシュダンプの生成：<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <p>メインカーネルがクラッシュすると、kexecを利用してクラッシュカーネルが起動されます。
 このクラッシュカーネルは、クラッシュしたメインカーネルのメモリ内容を取得し、指定されたストレージにダンプファイルとして保存します。</p>
 </section>
 </section>
 <section id="dump">
-<h2><span class="section-number">6.4. </span>dump<a class="headerlink" href="#dump" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">7.4. </span>dump<a class="headerlink" href="#dump" title="この見出しへのパーマリンク">¶</a></h2>
 <p>ダンプファイルは、システムのクラッシュ時にその時点でのメモリ内容、レジスタの状態、プロセス情報などを含むファイルです。これらのファイルは、システム管理者や開発者がクラッシュの原因を調査し、修正するために使用されます。</p>
 </section>
 <section id="id6">
-<h2><span class="section-number">6.5. </span>解析手順<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">7.5. </span>解析手順<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id7">
-<h3><span class="section-number">6.5.1. </span>前提<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">7.5.1. </span>前提<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <p>以下の手順でカーネルのクラッシュを引き起こすため、重要なデータがない環境で実施する</p>
 </section>
 <section id="id8">
-<h3><span class="section-number">6.5.2. </span>手順<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">7.5.2. </span>手順<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
 <p>kdumpのインストール</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">kexec</span><span class="o">-</span><span class="n">tools</span>
 </pre></div>
@@ -259,8 +260,8 @@ kdumpでは、この機能を利用してクラッシュ時に再起動するこ
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="server.html" class="btn btn-neutral float-left" title="5. サーバー" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Container.html" class="btn btn-neutral float-right" title="7. コンテナ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="server.html" class="btn btn-neutral float-left" title="6. サーバー" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Container.html" class="btn btn-neutral float-right" title="8. コンテナ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

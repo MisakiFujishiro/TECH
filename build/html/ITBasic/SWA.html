@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="5. サーバー" href="server.html" />
+    <link rel="next" title="6. サーバー" href="server.html" />
     <link rel="prev" title="3. Network" href="Network.html" /> 
 </head>
 
@@ -91,15 +91,16 @@
 <li class="toctree-l2"><a class="reference internal" href="#id3">4.3. フレームワーク</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">5. サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kernel.html">6. カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">7. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">8. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">9. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NFS.html">10. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SaaS.html">11. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">12. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id4">5. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">6. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">7. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">9. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">10. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">11. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">12. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">13. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -191,13 +192,39 @@ SWAの範囲は非常に広く、全てを把握することは難しいこと�
 </ul>
 </section>
 </section>
+<section id="id4">
+<h1><span class="section-number">5. </span>マイクロサービスアーキテクチャ<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h1>
+<p>マイクロサービスの大前提</p>
+<ul class="simple">
+<li><p>疎結合</p>
+<ul>
+<li><p>サービス間は「約束されたインターフェース」を通じて通信する</p></li>
+<li><p>実装の詳細は外部に漏らさない</p></li>
+<li><p>マイクロサービスの実装と呼び出し元の間に API 契約（API contract）を作成する</p></li>
+</ul>
+</li>
+<li><p>独立した進化を前提にする</p>
+<ul>
+<li><p>各サービスは独立して変更される</p></li>
+<li><p>他サービスのリリースを待たない</p></li>
+<li><p>バージョン管理スキームを実装する</p></li>
+</ul>
+</li>
+<li><p>技術や言語に縛られない</p>
+<ul>
+<li><p>各サービスは最適な技術を選べる</p></li>
+<li><p>同じ言語である必要はない</p></li>
+</ul>
+</li>
+</ul>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="Network.html" class="btn btn-neutral float-left" title="3. Network" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="server.html" class="btn btn-neutral float-right" title="5. サーバー" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="server.html" class="btn btn-neutral float-right" title="6. サーバー" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
