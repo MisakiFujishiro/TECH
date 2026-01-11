@@ -125,41 +125,39 @@ Kubernetes では、Pod は直接外部から通信を受けることを想定�
 そのため、外部・内部からのアクセスは、Service / Ingress / Gateway API などの
 抽象リソースを通じて公開される。
 
-## Service の役割と限界
+### Service
 Service は、Pod を論理的に束ねて安定したアクセス手段を提供する仕組みである。
 - Pod の IP 変動を吸収する
 - L4（TCP/UDP）レベルで負荷分散を行う
 
-### Service の主な種類
+#### Service の主な種類
 - ClusterIP：クラスタ内部向け
 - NodePort：ノードのポート経由で公開
 - LoadBalancer：クラウドの L4 Load Balancer を自動作成して公開
 
 Serviceの限界としてL4なので単体では、HTTP パスやホストによる振り分け（L7）はできない。
 
-
-
-## Ingress とは何か
-Ingress は Kubernetesにおける外部からクラスタ内への HTTP(S) トラフィックのルーティングルールを定義する。
+### Ingress
+Ingress（入り口） は Kubernetesにおける外部からクラスタ内への HTTP(S) トラフィックのルーティングルールを定義する。
 - Ingress 自体は通信を受けない
 - 「どの URL / Host を、どの Service に流すか」を宣言するためのリソース
 
 Ingress は 設計図であり、実体ではない。
 
-### GKE Ingress（GCE Ingress）の実体
+#### GKE Ingress（GCE Ingress）の実体
 GCE Ingress では、Ingress リソースを作成すると、GCP 側にExternal HTTP(S) LBが自動作成される。
 - グローバル Anycast IP
 - L7（HTTP/HTTPS）ロードバランシング
 - Backend Service → NEG → Pod という構成
 
 
-### Multi-cluster Ingress（MCI）
+#### Multi-cluster Ingress（MCI）
 Multi-cluster Ingress は、複数の GKE クラスタを束ねて単一のグローバル IP で公開するための仕組みである。
 - Kubernetes 的には Ingress の拡張
 - 実体は Global HTTP(S) Load Balancer
 - ユーザーは最も近いリージョンのクラスタにルーティングされる
 
-### Gateway API と Multi-cluster Gateway
+### Gateway API
 Gateway API は、Ingress の後継となる Kubernetes API であり、「入口」と「ルーティング」を明確に分離する。
 - Gateway：入口（LB の種類・向き）
 - HTTPRoute：L7 ルーティングルール
@@ -169,22 +167,33 @@ Multi-cluster Gateway は、複数クラスタを対象とした Gateway API の
 ### GatewayClass による LB 種別の指定
 GKE の Gateway API では、どの Load Balancer を作るかは `gatewayClassName` で決まる。
 
-代表的な GatewayClass は以下。
-- `gke-l7-global-external-managed`
-  - 外部公開
-  - グローバル HTTP(S) Load Balancer
-- `gke-l7-rilb`
-  - 内部向け
-  - リージョナル Internal HTTP(S) Load Balancer
+GatewayClassの軸としては2つの軸を意識する
+1. External / Internal
+  - external: インターネット向け（外部IP）
+  - internal: VPC 内向け（Interconnect / VPN / 同一VPC）
 
-Internal / External の整理
+2. Global / Regional
+  - global: Google のエッジ（Anycast IP）
+  - regional: 特定リージョンに閉じた LB
+  - cross-regional: 内部向けだが複数リージョンをまたぐ
 
-|観点|External|Internal|
-|:----|:----|:----|
-|IP|グローバル|プライベート|
-|到達元|Internet|VPC / オンプレ|
-|主な用途|公開サービス|社内・基幹連携|
-|GatewayClass|gke-l7-global-external-managed|gke-l7-rilb|
+上記を踏まえると、設定できるGateway Classは以下の通り
+- ※1. mcはマルチクラスター
+- ※2. gxlbは次世代
+
+
+
+|GatewayClass|External|Internal|Global|Regional|Cross-Regional|Multi-Cluster|
+|:----|:----|:----|:----|:----|:----|:----|
+|gke-l7-global-external-managed|○|−|○|−|−|−|
+|gke-l7-regional-external-managed|○|−|−|○|−|−|
+|gke-l7-rilb|−|○|−|○|−|−|
+|gke-l7-cross-regional-internal-managed-mc|−|○|−|−|○|○|
+|gke-l7-global-external-managed-mc ※1|○|−|○|−|−|○|
+|gke-l7-regional-external-managed-mc ※1|○|−|−|○|−|○|
+|gke-l7-rilb-mc ※1|−|○|−|○|−|○|
+|gke-l7-gxlb ※2|○|−|○|−|−|−|
+|gke-l7-gxlb-mc ※2|○|−|○|−|−|○|
 
 
 

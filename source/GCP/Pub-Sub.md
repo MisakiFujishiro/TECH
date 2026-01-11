@@ -86,7 +86,7 @@ Push型とPull型でACKの扱いが異なる部分があるので注意。
 ### 配信方式
 Pub-Subには以下二つの配信方式がある
 - At-least-once delivery
-- Exactly-once delivery
+- Exactly-once delivery  
 At-least-onceでは、最低限一度の配信を保証し、Exactly-once deliveryでは、一度だけの配信を保証する。
 ただし、最終的な冪等性はアプリ側で保証する必要がある。
 
@@ -98,3 +98,14 @@ Pub/Sub の **At-least-once delivery（デフォルト）**では、メッセー
 Exactly-once delivery では、ack の状態を Pub/Sub 側で明示的に管理し、ack が完了と確定したメッセージについては再配信しないという保証を提供する。一方で、アプリケーション障害やネットワーク障害などにより ack が Pub/Sub に到達または確定しなかった場合には、ack deadline 超過後に安全側の動作として再配信される可能性がある。
 
 なお、Exactly-once delivery は Pull 型サブスクリプションでのみサポートされており、Push 型では利用できない。
+
+### FIFOについて
+Pub/Subについては、FIFOキューというキューが準備されるわけではない。
+Publish時に`ordering key(順序付キー)`を設定することで、サブスクリプションのなかで、ordering keyが設定されているメッセージがFIFOキューに入ったように処理される。
+
+気をつけるポイントは以下
+- Publish時に Ordering keyを指定する
+- 全てのサブスクリプションで同様にOrdering keyが設定される
+- Ordering keyの中でFIFOキュー扱いされる
+- Ordering keyに対して１つのConsumerが設定される
+- Ordering keyが設定されていない場合は標準キューのように扱われ並列処理される

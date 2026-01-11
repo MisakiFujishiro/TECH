@@ -88,6 +88,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#exactly-once-delivery">17.2.4.1. Exactly-once delivery</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#fifo">17.2.5. FIFOについて</a></li>
 </ul>
 </li>
 </ul>
@@ -334,7 +335,7 @@ ACKとは、「そのメッセージを受け取って処理が完了したま�
 <p>Pub-Subには以下二つの配信方式がある</p>
 <ul class="simple">
 <li><p>At-least-once delivery</p></li>
-<li><p>Exactly-once delivery
+<li><p>Exactly-once delivery<br />
 At-least-onceでは、最低限一度の配信を保証し、Exactly-once deliveryでは、一度だけの配信を保証する。
 ただし、最終的な冪等性はアプリ側で保証する必要がある。</p></li>
 </ul>
@@ -345,6 +346,19 @@ At-least-onceでは、最低限一度の配信を保証し、Exactly-once delive
 <p>Exactly-once delivery では、ack の状態を Pub/Sub 側で明示的に管理し、ack が完了と確定したメッセージについては再配信しないという保証を提供する。一方で、アプリケーション障害やネットワーク障害などにより ack が Pub/Sub に到達または確定しなかった場合には、ack deadline 超過後に安全側の動作として再配信される可能性がある。</p>
 <p>なお、Exactly-once delivery は Pull 型サブスクリプションでのみサポートされており、Push 型では利用できない。</p>
 </section>
+</section>
+<section id="fifo">
+<h3><span class="section-number">17.2.5. </span>FIFOについて<a class="headerlink" href="#fifo" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Pub/Subについては、FIFOキューというキューが準備されるわけではない。
+Publish時に<code class="docutils literal notranslate"><span class="pre">ordering</span> <span class="pre">key(順序付キー)</span></code>を設定することで、サブスクリプションのなかで、ordering keyが設定されているメッセージがFIFOキューに入ったように処理される。</p>
+<p>気をつけるポイントは以下</p>
+<ul class="simple">
+<li><p>Publish時に Ordering keyを指定する</p></li>
+<li><p>全てのサブスクリプションで同様にOrdering keyが設定される</p></li>
+<li><p>Ordering keyの中でFIFOキュー扱いされる</p></li>
+<li><p>Ordering keyに対して１つのConsumerが設定される</p></li>
+<li><p>Ordering keyが設定されていない場合は標準キューのように扱われ並列処理される</p></li>
+</ul>
 </section>
 </section>
 </section>

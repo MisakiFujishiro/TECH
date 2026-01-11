@@ -89,14 +89,27 @@
 <li class="toctree-l4"><a class="reference internal" href="#id6">4.2.2.3. PGAの仕組み</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">4.2.3. 外部サービスをVPC内として扱う</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#private-service-connect-psc">4.2.3.1. Private Service Connect(PSC)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">4.2.3. VPC同士の通信</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">4.2.3.1. 共有VPC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">4.2.3.2. VPCピアリング</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">4.2.4. VPC外 → Google サービス</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vpc-vpc">4.2.4. VPC外 → VPC内</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#serverless-vpc">4.2.4.1. Serverless実行環境と VPCの接続</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">4.2.5. 外部サービスを VPC 内として扱う</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#google-vpc">4.2.6. Google 管理サービスを VPC 内として扱う</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#private-service-access-psa">4.2.6.1. Private Service Access（PSA）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">4.2.7. 外部（別 VPC / 別プロジェクト）を VPC 内として扱う</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#private-service-connect-psc">4.2.7.1. Private Service Connect（PSC）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#psc">4.2.7.2. PSC の基本構造（仕組み目線）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">4.2.7.3. PSC の代表利用例（クロスプロジェクト）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-sql">4.2.8. Cloud SQL 接続パターン整理</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-load-balancing">4.3. Cloud Load Balancing</a></li>
@@ -476,88 +489,18 @@ PGA は、一般的なインターネット通信ではなく、「Google APIs �
 </section>
 </section>
 <section id="id7">
-<h3><span class="section-number">4.2.3. </span>外部サービスをVPC内として扱う<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
-<section id="private-service-connect-psc">
-<h4><span class="section-number">4.2.3.1. </span>Private Service Connect(PSC)<a class="headerlink" href="#private-service-connect-psc" title="この見出しへのパーマリンク">¶</a></h4>
-<p>Private Service Connect (PSC) は、Google Cloud のサービスや外部 SaaS を、VPC 内のプライベート IP として利用できるようにする仕組みである。</p>
-<p>PSC の本質は、「外部サービスを VPC の内部リソースのように扱える」点にある。
-PSC の設計思想</p>
-<ul class="simple">
-<li><p>通信は 常に Google の内部バックボーン</p></li>
-<li><p>インターネット・NAT を通らない</p></li>
-<li><p>VPC ピアリング不要</p></li>
-<li><p>Producer（提供側） / Consumer（利用側）モデル</p></li>
-</ul>
-<p>PSC を使うことで、「どの VPC が、どのサービスに、どの IP で接続できるか」をネットワーク構造として明示的に制御できる。</p>
-<section id="psc">
-<h5><span class="section-number">4.2.3.1.1. </span>PSC の基本構造（仕組み目線）<a class="headerlink" href="#psc" title="この見出しへのパーマリンク">¶</a></h5>
-<ol class="arabic simple">
-<li><p>Producer 側</p></li>
-</ol>
-<ul class="simple">
-<li><p>サービス（Cloud SQL、内部サービス、SaaS など）をPSC 経由で公開可能な「サービス」として定義</p></li>
-<li><p>この時点では Consumer 側の IP は存在しない</p></li>
-</ul>
-<ol class="arabic simple" start="2">
-<li><p>Consumer 側</p></li>
-</ol>
-<ul class="simple">
-<li><p>自身の VPC に PSC エンドポイントを作成</p></li>
-<li><p>VPC 内に プライベート IP（RFC1918） が割り当てられる</p></li>
-<li><p>この IP 宛の通信が、Google バックボーン経由で Producer に転送される</p></li>
-</ul>
-<ol class="arabic simple" start="3">
-<li><p>通信の性質</p></li>
-</ol>
-<ul class="simple">
-<li><p>送信元・宛先ともにプライベート IP</p></li>
-<li><p>firewall / routing 的にも「VPC 内通信」として扱える</p></li>
-</ul>
-</section>
+<h3><span class="section-number">4.2.3. </span>VPC同士の通信<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="id8">
-<h5><span class="section-number">4.2.3.1.2. </span>PSCの代表利用例（クロスプロジェクト）<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h5>
-<p>例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える</p>
-<ol class="arabic simple">
-<li><p>Cloud SQL 側で PSC サービスを公開する（Producer）</p>
-<ul class="simple">
-<li><p>Cloud SQL を Private Service Connect 経由で利用可能なサービスとして公開する</p></li>
-<li><p>この時点では IP は作成されない</p></li>
-</ul>
-</li>
-<li><p>Cloud Run 側の VPC に PSC エンドポイントを作成する（Consumer）</p>
-<ul class="simple">
-<li><p>VPC 内にプライベート IP が払い出される</p></li>
-<li><p>この IP 宛ての通信が Cloud SQL にルーティングされる</p></li>
-</ul>
-</li>
-<li><p>Cloud Run 側で Serverless VPC Access（後述） コネクタを作成する</p>
-<ul class="simple">
-<li><p>Cloud Run の通信を VPC に流し、PSC エンドポイントへ到達可能にする</p></li>
-</ul>
-</li>
-<li><p>Cloud SQL Language Connectors を利用して接続する</p>
-<ul class="simple">
-<li><p>IAM 認証、TLS、接続管理をアプリ側で簡潔に扱える</p></li>
-<li><p>別プロジェクトの場合は権限設定と API 有効化が必要</p></li>
-</ul>
-</li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Run
-  ↓
-(Serverless VPC Access)
-  ↓
-PSC Endpoint（自分のVPC内IP）
-  ↓
-Google内部バックボーン
-  ↓
-Cloud SQL
-</pre></div>
-</div>
-</section>
-</section>
+<h4><span class="section-number">4.2.3.1. </span>共有VPC<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ネットワークをホストプロジェクトに集約し、複数の Service Project から 同一 VPC を安全に共同利用する方式。</p>
 </section>
 <section id="id9">
-<h3><span class="section-number">4.2.4. </span>VPC外 → Google サービス<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">4.2.3.2. </span>VPCピアリング<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
+<p>異なる VPC 同士を 対等に直接接続する方式で、CIDR の重複が許されない点に注意が必要。</p>
+</section>
+</section>
+<section id="vpc-vpc">
+<h3><span class="section-number">4.2.4. </span>VPC外 → VPC内<a class="headerlink" href="#vpc-vpc" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="serverless-vpc">
 <h4><span class="section-number">4.2.4.1. </span>Serverless実行環境と VPCの接続<a class="headerlink" href="#serverless-vpc" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Cloud Run や Cloud Functions は、VPC の外で実行されるサーバレス環境である。
@@ -575,6 +518,165 @@ Cloud SQL
 </pre></div>
 </div>
 </section>
+</section>
+<section id="id10">
+<h3><span class="section-number">4.2.5. </span>外部サービスを VPC 内として扱う<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>GCP では「VPC の外に存在するものを、VPC 内リソースのように扱いたい」
+という要件に対して、役割の異なる 2 つの仕組みが用意されている。</p>
+<ul class="simple">
+<li><p>Private Service Access（PSA）</p></li>
+<li><p>Private Service Connect（PSC）</p></li>
+</ul>
+<p>この 2 つは名前が似ているが、越える境界と役割が明確に異なる。
+混同しないためには「何を VPC に引き込みたいのか」「どの境界を越えるのか」を先に考える必要がある。</p>
+</section>
+<section id="google-vpc">
+<h3><span class="section-number">4.2.6. </span>Google 管理サービスを VPC 内として扱う<a class="headerlink" href="#google-vpc" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="private-service-access-psa">
+<h4><span class="section-number">4.2.6.1. </span>Private Service Access（PSA）<a class="headerlink" href="#private-service-access-psa" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Private Service Access は、Cloud SQL などの Google 管理サービスを、
+自分の VPC に Private IP で引き込むための仕組みである。</p>
+<p>例えば、Cloud SQL（Private IP）は、ユーザーの VPC の中に直接存在しているわけではなく、
+Google が管理するサービスとして別の管理ネットワーク上に存在している。
+そのため、そのままでは VPC 内リソースとして扱えない。</p>
+<p>このギャップを埋めるのが Private Service Access であり、
+「Google 管理サービス専用の VPC 接続」と考えると理解しやすい。</p>
+<p>代表的な対象は以下。</p>
+<ul class="simple">
+<li><p>Cloud SQL（Private IP）</p></li>
+<li><p>Memorystore</p></li>
+</ul>
+<p>通信イメージは以下のようになる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>自分の VPC
+ ↓
+Private Service Access
+ ↓
+Cloud SQL（Google 管理・Private IP）
+</pre></div>
+</div>
+<p>PSA には重要な制約がある。</p>
+<ul class="simple">
+<li><p>接続対象は Google 管理サービスに限定される</p></li>
+<li><p>PSA は Google 管理サービス専用の接続であり、別 VPC / 別プロジェクトの一般リソースには利用できない。</p></li>
+<li><p>別プロジェクトや別 VPC のリソースには到達できない</p></li>
+</ul>
+<p>つまり、Cloud SQL を Private IP で利用する場合、PSA は前提条件だが、
+PSA だけでクロスプロジェクト接続はできない。</p>
+</section>
+</section>
+<section id="id11">
+<h3><span class="section-number">4.2.7. </span>外部（別 VPC / 別プロジェクト）を VPC 内として扱う<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="private-service-connect-psc">
+<h4><span class="section-number">4.2.7.1. </span>Private Service Connect（PSC）<a class="headerlink" href="#private-service-connect-psc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Private Service Connect は、別 VPC や別プロジェクト、外部サービスを、
+自分の VPC に Private IP として出現させる仕組みである。</p>
+<p>PSC の本質は、
+「外部にあるサービスを、VPC 内の Private IP 宛通信として扱える」
+点にある。</p>
+<p>PSC の設計思想は以下。</p>
+<ul class="simple">
+<li><p>通信は常に Google の内部バックボーン</p></li>
+<li><p>インターネットや NAT を通らない</p></li>
+<li><p>VPC ピアリング不要</p></li>
+<li><p>Producer / Consumer モデル</p></li>
+</ul>
+<p>PSC を使うことで、
+「どの VPC が、どのサービスに、どの IP で接続できるか」
+をネットワーク構造として明示的に制御できる。</p>
+</section>
+<section id="psc">
+<h4><span class="section-number">4.2.7.2. </span>PSC の基本構造（仕組み目線）<a class="headerlink" href="#psc" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Producer 側</p>
+<ul class="simple">
+<li><p>Cloud SQL、内部サービス、SaaS などを
+PSC 経由で公開可能なサービスとして定義</p></li>
+<li><p>この時点では Consumer 側の IP は存在しない</p></li>
+</ul>
+<p>Consumer 側</p>
+<ul class="simple">
+<li><p>自身の VPC に PSC エンドポイントを作成</p></li>
+<li><p>VPC 内に Private IP（RFC1918）が払い出される</p></li>
+<li><p>この IP 宛の通信が Google バックボーン経由で Producer に転送される</p></li>
+</ul>
+<p>通信の性質</p>
+<ul class="simple">
+<li><p>送信元・宛先ともに Private IP</p></li>
+<li><p>firewall / routing 的にも VPC 内通信として扱える</p></li>
+</ul>
+</section>
+<section id="id12">
+<h4><span class="section-number">4.2.7.3. </span>PSC の代表利用例（クロスプロジェクト）<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h4>
+<p>別プロジェクトに存在する Cloud SQL（Private IP）を
+Cloud Run から利用するケースを考える。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Run
+ ↓
+Serverless VPC Access
+ ↓
+自分の VPC
+ ↓
+PSC Endpoint（自分の VPC 内 IP）
+ ↓
+Google 内部バックボーン
+ ↓
+Cloud SQL（別プロジェクト）
+</pre></div>
+</div>
+<p>この構成では、役割は次のように分かれる。</p>
+<ul class="simple">
+<li><p>PSA<br />
+Cloud SQL 側プロジェクトで既に利用されている前提<br />
+Cloud SQL を Private IP 化するための仕組み</p></li>
+<li><p>PSC<br />
+別プロジェクト間の境界を越えるための仕組み</p></li>
+<li><p>Serverless VPC Access<br />
+Cloud Run を VPC に入れるための通路</p></li>
+</ul>
+<p>PSC は PSA の代替ではなく、越える境界が異なる別の仕組みである。</p>
+</section>
+</section>
+<section id="cloud-sql">
+<h3><span class="section-number">4.2.8. </span>Cloud SQL 接続パターン整理<a class="headerlink" href="#cloud-sql" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cloud SQL（Private IP）かつ同一プロジェクトの場合</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Run
+ ↓
+Serverless VPC Access
+ ↓
+自分の VPC
+ ↓
+Private Service Access
+ ↓
+Cloud SQL
+</pre></div>
+</div>
+<p>Cloud SQL（Private IP）かつ別VPCで、ピアリング等で繋がない/繋げない場合
+※さらに、両方のPJで<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">SQL</span> <span class="pre">Admin</span> <span class="pre">API</span></code>を有効にしておく必要がある。
+※<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">SQL</span> <span class="pre">Admin</span> <span class="pre">API</span></code>は、Cloud SQL Language Connectors / Auth Proxy が「接続先 Cloud SQL の情報を取得し、安全な接続を確立するため」に必須</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Run
+ ↓
+Serverless VPC Access
+ ↓
+自分の VPC
+ ↓
+Private Service Connect
+ ↓
+Cloud SQL（別プロジェクト）
+</pre></div>
+</div>
+<p>Cloud SQL（Public IP）の場合</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Cloud Run
+ ↓
+Internet（TLS + IAM）
+ ↓
+Cloud SQL
+</pre></div>
+</div>
+<p>この場合は以下が不要となる。</p>
+<ul class="simple">
+<li><p>Private Service Access</p></li>
+<li><p>Private Service Connect</p></li>
+<li><p>Serverless VPC Access</p></li>
+</ul>
+<p>Cloud SQL Language Connector を用いて、安全に接続する。</p>
 </section>
 </section>
 <section id="cloud-load-balancing">

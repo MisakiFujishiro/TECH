@@ -143,56 +143,14 @@ Private Google Access を有効にすると、Google APIs 宛の通信だけを�
 
 これにより、外部 IP や Cloud NAT を持たない VPC 内リソースからでも、Google APIs へ安全にアクセスできるようになる。
 
-### 外部サービスをVPC内として扱う
-#### Private Service Connect(PSC)
-Private Service Connect (PSC) は、Google Cloud のサービスや外部 SaaS を、VPC 内のプライベート IP として利用できるようにする仕組みである。
+### VPC同士の通信
+#### 共有VPC
+ネットワークをホストプロジェクトに集約し、複数の Service Project から 同一 VPC を安全に共同利用する方式。
 
-PSC の本質は、「外部サービスを VPC の内部リソースのように扱える」点にある。
-PSC の設計思想
-- 通信は 常に Google の内部バックボーン
-- インターネット・NAT を通らない
-- VPC ピアリング不要
-- Producer（提供側） / Consumer（利用側）モデル
+#### VPCピアリング
+異なる VPC 同士を 対等に直接接続する方式で、CIDR の重複が許されない点に注意が必要。
 
-PSC を使うことで、「どの VPC が、どのサービスに、どの IP で接続できるか」をネットワーク構造として明示的に制御できる。
-
-##### PSC の基本構造（仕組み目線）
-1. Producer 側
-  - サービス（Cloud SQL、内部サービス、SaaS など）をPSC 経由で公開可能な「サービス」として定義
-  - この時点では Consumer 側の IP は存在しない
-2. Consumer 側
-  - 自身の VPC に PSC エンドポイントを作成
-  - VPC 内に プライベート IP（RFC1918） が割り当てられる
-  - この IP 宛の通信が、Google バックボーン経由で Producer に転送される
-3. 通信の性質
-  - 送信元・宛先ともにプライベート IP
-  - firewall / routing 的にも「VPC 内通信」として扱える
-
-##### PSCの代表利用例（クロスプロジェクト）
-例えば、Private Service Connectを利用して、異なるプロジェクトのCloud SQLとCloud Runを接続する場合を考える
-1. Cloud SQL 側で PSC サービスを公開する（Producer）
-   - Cloud SQL を Private Service Connect 経由で利用可能なサービスとして公開する
-   - この時点では IP は作成されない
-2. Cloud Run 側の VPC に PSC エンドポイントを作成する（Consumer）
-   - VPC 内にプライベート IP が払い出される
-   - この IP 宛ての通信が Cloud SQL にルーティングされる
-3. Cloud Run 側で Serverless VPC Access（後述） コネクタを作成する
-   - Cloud Run の通信を VPC に流し、PSC エンドポイントへ到達可能にする
-4. Cloud SQL Language Connectors を利用して接続する
-   - IAM 認証、TLS、接続管理をアプリ側で簡潔に扱える
-   - 別プロジェクトの場合は権限設定と API 有効化が必要
-```
-Cloud Run
-  ↓
-(Serverless VPC Access)
-  ↓
-PSC Endpoint（自分のVPC内IP）
-  ↓
-Google内部バックボーン
-  ↓
-Cloud SQL
-```
-### VPC外 → Google サービス
+### VPC外 → VPC内
 #### Serverless実行環境と VPCの接続
 Cloud Run や Cloud Functions は、VPC の外で実行されるサーバレス環境である。
 そのため、VPC 内のリソース（Private IP）にはデフォルトでは到達できない。
@@ -209,6 +167,164 @@ Google内部バックボーン
   ↓
 Cloud SQL
 ```
+
+### 外部サービスを VPC 内として扱う
+GCP では「VPC の外に存在するものを、VPC 内リソースのように扱いたい」
+という要件に対して、役割の異なる 2 つの仕組みが用意されている。
+
+- Private Service Access（PSA）
+- Private Service Connect（PSC）
+
+この 2 つは名前が似ているが、越える境界と役割が明確に異なる。
+混同しないためには「何を VPC に引き込みたいのか」「どの境界を越えるのか」を先に考える必要がある。
+
+
+### Google 管理サービスを VPC 内として扱う
+#### Private Service Access（PSA）
+Private Service Access は、Cloud SQL などの Google 管理サービスを、
+自分の VPC に Private IP で引き込むための仕組みである。
+
+例えば、Cloud SQL（Private IP）は、ユーザーの VPC の中に直接存在しているわけではなく、
+Google が管理するサービスとして別の管理ネットワーク上に存在している。
+そのため、そのままでは VPC 内リソースとして扱えない。
+
+このギャップを埋めるのが Private Service Access であり、
+「Google 管理サービス専用の VPC 接続」と考えると理解しやすい。
+
+代表的な対象は以下。
+- Cloud SQL（Private IP）
+- Memorystore
+
+通信イメージは以下のようになる。
+```
+自分の VPC
+ ↓
+Private Service Access
+ ↓
+Cloud SQL（Google 管理・Private IP）
+```
+
+PSA には重要な制約がある。
+- 接続対象は Google 管理サービスに限定される
+- PSA は Google 管理サービス専用の接続であり、別 VPC / 別プロジェクトの一般リソースには利用できない。
+- 別プロジェクトや別 VPC のリソースには到達できない
+
+つまり、Cloud SQL を Private IP で利用する場合、PSA は前提条件だが、
+PSA だけでクロスプロジェクト接続はできない。
+
+
+### 外部（別 VPC / 別プロジェクト）を VPC 内として扱う
+#### Private Service Connect（PSC）
+Private Service Connect は、別 VPC や別プロジェクト、外部サービスを、
+自分の VPC に Private IP として出現させる仕組みである。
+
+PSC の本質は、
+「外部にあるサービスを、VPC 内の Private IP 宛通信として扱える」
+点にある。
+
+PSC の設計思想は以下。
+- 通信は常に Google の内部バックボーン
+- インターネットや NAT を通らない
+- VPC ピアリング不要
+- Producer / Consumer モデル
+
+PSC を使うことで、
+「どの VPC が、どのサービスに、どの IP で接続できるか」
+をネットワーク構造として明示的に制御できる。
+
+
+#### PSC の基本構造（仕組み目線）
+Producer 側
+- Cloud SQL、内部サービス、SaaS などを
+  PSC 経由で公開可能なサービスとして定義
+- この時点では Consumer 側の IP は存在しない
+
+Consumer 側
+- 自身の VPC に PSC エンドポイントを作成
+- VPC 内に Private IP（RFC1918）が払い出される
+- この IP 宛の通信が Google バックボーン経由で Producer に転送される
+
+通信の性質
+- 送信元・宛先ともに Private IP
+- firewall / routing 的にも VPC 内通信として扱える
+
+
+#### PSC の代表利用例（クロスプロジェクト）
+別プロジェクトに存在する Cloud SQL（Private IP）を
+Cloud Run から利用するケースを考える。
+```
+Cloud Run
+ ↓
+Serverless VPC Access
+ ↓
+自分の VPC
+ ↓
+PSC Endpoint（自分の VPC 内 IP）
+ ↓
+Google 内部バックボーン
+ ↓
+Cloud SQL（別プロジェクト）
+```
+
+この構成では、役割は次のように分かれる。
+- PSA  
+  Cloud SQL 側プロジェクトで既に利用されている前提  
+  Cloud SQL を Private IP 化するための仕組み
+- PSC  
+  別プロジェクト間の境界を越えるための仕組み
+- Serverless VPC Access  
+  Cloud Run を VPC に入れるための通路
+
+PSC は PSA の代替ではなく、越える境界が異なる別の仕組みである。
+
+
+### Cloud SQL 接続パターン整理
+Cloud SQL（Private IP）かつ同一プロジェクトの場合
+```
+Cloud Run
+ ↓
+Serverless VPC Access
+ ↓
+自分の VPC
+ ↓
+Private Service Access
+ ↓
+Cloud SQL
+```
+
+Cloud SQL（Private IP）かつ別VPCで、ピアリング等で繋がない/繋げない場合
+※さらに、両方のPJで`Cloud SQL Admin API`を有効にしておく必要がある。
+※`Cloud SQL Admin API`は、Cloud SQL Language Connectors / Auth Proxy が「接続先 Cloud SQL の情報を取得し、安全な接続を確立するため」に必須
+
+```
+Cloud Run
+ ↓
+Serverless VPC Access
+ ↓
+自分の VPC
+ ↓
+Private Service Connect
+ ↓
+Cloud SQL（別プロジェクト）
+```
+
+
+
+Cloud SQL（Public IP）の場合
+```
+Cloud Run
+ ↓
+Internet（TLS + IAM）
+ ↓
+Cloud SQL
+```
+この場合は以下が不要となる。
+- Private Service Access
+- Private Service Connect
+- Serverless VPC Access
+
+Cloud SQL Language Connector を用いて、安全に接続する。
+
 
 
 ## Cloud Load Balancing

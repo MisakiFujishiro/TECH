@@ -363,9 +363,66 @@ IAMを利用して、「誰が複合して良いのか」を制御する。</p>
 </section>
 <section id="id11">
 <h4><span class="section-number">12.1.9.3. </span>顧客提供鍵<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h4>
-<p>鍵は顧客が生成・保持し、毎回のAPIリクエストで鍵を提示する。かなり厳しい主権要件があるなどの特殊用途向け。<br />
-鍵をHTTPSリクエストのヘッダに含めて送信し、鍵とSHA256ハッシュの両方を送信する。
-どちらかが欠けていると4XXのエラーが返ってくる。</p>
+<p>鍵は顧客が生成・保持し、毎回のAPIリクエストで鍵を提示する。かなり厳しい主権要件があるなどの特殊用途向け。</p>
+<p>登場する鍵の種類は以下、</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>名前</p></th>
+<th class="head text-left"><p>正体</p></th>
+<th class="head text-left"><p>何に使う？</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>暗号化鍵（生鍵）</p></td>
+<td class="text-left"><p>ランダムなバイト列</p></td>
+<td class="text-left"><p>実際の暗号化・復号に使用</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>暗号化鍵の base64</p></td>
+<td class="text-left"><p>生鍵を base64 化</p></td>
+<td class="text-left"><p>API で送る形式</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>暗号化鍵の SHA256 ハッシュ</p></td>
+<td class="text-left"><p>生鍵のハッシュ</p></td>
+<td class="text-left"><p>鍵識別（サーバ側確認）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>base64 鍵の SHA256</p></td>
+<td class="text-left"><p>❌存在しない</p></td>
+<td class="text-left"><p>Cloud Storage では使わない</p></td>
+</tr>
+</tbody>
+</table>
+<p>上記の<code class="docutils literal notranslate"><span class="pre">暗号化鍵の</span> <span class="pre">base64</span></code>と<code class="docutils literal notranslate"><span class="pre">暗号化鍵の</span> <span class="pre">SHA256</span> <span class="pre">ハッシュ</span></code>を利用して暗号化と復号化を行う。
+なぜ SHA256 ハッシュも送るかというと、Cloud Storage が「途中で鍵が壊れてないか」確認するためで、これは 復号用ではない</p>
+<p>具体的な処理の流れは以下</p>
+<ol class="arabic simple">
+<li><p>オブジェクト作成時（PUT）</p>
+<ul class="simple">
+<li><p>アプリは Cloud Storage に対して以下を送信</p>
+<ul>
+<li><p>base64 でエンコードされた暗号化鍵</p></li>
+<li><p>その暗号化鍵（生鍵）の SHA256 ハッシュ</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>オブジェクトを暗号化</p>
+<ul class="simple">
+<li><p>暗号化鍵は保存しない</p></li>
+<li><p>SHA256 ハッシュも保存しない</p></li>
+</ul>
+</li>
+<li><p>オブジェクト読み取り時（GET）</p>
+<ul class="simple">
+<li><p>作成時と完全に同じ情報を再送する必要があります</p>
+<ul>
+<li><p>base64 でエンコードされた暗号化鍵</p></li>
+<li><p>暗号化鍵の SHA256 ハッシュ</p></li>
+<li><p>同じ暗号化アルゴリズム（AES256）</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
 </section>
 </section>
 </section>
