@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>9. Kubernetes &mdash; project  ドキュメント</title>
+  <title>10. Kubernetes &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="10. ServiceMesh" href="ServiceMesh.html" />
-    <link rel="prev" title="8. コンテナ" href="Container.html" /> 
+    <link rel="next" title="11. ServiceMesh" href="ServiceMesh.html" />
+    <link rel="prev" title="9. コンテナ" href="Container.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -71,7 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">10. GKE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/APIGW.html">11. API Gateway</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">12. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">13. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudOps.html">13. CloudOps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">14. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">15. Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">16. Cloud Scheduler</a></li>
@@ -85,64 +85,66 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Agile.html">2. Agile</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Network.html">3. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SWA.html">4. SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SWA.html#id4">5. マイクロサービスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">6. サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kernel.html">7. カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナ</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">9. Kubernetes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">9.1. 主要なコンポーネント</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pod">9.1.1. Pod</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#node">9.1.2. Node</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#deployment">9.1.3. Deployment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#service">9.1.4. Service</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#namespace">9.1.5. namespace</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#rbac-role-based-access-control">9.1.5.1. 権限制御：RBAC（Role-Based Access Control）</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resourcequota">9.1.5.2. リソース制御：リソースクォータ（ResourceQuota）</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">9.1.5.3. 分離まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SRE.html">3. SRE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html">5. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html#id4">6. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">7. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">8. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">9. コンテナ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">10. Kubernetes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">10.1. 主要なコンポーネント</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pod">10.1.1. Pod</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node">10.1.2. Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment">10.1.3. Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#service">10.1.4. Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#namespace">10.1.5. namespace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rbac-role-based-access-control">10.1.5.1. 権限制御：RBAC（Role-Based Access Control）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resourcequota">10.1.5.2. リソース制御：リソースクォータ（ResourceQuota）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">10.1.5.3. 分離まとめ</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">9.1.6. Podの起動数の制御</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">9.1.7. ヘルスチェック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">10.1.6. Podの起動数の制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">10.1.7. Nodeの起動数制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">10.1.8. ヘルスチェック</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#kubernetes-load-balancing">9.2. Kubernetes における通信と Load Balancing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id5">9.2.1. Service</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id6">9.2.1.1. Service の主な種類</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kubernetes-load-balancing">10.2. Kubernetes における通信と Load Balancing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">10.2.1. Service</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">10.2.1.1. Service の主な種類</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#ingress">9.2.2. Ingress</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#gke-ingress-gce-ingress">9.2.2.1. GKE Ingress（GCE Ingress）の実体</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#multi-cluster-ingress-mci">9.2.2.2. Multi-cluster Ingress（MCI）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ingress">10.2.2. Ingress</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gke-ingress-gce-ingress">10.2.2.1. GKE Ingress（GCE Ingress）の実体</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multi-cluster-ingress-mci">10.2.2.2. Multi-cluster Ingress（MCI）</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#gateway-api">9.2.3. Gateway API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#gatewayclass-lb">9.2.4. GatewayClass による LB 種別の指定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gateway-api">10.2.3. Gateway API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gatewayclass-lb">10.2.4. GatewayClass による LB 種別の指定</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#manufest">9.3. マニュフェスト(Manufest)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#kubectl">9.4. kubectl</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">9.4.1. クラスターやノードへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pods">9.4.2. Podsへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#deploy">9.4.3. Deployへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">9.4.4. Serviceへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#configmap-secret">9.4.5. ConfigMap &amp; Secret の操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">9.4.6. リソースの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manufest">10.3. マニュフェスト(Manufest)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kubectl">10.4. kubectl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">10.4.1. クラスターやノードへの操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pods">10.4.2. Podsへの操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploy">10.4.3. Deployへの操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">10.4.4. Serviceへの操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configmap-secret">10.4.5. ConfigMap &amp; Secret の操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">10.4.6. リソースの作成</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#prometheus">9.5. Prometheus</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">9.6. 永続ストレージと容量管理</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id11">9.6.1. ストレージを構成するレイヤ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prometheus">10.5. Prometheus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">10.6. 永続ストレージと容量管理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">10.6.1. ストレージを構成するレイヤ</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">10. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NFS.html">11. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SaaS.html">12. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">13. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">11. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">12. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">13. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">14. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">15. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -193,7 +195,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">9. </span>Kubernetes</li>
+      <li class="breadcrumb-item active"><span class="section-number">10. </span>Kubernetes</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/ITBasic/Kubernetes.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -204,10 +206,10 @@
            <div itemprop="articleBody">
              
   <section id="kubernetes">
-<h1><span class="section-number">9. </span>Kubernetes<a class="headerlink" href="#kubernetes" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">10. </span>Kubernetes<a class="headerlink" href="#kubernetes" title="この見出しへのパーマリンク">¶</a></h1>
 <p>Kubernetesはコンテナのオーケストレーションサービスであり、コンテナのデプロイや自動修復、デプロイ管理、ロードバランシングなどの操作を支援する</p>
 <section id="id1">
-<h2><span class="section-number">9.1. </span>主要なコンポーネント<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">10.1. </span>主要なコンポーネント<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>ECSと比較しながら、	Kubernetesで扱われる用語を整理すると以下。</p>
 <table class="docutils align-default">
 <thead>
@@ -248,16 +250,16 @@
 </tbody>
 </table>
 <section id="pod">
-<h3><span class="section-number">9.1.1. </span>Pod<a class="headerlink" href="#pod" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.1.1. </span>Pod<a class="headerlink" href="#pod" title="この見出しへのパーマリンク">¶</a></h3>
 <p>複数コンテナが1つの Linux ネットワーク名前空間を共有している。</p>
 <p>そのため、PodでSQL Proxyを設定して、アプリ側でlocalhost:5432の通信をすると、Proxy側がlocalhost:5432としてlistenしており、結果としてSQLへの通信を代替してくれる。</p>
 </section>
 <section id="node">
-<h3><span class="section-number">9.1.2. </span>Node<a class="headerlink" href="#node" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.1.2. </span>Node<a class="headerlink" href="#node" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ノードには2種類存在し、MasterNode（コントロールプレーン）とWorkerNode（データプレーン）がある。</p>
 </section>
 <section id="deployment">
-<h3><span class="section-number">9.1.3. </span>Deployment<a class="headerlink" href="#deployment" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.1.3. </span>Deployment<a class="headerlink" href="#deployment" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Deploymentは、運用・スケール・自己修復の責務を担う</p>
 <p>以下の事柄が責任範囲</p>
 <ul class="simple">
@@ -267,7 +269,7 @@
 </ul>
 </section>
 <section id="service">
-<h3><span class="section-number">9.1.4. </span>Service<a class="headerlink" href="#service" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.1.4. </span>Service<a class="headerlink" href="#service" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Serviceとは、Pod の集合に対して、安定した到達手段を提供する</p>
 <p>Serviceは、ネットワーク・発見・安定アドレスの責務を担う</p>
 <ul class="simple">
@@ -278,7 +280,7 @@
 <p>具体的には、Service が 代表となる IP アドレスや DNS 名を持ち、その宛先に届いた通信を 内部の Pod 群のいずれかへ振り分けることで、呼び出し元から Pod の存在や入れ替わりを意識させない仕組みを提供する。</p>
 </section>
 <section id="namespace">
-<h3><span class="section-number">9.1.5. </span>namespace<a class="headerlink" href="#namespace" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.1.5. </span>namespace<a class="headerlink" href="#namespace" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Namespace を使うと、同一クラスタ内で以下を分離できる。</p>
 <ul class="simple">
 <li><p>Pod</p></li>
@@ -304,7 +306,7 @@
 </ul>
 <p>は 別途設定が必要。</p>
 <section id="rbac-role-based-access-control">
-<h4><span class="section-number">9.1.5.1. </span>権限制御：RBAC（Role-Based Access Control）<a class="headerlink" href="#rbac-role-based-access-control" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">10.1.5.1. </span>権限制御：RBAC（Role-Based Access Control）<a class="headerlink" href="#rbac-role-based-access-control" title="この見出しへのパーマリンク">¶</a></h4>
 <p>「誰が」「どの名前空間で」「何をしていいか」を決める仕組み</p>
 <ul class="simple">
 <li><p>チーム A：</p>
@@ -322,7 +324,7 @@
 </ul>
 </section>
 <section id="resourcequota">
-<h4><span class="section-number">9.1.5.2. </span>リソース制御：リソースクォータ（ResourceQuota）<a class="headerlink" href="#resourcequota" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">10.1.5.2. </span>リソース制御：リソースクォータ（ResourceQuota）<a class="headerlink" href="#resourcequota" title="この見出しへのパーマリンク">¶</a></h4>
 <p>「この名前空間は、ここまでしか使ってはいけない」という上限</p>
 <ul class="simple">
 <li><p>1チームの暴走でクラスタ全体が遅くなるのを防ぐ</p></li>
@@ -336,7 +338,7 @@
 </div>
 </section>
 <section id="id2">
-<h4><span class="section-number">9.1.5.3. </span>分離まとめ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">10.1.5.3. </span>分離まとめ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h4>
 <p>K8sにおける分離の種別をまとめると以下</p>
 <table class="docutils align-default">
 <thead>
@@ -367,7 +369,7 @@
 </section>
 </section>
 <section id="id3">
-<h3><span class="section-number">9.1.6. </span>Podの起動数の制御<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.1.6. </span>Podの起動数の制御<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>項目</p></th>
@@ -378,21 +380,32 @@
 <tbody>
 <tr class="row-even"><td class="text-left"><p>Horizontal Pod Autoscaler</p></td>
 <td class="text-left"><p>HPA</p></td>
-<td class="text-left"><p>ワークロードの負荷に応じて自動的にレプリカ数をスケールアウト・スケールインするための仕組み</p></td>
+<td class="text-left"><p>ワークロードの負荷（CPU / メモリ / カスタム指標など）に基づいて Pod のレプリカ数を自動でスケールアウト・スケールインする仕組み</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Vertical Pod Autodcaler</p></td>
 <td class="text-left"><p>VPA</p></td>
-<td class="text-left"><p>Podのリソースの割り当てを調整する仕組み</p></td>
+<td class="text-left"><p>実際の使用状況をもとに Pod の CPU / メモリの requests / limits を自動調整する仕組み（Pod 数は増減しない）</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Pod Dsiruption Budget</p></td>
 <td class="text-left"><p>PDB</p></td>
-<td class="text-left"><p>ノードのメンテナンスなどアップグレードなどによる意図的なPodの終了（Disruption）が行われる際のPod数が許容範囲内に収まるようにするための仕組み。<br>maxUnavailable: 10にすると、90%は常に稼働などの設定ができる。</p></td>
+<td class="text-left"><p>ノードメンテナンスやアップグレードなど、意図的な Pod の中断（Disruption）時に許容される最小稼働数を定義する仕組み。<br>maxUnavailable: 10% とすると、常に 90% 以上の Pod が稼働することを保証</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="id4">
-<h3><span class="section-number">9.1.7. </span>ヘルスチェック<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.1.7. </span>Nodeの起動数制御<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cluster AutoscalerによりNodeの起動数を自動調整する。
+Pod の リソース要求（requests） に基づいて、</p>
+<ul class="simple">
+<li><p>Pod が載りきらない場合 → ノードを追加</p></li>
+<li><p>ノードが余っている場合 → ノードを削除</p></li>
+</ul>
+<p>これにより、Pod の需要に応じてノード数を自動調整できる。</p>
+<p>もう少し具体的に、スケールインについて、整理するとスケールアウトしたNodeB側に載っているPodを安全にNodeAに移すことができると判断した時点で、PodをNodeAに移動させる。</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">10.1.8. </span>ヘルスチェック<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <p>k8s におけるヘルスチェックでは以下が Pod に対して行われる。
 readinessProbe はトラフィック制御、livenessProbe は再起動制御を担う。
 startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐために必要な場合のみ追加する。</p>
@@ -429,19 +442,19 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </section>
 </section>
 <section id="kubernetes-load-balancing">
-<h2><span class="section-number">9.2. </span>Kubernetes における通信と Load Balancing<a class="headerlink" href="#kubernetes-load-balancing" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">10.2. </span>Kubernetes における通信と Load Balancing<a class="headerlink" href="#kubernetes-load-balancing" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Kubernetes では、Pod は直接外部から通信を受けることを想定していない。
 そのため、外部・内部からのアクセスは、Service / Ingress / Gateway API などの
 抽象リソースを通じて公開される。</p>
-<section id="id5">
-<h3><span class="section-number">9.2.1. </span>Service<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id6">
+<h3><span class="section-number">10.2.1. </span>Service<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Service は、Pod を論理的に束ねて安定したアクセス手段を提供する仕組みである。</p>
 <ul class="simple">
 <li><p>Pod の IP 変動を吸収する</p></li>
 <li><p>L4（TCP/UDP）レベルで負荷分散を行う</p></li>
 </ul>
-<section id="id6">
-<h4><span class="section-number">9.2.1.1. </span>Service の主な種類<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id7">
+<h4><span class="section-number">10.2.1.1. </span>Service の主な種類<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>ClusterIP：クラスタ内部向け</p></li>
 <li><p>NodePort：ノードのポート経由で公開</p></li>
@@ -451,7 +464,7 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </section>
 </section>
 <section id="ingress">
-<h3><span class="section-number">9.2.2. </span>Ingress<a class="headerlink" href="#ingress" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.2.2. </span>Ingress<a class="headerlink" href="#ingress" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Ingress（入り口） は Kubernetesにおける外部からクラスタ内への HTTP(S) トラフィックのルーティングルールを定義する。</p>
 <ul class="simple">
 <li><p>Ingress 自体は通信を受けない</p></li>
@@ -459,7 +472,7 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </ul>
 <p>Ingress は 設計図であり、実体ではない。</p>
 <section id="gke-ingress-gce-ingress">
-<h4><span class="section-number">9.2.2.1. </span>GKE Ingress（GCE Ingress）の実体<a class="headerlink" href="#gke-ingress-gce-ingress" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">10.2.2.1. </span>GKE Ingress（GCE Ingress）の実体<a class="headerlink" href="#gke-ingress-gce-ingress" title="この見出しへのパーマリンク">¶</a></h4>
 <p>GCE Ingress では、Ingress リソースを作成すると、GCP 側にExternal HTTP(S) LBが自動作成される。</p>
 <ul class="simple">
 <li><p>グローバル Anycast IP</p></li>
@@ -468,7 +481,7 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </ul>
 </section>
 <section id="multi-cluster-ingress-mci">
-<h4><span class="section-number">9.2.2.2. </span>Multi-cluster Ingress（MCI）<a class="headerlink" href="#multi-cluster-ingress-mci" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">10.2.2.2. </span>Multi-cluster Ingress（MCI）<a class="headerlink" href="#multi-cluster-ingress-mci" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Multi-cluster Ingress は、複数の GKE クラスタを束ねて単一のグローバル IP で公開するための仕組みである。</p>
 <ul class="simple">
 <li><p>Kubernetes 的には Ingress の拡張</p></li>
@@ -478,7 +491,7 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </section>
 </section>
 <section id="gateway-api">
-<h3><span class="section-number">9.2.3. </span>Gateway API<a class="headerlink" href="#gateway-api" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.2.3. </span>Gateway API<a class="headerlink" href="#gateway-api" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Gateway API は、Ingress の後継となる Kubernetes API であり、「入口」と「ルーティング」を明確に分離する。</p>
 <ul class="simple">
 <li><p>Gateway：入口（LB の種類・向き）</p></li>
@@ -487,7 +500,7 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 <p>Multi-cluster Gateway は、複数クラスタを対象とした Gateway API の実装であり、MCI と同様にグローバル LB を実現する。</p>
 </section>
 <section id="gatewayclass-lb">
-<h3><span class="section-number">9.2.4. </span>GatewayClass による LB 種別の指定<a class="headerlink" href="#gatewayclass-lb" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.2.4. </span>GatewayClass による LB 種別の指定<a class="headerlink" href="#gatewayclass-lb" title="この見出しへのパーマリンク">¶</a></h3>
 <p>GKE の Gateway API では、どの Load Balancer を作るかは <code class="docutils literal notranslate"><span class="pre">gatewayClassName</span></code> で決まる。</p>
 <p>GatewayClassの軸としては2つの軸を意識する</p>
 <ol class="arabic simple">
@@ -599,14 +612,14 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </section>
 </section>
 <section id="manufest">
-<h2><span class="section-number">9.3. </span>マニュフェスト(Manufest)<a class="headerlink" href="#manufest" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">10.3. </span>マニュフェスト(Manufest)<a class="headerlink" href="#manufest" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Kubernetesにおける主要なコンポーネントで解説したリソースたちはManufestと呼ばれるyamlファイルで管理する。</p>
 </section>
 <section id="kubectl">
-<h2><span class="section-number">9.4. </span>kubectl<a class="headerlink" href="#kubectl" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">10.4. </span>kubectl<a class="headerlink" href="#kubectl" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Kubernetesについて実際に操作する際にはkubectlコマンドを利用する。</p>
-<section id="id7">
-<h3><span class="section-number">9.4.1. </span>クラスターやノードへの操作<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id8">
+<h3><span class="section-number">10.4.1. </span>クラスターやノードへの操作<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -630,7 +643,7 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </table>
 </section>
 <section id="pods">
-<h3><span class="section-number">9.4.2. </span>Podsへの操作<a class="headerlink" href="#pods" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.4.2. </span>Podsへの操作<a class="headerlink" href="#pods" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -663,7 +676,7 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </table>
 </section>
 <section id="deploy">
-<h3><span class="section-number">9.4.3. </span>Deployへの操作<a class="headerlink" href="#deploy" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.4.3. </span>Deployへの操作<a class="headerlink" href="#deploy" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -695,8 +708,8 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </tbody>
 </table>
 </section>
-<section id="id8">
-<h3><span class="section-number">9.4.4. </span>Serviceへの操作<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id9">
+<h3><span class="section-number">10.4.4. </span>Serviceへの操作<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -720,7 +733,7 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </table>
 </section>
 <section id="configmap-secret">
-<h3><span class="section-number">9.4.5. </span>ConfigMap &amp; Secret の操作<a class="headerlink" href="#configmap-secret" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">10.4.5. </span>ConfigMap &amp; Secret の操作<a class="headerlink" href="#configmap-secret" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -749,8 +762,8 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </tbody>
 </table>
 </section>
-<section id="id9">
-<h3><span class="section-number">9.4.6. </span>リソースの作成<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id10">
+<h3><span class="section-number">10.4.6. </span>リソースの作成<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -775,7 +788,7 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </section>
 </section>
 <section id="prometheus">
-<h2><span class="section-number">9.5. </span>Prometheus<a class="headerlink" href="#prometheus" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">10.5. </span>Prometheus<a class="headerlink" href="#prometheus" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Prometheusとは、システムやアプリケーションの状態を数値（メトリクス）として収集・保存・検索・可視化するオープンソースの監視ツール。</p>
 <p>Prometheusは「Kubernetes上のどの メトリクスエンドポイント を、どの条件で収集するか」を定義・制御できる仕組みである。
 Cloudのモニタリング機能単体でも標準メトリクスは取得できるが、アプリやKubernetes内部の詳細なメトリクスは Prometheus 形式を使わないと扱えないものが多い。</p>
@@ -792,12 +805,12 @@ Cloudのモニタリング機能単体でも標準メトリクスは取得でき
 </ul>
 <p>という特性を持ち、短命で動的な Kubernetes 環境に自然に適合する監視方式となっている。</p>
 </section>
-<section id="id10">
-<h2><span class="section-number">9.6. </span>永続ストレージと容量管理<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id11">
+<h2><span class="section-number">10.6. </span>永続ストレージと容量管理<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Kubernetes では、コンテナのライフサイクルとは独立してデータを保持するために、永続ストレージ（Persistent Storage） の仕組みが用意されている。</p>
 <p>この仕組みの特徴は、クラウドプロバイダが提供するディスクを直接扱わず、Kubernetes が抽象化したリソースを介して利用するという点にある。</p>
-<section id="id11">
-<h3><span class="section-number">9.6.1. </span>ストレージを構成するレイヤ<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id12">
+<h3><span class="section-number">10.6.1. </span>ストレージを構成するレイヤ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Kubernetes における永続ストレージは、以下のレイヤで構成される。</p>
 <ul class="simple">
 <li><p>Persistent Disk（PD）</p>
@@ -826,8 +839,8 @@ Cloudのモニタリング機能単体でも標準メトリクスは取得でき
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Container.html" class="btn btn-neutral float-left" title="8. コンテナ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ServiceMesh.html" class="btn btn-neutral float-right" title="10. ServiceMesh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Container.html" class="btn btn-neutral float-left" title="9. コンテナ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ServiceMesh.html" class="btn btn-neutral float-right" title="11. ServiceMesh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

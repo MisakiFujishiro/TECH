@@ -48,7 +48,7 @@
    GCP/GKE.md
    GCP/APIGW.md
    GCP/Storage.md
-   GCP/CloudLogging.md
+   GCP/CloudOps.md
    GCP/DB.md
    GCP/Workflows.md
    GCP/CloudScheduler.md
@@ -65,6 +65,7 @@
    
    ITBasic/開発工程.md
    ITBasic/Agile.md
+   ITBasic/SRE.md
    ITBasic/Network.md
    ITBasic/SWA.md
    ITBasic/server.md

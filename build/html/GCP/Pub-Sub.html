@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>16. Pub/Sub &mdash; project  ドキュメント</title>
+  <title>15. Pub/Sub &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="17. データ分析サービス" href="DataAnalytics.html" />
-    <link rel="prev" title="15. Cloud Scheduler" href="CloudScheduler.html" /> 
+    <link rel="next" title="16. データ分析サービス" href="DataAnalytics.html" />
+    <link rel="prev" title="14. Cloud Scheduler" href="CloudScheduler.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -70,32 +70,31 @@
 <li class="toctree-l1"><a class="reference internal" href="GKE.html">9. GKE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIGW.html">10. API Gateway</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">11. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">12. Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DB.html">13. DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Workflows.html">14. Workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">15. Cloud Scheduler</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">16. Pub/Sub</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">16.1. 構成</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">16.1.1. メッセージ処理の設計</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">12. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">13. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">14. Cloud Scheduler</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">15. Pub/Sub</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">15.1. 構成</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">15.1.1. メッセージ処理の設計</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">16.2. 送受信の仕組み</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#push-pull">16.2.1. Push/Pull</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ack">16.2.2. ACK</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dlq">16.2.3. メッセージの寿命とDLQ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">16.2.4. 配信方式</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#exactly-once-delivery">16.2.4.1. Exactly-once delivery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">15.2. 送受信の仕組み</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#push-pull">15.2.1. Push/Pull</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ack">15.2.2. ACK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dlq">15.2.3. メッセージの寿命とDLQ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">15.2.4. 配信方式</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#exactly-once-delivery">15.2.4.1. Exactly-once delivery</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#fifo">16.2.5. FIFOについて</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fifo">15.2.5. FIFOについて</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">17. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AI.html">18. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">19. MemoryStore</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">20. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">16. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">17. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">18. MemoryStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">19. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
@@ -163,7 +162,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">16. </span>Pub/Sub</li>
+      <li class="breadcrumb-item active"><span class="section-number">15. </span>Pub/Sub</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/Pub-Sub.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -174,12 +173,12 @@
            <div itemprop="articleBody">
              
   <section id="pub-sub">
-<h1><span class="section-number">16. </span>Pub/Sub<a class="headerlink" href="#pub-sub" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">15. </span>Pub/Sub<a class="headerlink" href="#pub-sub" title="この見出しへのパーマリンク">¶</a></h1>
 <p>Pub/Subとは、GCPにおけるキューイングメッセージサービス。
 Pub/Subを利用することで、アプリ間を非同期に通信させ疎結合とすることができる。</p>
 <p>Pub/Subだけで、Push型・Pull型の配信をすることができたり、ファンアウトの構成を取ることができ、AWSのSQSとSNSを組み合わせたようなサービスであるといえる。</p>
 <section id="id1">
-<h2><span class="section-number">16.1. </span>構成<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">15.1. </span>構成<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Pub/Subは、以下で構成される。
 構成としてのポイントは、一度メッセージを受け取る<code class="docutils literal notranslate"><span class="pre">Topic</span></code>とメッセージが配置される<code class="docutils literal notranslate"><span class="pre">Subscription</span></code>。
 Topicはメッセージの受付口で、Sucscriptionは各配信先のポストのようなもの。</p>
@@ -212,7 +211,7 @@ Topicはメッセージの受付口で、Sucscriptionは各配信先のポスト
 <p><img alt="" src="../_images/PubSub_archi.png" />
 <a class="reference external" href="https://github.com/priyankavergadia/GCPSketchnote">GCPSketchnote</a></p>
 <section id="id2">
-<h3><span class="section-number">16.1.1. </span>メッセージ処理の設計<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.1.1. </span>メッセージ処理の設計<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Pub/Subでは、TopicとSubscriptionによってさまざまなユースケースが可能になる。</p>
 <p>詳しいユースケースを理解する前に、メッセージ処理時の、SubscriptionとSubscriberの関係を整理しておく。
 以下を基本的な処理設計として理解しておくとユースケースが理解しやすい。</p>
@@ -258,9 +257,9 @@ Topicはメッセージの受付口で、Sucscriptionは各配信先のポスト
 </section>
 </section>
 <section id="id3">
-<h2><span class="section-number">16.2. </span>送受信の仕組み<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">15.2. </span>送受信の仕組み<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="push-pull">
-<h3><span class="section-number">16.2.1. </span>Push/Pull<a class="headerlink" href="#push-pull" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.2.1. </span>Push/Pull<a class="headerlink" href="#push-pull" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Pub/Subでは、Subscriberがメッセージをどのように受信するかを設定することができる。</p>
 <table class="docutils align-default">
 <thead>
@@ -279,7 +278,7 @@ Topicはメッセージの受付口で、Sucscriptionは各配信先のポスト
 </table>
 </section>
 <section id="ack">
-<h3><span class="section-number">16.2.2. </span>ACK<a class="headerlink" href="#ack" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.2.2. </span>ACK<a class="headerlink" href="#ack" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Pub/Subでは、管理されているメッセージが処理をされているか否かを管理するためにSubscriberとACKのやり取りを行う。
 ACKとは、「そのメッセージを受け取って処理が完了したました」という受信者からの応答のことを指す。</p>
 <p>Ackが返信されるまでの時間を指定するAck DeadLineという設定がある。
@@ -325,12 +324,12 @@ ACKとは、「そのメッセージを受け取って処理が完了したま�
 </table>
 </section>
 <section id="dlq">
-<h3><span class="section-number">16.2.3. </span>メッセージの寿命とDLQ<a class="headerlink" href="#dlq" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.2.3. </span>メッセージの寿命とDLQ<a class="headerlink" href="#dlq" title="この見出しへのパーマリンク">¶</a></h3>
 <p>メッセージはサブスクリプションごとに管理され、ACKを契機に削除される。</p>
 <p>また、最大再配信回数（デフォルト5、最大100）をSubscription単位で設定しておくことで、何度も失敗するメッセージに関してはDLQに配信することができる。</p>
 </section>
 <section id="id4">
-<h3><span class="section-number">16.2.4. </span>配信方式<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.2.4. </span>配信方式<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Pub-Subには以下二つの配信方式がある</p>
 <ul class="simple">
 <li><p>At-least-once delivery</p></li>
@@ -339,7 +338,7 @@ At-least-onceでは、最低限一度の配信を保証し、Exactly-once delive
 ただし、最終的な冪等性はアプリ側で保証する必要がある。</p></li>
 </ul>
 <section id="exactly-once-delivery">
-<h4><span class="section-number">16.2.4.1. </span>Exactly-once delivery<a class="headerlink" href="#exactly-once-delivery" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">15.2.4.1. </span>Exactly-once delivery<a class="headerlink" href="#exactly-once-delivery" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Pub/Sub の **At-least-once delivery（デフォルト）**では、メッセージが少なくとも1回配信されることを保証する一方、ack が確認できない場合や ack deadline を超過した場合には、同一メッセージが再配信される可能性がある。</p>
 <p>これに対して Exactly-once delivery は、Pub/Sub と subscriber 間において、ack が正常に確定したメッセージについては一度だけ配信されることを保証する仕組みである。ただし、アプリケーション全体の冪等性までを保証するものではない。</p>
 <p>Exactly-once delivery では、ack の状態を Pub/Sub 側で明示的に管理し、ack が完了と確定したメッセージについては再配信しないという保証を提供する。一方で、アプリケーション障害やネットワーク障害などにより ack が Pub/Sub に到達または確定しなかった場合には、ack deadline 超過後に安全側の動作として再配信される可能性がある。</p>
@@ -347,7 +346,7 @@ At-least-onceでは、最低限一度の配信を保証し、Exactly-once delive
 </section>
 </section>
 <section id="fifo">
-<h3><span class="section-number">16.2.5. </span>FIFOについて<a class="headerlink" href="#fifo" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.2.5. </span>FIFOについて<a class="headerlink" href="#fifo" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Pub/Subについては、FIFOキューというキューが準備されるわけではない。
 Publish時に<code class="docutils literal notranslate"><span class="pre">ordering</span> <span class="pre">key(順序付キー)</span></code>を設定することで、サブスクリプションのなかで、ordering keyが設定されているメッセージがFIFOキューに入ったように処理される。</p>
 <p>気をつけるポイントは以下</p>
@@ -366,8 +365,8 @@ Publish時に<code class="docutils literal notranslate"><span class="pre">orderi
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="CloudScheduler.html" class="btn btn-neutral float-left" title="15. Cloud Scheduler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="DataAnalytics.html" class="btn btn-neutral float-right" title="17. データ分析サービス" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="CloudScheduler.html" class="btn btn-neutral float-left" title="14. Cloud Scheduler" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DataAnalytics.html" class="btn btn-neutral float-right" title="16. データ分析サービス" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

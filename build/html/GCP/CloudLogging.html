@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>12. Cloud Logging &mdash; project  ドキュメント</title>
+  <title>12. CloudOps &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -70,18 +70,21 @@
 <li class="toctree-l1"><a class="reference internal" href="GKE.html">9. GKE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIGW.html">10. API Gateway</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">11. ストレージ</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">12. Cloud Logging</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">12.1. ログの収集</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">12.2. Cloud Logging のログエントリ構造（全体像）</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#resource-typelabel">12.3. resource.typeとlabel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">12.4. フィルタリング</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id4">12.4.1. フィルタの記述例</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#jsonpayload">12.4.2. 構造化ログ（jsonPayload）の検索</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">12.4.3. フィルタ演算子の整理</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">12. CloudOps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-logging">12.1. Cloud Logging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">12.1.1. ログの収集</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">12.1.2. Cloud Logging のログエントリ構造（全体像）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resource-typelabel">12.1.3. resource.typeとlabel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">12.1.4. フィルタリング</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">12.1.4.1. フィルタの記述例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#jsonpayload">12.1.4.2. 構造化ログ（jsonPayload）の検索</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">12.1.4.3. フィルタ演算子の整理</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">12.5. アラート</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">12.6. シンク設定（エクスポート）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">12.1.5. アラート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">12.1.6. シンク設定（エクスポート）</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="DB.html">13. DB</a></li>
@@ -90,7 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">16. Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">17. データ分析サービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AI.html">18. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">19. Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">19. MemoryStore</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">20. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
@@ -99,15 +102,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">5. サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">6. カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">7. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">8. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">9. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">10. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">11. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">12. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">13. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html#id4">5. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">6. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">7. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">8. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">9. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">10. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">11. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">12. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">13. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -158,7 +162,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">12. </span>Cloud Logging</li>
+      <li class="breadcrumb-item active"><span class="section-number">12. </span>CloudOps</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/CloudLogging.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -168,8 +172,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="cloud-logging">
-<h1><span class="section-number">12. </span>Cloud Logging<a class="headerlink" href="#cloud-logging" title="この見出しへのパーマリンク">¶</a></h1>
+  <section id="cloudops">
+<h1><span class="section-number">12. </span>CloudOps<a class="headerlink" href="#cloudops" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="cloud-logging">
+<h2><span class="section-number">12.1. </span>Cloud Logging<a class="headerlink" href="#cloud-logging" title="この見出しへのパーマリンク">¶</a></h2>
 <p>GCPのログ収集・管理サービス。各種サービスから集まるログの保管・分析・モニタリングを一手に引き受ける。
 <a class="reference external" href="https://cloud.google.com/logging#documentation">Cloud Logging</a></p>
 <p>本記事では以下の流れで整理</p>
@@ -179,7 +185,7 @@
 <li><p>どうやってアラートにつなげるのか？ – Cloud Monitoring と連携したログベースのメトリクスとアラートポリシー設定</p></li>
 </ul>
 <section id="id1">
-<h2><span class="section-number">12.1. </span>ログの収集<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h3><span class="section-number">12.1.1. </span>ログの収集<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud Logging は GCP 上で発生したすべてのログを一箇所に集約する仕組み。Compute Engine（GCE）や GKE、Cloud Run、Cloud Functions といった主要サービスのログは、特別な設定をしなくても自動的に Cloud Logging に収集される。</p>
 <p>例えば GKE では、各ノードにデプロイされたログ収集エージェント（Ops エージェント）がコンテナの標準出力・エラー出力を監視し、付加情報（メタデータ）をつけて Cloud Logging に送信する。
 そのため、アプリケーションがコンテナ上で stdout や stderr に出力したログは自動的に Logging に蓄積される。Cloud Run や Cloud Functions も同様に、サービスの実行環境が標準出力などに書き出したログを自動で収集し Cloud Logging に送信する。</p>
@@ -188,7 +194,7 @@
 こうした方法で「それ以外のログもすべてまず Cloud Logging に集める」ことが可能となる。</p>
 </section>
 <section id="id2">
-<h2><span class="section-number">12.2. </span>Cloud Logging のログエントリ構造（全体像）<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<h3><span class="section-number">12.1.2. </span>Cloud Logging のログエントリ構造（全体像）<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud Loggingで収集されたログで出力される項目は以下が主要なものになる。</p>
 <table class="docutils align-default">
 <thead>
@@ -332,7 +338,7 @@
 </div>
 </section>
 <section id="resource-typelabel">
-<h2><span class="section-number">12.3. </span>resource.typeとlabel<a class="headerlink" href="#resource-typelabel" title="この見出しへのパーマリンク">¶</a></h2>
+<h3><span class="section-number">12.1.3. </span>resource.typeとlabel<a class="headerlink" href="#resource-typelabel" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud Logging に全ログが集まった後、重要になるのが各ログエントリに付加される <strong>リソースタイプ (resource.type)</strong> と <strong>ラベル (labels)</strong> 。
 これらは「そのログがどのサービスのどのリソースから来たか」を示す情報で、GCP が自動で付与するメタデータであり、アプリケーション開発者や運用者が個別に設定する必要はなく、GCP側でログごとに適切なリソースタイプとラベルが割り当てらる。
 <a class="reference external" href="https://cloud.google.com/logging/docs/api/v2/resource-list">監視対象のリソースとサービス</a></p>
@@ -422,7 +428,7 @@
 クラスタ名やサービス名、関数名などが自動でログに紐づくため、後述するフィルタで「どのクラスタのログだけを見る」「どのCloud Runサービスのエラーのみ抽出する」といった絞り込みが簡単に行える。</p>
 </section>
 <section id="id3">
-<h2><span class="section-number">12.4. </span>フィルタリング<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h2>
+<h3><span class="section-number">12.1.4. </span>フィルタリング<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud Logging では、ログの検索やログシンク（BigQuery / Pub/Sub などへのエクスポート）を行う際に
 ログフィルタ（クエリ） を記述して対象ログを指定する。</p>
 <p>Cloud Logging のクエリでは、改行は論理積（AND）として扱われる。</p>
@@ -438,7 +444,7 @@
 <li><p>かつ ERROR 以上のログだけを表示する</p></li>
 </ul>
 <section id="id4">
-<h3><span class="section-number">12.4.1. </span>フィルタの記述例<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">12.1.4.1. </span>フィルタの記述例<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Cloud Run Job のログから特定エラーIDを含むものを抽出</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">resource</span><span class="o">.</span><span class="n">type</span><span class="o">=</span><span class="s2">&quot;cloud_run_job&quot;</span>
 <span class="n">textPayload</span><span class="p">:</span><span class="s2">&quot;e.abc.&quot;</span>
@@ -460,7 +466,7 @@
 </ul>
 </section>
 <section id="jsonpayload">
-<h3><span class="section-number">12.4.2. </span>構造化ログ（jsonPayload）の検索<a class="headerlink" href="#jsonpayload" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">12.1.4.2. </span>構造化ログ（jsonPayload）の検索<a class="headerlink" href="#jsonpayload" title="この見出しへのパーマリンク">¶</a></h4>
 <p>アプリケーションが JSON 形式でログを出力している場合、フィールド単位での検索が可能になる。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jsonPayload</span><span class="o">.</span><span class="n">order_id</span><span class="o">=</span><span class="mi">123</span>
 <span class="n">jsonPayload</span><span class="o">.</span><span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;TIMEOUT&quot;</span>
@@ -473,7 +479,7 @@
 </ul>
 </section>
 <section id="id5">
-<h3><span class="section-number">12.4.3. </span>フィルタ演算子の整理<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">12.1.4.3. </span>フィルタ演算子の整理<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Cloud Logging のフィルタでは、
 「どのフィールドに対して検索しているか」 によって使える演算子と意味が変わる。</p>
 <p>特に混乱しやすいのが、</p>
@@ -545,7 +551,7 @@
 </section>
 </section>
 <section id="id6">
-<h2><span class="section-number">12.5. </span>アラート<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
+<h3><span class="section-number">12.1.5. </span>アラート<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud Logging 単体では、ログを閲覧・検索・フィルタリングすることができるが、ログ発の通知（アラート） 機能は持っていない。
 そこで活用するのが Cloud Monitoring との連携。
 Logging と Monitoring は統合されたオブザーバビリティ基盤の一部であり、Logging のデータをもとに Monitoring 側でアラートを発報できる。</p>
@@ -589,7 +595,7 @@ Logging と Monitoring は統合されたオブザーバビリティ基盤の一
 </ul>
 </section>
 <section id="id7">
-<h2><span class="section-number">12.6. </span>シンク設定（エクスポート）<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
+<h3><span class="section-number">12.1.6. </span>シンク設定（エクスポート）<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud Logging に蓄積されたログは、必要に応じて他のストレージやシステムにエクスポート（転送）することも可能。
 これを実現するのが ログシンク (Log Sink) 機能。
 Logging の ログルーター (Logs Router) は受け取った各ログエントリを内部で評価し、プロジェクトごとに設定されたシンクの条件にマッチしたものを指定の出力先にコピー・転送する。</p>
@@ -600,6 +606,7 @@ Logging の ログルーター (Logs Router) は受け取った各ログエン�
 <li><p>Cloud Storage – ログを Cloud Storage バケットにエクスポートすれば、アーカイブとして長期保存したり、生ログファイルとして保管できる。規制遵守や監査の目的でログを削除せず保管したい場合に有用。また、圧縮・ライフサイクル管理など Cloud Storage の機能を活用してコスト効率よく保存できる。</p></li>
 <li><p>Pub/Sub – ログを Pub/Sub トピックにストリーミング配信することもできる。Pub/Sub に流したログは独自のログ処理パイプラインやサードパーティ製の解析基盤に連携可能。たとえばリアルタイムにログを Pub/Sub 経由でデータ処理基盤（DatadogやSplunk、自社の分析システムなど）に送り込み、モニタリングや機械学習のフィードとするといった応用ができる。</p></li>
 </ul>
+</section>
 </section>
 </section>
 

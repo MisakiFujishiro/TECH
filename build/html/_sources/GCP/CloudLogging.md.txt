@@ -1,4 +1,6 @@
-# Cloud Logging
+# CloudOps
+
+## Cloud Logging
 GCPのログ収集・管理サービス。各種サービスから集まるログの保管・分析・モニタリングを一手に引き受ける。
 [Cloud Logging](https://cloud.google.com/logging#documentation)
 
@@ -8,7 +10,7 @@ GCPのログ収集・管理サービス。各種サービスから集まるロ�
 - どうやってアラートにつなげるのか？ – Cloud Monitoring と連携したログベースのメトリクスとアラートポリシー設定
 
 
-## ログの収集
+### ログの収集
 Cloud Logging は GCP 上で発生したすべてのログを一箇所に集約する仕組み。Compute Engine（GCE）や GKE、Cloud Run、Cloud Functions といった主要サービスのログは、特別な設定をしなくても自動的に Cloud Logging に収集される。
 
 例えば GKE では、各ノードにデプロイされたログ収集エージェント（Ops エージェント）がコンテナの標準出力・エラー出力を監視し、付加情報（メタデータ）をつけて Cloud Logging に送信する。
@@ -18,7 +20,7 @@ Cloud Logging は GCP 上で発生したすべてのログを一箇所に集約�
 また、任意のプログラムから Cloud Logging API を使ってログを書き込むこともできる。
 こうした方法で「それ以外のログもすべてまず Cloud Logging に集める」ことが可能となる。
 
-## Cloud Logging のログエントリ構造（全体像）
+### Cloud Logging のログエントリ構造（全体像）
 Cloud Loggingで収集されたログで出力される項目は以下が主要なものになる。
 
 |大分類（所属）|中分類|項目名|意味 / 役割|出力例|補足|
@@ -81,7 +83,7 @@ jso形式の例では以下となる
 ```
 
 
-## resource.typeとlabel
+### resource.typeとlabel
 Cloud Logging に全ログが集まった後、重要になるのが各ログエントリに付加される **リソースタイプ (resource.type)** と **ラベル (labels)** 。
 これらは「そのログがどのサービスのどのリソースから来たか」を示す情報で、GCP が自動で付与するメタデータであり、アプリケーション開発者や運用者が個別に設定する必要はなく、GCP側でログごとに適切なリソースタイプとラベルが割り当てらる。
 [監視対象のリソースとサービス](https://cloud.google.com/logging/docs/api/v2/resource-list)
@@ -110,7 +112,7 @@ Cloud Logging に全ログが集まった後、重要になるのが各ログエ
 クラスタ名やサービス名、関数名などが自動でログに紐づくため、後述するフィルタで「どのクラスタのログだけを見る」「どのCloud Runサービスのエラーのみ抽出する」といった絞り込みが簡単に行える。
 
 
-## フィルタリング
+### フィルタリング
 Cloud Logging では、ログの検索やログシンク（BigQuery / Pub/Sub などへのエクスポート）を行う際に
 ログフィルタ（クエリ） を記述して対象ログを指定する。
 
@@ -125,7 +127,7 @@ severity>=ERROR
 - Namespace が backend で、
 - かつ ERROR 以上のログだけを表示する
 
-### フィルタの記述例
+#### フィルタの記述例
 Cloud Run Job のログから特定エラーIDを含むものを抽出
 ```
 resource.type="cloud_run_job"
@@ -144,7 +146,7 @@ textPayload:"e.abc."
 - ただし e.abc.001 を含むものは除外
 
 
-### 構造化ログ（jsonPayload）の検索
+#### 構造化ログ（jsonPayload）の検索
 アプリケーションが JSON 形式でログを出力している場合、フィールド単位での検索が可能になる。
 ```
 jsonPayload.order_id=123
@@ -154,7 +156,7 @@ jsonPayload.error_code="TIMEOUT"
 - インデックスが効く
 - 集計・メトリクス化に最適
 
-### フィルタ演算子の整理
+#### フィルタ演算子の整理
 Cloud Logging のフィルタでは、
 「どのフィールドに対して検索しているか」 によって使える演算子と意味が変わる。
 
@@ -179,7 +181,7 @@ Cloud Logging のフィルタでは、
 |文字列包含|textPayload / jsonPayload.<field>|:|部分一致（含む）|grep的検索|
 |除外条件|すべて|-条件|NOT 条件|組み合わせ可|
 
-## アラート
+### アラート
 Cloud Logging 単体では、ログを閲覧・検索・フィルタリングすることができるが、ログ発の通知（アラート） 機能は持っていない。
 そこで活用するのが Cloud Monitoring との連携。
 Logging と Monitoring は統合されたオブザーバビリティ基盤の一部であり、Logging のデータをもとに Monitoring 側でアラートを発報できる。
@@ -206,7 +208,7 @@ Logging と Monitoring は統合されたオブザーバビリティ基盤の一
         - 通知先には Slack や Email、PagerDuty など様々なチャネルを指定可能
 
 
-## シンク設定（エクスポート）
+### シンク設定（エクスポート）
 Cloud Logging に蓄積されたログは、必要に応じて他のストレージやシステムにエクスポート（転送）することも可能。
 これを実現するのが ログシンク (Log Sink) 機能。
 Logging の ログルーター (Logs Router) は受け取った各ログエントリを内部で評価し、プロジェクトごとに設定されたシンクの条件にマッチしたものを指定の出力先にコピー・転送する。

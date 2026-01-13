@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. Network &mdash; project  ドキュメント</title>
+  <title>4. Network &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="4. SoftWareArchitecture" href="SWA.html" />
-    <link rel="prev" title="2. Agile" href="Agile.html" /> 
+    <link rel="next" title="5. SoftWareArchitecture" href="SWA.html" />
+    <link rel="prev" title="3. SRE" href="SRE.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -71,7 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">10. GKE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/APIGW.html">11. API Gateway</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">12. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">13. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudOps.html">13. CloudOps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">14. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">15. Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">16. Cloud Scheduler</a></li>
@@ -85,133 +85,134 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Agile.html">2. Agile</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Network</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">3.1. ネットワーク基礎知識</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">3.1.1. ネットワークの登場</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">3.1.2. プロトコル</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#osi">3.1.3. OSI参照モデル</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">3.1.4. ネットワーク機器の分類と役割</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#repeater-1">3.1.4.1. リピーター（Repeater）【第1層：物理層】</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#l2-2-2">3.1.4.2. L2スイッチ（レイヤ2スイッチ）【第2層：データリンク層】</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#l3-3-3">3.1.4.3. L3スイッチ（レイヤ3スイッチ）【第3層：ネットワーク層】</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#l47-4">3.1.4.4. L4〜7スイッチ（マルチレイヤスイッチ）【第4層以上】</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#gateway">3.1.4.5. ゲートウェイ（Gateway）【各層にまたがる】</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SRE.html">3. SRE</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Network</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">4.1. ネットワーク基礎知識</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.1.1. ネットワークの登場</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4.1.2. プロトコル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#osi">4.1.3. OSI参照モデル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4.1.4. ネットワーク機器の分類と役割</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#repeater-1">4.1.4.1. リピーター（Repeater）【第1層：物理層】</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#l2-2-2">4.1.4.2. L2スイッチ（レイヤ2スイッチ）【第2層：データリンク層】</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#l3-3-3">4.1.4.3. L3スイッチ（レイヤ3スイッチ）【第3層：ネットワーク層】</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#l47-4">4.1.4.4. L4〜7スイッチ（マルチレイヤスイッチ）【第4層以上】</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gateway">4.1.4.5. ゲートウェイ（Gateway）【各層にまたがる】</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#tcp-ip">3.2. TCP/IP</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#tcp-iposi">3.2.1. TCP/IPとOSI参照モデル</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id5">3.2.1.1. インターネット層</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">3.2.1.2. トランスポート層</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">3.2.1.3. アプリケーション層</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">3.2.1.4. 通信イメージ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tcp-ip">4.2. TCP/IP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tcp-iposi">4.2.1. TCP/IPとOSI参照モデル</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">4.2.1.1. インターネット層</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">4.2.1.2. トランスポート層</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">4.2.1.3. アプリケーション層</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">4.2.1.4. 通信イメージ</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">3.3. データリンク層</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mac">3.3.1. MACアドレス</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">3.3.2. データリンクにおける通信</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">3.3.3. イーサネット</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">3.3.4. 無線通信</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ppp-point-to-point-protocol">3.3.5. PPP（Point-to-Point Protocol）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">4.3. データリンク層</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mac">4.3.1. MACアドレス</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">4.3.2. データリンクにおける通信</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">4.3.3. イーサネット</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">4.3.4. 無線通信</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ppp-point-to-point-protocol">4.3.5. PPP（Point-to-Point Protocol）</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#ip">3.4. インターネット層(IP)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ip3">3.4.1. IPの3つの役割</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id13">3.4.1.1. IPアドレス</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id14">3.4.1.2. ルーティング</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id15">3.4.1.3. パケット分割と再構築</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ipv6">3.4.1.4. IPv6</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id16">3.5. ネットワーク層(IP以外)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dns-domain-name-system">3.5.1. DNS(Domain Name System)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#arp-address-resolution-protocol">3.5.2. ARP(Address Resolution Protocol)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#icmp-internet-contorol-messageprotocol">3.5.3. ICMP(Internet Contorol MessageProtocol)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dhcp-dynamic-host-configuration-protocol">3.5.4. DHCP(Dynamic Host Configuration Protocol)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#nat-network-address-translator">3.5.5. NAT(Network Address Translator)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id17">3.6. ルーティング制御</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id18">3.6.1. ルーティングの全体像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id19">3.6.2. ルーティングテーブル</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id20">3.6.3. ルーティングのアルゴリズム</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#rip-rip2-routing-information-protocol">3.6.4. RIP/RIP2（Routing Information Protocol）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ospf-open-shortest-path-first">3.6.5. OSPF（Open Shortest Path First）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bgp-gorder-gataway-protocol">3.6.6. BGP（Gorder Gataway Protocol）</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#tcp-udp">3.7. トランスポート層(TCP/UDP)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id21">3.7.1. ポート番号</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tcp-transmission-control-protocol">3.7.2. TCP(Transmission Control Protocol)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#udp-user-datagram-protocol">3.7.3. UDP(User Datagram Protocol)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tcpudp">3.7.4. TCPとUDPの比較</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id22">3.8. アプリケーション層</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id23">3.8.1. 遠隔ログイン</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#telnet">3.8.1.1. TELNET</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ssh-secure-shell">3.8.1.2. SSH（Secure Shell）</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#id24">3.8.2. ファイル転送</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#email">3.8.3. Email</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#smtp-simple-mail-transfer-protocol">3.8.3.1. SMTP (Simple Mail Transfer Protocol)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pop-post-office-protocol">3.8.3.2. POP（Post Office Protocol）</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#imap-internet-message-access-protocol">3.8.3.3. IMAP（Internet Message Access Protocol）</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mine-multipurpose-internet-mail-extensions">3.8.3.4. MINE（Multipurpose Internet Mail Extensions）</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#www-world-wide-web">3.8.4. WWW（World Wide Web）</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#uri-uniform-resource-identifier">3.8.4.1. URI（Uniform Resource Identifier）</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#html">3.8.4.2. HTML</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#http">3.8.4.3. HTTP</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#web">3.8.4.4. Webアプリケーション</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#ntp-network-time-protocol">3.8.5. NTP（Network Time Protocol）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ldap-lightweight-directory-access-protocol">3.8.6. LDAP（Lightweight Directory Access Protocol）</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id25">3.9. セキュリティ</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id26">3.9.1. ファイアウォール</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id27">3.9.1.1. パケットフィルタリング型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id28">3.9.1.2. アプリケーションゲートウェイ型（プロキシ型）</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#ids-ips">3.9.2. IDS/IPS</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#ids-intrusion-detection-system">3.9.2.1. IDS(Intrusion Detection System: 侵入検知システム)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ips-intrusion-prevention-system">3.9.2.2. IPS(Intrusion Prevention System: 侵入防止システム)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#id29">3.9.3. パーソナルファイアウォール</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id30">3.9.4. コンテンツセキュリティ</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id31">3.10. セキュリティプロトコル</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#vpn">3.10.1. VPN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ipsec">3.10.2. IPsec</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tls-ssl">3.10.3. TLS/SSL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#https">3.10.4. HTTPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ip">4.4. インターネット層(IP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ip3">4.4.1. IPの3つの役割</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id13">4.4.1.1. IPアドレス</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">4.4.1.2. ルーティング</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">4.4.1.3. パケット分割と再構築</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ipv6">4.4.1.4. IPv6</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="SWA.html">4. SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SWA.html#id4">5. マイクロサービスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">6. サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kernel.html">7. カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">9. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">10. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NFS.html">11. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SaaS.html">12. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">13. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">4.5. ネットワーク層(IP以外)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dns-domain-name-system">4.5.1. DNS(Domain Name System)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#arp-address-resolution-protocol">4.5.2. ARP(Address Resolution Protocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#icmp-internet-contorol-messageprotocol">4.5.3. ICMP(Internet Contorol MessageProtocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dhcp-dynamic-host-configuration-protocol">4.5.4. DHCP(Dynamic Host Configuration Protocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nat-network-address-translator">4.5.5. NAT(Network Address Translator)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">4.6. ルーティング制御</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id18">4.6.1. ルーティングの全体像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">4.6.2. ルーティングテーブル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">4.6.3. ルーティングのアルゴリズム</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rip-rip2-routing-information-protocol">4.6.4. RIP/RIP2（Routing Information Protocol）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ospf-open-shortest-path-first">4.6.5. OSPF（Open Shortest Path First）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgp-gorder-gataway-protocol">4.6.6. BGP（Gorder Gataway Protocol）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tcp-udp">4.7. トランスポート層(TCP/UDP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id21">4.7.1. ポート番号</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcp-transmission-control-protocol">4.7.2. TCP(Transmission Control Protocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#udp-user-datagram-protocol">4.7.3. UDP(User Datagram Protocol)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tcpudp">4.7.4. TCPとUDPの比較</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id22">4.8. アプリケーション層</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id23">4.8.1. 遠隔ログイン</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#telnet">4.8.1.1. TELNET</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ssh-secure-shell">4.8.1.2. SSH（Secure Shell）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">4.8.2. ファイル転送</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#email">4.8.3. Email</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#smtp-simple-mail-transfer-protocol">4.8.3.1. SMTP (Simple Mail Transfer Protocol)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pop-post-office-protocol">4.8.3.2. POP（Post Office Protocol）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imap-internet-message-access-protocol">4.8.3.3. IMAP（Internet Message Access Protocol）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mine-multipurpose-internet-mail-extensions">4.8.3.4. MINE（Multipurpose Internet Mail Extensions）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#www-world-wide-web">4.8.4. WWW（World Wide Web）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#uri-uniform-resource-identifier">4.8.4.1. URI（Uniform Resource Identifier）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#html">4.8.4.2. HTML</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#http">4.8.4.3. HTTP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#web">4.8.4.4. Webアプリケーション</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ntp-network-time-protocol">4.8.5. NTP（Network Time Protocol）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ldap-lightweight-directory-access-protocol">4.8.6. LDAP（Lightweight Directory Access Protocol）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id25">4.9. セキュリティ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id26">4.9.1. ファイアウォール</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id27">4.9.1.1. パケットフィルタリング型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">4.9.1.2. アプリケーションゲートウェイ型（プロキシ型）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ids-ips">4.9.2. IDS/IPS</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ids-intrusion-detection-system">4.9.2.1. IDS(Intrusion Detection System: 侵入検知システム)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ips-intrusion-prevention-system">4.9.2.2. IPS(Intrusion Prevention System: 侵入防止システム)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">4.9.3. パーソナルファイアウォール</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">4.9.4. コンテンツセキュリティ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id31">4.10. セキュリティプロトコル</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vpn">4.10.1. VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ipsec">4.10.2. IPsec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tls-ssl">4.10.3. TLS/SSL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#https">4.10.4. HTTPS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html">5. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SWA.html#id4">6. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">7. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kernel.html">8. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">9. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">10. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">11. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">12. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">13. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">14. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">15. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -262,7 +263,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">3. </span>Network</li>
+      <li class="breadcrumb-item active"><span class="section-number">4. </span>Network</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/ITBasic/Network.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -273,16 +274,16 @@
            <div itemprop="articleBody">
              
   <section id="network">
-<h1><span class="section-number">3. </span>Network<a class="headerlink" href="#network" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">4. </span>Network<a class="headerlink" href="#network" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="id1">
-<h2><span class="section-number">3.1. </span>ネットワーク基礎知識<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.1. </span>ネットワーク基礎知識<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id2">
-<h3><span class="section-number">3.1.1. </span>ネットワークの登場<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.1.1. </span>ネットワークの登場<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ネットワークの登場はコンピューターがどのように利用されてきたかと深い関係がある。
 コンピューターは単独で利用されるスタンドアローンから、複数のコンピューター同士が通信し合うネットワーク、世界中のコンピューターがつながるインターネットへと進化していった。</p>
 </section>
 <section id="id3">
-<h3><span class="section-number">3.1.2. </span>プロトコル<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.1.2. </span>プロトコル<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>世界中のコンピューターが、自身のOSやCPUを気にすることなく通信を行うためには、通信をするためのルールを決める必要がある。それが<code class="docutils literal notranslate"><span class="pre">プロトコル</span></code>である。
 プロトコルは人間のコミュニケーションにおける言語（英語や日本語）であり、異なるとコミュニケーションを取ることができない。</p>
 <p>例えば、現在の通信における主流のパケットにおける通信では、通信の内容は「パケット」に分割され、以下のような構成で送信される：</p>
@@ -295,7 +296,7 @@
 現在最も利用されているTCP/IPはデファクトスタンダードとなっており、IETFが標準化している。</p>
 </section>
 <section id="osi">
-<h3><span class="section-number">3.1.3. </span>OSI参照モデル<a class="headerlink" href="#osi" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.1.3. </span>OSI参照モデル<a class="headerlink" href="#osi" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ISOが標準化を検討した際に、ネットワークにおけるプロトコルにおいて、OSI参照モデルを提唱した。
 OSI参照モデルは、ネットワークプロトコルを7つの階層にモデリングしており、各層の役割を定義しているため、TCP/IPや他のプロトコルについて理解する際もガイドラインとして非常に参考になる。
 ただし、OSIモデルは理論的には7層だが、実務で使われるのはTCP/IPモデル（4階層）。セッション層・プレゼンテーション層はアプリケーション層に吸収されている。</p>
@@ -366,10 +367,10 @@ OSI参照モデルは、ネットワークプロトコルを7つの階層にモ�
 </div>
 </section>
 <section id="id4">
-<h3><span class="section-number">3.1.4. </span>ネットワーク機器の分類と役割<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.1.4. </span>ネットワーク機器の分類と役割<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
 <p>OSI参照モデルやTCP/IPモデルを理解したうえで、実際のネットワーク通信を支える装置（ネットワーク機器）についても整理しておく。</p>
 <section id="repeater-1">
-<h4><span class="section-number">3.1.4.1. </span>リピーター（Repeater）【第1層：物理層】<a class="headerlink" href="#repeater-1" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.1.4.1. </span>リピーター（Repeater）【第1層：物理層】<a class="headerlink" href="#repeater-1" title="この見出しへのパーマリンク">¶</a></h4>
 <p>リピーターは電気信号の中継器。信号が弱まってしまう距離でも通信できるように、信号を再生成して延長する。</p>
 <ul class="simple">
 <li><p>層：OSI第1層（物理層）</p></li>
@@ -378,7 +379,7 @@ OSI参照モデルは、ネットワークプロトコルを7つの階層にモ�
 </ul>
 </section>
 <section id="l2-2-2">
-<h4><span class="section-number">3.1.4.2. </span>L2スイッチ（レイヤ2スイッチ）【第2層：データリンク層】<a class="headerlink" href="#l2-2-2" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.1.4.2. </span>L2スイッチ（レイヤ2スイッチ）【第2層：データリンク層】<a class="headerlink" href="#l2-2-2" title="この見出しへのパーマリンク">¶</a></h4>
 <p>MACアドレスをもとに、LAN内での宛先を判断し、フレームを転送するスイッチ。</p>
 <ul class="simple">
 <li><p>層：OSI第2層</p></li>
@@ -387,7 +388,7 @@ OSI参照モデルは、ネットワークプロトコルを7つの階層にモ�
 </ul>
 </section>
 <section id="l3-3-3">
-<h4><span class="section-number">3.1.4.3. </span>L3スイッチ（レイヤ3スイッチ）【第3層：ネットワーク層】<a class="headerlink" href="#l3-3-3" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.1.4.3. </span>L3スイッチ（レイヤ3スイッチ）【第3層：ネットワーク層】<a class="headerlink" href="#l3-3-3" title="この見出しへのパーマリンク">¶</a></h4>
 <p>IPアドレスを見て、異なるネットワーク間の通信（ルーティング）も処理できるスイッチ。</p>
 <ul class="simple">
 <li><p>層：OSI第3層</p></li>
@@ -396,7 +397,7 @@ OSI参照モデルは、ネットワークプロトコルを7つの階層にモ�
 </ul>
 </section>
 <section id="l47-4">
-<h4><span class="section-number">3.1.4.4. </span>L4〜7スイッチ（マルチレイヤスイッチ）【第4層以上】<a class="headerlink" href="#l47-4" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.1.4.4. </span>L4〜7スイッチ（マルチレイヤスイッチ）【第4層以上】<a class="headerlink" href="#l47-4" title="この見出しへのパーマリンク">¶</a></h4>
 <p>トランスポート層（ポート番号）やアプリケーション層（HTTPヘッダ）まで見て、より高度な制御や振り分けが可能。</p>
 <ul class="simple">
 <li><p>層：OSI第4層〜第7層</p></li>
@@ -410,7 +411,7 @@ OSI参照モデルは、ネットワークプロトコルを7つの階層にモ�
 </ul>
 </section>
 <section id="gateway">
-<h4><span class="section-number">3.1.4.5. </span>ゲートウェイ（Gateway）【各層にまたがる】<a class="headerlink" href="#gateway" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.1.4.5. </span>ゲートウェイ（Gateway）【各層にまたがる】<a class="headerlink" href="#gateway" title="この見出しへのパーマリンク">¶</a></h4>
 <p>異なるプロトコルやネットワークの間をつなぐ翻訳装置的な役割。</p>
 <ul class="simple">
 <li><p>主な役割：異種ネットワーク間の接続・中継（例：IPv4とIPv6間の変換、メールプロトコル間の中継）</p></li>
@@ -420,7 +421,7 @@ OSI参照モデルは、ネットワークプロトコルを7つの階層にモ�
 </section>
 </section>
 <section id="tcp-ip">
-<h2><span class="section-number">3.2. </span>TCP/IP<a class="headerlink" href="#tcp-ip" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.2. </span>TCP/IP<a class="headerlink" href="#tcp-ip" title="この見出しへのパーマリンク">¶</a></h2>
 <p>TCP/IPとは、全世界のネットワークをつなげるインターネットで使われているプロトコル群（プロトコルスイート）の総称である。
 「スイート」とは“ひとまとまりのもの”という意味で、TCP/IPは複数の通信プロトコル（HTTPやDNSなど）をまとめた集合体ということ。
 名前には「TCP」と「IP」が含まれているが、実際には多くのプロトコル（HTTP, FTP, SMTP, DNSなど）を含んでおり、単なる2つのプロトコルだけを指しているわけではない。</p>
@@ -437,7 +438,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 しかも仕様の多くは実装に基づいて定義されるため、理論倒れにならず、実際に動くことが前提となっていた。これは後発のOSI参照モデルとの大きな違いだった。</p></li>
 </ol>
 <section id="tcp-iposi">
-<h3><span class="section-number">3.2.1. </span>TCP/IPとOSI参照モデル<a class="headerlink" href="#tcp-iposi" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.2.1. </span>TCP/IPとOSI参照モデル<a class="headerlink" href="#tcp-iposi" title="この見出しへのパーマリンク">¶</a></h3>
 <p>OSI参照モデルは、ネットワークを7つの階層に分けて整理することで、ネットワーク設計やトラブルシュートを論理的に理解するためのモデル。
 一方でTCP/IPは実装主義で、現実のネットワークを構築・運用する上で使われている実用的な<code class="docutils literal notranslate"><span class="pre">4階層</span></code>モデルである。</p>
 <table class="docutils align-default">
@@ -487,7 +488,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 </tbody>
 </table>
 <section id="id5">
-<h4><span class="section-number">3.2.1.1. </span>インターネット層<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.2.1.1. </span>インターネット層<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
 <p>この層は「データを目的地まで届ける」ことにフォーカスした層。IPアドレスを利用してルーティングやアドレス指定といった処理を担当する。
 「インターネット層」は“IPを中心としたルーティング機能”に特化しており、OSIモデルのように細かい制御機能（例えばQoSなど）まではカバーしていない。</p>
 <table class="docutils align-default">
@@ -514,7 +515,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 </table>
 </section>
 <section id="id6">
-<h4><span class="section-number">3.2.1.2. </span>トランスポート層<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.2.1.2. </span>トランスポート層<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
 <p>ここではアプリケーション間のデータ伝送の信頼性を保証する。コンピューターの内部では複数プログラムが動作しており、アプリケーションの識別にはポート番号を利用。</p>
 <table class="docutils align-default">
 <thead>
@@ -565,7 +566,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 </table>
 </section>
 <section id="id7">
-<h4><span class="section-number">3.2.1.3. </span>アプリケーション層<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.2.1.3. </span>アプリケーション層<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
 <p>利用者が直接使う「目的に応じた通信プロトコル」が該当する層。</p>
 <table class="docutils align-default">
 <thead>
@@ -625,7 +626,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 </table>
 </section>
 <section id="id8">
-<h4><span class="section-number">3.2.1.4. </span>通信イメージ<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.2.1.4. </span>通信イメージ<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h4>
 <p>TCP/IP通信では、アプリケーションが作ったデータが「上から下へ」と層を通過するたびにヘッダ情報が追加され、送信される。
 受信側では「下から上へ」と各層のヘッダを1つずつ剥がして中身を読み取り、最終的にアプリケーションへ届けられる。
 <img alt="" src="../_images/network_tcpip.jpeg" /></p>
@@ -673,7 +674,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 </section>
 </section>
 <section id="id9">
-<h2><span class="section-number">3.3. </span>データリンク層<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3. </span>データリンク層<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h2>
 <p>データリンク層は、物理的に直接接続されたノード間での通信手順やフォーマットを定める層である。OSI参照モデルでは、物理層（ビット伝送）とデータリンク層（フレーム転送）に分けて定義されている。</p>
 <p>具体的な役割としては：</p>
 <ul class="simple">
@@ -681,7 +682,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 <li><p>データリンク層：ビット列をフレームというまとまりにし、エラー検出や再送、ノード識別（MACアドレス）を行う</p></li>
 </ul>
 <section id="mac">
-<h3><span class="section-number">3.3.1. </span>MACアドレス<a class="headerlink" href="#mac" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.3.1. </span>MACアドレス<a class="headerlink" href="#mac" title="この見出しへのパーマリンク">¶</a></h3>
 <p>データリンク層では、宛先を特定するために MACアドレス（Media Access Control address）を使用する。MACアドレスは各NIC（ネットワークインターフェースカード）に割り当てられた48ビットの識別子で、以下の構成を持つ：</p>
 <ul class="simple">
 <li><p>上位2ビット：ユニキャスト・マルチキャスト・ユニバーサル・ローカルアドレス</p></li>
@@ -691,7 +692,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 <p>これにより、世界中で一意な識別が可能となっている。</p>
 </section>
 <section id="id10">
-<h3><span class="section-number">3.3.2. </span>データリンクにおける通信<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.3.2. </span>データリンクにおける通信<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
 <p>データリンク層における通信方式は大きく2つに分類される：</p>
 <table class="docutils align-default">
 <thead>
@@ -710,7 +711,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 </table>
 </section>
 <section id="id11">
-<h3><span class="section-number">3.3.3. </span>イーサネット<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.3.3. </span>イーサネット<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
 <p>イーサネットは最も一般的なデータリンク層プロトコルであり、現在の有線LANの主流となっている。IEEE 802.3により標準化されており、以下のような進化を遂げてきた：</p>
 <ul class="simple">
 <li><p>初期は CSMA/CD により衝突を回避していた（ハブ接続）</p></li>
@@ -727,7 +728,7 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 </ul>
 </section>
 <section id="id12">
-<h3><span class="section-number">3.3.4. </span>無線通信<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.3.4. </span>無線通信<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 <p>無線通信もデータリンク層に対応したプロトコルが存在する。</p>
 <ul class="simple">
 <li><p>IEEE 802.11：無線LAN（Wi-Fi）で使われる規格</p></li>
@@ -736,13 +737,13 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 <p>Wi-Fiでは CSMA/CA（Collision Avoidance） を使い、衝突が発生しにくい方式を採用している。</p>
 </section>
 <section id="ppp-point-to-point-protocol">
-<h3><span class="section-number">3.3.5. </span>PPP（Point-to-Point Protocol）<a class="headerlink" href="#ppp-point-to-point-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.3.5. </span>PPP（Point-to-Point Protocol）<a class="headerlink" href="#ppp-point-to-point-protocol" title="この見出しへのパーマリンク">¶</a></h3>
 <p>PPPは、主にモデムなどで使われていた1対1の通信回線におけるデータリンク層プロトコルである。電話回線など物理的に共有しない通信において使用された。</p>
 <p>現在では、広域ネットワーク接続やVPNトンネル内などで使われることもあるが、EthernetやIPベースの技術に主役を譲っている。</p>
 </section>
 </section>
 <section id="ip">
-<h2><span class="section-number">3.4. </span>インターネット層(IP)<a class="headerlink" href="#ip" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.4. </span>インターネット層(IP)<a class="headerlink" href="#ip" title="この見出しへのパーマリンク">¶</a></h2>
 <p>TCP/IPモデルにおける「インターネット層」は、ネットワーク間でのエンドツーエンド通信を成立させる役割を担う。</p>
 <ul class="simple">
 <li><p>データリンク層：直接つながったノード間の通信（隣の機器まで）</p></li>
@@ -751,14 +752,14 @@ TCP/IPはIETF（Internet Engineering Task Force）で議論され、RFC（Reques
 <p>IPパケットは、ルーターをホップしながら宛先に届く。各ホップ間の実際の通信（物理的なやりとり）はデータリンク層に依存するため、イーサネットだろうがWi-Fiだろうが、インターネット層にとってはどうでもいい。
 TCP/IPにおけるインターネット層を支えるプロトコルがIP(Internet Protocol)とICMP（Internet Control Message Protocol）。</p>
 <section id="ip3">
-<h3><span class="section-number">3.4.1. </span>IPの3つの役割<a class="headerlink" href="#ip3" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.4.1. </span>IPの3つの役割<a class="headerlink" href="#ip3" title="この見出しへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li><p>IPアドレス</p></li>
 <li><p>ルーティング</p></li>
 <li><p>パケット分割と再構築</p></li>
 </ul>
 <section id="id13">
-<h4><span class="section-number">3.4.1.1. </span>IPアドレス<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.4.1.1. </span>IPアドレス<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h4>
 <p>IPアドレスは、その下の階層で利用されているデータリンク層の形式に関わらず共通的な形式になっている。
 すなわち、ネットワーク層ではデータリンク層を意識しない設計となっている。</p>
 <ul class="simple">
@@ -849,20 +850,20 @@ TCP/IPにおけるインターネット層を支えるプロトコルがIP(Inter
 その下に5つのRIR（地域インターネットレジストリ）が分担して各国・各地域に配布している。</p>
 </section>
 <section id="id14">
-<h4><span class="section-number">3.4.1.2. </span>ルーティング<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.4.1.2. </span>ルーティング<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h4>
 <p>ルーターやホストは「宛先のIPアドレスに対して、次にどこへ送るか？」というルーティングテーブルを持っている。
 IPプロトコル自体にはルーティング機能はない（テーブルがある前提）</p>
 <p>経路は静的に設定するか、ルーティングプロトコルで動的に構築する必要がある。
 ※ルーティング詳細詳細は別節で解説する。</p>
 </section>
 <section id="id15">
-<h4><span class="section-number">3.4.1.3. </span>パケット分割と再構築<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.4.1.3. </span>パケット分割と再構築<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h4>
 <p>データリンク層（例：イーサネット）のMTU（最大転送単位）が小さいと、IPはデータを分割して送る必要がある
 ルーターが分割（フラグメント）し、受信側が再構築する</p>
 <p>ただし、IPv6ではパケット分割は原則としてルーターでは行わない設計に変更されている（効率化のため）</p>
 </section>
 <section id="ipv6">
-<h4><span class="section-number">3.4.1.4. </span>IPv6<a class="headerlink" href="#ipv6" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.4.1.4. </span>IPv6<a class="headerlink" href="#ipv6" title="この見出しへのパーマリンク">¶</a></h4>
 <p>IPv4の構造的限界（最大43億個のアドレス）を打破するため、IPv6（128bitアドレス）が登場した。</p>
 <p>IPv4は、4オクテッドで10進数で4区切りで表現されていた。
 IPv6は、16オクテッドで16進数で8区切りで表現される。</p>
@@ -871,9 +872,9 @@ IPv6は、16オクテッドで16進数で8区切りで表現される。</p>
 </section>
 </section>
 <section id="id16">
-<h2><span class="section-number">3.5. </span>ネットワーク層(IP以外)<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.5. </span>ネットワーク層(IP以外)<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="dns-domain-name-system">
-<h3><span class="section-number">3.5.1. </span>DNS(Domain Name System)<a class="headerlink" href="#dns-domain-name-system" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.5.1. </span>DNS(Domain Name System)<a class="headerlink" href="#dns-domain-name-system" title="この見出しへのパーマリンク">¶</a></h3>
 <p>IPアドレスは「192.0.2.1」のように数字で表されるが、人間が覚えるには不便。
 そこで、ドメイン名（例：example.com）とIPアドレスを対応付ける仕組みとしてDNS（Domain Name System）が利用される。
 もともとは1つのファイル（hosts.txt）で全ホスト名を集中管理していたが、インターネットの拡大に伴い、DNSにより分散管理できる仕組みに変化。</p>
@@ -937,7 +938,7 @@ IPv6は、16オクテッドで16進数で8区切りで表現される。</p>
 </table>
 </section>
 <section id="arp-address-resolution-protocol">
-<h3><span class="section-number">3.5.2. </span>ARP(Address Resolution Protocol)<a class="headerlink" href="#arp-address-resolution-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.5.2. </span>ARP(Address Resolution Protocol)<a class="headerlink" href="#arp-address-resolution-protocol" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ARPは、IPアドレスから対応するMACアドレスを取得するためのプロトコル。
 ネットワーク層（IPアドレス）とデータリンク層（MACアドレス）を結びつけ、同一ネットワーク内での通信を可能にする。</p>
 <p>IP通信では最終目的地のIPアドレスは変わらないが、データリンク層の送信先MACアドレスは「次に通信する機器」に変わる。
@@ -956,7 +957,7 @@ IPv6は、16オクテッドで16進数で8区切りで表現される。</p>
 同一ネットワーク内に宛先ホストがない場合は、デフォルトゲートウェイ（ルーター）のIPに対してARPを行い、ルーターのMACアドレスを取得する。</p>
 </section>
 <section id="icmp-internet-contorol-messageprotocol">
-<h3><span class="section-number">3.5.3. </span>ICMP(Internet Contorol MessageProtocol)<a class="headerlink" href="#icmp-internet-contorol-messageprotocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.5.3. </span>ICMP(Internet Contorol MessageProtocol)<a class="headerlink" href="#icmp-internet-contorol-messageprotocol" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ICMPは、ネットワークが正常に動作しているかを確認したり、異常発生時にトラブルシューティングを行うために使われるネットワーク層のプロトコル。
 IP通信の補助的な役割を持ち、パケットが届かなかった理由や経路上の問題などを通知する。</p>
 <p>主な特徴</p>
@@ -986,7 +987,7 @@ IP通信の補助的な役割を持ち、パケットが届かなかった理由
 </table>
 </section>
 <section id="dhcp-dynamic-host-configuration-protocol">
-<h3><span class="section-number">3.5.4. </span>DHCP(Dynamic Host Configuration Protocol)<a class="headerlink" href="#dhcp-dynamic-host-configuration-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.5.4. </span>DHCP(Dynamic Host Configuration Protocol)<a class="headerlink" href="#dhcp-dynamic-host-configuration-protocol" title="この見出しへのパーマリンク">¶</a></h3>
 <p>IPアドレスやネットワーク設定を自動で割り当てるプロトコル。
 管理者はDHCPサーバーに対して、割り当て可能なIPアドレス範囲（スコープ）、サブネットマスク、デフォルトゲートウェイ、DNSサーバーなどの情報を設定しておく。
 クライアントはネットワークに接続すると、自動的にこれらの設定を受け取り、すぐに通信を開始できる。</p>
@@ -1000,7 +1001,7 @@ IP通信の補助的な役割を持ち、パケットが届かなかった理由
 <p>手動設定不要で即座にネットワーク参加可能、アドレスの重複や設定ミスを防止、アドレスの有効期限（リース期間）を設定可能で、管理が容易といったメリットがある。</p>
 </section>
 <section id="nat-network-address-translator">
-<h3><span class="section-number">3.5.5. </span>NAT(Network Address Translator)<a class="headerlink" href="#nat-network-address-translator" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.5.5. </span>NAT(Network Address Translator)<a class="headerlink" href="#nat-network-address-translator" title="この見出しへのパーマリンク">¶</a></h3>
 <p>プライベートIPアドレスを使う端末がインターネットに接続する際、パケットの送信元IPアドレスをグローバルIPアドレスに変換する仕組み。
 主な目的は、アドレス空間の節約と内部ネットワークの秘匿。</p>
 <p>NATには、IPアドレスだけを変換する方式と、NAPT（Network Address Port Translation）のようにポート番号も併せて変換する方式がある。
@@ -1032,12 +1033,12 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </section>
 </section>
 <section id="id17">
-<h2><span class="section-number">3.6. </span>ルーティング制御<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.6. </span>ルーティング制御<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h2>
 <p>インターネットは多数のネットワークがルーターによって相互接続されている。
 パケットを宛先まで正しく届けるために、ルーターは適切な経路を選び、次に転送すべき方向を決定する。</p>
 <p>この経路選択の仕組みをルーティング（経路制御）と呼ぶ。</p>
 <section id="id18">
-<h3><span class="section-number">3.6.1. </span>ルーティングの全体像<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.6.1. </span>ルーティングの全体像<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h3>
 <p>インターネットは、多くの組織や事業者のネットワークが組み合わさって成り立つ。</p>
 <p>インターネットを世界中のネットワークがつながった巨大な道路網とすると、この道路網を管理している単位がAS（Autonomous System）＝自立システムであり、その中と外で経路制御のルールが変わる。
 インターネット上ではAS番号（ASN）が割り振られる。</p>
@@ -1066,7 +1067,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </table>
 </section>
 <section id="id19">
-<h3><span class="section-number">3.6.2. </span>ルーティングテーブル<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.6.2. </span>ルーティングテーブル<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ルーターは、転送先を決定するためにルーティングテーブル（経路制御表）を参照する。
 このテーブルには、宛先ネットワークと次に転送すべきルーター（ネクストホップ）の情報が格納されている。</p>
 <p>ルーティングテーブルの作成方法は2種類。</p>
@@ -1090,7 +1091,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </table>
 </section>
 <section id="id20">
-<h3><span class="section-number">3.6.3. </span>ルーティングのアルゴリズム<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.6.3. </span>ルーティングのアルゴリズム<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ルーティングは大きく以下の方式に分類される。</p>
 <table class="docutils align-default">
 <thead>
@@ -1125,7 +1126,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </ul>
 </section>
 <section id="rip-rip2-routing-information-protocol">
-<h3><span class="section-number">3.6.4. </span>RIP/RIP2（Routing Information Protocol）<a class="headerlink" href="#rip-rip2-routing-information-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.6.4. </span>RIP/RIP2（Routing Information Protocol）<a class="headerlink" href="#rip-rip2-routing-information-protocol" title="この見出しへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li><p>方式: 距離ベクトル型 IGP</p></li>
 <li><p>仕組み: ルーター間でルーティングテーブルを定期的に ブロードキャスト（RIP2ではマルチキャスト） し、宛先までのホップ数（最大15）をメトリックとして保持する。</p></li>
@@ -1139,7 +1140,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </ul>
 </section>
 <section id="ospf-open-shortest-path-first">
-<h3><span class="section-number">3.6.5. </span>OSPF（Open Shortest Path First）<a class="headerlink" href="#ospf-open-shortest-path-first" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.6.5. </span>OSPF（Open Shortest Path First）<a class="headerlink" href="#ospf-open-shortest-path-first" title="この見出しへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li><p>方式: リンク状態型 IGP</p></li>
 <li><p>仕組み: ルーター間でリンク状態情報（LSA）を交換し、全体のトポロジーを構築。Dijkstraアルゴリズムでコスト（帯域などの重み）を最小化する経路を計算する。</p></li>
@@ -1153,7 +1154,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </ul>
 </section>
 <section id="bgp-gorder-gataway-protocol">
-<h3><span class="section-number">3.6.6. </span>BGP（Gorder Gataway Protocol）<a class="headerlink" href="#bgp-gorder-gataway-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.6.6. </span>BGP（Gorder Gataway Protocol）<a class="headerlink" href="#bgp-gorder-gataway-protocol" title="この見出しへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li><p>方式: 経路ベクトル型 EGP</p></li>
 <li><p>用途: AS（Autonomous System）間のルーティング</p></li>
@@ -1169,7 +1170,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </section>
 </section>
 <section id="tcp-udp">
-<h2><span class="section-number">3.7. </span>トランスポート層(TCP/UDP)<a class="headerlink" href="#tcp-udp" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.7. </span>トランスポート層(TCP/UDP)<a class="headerlink" href="#tcp-udp" title="この見出しへのパーマリンク">¶</a></h2>
 <p>トランスポート層は、IP層で届いたデータを適切なアプリケーションに渡し、必要に応じて通信の信頼性を確保する役割を持つ。主な機能は次の2つ。</p>
 <ul class="simple">
 <li><p>ポート番号によるアプリケーション識別</p>
@@ -1184,7 +1185,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </li>
 </ul>
 <section id="id21">
-<h3><span class="section-number">3.7.1. </span>ポート番号<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.7.1. </span>ポート番号<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ポートは「通信の窓口」に相当し、1台のホスト上で複数のアプリケーションが同時に通信できるようにする。
 ポート番号は 0〜65535 の範囲で割り当てられ、以下の分類がある。</p>
 <table class="docutils align-default">
@@ -1219,7 +1220,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </ul>
 </section>
 <section id="tcp-transmission-control-protocol">
-<h3><span class="section-number">3.7.2. </span>TCP(Transmission Control Protocol)<a class="headerlink" href="#tcp-transmission-control-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.7.2. </span>TCP(Transmission Control Protocol)<a class="headerlink" href="#tcp-transmission-control-protocol" title="この見出しへのパーマリンク">¶</a></h3>
 <p>TCPはコネクション型・ストリーム型のプロトコルで、信頼性の高い通信を提供する。</p>
 <p>主な機能として以下の機能を持つ</p>
 <ul class="simple">
@@ -1239,7 +1240,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 <a class="reference external" href="https://ja.wikipedia.org/wiki/3%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%BB%E3%83%8F%E3%83%B3%E3%83%89%E3%82%B7%E3%82%A7%E3%82%A4%E3%82%AF">wikipedia</a></p>
 </section>
 <section id="udp-user-datagram-protocol">
-<h3><span class="section-number">3.7.3. </span>UDP(User Datagram Protocol)<a class="headerlink" href="#udp-user-datagram-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.7.3. </span>UDP(User Datagram Protocol)<a class="headerlink" href="#udp-user-datagram-protocol" title="この見出しへのパーマリンク">¶</a></h3>
 <p>UDPはコネクションレス型のプロトコルで、到達保証や順序制御、再送制御を行わない。
 その代わりヘッダが小さく、処理が軽いため高速性とリアルタイム性に優れる。
 主な利用例としてDNS、VoIP、オンラインゲーム、動画ストリーミングが挙げられる</p>
@@ -1251,7 +1252,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </ul>
 </section>
 <section id="tcpudp">
-<h3><span class="section-number">3.7.4. </span>TCPとUDPの比較<a class="headerlink" href="#tcpudp" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.7.4. </span>TCPとUDPの比較<a class="headerlink" href="#tcpudp" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>項目</p></th>
@@ -1289,7 +1290,7 @@ NAPTは送信元IPアドレスとポート番号を組み合わせることで�
 </section>
 </section>
 <section id="id22">
-<h2><span class="section-number">3.8. </span>アプリケーション層<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.8. </span>アプリケーション層<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h2>
 <p>TCP/IPモデルにおけるアプリケーション層は、ユーザーが実際に利用するサービスやアプリケーションと直接関わる層である。
 TCP/IPのアプリケーション層はOSI参照モデルの5層（セッション層）・6層（プレゼンテーション層）・7層（アプリケーション層）に相当する役割をまとめて担っている。</p>
 <p>具体的には以下の役割を担う</p>
@@ -1349,10 +1350,10 @@ TCP/IPのアプリケーション層はOSI参照モデルの5層（セッショ�
 </tbody>
 </table>
 <section id="id23">
-<h3><span class="section-number">3.8.1. </span>遠隔ログイン<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.8.1. </span>遠隔ログイン<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h3>
 <p>リモートでコンピュータを操作する代表的なアプリケーションプロトコルとして TELNET と SSH がある。現在はセキュリティの観点からSSHが標準的に利用されている。</p>
 <section id="telnet">
-<h4><span class="section-number">3.8.1.1. </span>TELNET<a class="headerlink" href="#telnet" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.1.1. </span>TELNET<a class="headerlink" href="#telnet" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>ポート番号: 23</p></li>
 <li><p>特徴:</p>
@@ -1369,7 +1370,7 @@ TCP/IPのアプリケーション層はOSI参照モデルの5層（セッショ�
 <p>この場合は「遠隔ログイン」ではなく「TCPの動作確認ツール」としての利用。</p>
 </section>
 <section id="ssh-secure-shell">
-<h4><span class="section-number">3.8.1.2. </span>SSH（Secure Shell）<a class="headerlink" href="#ssh-secure-shell" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.1.2. </span>SSH（Secure Shell）<a class="headerlink" href="#ssh-secure-shell" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>ポート番号: 22</p></li>
 <li><p>特徴:</p>
@@ -1391,7 +1392,7 @@ TCP/IPのアプリケーション層はOSI参照モデルの5層（セッショ�
 </section>
 </section>
 <section id="id24">
-<h3><span class="section-number">3.8.2. </span>ファイル転送<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.8.2. </span>ファイル転送<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h3>
 <p>異なるコンピュータ間でファイルを送受信するためのアプリケーションプロトコルが FTP (File Transfer Protocol)。
 古くから利用されているが、平文通信のためセキュリティには弱点がある。</p>
 <ul class="simple">
@@ -1412,11 +1413,11 @@ TCP/IPのアプリケーション層はOSI参照モデルの5層（セッショ�
 </ul>
 </section>
 <section id="email">
-<h3><span class="section-number">3.8.3. </span>Email<a class="headerlink" href="#email" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.8.3. </span>Email<a class="headerlink" href="#email" title="この見出しへのパーマリンク">¶</a></h3>
 <p>電子メールの基本は「送信は SMTP、受信は POP または IMAP」という構成。
 SMTP はメールを相手のメールサーバーに届ける役割を担い、受信者は自分の端末から POP または IMAP を通じてメールサーバーにアクセスする。</p>
 <section id="smtp-simple-mail-transfer-protocol">
-<h4><span class="section-number">3.8.3.1. </span>SMTP (Simple Mail Transfer Protocol)<a class="headerlink" href="#smtp-simple-mail-transfer-protocol" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.3.1. </span>SMTP (Simple Mail Transfer Protocol)<a class="headerlink" href="#smtp-simple-mail-transfer-protocol" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>ポート番号：25</p></li>
 <li><p>用途: メール送信</p></li>
@@ -1430,7 +1431,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="pop-post-office-protocol">
-<h4><span class="section-number">3.8.3.2. </span>POP（Post Office Protocol）<a class="headerlink" href="#pop-post-office-protocol" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.3.2. </span>POP（Post Office Protocol）<a class="headerlink" href="#pop-post-office-protocol" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>ポート番号: 110（暗号化通信は POP3S として 995/TCP）</p></li>
 <li><p>用途: メール受信（ダウンロード型）</p></li>
@@ -1443,7 +1444,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="imap-internet-message-access-protocol">
-<h4><span class="section-number">3.8.3.3. </span>IMAP（Internet Message Access Protocol）<a class="headerlink" href="#imap-internet-message-access-protocol" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.3.3. </span>IMAP（Internet Message Access Protocol）<a class="headerlink" href="#imap-internet-message-access-protocol" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>ポート番号: 143（暗号化通信は IMAPS として 993/TCP）</p></li>
 <li><p>用途: メール受信（サーバー参照型）</p></li>
@@ -1456,7 +1457,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="mine-multipurpose-internet-mail-extensions">
-<h4><span class="section-number">3.8.3.4. </span>MINE（Multipurpose Internet Mail Extensions）<a class="headerlink" href="#mine-multipurpose-internet-mail-extensions" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.3.4. </span>MINE（Multipurpose Internet Mail Extensions）<a class="headerlink" href="#mine-multipurpose-internet-mail-extensions" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>用途: メールの内容を文字以外に拡張する仕組み</p></li>
 <li><p>役割:</p>
@@ -1469,7 +1470,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </section>
 </section>
 <section id="www-world-wide-web">
-<h3><span class="section-number">3.8.4. </span>WWW（World Wide Web）<a class="headerlink" href="#www-world-wide-web" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.8.4. </span>WWW（World Wide Web）<a class="headerlink" href="#www-world-wide-web" title="この見出しへのパーマリンク">¶</a></h3>
 <p>インターネット上の情報を、ハイパーリンクで相互に参照可能な形で提供するシステム。WWWを支える基本要素は以下の3つ。</p>
 <ul class="simple">
 <li><p>URI: 情報資源を一意に識別・指定する仕組み</p></li>
@@ -1477,7 +1478,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 <li><p>HTTP: 情報のやり取りを行う通信プロトコル</p></li>
 </ul>
 <section id="uri-uniform-resource-identifier">
-<h4><span class="section-number">3.8.4.1. </span>URI（Uniform Resource Identifier）<a class="headerlink" href="#uri-uniform-resource-identifier" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.4.1. </span>URI（Uniform Resource Identifier）<a class="headerlink" href="#uri-uniform-resource-identifier" title="この見出しへのパーマリンク">¶</a></h4>
 <p>資源を示す識別子。</p>
 <ul class="simple">
 <li><p>形式: スキーム://ホスト名/パス</p></li>
@@ -1486,7 +1487,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="html">
-<h4><span class="section-number">3.8.4.2. </span>HTML<a class="headerlink" href="#html" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.4.2. </span>HTML<a class="headerlink" href="#html" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>Webページの構造を定義するマークアップ言語。</p></li>
 <li><p>文章、リンク、画像、フォームなどを組み合わせて表現する。</p></li>
@@ -1494,7 +1495,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="http">
-<h4><span class="section-number">3.8.4.3. </span>HTTP<a class="headerlink" href="#http" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.4.3. </span>HTTP<a class="headerlink" href="#http" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>ポート番号: 80（暗号化通信は HTTPS として 443/TCP）</p></li>
 <li><p>用途: Webクライアントとサーバー間でのデータ転送（HTMLに限らずJSON, 画像, 動画なども含む）</p></li>
@@ -1717,12 +1718,12 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </table>
 </section>
 <section id="web">
-<h4><span class="section-number">3.8.4.4. </span>Webアプリケーション<a class="headerlink" href="#web" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.8.4.4. </span>Webアプリケーション<a class="headerlink" href="#web" title="この見出しへのパーマリンク">¶</a></h4>
 <p>WWWの初期は、静止的なHTMLや画像ファイルを配信するだけの仕組みだった。
 やがて、ユーザー入力やリクエスト内容に応じて結果を返す「動的なページ生成」が可能になり、これが現在のWebアプリケーションの原型となった。</p>
 <p>この進化を支えた代表的な技術が JavaScript（クライアントサイド） と CGI（サーバーサイド） である。</p>
 <section id="javascript">
-<h5><span class="section-number">3.8.4.4.1. </span>JavaScript（クライアントサイド技術）<a class="headerlink" href="#javascript" title="この見出しへのパーマリンク">¶</a></h5>
+<h5><span class="section-number">4.8.4.4.1. </span>JavaScript（クライアントサイド技術）<a class="headerlink" href="#javascript" title="この見出しへのパーマリンク">¶</a></h5>
 <ul class="simple">
 <li><p>役割: Webブラウザ上でプログラムを実行し、ページの内容や挙動を動的に変更する。</p></li>
 <li><p>特徴:</p>
@@ -1736,7 +1737,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 <p>補足: JavaScriptは当初「フォーム入力チェック用の小さなスクリプト」だったが、現在ではフロントエンド開発の中心技術に成長し、ReactやVueなどのフレームワークが登場している。</p>
 </section>
 <section id="cgi-common-gateway-interface">
-<h5><span class="section-number">3.8.4.4.2. </span>CGI（Common Gateway Interface、サーバーサイド技術）<a class="headerlink" href="#cgi-common-gateway-interface" title="この見出しへのパーマリンク">¶</a></h5>
+<h5><span class="section-number">4.8.4.4.2. </span>CGI（Common Gateway Interface、サーバーサイド技術）<a class="headerlink" href="#cgi-common-gateway-interface" title="この見出しへのパーマリンク">¶</a></h5>
 <ul class="simple">
 <li><p>役割: Webサーバーと外部プログラムをつなぐ仕組み。サーバー側でプログラムを実行し、その結果をHTMLなどに変換して返す。</p></li>
 <li><p>特徴:</p>
@@ -1753,7 +1754,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </section>
 </section>
 <section id="ntp-network-time-protocol">
-<h3><span class="section-number">3.8.5. </span>NTP（Network Time Protocol）<a class="headerlink" href="#ntp-network-time-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.8.5. </span>NTP（Network Time Protocol）<a class="headerlink" href="#ntp-network-time-protocol" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ネットワーク上でコンピュータの時刻を同期させるためのプロトコル。</p>
 <ul class="simple">
 <li><p>ポート番号: UDP/123</p></li>
@@ -1763,7 +1764,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="ldap-lightweight-directory-access-protocol">
-<h3><span class="section-number">3.8.6. </span>LDAP（Lightweight Directory Access Protocol）<a class="headerlink" href="#ldap-lightweight-directory-access-protocol" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.8.6. </span>LDAP（Lightweight Directory Access Protocol）<a class="headerlink" href="#ldap-lightweight-directory-access-protocol" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ユーザー情報や認証情報を階層的に管理・検索するためのプロトコル。</p>
 <ul class="simple">
 <li><p>ポート番号: TCP/389（LDAP）、TCP/636（LDAPS: TLS暗号化）</p></li>
@@ -1779,12 +1780,12 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </section>
 </section>
 <section id="id25">
-<h2><span class="section-number">3.9. </span>セキュリティ<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.9. </span>セキュリティ<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="id26">
-<h3><span class="section-number">3.9.1. </span>ファイアウォール<a class="headerlink" href="#id26" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.9.1. </span>ファイアウォール<a class="headerlink" href="#id26" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ファイアウォールは、内部ネットワークと外部ネットワーク（インターネットなど）の間に配置し、不正アクセスや不要な通信を遮断するための仕組み。基本コンセプトは「通す通信と遮断する通信を明確に分ける」こと。</p>
 <section id="id27">
-<h4><span class="section-number">3.9.1.1. </span>パケットフィルタリング型<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.9.1.1. </span>パケットフィルタリング型<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h4>
 <p>ネットワーク層やトランスポート層での制御</p>
 <ul class="simple">
 <li><p>送信元/宛先のIPアドレスやポート番号、プロトコル種別に基づいて通信を許可または拒否する</p></li>
@@ -1793,7 +1794,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="id28">
-<h4><span class="section-number">3.9.1.2. </span>アプリケーションゲートウェイ型（プロキシ型）<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.9.1.2. </span>アプリケーションゲートウェイ型（プロキシ型）<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
 <p>アプリケーション層で通信を仲介する方式</p>
 <ul class="simple">
 <li><p>内部のホストが直接外部と通信するのではなく、ゲートウェイ（プロキシ）が一度受け取り、その内容を検査して必要に応じて内部へ中継する</p></li>
@@ -1803,12 +1804,12 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </section>
 </section>
 <section id="ids-ips">
-<h3><span class="section-number">3.9.2. </span>IDS/IPS<a class="headerlink" href="#ids-ips" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.9.2. </span>IDS/IPS<a class="headerlink" href="#ids-ips" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ファイアウォールはポリシー（許可・拒否ルール）に合致すれば通信を通すため、「見かけ上は正しいが中身が攻撃」という通信までは判別できない。
 そこで登場するのがIDSとIPS。どちらも不正アクセスや攻撃パターンを検出する仕組みだが、役割に違いがある。
 ファイアーウォールがルールベースなのに対して、IDSとIPSは振る舞いベースであるといえる。</p>
 <section id="ids-intrusion-detection-system">
-<h4><span class="section-number">3.9.2.1. </span>IDS(Intrusion Detection System: 侵入検知システム)<a class="headerlink" href="#ids-intrusion-detection-system" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.9.2.1. </span>IDS(Intrusion Detection System: 侵入検知システム)<a class="headerlink" href="#ids-intrusion-detection-system" title="この見出しへのパーマリンク">¶</a></h4>
 <p>検知専門</p>
 <ul class="simple">
 <li><p>ネットワークやホスト上の通信を監視し、既知の攻撃シグネチャや不正な挙動を検知した際に アラートを発報 する</p></li>
@@ -1817,7 +1818,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="ips-intrusion-prevention-system">
-<h4><span class="section-number">3.9.2.2. </span>IPS(Intrusion Prevention System: 侵入防止システム)<a class="headerlink" href="#ips-intrusion-prevention-system" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">4.9.2.2. </span>IPS(Intrusion Prevention System: 侵入防止システム)<a class="headerlink" href="#ips-intrusion-prevention-system" title="この見出しへのパーマリンク">¶</a></h4>
 <p>検知＋防止</p>
 <ul class="simple">
 <li><p>IDSの機能に加えて、検知した不正通信をその場で 遮断（ブロック） する</p></li>
@@ -1826,7 +1827,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </section>
 </section>
 <section id="id29">
-<h3><span class="section-number">3.9.3. </span>パーソナルファイアウォール<a class="headerlink" href="#id29" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.9.3. </span>パーソナルファイアウォール<a class="headerlink" href="#id29" title="この見出しへのパーマリンク">¶</a></h3>
 <p>従来のファイアウォールやIDS/IPSは「ネットワークの内と外の境界」に設置され、組織全体を守る仕組みだった。
 一方でパーソナルファイアウォールは、各PCや端末にインストールして動作するソフトウェア型のファイアウォール。</p>
 <ul class="simple">
@@ -1837,7 +1838,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 <p>つまり「ネットワークを守る壁」ではなく、「端末を守る壁」。これはエンドポイントセキュリティの一種として位置づけられる。</p>
 </section>
 <section id="id30">
-<h3><span class="section-number">3.9.4. </span>コンテンツセキュリティ<a class="headerlink" href="#id30" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.9.4. </span>コンテンツセキュリティ<a class="headerlink" href="#id30" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ファイアウォールやIDS/IPSはネットワーク層やトランスポート層での不正通信を防げるが、アプリケーションのコンテンツ自体に仕込まれる攻撃（マルウェア添付や不正なWebページなど） には対応が弱い。
 そこで、アプリケーションレベルでのセキュリティ対策が必要になる。</p>
 <p>Emailの例</p>
@@ -1855,9 +1856,9 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </section>
 </section>
 <section id="id31">
-<h2><span class="section-number">3.10. </span>セキュリティプロトコル<a class="headerlink" href="#id31" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.10. </span>セキュリティプロトコル<a class="headerlink" href="#id31" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="vpn">
-<h3><span class="section-number">3.10.1. </span>VPN<a class="headerlink" href="#vpn" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.10.1. </span>VPN<a class="headerlink" href="#vpn" title="この見出しへのパーマリンク">¶</a></h3>
 <p>インターネットのような信用できないネットワーク上で、仮想的な専用線を構築し、安全に通信する仕組み が VPN (Virtual Private Network)。</p>
 <p>VPNを実現するためには、通信を暗号化するプロトコルが必要になる。代表的なのは以下の2つ。</p>
 <ul class="simple">
@@ -1889,7 +1890,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </table>
 </section>
 <section id="ipsec">
-<h3><span class="section-number">3.10.2. </span>IPsec<a class="headerlink" href="#ipsec" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.10.2. </span>IPsec<a class="headerlink" href="#ipsec" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ネットワーク層で動作する暗号化・認証の仕組み。上位のアプリケーションに依存せず、すべてのIP通信を保護できる。</p>
 <ul class="simple">
 <li><p>特徴: 通信経路上のパケット（IPヘッダやデータ部分）を暗号化・認証可能</p></li>
@@ -1903,7 +1904,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="tls-ssl">
-<h3><span class="section-number">3.10.3. </span>TLS/SSL<a class="headerlink" href="#tls-ssl" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.10.3. </span>TLS/SSL<a class="headerlink" href="#tls-ssl" title="この見出しへのパーマリンク">¶</a></h3>
 <p>TCP上で動作する暗号化プロトコル。SSLは旧称で、現在はTLSが標準（最新はTLS 1.3）。</p>
 <ul class="simple">
 <li><p>特徴: アプリケーションごとの修正が不要で、TCPベースの通信（HTTP, SMTP, IMAPなど）を安全化できる</p></li>
@@ -1912,7 +1913,7 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
 </ul>
 </section>
 <section id="https">
-<h3><span class="section-number">3.10.4. </span>HTTPS<a class="headerlink" href="#https" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">4.10.4. </span>HTTPS<a class="headerlink" href="#https" title="この見出しへのパーマリンク">¶</a></h3>
 <p>HTTP over TLS/SSL の略称。Web通信にTLSを適用したもの。</p>
 <ul class="simple">
 <li><p>背景: 1990年代後半のオンラインショッピング普及に伴い、Web暗号化の需要が急増し、SSL/TLSがブラウザに標準搭載され普及</p></li>
@@ -1933,8 +1934,8 @@ SMTP はメールを相手のメールサーバーに届ける役割を担い、
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Agile.html" class="btn btn-neutral float-left" title="2. Agile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="SWA.html" class="btn btn-neutral float-right" title="4. SoftWareArchitecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="SRE.html" class="btn btn-neutral float-left" title="3. SRE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SWA.html" class="btn btn-neutral float-right" title="5. SoftWareArchitecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

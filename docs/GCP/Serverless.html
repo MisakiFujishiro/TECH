@@ -71,7 +71,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#app-engine">9.1. App Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-functions">9.2. Cloud Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-run">9.3. Cloud Run</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#cloud-run-services">9.3.1. Cloud Run Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-run-services">9.3.1. Cloud Run Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">9.3.1.1. Cloud Runのトラフィック分割</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">9.3.1.2. Cloud Runのタグ付与</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#cloud-run-jobs">9.3.2. Cloud Run Jobs</a></li>
 </ul>
 </li>
@@ -81,7 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="GKE.html">10. GKE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="APIGW.html">11. API Gateway</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Storage.html">12. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudLogging.html">13. Cloud Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">13. CloudOps</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DB.html">14. DB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Workflows.html">15. Workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">16. Cloud Scheduler</a></li>
@@ -95,18 +99,19 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html#id4">5. マイクロサービスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">6. サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">7. カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">8. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">9. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">10. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">11. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">12. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">13. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SRE.html">3. SRE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">5. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html#id4">6. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">7. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">8. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">9. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">10. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">11. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">12. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">13. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">14. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">15. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -301,7 +306,53 @@ GCPでは、<code class="docutils literal notranslate"><span class="pre">AppEngi
 </table>
 <section id="cloud-run-services">
 <h3><span class="section-number">9.3.1. </span>Cloud Run Services<a class="headerlink" href="#cloud-run-services" title="この見出しへのパーマリンク">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">Run</span> <span class="pre">Services</span></code>は、HTTPエンドポイントに対するリクエストなど、外部からのリクエストをトリガーとして実行される特徴がある。</p>
+<p>Cloud Run Services は、HTTP(S) エンドポイントに対するリクエストをトリガーとして実行される
+サーバーレス実行基盤である。</p>
+<ul class="simple">
+<li><p>リクエスト駆動（常時起動プロセスを持たない）</p></li>
+<li><p>スケールアウト / スケールインは自動</p></li>
+<li><p>デプロイごとに 必ず新しい Revision（リビジョン） が作成される</p></li>
+</ul>
+<section id="id2">
+<h4><span class="section-number">9.3.1.1. </span>Cloud Runのトラフィック分割<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Cloud Run には、リビジョン単位でトラフィックを何%流すかを制御する機能がある。</p>
+<ul class="simple">
+<li><p>複数リビジョンに対して割合指定が可能</p></li>
+<li><p>カナリアリリースや段階的ロールアウトを簡単に実現できる</p></li>
+<li><p>トラフィック設定を変更しても、新しいリビジョンは作成されない</p></li>
+<li><p>新リビジョンに 1% → 10% → 100% と段階的に流す</p></li>
+<li><p>問題があれば即座に旧リビジョンへ戻す</p></li>
+</ul>
+<p>以下の<code class="docutils literal notranslate"><span class="pre">update-traffic</span></code>と<code class="docutils literal notranslate"><span class="pre">LATEST</span></code>で宛先と割合を定義する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">run</span> <span class="n">services</span> <span class="n">update</span><span class="o">-</span><span class="n">traffic</span> <span class="n">SERVICE</span> \
+  <span class="o">--</span><span class="n">to</span><span class="o">-</span><span class="n">revisions</span> <span class="n">LATEST</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h4><span class="section-number">9.3.1.2. </span>Cloud Runのタグ付与<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Cloud Run では、リビジョンにタグ（tag）を付与することで、タグ専用のURLを発行できる。</p>
+<p>この仕組みにより、本番URLに一切影響を与えずに、新しいリビジョンを検証することが可能となる。</p>
+<ul class="simple">
+<li><p>タグ付きリビジョンは トラフィック 0% でも直接アクセス可能</p></li>
+<li><p>タグ付与は「リビジョン作成」ではなく「リビジョンへの紐付け」</p></li>
+<li><p>公開URLとタグURLは完全に独立している</p></li>
+</ul>
+<p>リビジョンを新たにデプロイしつつ、トラフィック分割をする前に<code class="docutils literal notranslate"><span class="pre">--no-traffic</span></code>と<code class="docutils literal notranslate"><span class="pre">--tag</span></code>を利用したコマンドを実行する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">run</span> <span class="n">deploy</span> <span class="n">booking</span><span class="o">-</span><span class="n">engine</span> \
+  <span class="o">--</span><span class="n">image</span> <span class="n">IMAGE_URL</span> \
+  <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">traffic</span> \
+  <span class="o">--</span><span class="n">tag</span> <span class="n">dev</span>
+</pre></div>
+</div>
+<p>実行結果として、<code class="docutils literal notranslate"><span class="pre">---tag</span></code>が付与されたURLが払い出される</p>
+<ul class="simple">
+<li><p>https://booking-engine-abcdef.a.run.app.
+という元々のURLにタグを付与した、URL</p></li>
+<li><p>https://dev---booking-engine-abcdef.a.run.app.
+にアクセスすることで検証が可能となる。</p></li>
+</ul>
+</section>
 </section>
 <section id="cloud-run-jobs">
 <h3><span class="section-number">9.3.2. </span>Cloud Run Jobs<a class="headerlink" href="#cloud-run-jobs" title="この見出しへのパーマリンク">¶</a></h3>

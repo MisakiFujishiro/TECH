@@ -115,6 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#cloud-load-balancing">4.3. Cloud Load Balancing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-cdn">4.4. Cloud CDN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-dns">4.5. Cloud DNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vpc-flowlog">4.6. VPC FlowLog</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CICD.html">5. CICD</a></li>
@@ -746,6 +747,18 @@ Cloud SQL
 <ul class="simple">
 <li><p>ドメイン名とIPアドレスの変換（名前解決）を行う</p></li>
 <li><p>ゾーンの作成 → レコード（A, AAAA, CNAMEなど）の定義 により、独自ドメインの管理が可能</p></li>
+</ul>
+</section>
+<section id="vpc-flowlog">
+<h2><span class="section-number">4.6. </span>VPC FlowLog<a class="headerlink" href="#vpc-flowlog" title="この見出しへのパーマリンク">¶</a></h2>
+<p>VPCフローログとは、
+<code class="docutils literal notranslate"><span class="pre">VPCネットワークを流れる通信フロー（L3/L4レイヤー）をCloud</span> <span class="pre">Loggintに記録する仕組み</span></code>
+である。</p>
+<p>VPCフローログで設定することができる対象は以下の3つ</p>
+<ul class="simple">
+<li><p>VPC</p></li>
+<li><p>サブネット</p></li>
+<li><p>NIC（VM単位）</p></li>
 </ul>
 </section>
 </section>

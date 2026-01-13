@@ -103,12 +103,13 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">9.1.6. Podの起動数の制御</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">9.1.7. ヘルスチェック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">9.1.7. Nodeの起動数制御</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">9.1.8. ヘルスチェック</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes-load-balancing">9.2. Kubernetes における通信と Load Balancing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id5">9.2.1. Service</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id6">9.2.1.1. Service の主な種類</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">9.2.1. Service</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">9.2.1.1. Service の主な種類</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#ingress">9.2.2. Ingress</a><ul>
@@ -122,17 +123,17 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#manufest">9.3. マニュフェスト(Manufest)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubectl">9.4. kubectl</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">9.4.1. クラスターやノードへの操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">9.4.1. クラスターやノードへの操作</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pods">9.4.2. Podsへの操作</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#deploy">9.4.3. Deployへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">9.4.4. Serviceへの操作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">9.4.4. Serviceへの操作</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configmap-secret">9.4.5. ConfigMap &amp; Secret の操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">9.4.6. リソースの作成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">9.4.6. リソースの作成</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#prometheus">9.5. Prometheus</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">9.6. 永続ストレージと容量管理</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id11">9.6.1. ストレージを構成するレイヤ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">9.6. 永続ストレージと容量管理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">9.6.1. ストレージを構成するレイヤ</a></li>
 </ul>
 </li>
 </ul>
@@ -377,21 +378,32 @@
 <tbody>
 <tr class="row-even"><td class="text-left"><p>Horizontal Pod Autoscaler</p></td>
 <td class="text-left"><p>HPA</p></td>
-<td class="text-left"><p>ワークロードの負荷に応じて自動的にレプリカ数をスケールアウト・スケールインするための仕組み</p></td>
+<td class="text-left"><p>ワークロードの負荷（CPU / メモリ / カスタム指標など）に基づいて Pod のレプリカ数を自動でスケールアウト・スケールインする仕組み</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>Vertical Pod Autodcaler</p></td>
 <td class="text-left"><p>VPA</p></td>
-<td class="text-left"><p>Podのリソースの割り当てを調整する仕組み</p></td>
+<td class="text-left"><p>実際の使用状況をもとに Pod の CPU / メモリの requests / limits を自動調整する仕組み（Pod 数は増減しない）</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Pod Dsiruption Budget</p></td>
 <td class="text-left"><p>PDB</p></td>
-<td class="text-left"><p>ノードのメンテナンスなどアップグレードなどによる意図的なPodの終了（Disruption）が行われる際のPod数が許容範囲内に収まるようにするための仕組み。<br>maxUnavailable: 10にすると、90%は常に稼働などの設定ができる。</p></td>
+<td class="text-left"><p>ノードメンテナンスやアップグレードなど、意図的な Pod の中断（Disruption）時に許容される最小稼働数を定義する仕組み。<br>maxUnavailable: 10% とすると、常に 90% 以上の Pod が稼働することを保証</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="id4">
-<h3><span class="section-number">9.1.7. </span>ヘルスチェック<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">9.1.7. </span>Nodeの起動数制御<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cluster AutoscalerによりNodeの起動数を自動調整する。
+Pod の リソース要求（requests） に基づいて、</p>
+<ul class="simple">
+<li><p>Pod が載りきらない場合 → ノードを追加</p></li>
+<li><p>ノードが余っている場合 → ノードを削除</p></li>
+</ul>
+<p>これにより、Pod の需要に応じてノード数を自動調整できる。</p>
+<p>もう少し具体的に、スケールインについて、整理するとスケールアウトしたNodeB側に載っているPodを安全にNodeAに移すことができると判断した時点で、PodをNodeAに移動させる。</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">9.1.8. </span>ヘルスチェック<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <p>k8s におけるヘルスチェックでは以下が Pod に対して行われる。
 readinessProbe はトラフィック制御、livenessProbe は再起動制御を担う。
 startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐために必要な場合のみ追加する。</p>
@@ -432,15 +444,15 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 <p>Kubernetes では、Pod は直接外部から通信を受けることを想定していない。
 そのため、外部・内部からのアクセスは、Service / Ingress / Gateway API などの
 抽象リソースを通じて公開される。</p>
-<section id="id5">
-<h3><span class="section-number">9.2.1. </span>Service<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id6">
+<h3><span class="section-number">9.2.1. </span>Service<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Service は、Pod を論理的に束ねて安定したアクセス手段を提供する仕組みである。</p>
 <ul class="simple">
 <li><p>Pod の IP 変動を吸収する</p></li>
 <li><p>L4（TCP/UDP）レベルで負荷分散を行う</p></li>
 </ul>
-<section id="id6">
-<h4><span class="section-number">9.2.1.1. </span>Service の主な種類<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id7">
+<h4><span class="section-number">9.2.1.1. </span>Service の主な種類<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>ClusterIP：クラスタ内部向け</p></li>
 <li><p>NodePort：ノードのポート経由で公開</p></li>
@@ -604,8 +616,8 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 <section id="kubectl">
 <h2><span class="section-number">9.4. </span>kubectl<a class="headerlink" href="#kubectl" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Kubernetesについて実際に操作する際にはkubectlコマンドを利用する。</p>
-<section id="id7">
-<h3><span class="section-number">9.4.1. </span>クラスターやノードへの操作<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id8">
+<h3><span class="section-number">9.4.1. </span>クラスターやノードへの操作<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -694,8 +706,8 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </tbody>
 </table>
 </section>
-<section id="id8">
-<h3><span class="section-number">9.4.4. </span>Serviceへの操作<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id9">
+<h3><span class="section-number">9.4.4. </span>Serviceへの操作<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -748,8 +760,8 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </tbody>
 </table>
 </section>
-<section id="id9">
-<h3><span class="section-number">9.4.6. </span>リソースの作成<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id10">
+<h3><span class="section-number">9.4.6. </span>リソースの作成<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
@@ -791,12 +803,12 @@ Cloudのモニタリング機能単体でも標準メトリクスは取得でき
 </ul>
 <p>という特性を持ち、短命で動的な Kubernetes 環境に自然に適合する監視方式となっている。</p>
 </section>
-<section id="id10">
-<h2><span class="section-number">9.6. </span>永続ストレージと容量管理<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id11">
+<h2><span class="section-number">9.6. </span>永続ストレージと容量管理<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Kubernetes では、コンテナのライフサイクルとは独立してデータを保持するために、永続ストレージ（Persistent Storage） の仕組みが用意されている。</p>
 <p>この仕組みの特徴は、クラウドプロバイダが提供するディスクを直接扱わず、Kubernetes が抽象化したリソースを介して利用するという点にある。</p>
-<section id="id11">
-<h3><span class="section-number">9.6.1. </span>ストレージを構成するレイヤ<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id12">
+<h3><span class="section-number">9.6.1. </span>ストレージを構成するレイヤ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Kubernetes における永続ストレージは、以下のレイヤで構成される。</p>
 <ul class="simple">
 <li><p>Persistent Disk（PD）</p>

@@ -103,9 +103,20 @@ K8sにおける分離の種別をまとめると以下
 ### Podの起動数の制御
 |項目|略称|詳細|
 |:-|:-|:-|
-|Horizontal Pod Autoscaler |HPA|ワークロードの負荷に応じて自動的にレプリカ数をスケールアウト・スケールインするための仕組み|
-|Vertical Pod Autodcaler|VPA|Podのリソースの割り当てを調整する仕組み|
-|Pod Dsiruption Budget|PDB|ノードのメンテナンスなどアップグレードなどによる意図的なPodの終了（Disruption）が行われる際のPod数が許容範囲内に収まるようにするための仕組み。<br>maxUnavailable: 10にすると、90%は常に稼働などの設定ができる。|
+|Horizontal Pod Autoscaler |HPA|ワークロードの負荷（CPU / メモリ / カスタム指標など）に基づいて Pod のレプリカ数を自動でスケールアウト・スケールインする仕組み|
+|Vertical Pod Autodcaler|VPA|実際の使用状況をもとに Pod の CPU / メモリの requests / limits を自動調整する仕組み（Pod 数は増減しない）|
+|Pod Dsiruption Budget|PDB|ノードメンテナンスやアップグレードなど、意図的な Pod の中断（Disruption）時に許容される最小稼働数を定義する仕組み。<br>maxUnavailable: 10% とすると、常に 90% 以上の Pod が稼働することを保証|
+
+### Nodeの起動数制御
+Cluster AutoscalerによりNodeの起動数を自動調整する。
+Pod の リソース要求（requests） に基づいて、
+- Pod が載りきらない場合 → ノードを追加
+- ノードが余っている場合 → ノードを削除
+
+これにより、Pod の需要に応じてノード数を自動調整できる。
+
+もう少し具体的に、スケールインについて、整理するとスケールアウトしたNodeB側に載っているPodを安全にNodeAに移すことができると判断した時点で、PodをNodeAに移動させる。
+
 
 ### ヘルスチェック
 k8s におけるヘルスチェックでは以下が Pod に対して行われる。

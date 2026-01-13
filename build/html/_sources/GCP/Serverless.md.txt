@@ -70,7 +70,52 @@ CloudRunには、`Cloud Run Services`と`Cloud Run Jobs`の2つの機能が存�
 
 
 ### Cloud Run Services
-`Cloud Run Services`は、HTTPエンドポイントに対するリクエストなど、外部からのリクエストをトリガーとして実行される特徴がある。
+Cloud Run Services は、HTTP(S) エンドポイントに対するリクエストをトリガーとして実行される
+サーバーレス実行基盤である。
+
+- リクエスト駆動（常時起動プロセスを持たない）
+- スケールアウト / スケールインは自動
+- デプロイごとに 必ず新しい Revision（リビジョン） が作成される
+
+#### Cloud Runのトラフィック分割
+Cloud Run には、リビジョン単位でトラフィックを何%流すかを制御する機能がある。
+
+- 複数リビジョンに対して割合指定が可能
+- カナリアリリースや段階的ロールアウトを簡単に実現できる
+- トラフィック設定を変更しても、新しいリビジョンは作成されない
+
+- 新リビジョンに 1% → 10% → 100% と段階的に流す
+- 問題があれば即座に旧リビジョンへ戻す
+
+以下の`update-traffic`と`LATEST`で宛先と割合を定義する。
+```
+gcloud run services update-traffic SERVICE \
+  --to-revisions LATEST=1
+```
+#### Cloud Runのタグ付与
+Cloud Run では、リビジョンにタグ（tag）を付与することで、タグ専用のURLを発行できる。
+
+この仕組みにより、本番URLに一切影響を与えずに、新しいリビジョンを検証することが可能となる。
+- タグ付きリビジョンは トラフィック 0% でも直接アクセス可能
+- タグ付与は「リビジョン作成」ではなく「リビジョンへの紐付け」
+- 公開URLとタグURLは完全に独立している
+
+リビジョンを新たにデプロイしつつ、トラフィック分割をする前に`--no-traffic`と`--tag`を利用したコマンドを実行する。
+```
+gcloud run deploy booking-engine \
+  --image IMAGE_URL \
+  --no-traffic \
+  --tag dev
+```
+
+実行結果として、`---tag`が付与されたURLが払い出される
+- https://booking-engine-abcdef.a.run.app. 
+という元々のURLにタグを付与した、URL
+- https://dev---booking-engine-abcdef.a.run.app. 
+にアクセスすることで検証が可能となる。
+
+
+
 
 
 ### Cloud Run Jobs
