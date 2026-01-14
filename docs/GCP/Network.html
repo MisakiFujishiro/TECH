@@ -116,6 +116,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#cloud-cdn">4.4. Cloud CDN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-dns">4.5. Cloud DNS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#vpc-flowlog">4.6. VPC FlowLog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-connectivity">4.7. Network Connectivity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#network-connectivity-center-ncc">4.7.1. Network Connectivity Center（NCC）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#network-intelligence-center-nic">4.7.2. Network Intelligence Center（NIC）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nic">4.7.3. NIC配下の機能群</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connectivity-tests">4.7.4. Connectivity Tests</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CICD.html">5. CICD</a></li>
@@ -762,6 +769,72 @@ Cloud SQL
 <li><p>サブネット</p></li>
 <li><p>NIC（VM単位）</p></li>
 </ul>
+</section>
+<section id="network-connectivity">
+<h2><span class="section-number">4.7. </span>Network Connectivity<a class="headerlink" href="#network-connectivity" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Network Connectivity は、
+オンプレミスや他クラウドを含むネットワーク同士を
+Google Cloud 上でどのように接続・管理するかという
+課題領域（概念）である。</p>
+<p>Network Connectivity という課題領域に対して、<br />
+Google Cloud では役割の異なる 2 つのサービスが用意されている。</p>
+<ul class="simple">
+<li><p>Network Connectivity Center（NCC）</p></li>
+<li><p>Network Intelligence Center（NIC）</p></li>
+</ul>
+<section id="network-connectivity-center-ncc">
+<h3><span class="section-number">4.7.1. </span>Network Connectivity Center（NCC）<a class="headerlink" href="#network-connectivity-center-ncc" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Network Connectivity Center は、<br />
+Network Connectivity の課題に対する 接続設計・接続構成の集約 を担うサービスである。</p>
+<p>NCC は、通信経路そのもの（VPN や Interconnect）を提供するのではなく、<br />
+それらを前提として、</p>
+<ul class="simple">
+<li><p>複数の VPC</p></li>
+<li><p>複数プロジェクト</p></li>
+<li><p>オンプレミス接続</p></li>
+</ul>
+<p>を 一貫した Hub &amp; Spoke 構成として整理・管理 するための<br />
+接続性管理プラットフォームである。</p>
+</section>
+<section id="network-intelligence-center-nic">
+<h3><span class="section-number">4.7.2. </span>Network Intelligence Center（NIC）<a class="headerlink" href="#network-intelligence-center-nic" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Network Intelligence Center は、<br />
+ネットワークを 可視化・診断・分析 するための<br />
+観測・分析スイートである。</p>
+<p>NIC は、ネットワークの設計や接続を「作る」ためのサービスではなく、<br />
+既存のネットワーク構成に対して、</p>
+<ul class="simple">
+<li><p>接続性は成立しているか</p></li>
+<li><p>どこで通信が断絶しているか</p></li>
+<li><p>構成全体はどう見えているか</p></li>
+</ul>
+<p>といった点を 理解・検証するための基盤を提供する。</p>
+</section>
+<section id="nic">
+<h3><span class="section-number">4.7.3. </span>NIC配下の機能群<a class="headerlink" href="#nic" title="この見出しへのパーマリンク">¶</a></h3>
+<p>NCには大きく2つの機能がある</p>
+<ul class="simple">
+<li><p>Connectivity Tests: 接続診断のための機能</p></li>
+<li><p>Network Topology: ネットワークトポロジーの可視化</p></li>
+</ul>
+</section>
+<section id="connectivity-tests">
+<h3><span class="section-number">4.7.4. </span>Connectivity Tests<a class="headerlink" href="#connectivity-tests" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Connectivity Testsは、P2Pでの接続診断を行う。</p>
+<p>以下の情報を指定することで動作する。</p>
+<ul class="simple">
+<li><p>送信元（VPC / サブネット / VM / GKE クラスタ など）</p></li>
+<li><p>宛先（同上）</p></li>
+<li><p>プロトコル / ポート</p></li>
+</ul>
+<p>これらを元にGCPの制御プレーン情報を利用して、以下を段階的に評価する</p>
+<ul class="simple">
+<li><p>Firewallルール</p></li>
+<li><p>ルーティング</p></li>
+<li><p>VCP Peering / VPN / Interconnect</p></li>
+</ul>
+<p>上記を踏まえ、設定的に通信が成立するか、成立しない場合どの段階で失敗するかを返す。</p>
+</section>
 </section>
 </section>
 

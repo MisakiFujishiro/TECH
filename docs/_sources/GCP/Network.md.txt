@@ -374,3 +374,61 @@ VPCフローログで設定することができる対象は以下の3つ
 - サブネット
 - NIC（VM単位）
 
+## Network Connectivity
+Network Connectivity は、
+オンプレミスや他クラウドを含むネットワーク同士を
+Google Cloud 上でどのように接続・管理するかという
+課題領域（概念）である。
+
+Network Connectivity という課題領域に対して、  
+Google Cloud では役割の異なる 2 つのサービスが用意されている。
+- Network Connectivity Center（NCC）
+- Network Intelligence Center（NIC）
+
+### Network Connectivity Center（NCC）
+Network Connectivity Center は、  
+Network Connectivity の課題に対する 接続設計・接続構成の集約 を担うサービスである。
+
+NCC は、通信経路そのもの（VPN や Interconnect）を提供するのではなく、  
+それらを前提として、
+
+- 複数の VPC
+- 複数プロジェクト
+- オンプレミス接続
+
+を 一貫した Hub & Spoke 構成として整理・管理 するための  
+接続性管理プラットフォームである。
+
+### Network Intelligence Center（NIC）
+Network Intelligence Center は、  
+ネットワークを 可視化・診断・分析 するための  
+観測・分析スイートである。
+
+NIC は、ネットワークの設計や接続を「作る」ためのサービスではなく、  
+既存のネットワーク構成に対して、
+
+- 接続性は成立しているか
+- どこで通信が断絶しているか
+- 構成全体はどう見えているか
+
+といった点を 理解・検証するための基盤を提供する。
+
+### NIC配下の機能群
+NCには大きく2つの機能がある
+- Connectivity Tests: 接続診断のための機能
+- Network Topology: ネットワークトポロジーの可視化
+
+### Connectivity Tests
+Connectivity Testsは、P2Pでの接続診断を行う。
+
+以下の情報を指定することで動作する。
+- 送信元（VPC / サブネット / VM / GKE クラスタ など）
+- 宛先（同上）
+- プロトコル / ポート
+
+これらを元にGCPの制御プレーン情報を利用して、以下を段階的に評価する
+- Firewallルール
+- ルーティング
+- VCP Peering / VPN / Interconnect
+
+上記を踏まえ、設定的に通信が成立するか、成立しない場合どの段階で失敗するかを返す。

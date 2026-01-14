@@ -138,6 +138,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id12">10.6.1. ストレージを構成するレイヤ</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#k8s">10.7. k8sのデバッグ</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">11. ServiceMesh</a></li>
@@ -832,6 +833,16 @@ Cloudのモニタリング機能単体でも標準メトリクスは取得でき
 <p>Pod は PV や PD を直接参照せず、PVC を通じてのみストレージを利用する。
 永続ストレージの容量を拡張する場合は、PVC の要求サイズを更新する ことで Kubernetes に変更を伝える必要がある。</p>
 </section>
+</section>
+<section id="k8s">
+<h2><span class="section-number">10.7. </span>k8sのデバッグ<a class="headerlink" href="#k8s" title="この見出しへのパーマリンク">¶</a></h2>
+<p>kubectlのデバッグコマンドには3つのアプローチ方法がある</p>
+<ul class="simple">
+<li><p>Ephemeral Container: Podの中にEphemeral Containerを追加してデバグ対象のコンテナのツール不足を補う。基本的には参照権限のみがデフォルト。</p></li>
+<li><p>Copied Pod: デバック用のPodをコピーを作成して、デバッグを行う。Ephemeral Containerのようにサイドカーなどを作成してあげて、デバッグを支援する。</p></li>
+<li><p>Node Debug: ノード上で動作する特権Podを作成し、Podの中からホストのファイルシステム画角人cBeanstalk系、ノードのログやネットワーク状態の調査が可能。</p></li>
+</ul>
+<p>Debug Profileとは、デバッグように作成されるコンテナに対して、どのような権限やリソースアクセスを許可するかを定義するプリセット。k8sでは、デフォルトでコンテナの権限が厳しく制限されているため、調査するために適切なプロフィールを選択するためのコマンド。</p>
 </section>
 </section>
 
