@@ -70,7 +70,17 @@
 <li class="toctree-l1"><a class="reference internal" href="Serverless.html">9. サーバーレスアーキテクチャ</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">10. GKE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#workload-identity">10.1. Workload Identity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#managed-service-for-prometheus">10.2. Managed Service for Prometheus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#anthos-config-management">10.2. Anthos Config Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">10.2.1. Anthos Config Managementとは</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-sync">10.2.2. Config Sync</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#policy-controller">10.2.3. Policy Controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opa-gatekeeper">10.2.4. OPA Gatekeeper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constrainttemplate">10.2.5. 制約テンプレート（ConstraintTemplate）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constraint">10.2.6. ポリシーパラメータ（Constraint）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">10.2.7. それぞれの関係</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#managed-service-for-prometheus">10.3. Managed Service for Prometheus</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="APIGW.html">11. API Gateway</a></li>
@@ -96,12 +106,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">7. サーバー</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">8. カーネル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">9. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">10. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">11. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">12. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">13. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">14. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">15. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Terraform.html">10. Terraform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">11. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">12. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">13. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">14. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">15. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">16. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -169,8 +180,102 @@
 <p>GKEのKSAでGoogleCloud IAM SAを利用する際の詳細はIAM側で解説。
 GSAを利用しつつ、GSAを代替利用することができる。</p>
 </section>
+<section id="anthos-config-management">
+<h2><span class="section-number">10.2. </span>Anthos Config Management<a class="headerlink" href="#anthos-config-management" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Google Kubernetes Engine（GKE）では、単にアプリケーションを動かすだけでなく、</p>
+<ul class="simple">
+<li><p>構成の一貫性</p></li>
+<li><p>ポリシーによるガードレール</p></li>
+<li><p>Git を正とした運用（GitOps）</p></li>
+</ul>
+<p>が求められる。</p>
+<p>これらを支える中核が<code class="docutils literal notranslate"><span class="pre">Anthos</span> <span class="pre">Config</span> <span class="pre">Management</span></code>を中心とした一連のコンポーネント群である。</p>
+<section id="id1">
+<h3><span class="section-number">10.2.1. </span>Anthos Config Managementとは<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Anthos Config Management は、Kubernetes クラスターの構成とポリシーを Git リポジトリで一元管理し、自動同期する Google Cloud のマネージドサービスである。</p>
+<p>Git を唯一の正（Source of Truth）として、クラスターが定期的に Git を監視し、差分を自動適用手動で kubectl apply を実行する必要がない</p>
+<p>管理対象</p>
+<ul class="simple">
+<li><p>Namespace</p></li>
+<li><p>RBAC</p></li>
+<li><p>NetworkPolicy</p></li>
+<li><p>Policy Controller（制約テンプレート・制約）</p></li>
+<li><p>その他 Kubernetes マニフェスト</p></li>
+</ul>
+</section>
+<section id="config-sync">
+<h3><span class="section-number">10.2.2. </span>Config Sync<a class="headerlink" href="#config-sync" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Config Sync は、Anthos Config Management の中核となる同期エンジンである。</p>
+<ul class="simple">
+<li><p>Git リポジトリを定期的にポーリング</p></li>
+<li><p>YAML マニフェストを Kubernetes API に適用</p></li>
+<li><p>差分検出と再同期（drift correction）を実施</p></li>
+</ul>
+</section>
+<section id="policy-controller">
+<h3><span class="section-number">10.2.3. </span>Policy Controller<a class="headerlink" href="#policy-controller" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Policy Controller は、Kubernetes リソース作成・更新時にポリシーを強制するための仕組みである。</p>
+<ul class="simple">
+<li><p>Kubernetes Admission Controller として動作</p></li>
+<li><p>ルール違反のリソースを作成時に拒否</p></li>
+<li><p>既存リソースの監査（audit）も可能</p></li>
+</ul>
+</section>
+<section id="opa-gatekeeper">
+<h3><span class="section-number">10.2.4. </span>OPA Gatekeeper<a class="headerlink" href="#opa-gatekeeper" title="この見出しへのパーマリンク">¶</a></h3>
+<p>OPA Gatekeeper は、Kubernetes 向けのポリシーエンジン（OSS）である。</p>
+<ul class="simple">
+<li><p>OPA（Open Policy Agent）を Kubernetes に統合</p></li>
+<li><p>ポリシーをコード（Rego）として記述</p></li>
+<li><p>Admission Controller として動作</p></li>
+</ul>
+</section>
+<section id="constrainttemplate">
+<h3><span class="section-number">10.2.5. </span>制約テンプレート（ConstraintTemplate）<a class="headerlink" href="#constrainttemplate" title="この見出しへのパーマリンク">¶</a></h3>
+<p>制約テンプレートは、「どのようなポリシーを作れるか」を定義する設計図（型）である。</p>
+<ul class="simple">
+<li><p>Rego による検証ロジックを含む</p></li>
+<li><p>再利用前提で組織共通化される</p></li>
+<li><p>単体では制限を発動しない</p></li>
+</ul>
+</section>
+<section id="constraint">
+<h3><span class="section-number">10.2.6. </span>ポリシーパラメータ（Constraint）<a class="headerlink" href="#constraint" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ポリシーパラメータは、制約テンプレートに具体的な値を与えてポリシーを有効化するものである。</p>
+<ul class="simple">
+<li><p>環境ごとに値を変えられる</p></li>
+<li><p>Git 管理される変更対象</p></li>
+<li><p>実際に制限を発動する主体</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3><span class="section-number">10.2.7. </span>それぞれの関係<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>k8sにおいて、作成されるルールを統制するための仕組みの関係は以下</p>
+<p>git~ConstraintTemplate/Constraint</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Git Repository（正）
+        ↓
+Config Sync
+        ↓
+Kubernetes クラスター内に
+ConstraintTemplate / Constraint を常に存在させる
+</pre></div>
+</div>
+<p>ConstraintTemplate/Constraint~k8s cluster</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ConstraintTemplate（ルールの定義）
+        ↓
+Constraint（ルールの具体化）
+        ↓
+Policy Controller（検査・判断・拒否を行う実行エンジン）
+        ↓
+Kubernetes API Server
+        ↓
+リソースを許可 or 拒否
+</pre></div>
+</div>
+</section>
+</section>
 <section id="managed-service-for-prometheus">
-<h2><span class="section-number">10.2. </span>Managed Service for Prometheus<a class="headerlink" href="#managed-service-for-prometheus" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">10.3. </span>Managed Service for Prometheus<a class="headerlink" href="#managed-service-for-prometheus" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Prometheus 互換のメトリクスをフルマネージドで扱える Google Cloud のサービスであり、Prometheusのストレージ管理や高可用性、スケーリングを意識せずに PromQL を利用できる。</p>
 <p>GKE 環境では、マニフェストにラベルやアノテーションを設定するだけで、Pod や Node のメトリクスを自動的に収集できる。</p>
 </section>

@@ -185,7 +185,7 @@
 <p>サービスの信頼性（ユーザーに提供する価値）を可視化する指標を定義する必要がある</p>
 <p>良い指標は、信頼性が高い状態と低い状態を明確に検知することができる指標である。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      良いイベント
-SLI＝---------
+SLI＝-------------
       有効なイベント
 </pre></div>
 </div>
@@ -222,6 +222,40 @@ SLI＝---------
 <p>100%を設定することは誤りであり、達成可能な目標を設定する。
 サービスには、かろうじて達成されれば大抵のお客様が満足するような性能や可用性レベルをSLOとするとよい。</p>
 <p>エラーバジェットにつながるが、SLOが設定されているからこそ、新規開発（Agile）と安定運用どちらを優先するかを数値ベースで議論することができる。</p>
+<p>SLOの選択には「何を測るか」と「どう評価するか」の組み合わせが重要</p>
+<ul class="simple">
+<li><p>何を測るか</p>
+<ul>
+<li><p>レイテンシメトリック</p></li>
+<li><p>可用性メトリック</p></li>
+</ul>
+</li>
+<li><p>どう評価するか</p>
+<ul>
+<li><p>リクエストベースの評価方法
+-vウィンドウベースの評価方法</p></li>
+</ul>
+</li>
+</ul>
+<p>上記の組み合わせでSLOを定める。具体例としては以下。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>リクエストベース評価</p></th>
+<th class="head text-left"><p>ウィンドウベース評価</p></th>
+<th class="head text-left"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>レイテンシメトリック</p></td>
+<td class="text-left"><p>300ms 未満で返ったリクエストが 全体の 90% 以上</p></td>
+<td class="text-left"><p>5 分間の 平均レイテンシが 300ms 未満</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>可用性メトリック</p></td>
+<td class="text-left"><p>成功（HTTP 2xx/3xx）したリクエストが 99.9% 以上</p></td>
+<td class="text-left"><p>5 分間の 成功率が 99.9% 以上</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="sla-service-level-agreement">
 <h3>SLA(Service Level Agreement: サービス品質保証契約)<a class="headerlink" href="#sla-service-level-agreement" title="この見出しへのパーマリンク">¶</a></h3>
@@ -311,8 +345,8 @@ SLI＝---------
 <section id="id10">
 <h2>インシデント対応<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h2>
 <p>どんなものも壊れてしまう。その考えを前提に、パニックにならずにインシデント対応することが大切。
-<code class="docutils literal notranslate"><span class="pre">今後直面すること以上に悲惨な問題を人々はこれまで解決してくれている</span></code></p>
-<p>根本原因を見出す。原因は<code class="docutils literal notranslate"><span class="pre">変化によって発生する</span></code></p>
+根本原因を見出す。原因は<code class="docutils literal notranslate"><span class="pre">変化によって発生する</span></code>ので直近の変化や変化の起因をトレースする</p>
+<p><code class="docutils literal notranslate"><span class="pre">今後直面すること以上に悲惨な問題を人々はこれまで解決してくれている。</span></code>その知見を体系化した仕組みがあり、その一つがICS(Incident Command System)</p>
 <section id="ics-incident-command-system">
 <h3>ICS(Incident Command System)<a class="headerlink" href="#ics-incident-command-system" title="この見出しへのパーマリンク">¶</a></h3>
 <p>インシデント対応の問題になるは、コミュニケーション・作業管掌区分であり、この課題を解決するべく開発されたシステムがICS。</p>

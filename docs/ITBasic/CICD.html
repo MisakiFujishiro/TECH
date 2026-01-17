@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>14. CICD &mdash; project  ドキュメント</title>
+  <title>15. CICD &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="15. 非機能" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html" />
-    <link rel="prev" title="13. SaaS" href="SaaS.html" /> 
+    <link rel="next" title="16. 非機能" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html" />
+    <link rel="prev" title="14. SaaS" href="SaaS.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -92,22 +92,23 @@
 <li class="toctree-l1"><a class="reference internal" href="server.html">7. サーバー</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">8. カーネル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Container.html">9. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">10. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">11. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NFS.html">12. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SaaS.html">13. SaaS</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">14. CICD</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ci-continuous-integration">14.1. CI(Continuous Integration)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cd-continuous-delivery">14.2. CD(Continuous Delivery)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">14.3. 試験自動化</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">14.3.1. ユニットテスト</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">14.3.2. インテグレーションテスト</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ui">14.3.3. UIテスト</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Terraform.html">10. Terraform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">11. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">12. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">13. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">14. SaaS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">15. CICD</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ci-continuous-integration">15.1. CI(Continuous Integration)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cd-continuous-delivery">15.2. CD(Continuous Delivery)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">15.3. 試験自動化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">15.3.1. ユニットテスト</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">15.3.2. インテグレーションテスト</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ui">15.3.3. UIテスト</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">15. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">16. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -158,7 +159,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">14. </span>CICD</li>
+      <li class="breadcrumb-item active"><span class="section-number">15. </span>CICD</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/ITBasic/CICD.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -169,36 +170,36 @@
            <div itemprop="articleBody">
              
   <section id="cicd">
-<h1><span class="section-number">14. </span>CICD<a class="headerlink" href="#cicd" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">15. </span>CICD<a class="headerlink" href="#cicd" title="この見出しへのパーマリンク">¶</a></h1>
 <p>多様なツールを連携させることで、ビルド・テスト・デプロイ・リリースを自動化する開発手法。
 CICDを導入することで、開発のスピードが上がり、機能開発の速度を上げることができる。</p>
 <section id="ci-continuous-integration">
-<h2><span class="section-number">14.1. </span>CI(Continuous Integration)<a class="headerlink" href="#ci-continuous-integration" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">15.1. </span>CI(Continuous Integration)<a class="headerlink" href="#ci-continuous-integration" title="この見出しへのパーマリンク">¶</a></h2>
 <p>アプリケーションのビルドとテストを自動化することを目標とする。</p>
 <p>１日に何度も自動でビルドとテストを行うことで、問題の早期発見、手戻り現象、品質向上、工数削減が可能となる。</p>
 </section>
 <section id="cd-continuous-delivery">
-<h2><span class="section-number">14.2. </span>CD(Continuous Delivery)<a class="headerlink" href="#cd-continuous-delivery" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">15.2. </span>CD(Continuous Delivery)<a class="headerlink" href="#cd-continuous-delivery" title="この見出しへのパーマリンク">¶</a></h2>
 <p>デプロイ・リリースのプロセス全体を自動化することを目標とする。</p>
 <p>短期間で継続的にリリーすることでビジネス要求の変化に対応したり、即時リリースなどに対応できるようになりリリースのハードルを下げることができる。</p>
 </section>
 <section id="id1">
-<h2><span class="section-number">14.3. </span>試験自動化<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">15.3. </span>試験自動化<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>テストを自動化することで、時間の削減やヒューマンエラーの抑制などの効果を得ることができる。
 回帰テスト（リグレッション）は時間の都合上スキップされてしまうことがあるが、自動化により行うことができる。</p>
 <p>自動化に向けては自動化の学習、スクリプの作成といった初期コストやテストコードのメンテナンスを踏まえたランニングコストがかかる点に注意。</p>
 <p>自動化のテストの対象としては、UT/IT/UIテストなどが挙げられる。
 自動化の親和性としては、ユニットテストが高い。</p>
 <section id="id2">
-<h3><span class="section-number">14.3.1. </span>ユニットテスト<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.3.1. </span>ユニットテスト<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>関数やメソッドなどのユニットごとにテストを行う。</p>
 </section>
 <section id="id3">
-<h3><span class="section-number">14.3.2. </span>インテグレーションテスト<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.3.2. </span>インテグレーションテスト<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>複数のモジュールやコンポーネントを組み合わせてシステム全体が正しく動いているかのテストをする。</p>
 </section>
 <section id="ui">
-<h3><span class="section-number">14.3.3. </span>UIテスト<a class="headerlink" href="#ui" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.3.3. </span>UIテスト<a class="headerlink" href="#ui" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ユーザーと同じようにブラウザなどから挙動が期待通りかを検証テストする。</p>
 </section>
 </section>
@@ -208,8 +209,8 @@ CICDを導入することで、開発のスピードが上がり、機能開発�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="SaaS.html" class="btn btn-neutral float-left" title="13. SaaS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html" class="btn btn-neutral float-right" title="15. 非機能" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="SaaS.html" class="btn btn-neutral float-left" title="14. SaaS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html" class="btn btn-neutral float-right" title="16. 非機能" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

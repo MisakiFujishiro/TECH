@@ -71,6 +71,7 @@
    ITBasic/server.md
    ITBasic/kernel.md
    ITBasic/Container.md
+   ITBasic/Terraform.md
    ITBasic/Kubernetes.md
    ITBasic/ServiceMesh.md
    ITBasic/NFS.md

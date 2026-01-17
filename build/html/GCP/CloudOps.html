@@ -604,17 +604,221 @@ Logging と Monitoring は統合されたオブザーバビリティ基盤の一
 </ul>
 </section>
 <section id="id7">
-<h3>シンク設定（エクスポート）<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<h3>ログシンク：エクスポート<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud Logging に蓄積されたログは、必要に応じて他のストレージやシステムにエクスポート（転送）することも可能。
 これを実現するのが ログシンク (Log Sink) 機能。
-Logging の ログルーター (Logs Router) は受け取った各ログエントリを内部で評価し、プロジェクトごとに設定されたシンクの条件にマッチしたものを指定の出力先にコピー・転送する。</p>
-<p>主な出力先として、以下のような Google Cloud サービスがサポートされている。
-シンク設定は Logging の「ログルーター」画面から行え、対象とするログ（フィルタ条件）と出力先を指定。デフォルトではプロジェクト毎に _Default というシンクがあり、すべてのログが Cloud Logging のバケットに保存される設定になっている。追加でシンクを作成することで、特定のログだけ別途エクスポートしたり、すべてのログを複製して他システムに送信するといったことが可能になる。</p>
+Cloud Logging に蓄積されたログは、Logs Router によって評価され、ユーザーが定義したログシンク（Log Sink）の条件に一致したログを他のストレージやシステムへエクスポートできる。</p>
+<p>ログシンクは、プロジェクト・フォルダ・組織のいずれのレベルでも作成可能であり、ログの保存先を追加・分岐させたい場合に利用される。</p>
+<p>主なログシンクの出力先</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>出力先</p></th>
+<th class="head text-left"><p>主な用途</p></th>
+<th class="head text-left"><p>利用シーン例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>BigQuery</p></td>
+<td class="text-left"><p>分析・検索・長期保持</p></td>
+<td class="text-left"><p>1年以上分のアプリケーションログを蓄積し、SQLでエラー傾向や利用状況を分析する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cloud Storage</p></td>
+<td class="text-left"><p>アーカイブ・監査</p></td>
+<td class="text-left"><p>規制対応のためログを削除せず長期保存する。圧縮やライフサイクル管理でコスト最適化</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Pub/Sub</p></td>
+<td class="text-left"><p>リアルタイム連携</p></td>
+<td class="text-left"><p>ログをストリーミングで外部SIEMや自社解析基盤（Datadog / Splunk 等）へ送信</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Logging バケット</p></td>
+<td class="text-left"><p>論理分離</p></td>
+<td class="text-left"><p>フォルダ単位・用途別にログバケットを分け、閲覧権限や保持期間を分離</p></td>
+</tr>
+</tbody>
+</table>
+<p>※Logging バケットはCloud Logging内の内蔵のストレージでバケットとあるがGCSとは無関係。後述の監査ログでも利用される。</p>
+</section>
+<section id="id8">
+<h3>監査ログ<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Google Cloud では、操作やアクセスの履歴を 監査ログ（Audit Logs） として記録する。</p>
+<p>監査ログの主な種類</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-left"><p>内容</p></th>
+<th class="head text-left"><p>デフォルト</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Admin Activity</p></td>
+<td class="text-left"><p>リソースの作成・削除・設定変更などの管理操作</p></td>
+<td class="text-left"><p>常に有効</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>System Event</p></td>
+<td class="text-left"><p>Google 管理下での内部操作</p></td>
+<td class="text-left"><p>常に有効</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Policy Denied</p></td>
+<td class="text-left"><p>IAM による拒否イベント</p></td>
+<td class="text-left"><p>常に有効</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Data Access</p></td>
+<td class="text-left"><p>データの読み書き（例：Cloud Storage オブジェクト参照）</p></td>
+<td class="text-left"><p>原則無効</p></td>
+</tr>
+</tbody>
+</table>
+<p>上記の情報はLogging バケットに保管され、以下の2つに保管される。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>ログバケット</p></th>
+<th class="head text-left"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>_Required</p></td>
+<td class="text-left"><p>重要な監査ログを必ず保存するためのバケット</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>_Default</p></td>
+<td class="text-left"><p>_Required に該当しないログの保存先</p></td>
+</tr>
+</tbody>
+</table>
+<section id="required">
+<h4>_Required バケット<a class="headerlink" href="#required" title="この見出しへのパーマリンク">¶</a></h4>
+<p>以下の監査ログは、Cloud Logging に組み込まれた内部ルールにより 必ず _Required に保存される</p>
 <ul class="simple">
-<li><p>BigQuery – ログを BigQuery のデータセットにエクスポートできます。これにより、ログデータをSQLでクエリし高度な分析を行ったり、長期間（Cloud Loggingの標準保持期間以上に）データを保持してトレンドを分析したりできる。例えば1年間分のアプリケーションログを BigQuery に貯めておき、後からエラーの発生傾向を統計的に調べる、といった使い方が可能。</p></li>
-<li><p>Cloud Storage – ログを Cloud Storage バケットにエクスポートすれば、アーカイブとして長期保存したり、生ログファイルとして保管できる。規制遵守や監査の目的でログを削除せず保管したい場合に有用。また、圧縮・ライフサイクル管理など Cloud Storage の機能を活用してコスト効率よく保存できる。</p></li>
-<li><p>Pub/Sub – ログを Pub/Sub トピックにストリーミング配信することもできる。Pub/Sub に流したログは独自のログ処理パイプラインやサードパーティ製の解析基盤に連携可能。たとえばリアルタイムにログを Pub/Sub 経由でデータ処理基盤（DatadogやSplunk、自社の分析システムなど）に送り込み、モニタリングや機械学習のフィードとするといった応用ができる。</p></li>
+<li><p>Admin Activity</p></li>
+<li><p>System Event</p></li>
+<li><p>Policy Denied</p></li>
 </ul>
+<p>Data Access 監査ログは、明示的に有効化された場合のみ生成され、生成された場合は _Required に保存される</p>
+<p>_Required バケット内のログは</p>
+<ul class="simple">
+<li><p>除外不可</p></li>
+<li><p>無効化不可</p></li>
+</ul>
+<p>とされており、セキュリティ・コンプライアンス上の基盤となる</p>
+</section>
+<section id="default">
+<h4>_Default バケット<a class="headerlink" href="#default" title="この見出しへのパーマリンク">¶</a></h4>
+<p>_Defaultバケットには、_Required に該当しない すべてのログ が保存される。
+アプリケーションログ、インフラログ、デバッグログなどが主な対象</p>
+</section>
+<section id="id9">
+<h4>監査ログを閲覧するのに必要な権限<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
+<p>監査ログを閲覧するためには、<code class="docutils literal notranslate"><span class="pre">roles/logging.viwer</span></code>か<code class="docutils literal notranslate"><span class="pre">roles/privateLogViewe</span></code>のどちらかの権限が必要。Data Accessを閲覧する場合にはprivateLogViewerの権限が必要。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>ログの種類</p></th>
+<th class="head text-left"><p>位置づけ</p></th>
+<th class="head text-left"><p>必要なロール</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Admin Activity</p></td>
+<td class="text-left"><p>監査ログ（非 private）</p></td>
+<td class="text-left"><p>roles/logging.viewer</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>System Event</p></td>
+<td class="text-left"><p>監査ログ（非 private）</p></td>
+<td class="text-left"><p>roles/logging.viewer</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Policy Denied</p></td>
+<td class="text-left"><p>監査ログ（非 private）</p></td>
+<td class="text-left"><p>roles/logging.viewer</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Data Access</p></td>
+<td class="text-left"><p>private logs</p></td>
+<td class="text-left"><p>roles/logging.privateLogViewer</p></td>
+</tr>
+</tbody>
+</table>
+<p>Data Accessがどうしてプライベートの権限かというと、Data Access監査ログは「管理操作」ではなく、「実データへのアクセス」を記録しており、Cloud Storageの特定のオブジェクト名など、データの存在や構造を推測できるようなノグが出力されている。</p>
+</section>
+</section>
+<section id="id10">
+<h3>ログビュー<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cloud Loggingを誰に見せるかの制御は<code class="docutils literal notranslate"><span class="pre">ログビュー</span></code>で管理される。
+ログビューは、フィルタリングおよびIMAの付与が可能で制御に向いている。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[ Logging Project ]
+     └─ Log Bucket: _Default
+        └─ Log View: _Default
+        └─ Log View: _AllLogs
+        └─ Log View: &lt;custom-view&gt;
+</pre></div>
+</div>
+<p>ビューの例は以下</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>ビュー</p></th>
+<th class="head text-left"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>_Default</p></td>
+<td class="text-left"><p>そのログバケットに「格納されているログ」だけを表示するビュー</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>_AllLogs</p></td>
+<td class="text-left"><p>プロジェクト内で「どのバケットにあっても」すべてのログを横断表示するビュー</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>カスタムビュー</p></td>
+<td class="text-left"><p>フィルタ条件に合致したログのみ</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ops">
+<h3>Opsエージェント<a class="headerlink" href="#ops" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Compute Engine「自体」の一部のログは自動で送られるが、VM 上で動く OS・アプリのログや詳細メトリクスは送られない。
+ログやメトリクスを収集し、Cloud LoggingやCloud Monitoringに送信するためのエージェントとしてOps Agentを利用する。</p>
+<p>OpsAgentはVMの中で、ログを集め、メトリクスを集め、Cloud LoggingやCloud Monitoringに送信する。</p>
+<p>ロギングについては、ロギングレシーバーと呼ばれる設定を行なって、「どのログをどの形式で」読み取るか定義して送信する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>アプリログ
+  ↓
+Ops Agent（ロギングレシーバー）
+  ↓
+Cloud Logging
+</pre></div>
+</div>
+<p>メトリクスについては、メトリクスレシーバーと呼ばれる設定を行なって、「どのメトリクスをどの間隔で」取得するかを定義して送信する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>VM 内のリソース状況
+  ↓
+Ops Agent（メトリクスレシーバー）
+  ↓
+Cloud Monitoring
+</pre></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>観点</p></th>
+<th class="head text-left"><p>ロギング</p></th>
+<th class="head text-left"><p>メトリクス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>扱うもの</p></td>
+<td class="text-left"><p>テキスト</p></td>
+<td class="text-left"><p>数値</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>例</p></td>
+<td class="text-left"><p>IPアドレス、URL</p></td>
+<td class="text-left"><p>CPU%、メモリMB</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>保存先</p></td>
+<td class="text-left"><p>Cloud Logging</p></td>
+<td class="text-left"><p>Cloud Monitoring</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>検索</p></td>
+<td class="text-left"><p>強い</p></td>
+<td class="text-left"><p>弱い</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>グラフ</p></td>
+<td class="text-left"><p>ログベース指標経由</p></td>
+<td class="text-left"><p>直接可能</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 </section>

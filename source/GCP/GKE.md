@@ -3,6 +3,84 @@
 GKEのKSAでGoogleCloud IAM SAを利用する際の詳細はIAM側で解説。
 GSAを利用しつつ、GSAを代替利用することができる。
 
+## Anthos Config Management
+Google Kubernetes Engine（GKE）では、単にアプリケーションを動かすだけでなく、
+- 構成の一貫性
+- ポリシーによるガードレール
+- Git を正とした運用（GitOps）
+
+が求められる。
+
+これらを支える中核が`Anthos Config Management`を中心とした一連のコンポーネント群である。
+
+### Anthos Config Managementとは
+Anthos Config Management は、Kubernetes クラスターの構成とポリシーを Git リポジトリで一元管理し、自動同期する Google Cloud のマネージドサービスである。
+
+Git を唯一の正（Source of Truth）として、クラスターが定期的に Git を監視し、差分を自動適用手動で kubectl apply を実行する必要がない
+
+管理対象
+- Namespace
+- RBAC
+- NetworkPolicy
+- Policy Controller（制約テンプレート・制約）
+- その他 Kubernetes マニフェスト
+
+### Config Sync
+Config Sync は、Anthos Config Management の中核となる同期エンジンである。
+- Git リポジトリを定期的にポーリング
+- YAML マニフェストを Kubernetes API に適用
+- 差分検出と再同期（drift correction）を実施
+
+### Policy Controller
+Policy Controller は、Kubernetes リソース作成・更新時にポリシーを強制するための仕組みである。
+- Kubernetes Admission Controller として動作
+- ルール違反のリソースを作成時に拒否
+- 既存リソースの監査（audit）も可能
+
+### OPA Gatekeeper
+OPA Gatekeeper は、Kubernetes 向けのポリシーエンジン（OSS）である。
+- OPA（Open Policy Agent）を Kubernetes に統合
+- ポリシーをコード（Rego）として記述
+- Admission Controller として動作
+
+### 制約テンプレート（ConstraintTemplate）
+制約テンプレートは、「どのようなポリシーを作れるか」を定義する設計図（型）である。
+- Rego による検証ロジックを含む
+- 再利用前提で組織共通化される
+- 単体では制限を発動しない
+
+### ポリシーパラメータ（Constraint）
+ポリシーパラメータは、制約テンプレートに具体的な値を与えてポリシーを有効化するものである。
+- 環境ごとに値を変えられる
+- Git 管理される変更対象
+- 実際に制限を発動する主体
+
+### それぞれの関係
+k8sにおいて、作成されるルールを統制するための仕組みの関係は以下
+
+git~ConstraintTemplate/Constraint
+```
+Git Repository（正）
+        ↓
+Config Sync
+        ↓
+Kubernetes クラスター内に
+ConstraintTemplate / Constraint を常に存在させる
+```
+
+ConstraintTemplate/Constraint~k8s cluster
+```
+ConstraintTemplate（ルールの定義）
+        ↓
+Constraint（ルールの具体化）
+        ↓
+Policy Controller（検査・判断・拒否を行う実行エンジン）
+        ↓
+Kubernetes API Server
+        ↓
+リソースを許可 or 拒否
+```
+
 ## Managed Service for Prometheus
 Prometheus 互換のメトリクスをフルマネージドで扱える Google Cloud のサービスであり、Prometheusのストレージ管理や高可用性、スケーリングを意識せずに PromQL を利用できる。
 
