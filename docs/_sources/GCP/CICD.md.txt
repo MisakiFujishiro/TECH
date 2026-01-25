@@ -43,6 +43,12 @@ Cloud Buildの役割は、「CI を担う実行基盤」
 - Binary Authorization 用の attestation を生成可能
 - Cloud Deploy を操作するコマンドを実行することはあるが、昇格判断は行わない
 
+### CloudStorageを利用したビルドキャッシュ
+Cloud Build では、Cloud Storage をビルドキャッシュとして利用できる。
+これは、ビルドステップで使用するディレクトリを GCS に保存・復元する仕組みである。
+Docker ビルドに限定されるレイヤキャッシュとは異なり、ビルドツール非依存で利用できる。
+Node.js、Java、Go など、各言語の依存関係キャッシュをそのまま再利用可能である。
+既存のビルド手順を大きく変更せずに導入できる点が特徴である。
 
 ## ArtifactRegistry
 ArtifactRegistryの役割は、「保管場所」

@@ -240,6 +240,60 @@ GCP におけるプロジェクト間をまたいだリソース操作は、
 これは IAM 権限とは別の「サービス利用可否」の設定であり、権限が正しく付与されていても API が無効な場合は接続に失敗する。
 
 
+## サービスエージェント
+サービスエージェント（Service Agent）とは、Google Cloud のマネージドサービスが、プロジェクト内のリソースを操作するために使用する `Google 管理のサービスアカウント`
+- 人が操作するものではない
+- アプリケーションコードから直接使うものでもない
+- GCP サービス自身が「代理で」API 操作・リソース管理を行うための主体
+
+
+プロジェクト内での作られ方
+- プロジェクト × GCPサービスごとに1つ
+- 同一プロジェクトでも、サービスが異なれば別のサービスエージェントが存在する
+
+例：
+- Cloud Run 用サービスエージェント
+- Cloud Build 用サービスエージェント
+- Serverless VPC Access 用サービスエージェント
+
+### 実行時サービスアカウントとの違い
+
+| 観点 | サービスエージェント | 実行時サービスアカウント |
+|---|---|---|
+| 主体 | GCP マネージドサービス | アプリケーション |
+| 主な役割 | リソース作成・制御・管理 | API 呼び出し |
+| 使用者 | Google Cloud | 開発者が指定 |
+| 例 | VPC Connector 操作 | Pub/Sub, GCS へのアクセス |
+
+インフラを「操作する」のはサービスエージェント、  
+データやAPIを「利用する」のが実行時サービスアカウント。
+
+
+### サービスエージェントに権限付与が必要な代表的な箇所
+以下は 実行時サービスアカウントでは解決しない 代表例。
+
+|利用シーン|権限を付与する対象|付与先リソース|必要な代表的ロール|
+|:----|:----|:----|:----|
+|Cloud Run / Cloud Functions が VPC Connector を利用|各サービスのサービスエージェント|VPC Connector または プロジェクト|roles/vpcaccess.user|
+|Cloud Run / Cloud Functions が Artifact Registry からイメージを pull|各サービスのサービスエージェント|Artifact Registry リポジトリ|roles/artifactregistry.reader|
+|Cloud Scheduler が Pub/Sub に publish|Cloud Scheduler サービスエージェント|Pub/Sub トピック|roles/pubsub.publisher|
+|Cloud Scheduler が HTTP / Cloud Run を invoke|Cloud Scheduler サービスエージェント|Cloud Run サービス|roles/run.invoker|
+|Cloud Build が GKE / Cloud Run にデプロイ|Cloud Build サービスエージェント|対象リソース|roles/container.developer, roles/run.admin など|
+|Eventarc がイベントを配信|Eventarc サービスエージェント|Pub/Sub / Cloud Run|roles/eventarc.eventReceiver 等|
+|GKE Autopilot が LB や FW を自動作成|GKE サービスエージェント|プロジェクト|roles/container.serviceAgent|
+
+### なぜ実行時サービスアカウントではダメなのか
+
+典型的な誤解：
+
+Cloud Run が VPC Connector を使う  
+→ Cloud Run の実行時サービスアカウントに権限が必要そう
+
+実際の構造：
+- VPC Connector の作成・接続・管理は インフラ操作
+- アプリケーション処理ではない
+- GCP サービス自身が操作を行う
+- 操作主体は サービスエージェント
 
 ## Identity-Aware Proxy (IAP)
 IAP は Google Cloud が提供する認証・認可プロキシである。

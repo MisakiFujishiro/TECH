@@ -86,10 +86,16 @@
 <li class="toctree-l3"><a class="reference internal" href="#api">2.6.1. 補足：API 有効化が必要なマネージドサービス</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#identity-aware-proxy-iap">2.7. Identity-Aware Proxy (IAP)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#iap">2.7.1. IAPの役割</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iap-load-balancer">2.7.2. IAP と Load Balancer の関係</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">2.7.3. IAPの処理詳細</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">2.7. サービスエージェント</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">2.7.1. 実行時サービスアカウントとの違い</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">2.7.2. サービスエージェントに権限付与が必要な代表的な箇所</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">2.7.3. なぜ実行時サービスアカウントではダメなのか</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#identity-aware-proxy-iap">2.8. Identity-Aware Proxy (IAP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iap">2.8.1. IAPの役割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iap-load-balancer">2.8.2. IAP と Load Balancer の関係</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">2.8.3. IAPの処理詳細</a></li>
 </ul>
 </li>
 </ul>
@@ -512,13 +518,127 @@ Role：roles/iam.workloadIdentityUser
 <p>これは IAM 権限とは別の「サービス利用可否」の設定であり、権限が正しく付与されていても API が無効な場合は接続に失敗する。</p>
 </section>
 </section>
+<section id="id6">
+<h2><span class="section-number">2.7. </span>サービスエージェント<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
+<p>サービスエージェント（Service Agent）とは、Google Cloud のマネージドサービスが、プロジェクト内のリソースを操作するために使用する <code class="docutils literal notranslate"><span class="pre">Google</span> <span class="pre">管理のサービスアカウント</span></code></p>
+<ul class="simple">
+<li><p>人が操作するものではない</p></li>
+<li><p>アプリケーションコードから直接使うものでもない</p></li>
+<li><p>GCP サービス自身が「代理で」API 操作・リソース管理を行うための主体</p></li>
+</ul>
+<p>プロジェクト内での作られ方</p>
+<ul class="simple">
+<li><p>プロジェクト × GCPサービスごとに1つ</p></li>
+<li><p>同一プロジェクトでも、サービスが異なれば別のサービスエージェントが存在する</p></li>
+</ul>
+<p>例：</p>
+<ul class="simple">
+<li><p>Cloud Run 用サービスエージェント</p></li>
+<li><p>Cloud Build 用サービスエージェント</p></li>
+<li><p>Serverless VPC Access 用サービスエージェント</p></li>
+</ul>
+<section id="id7">
+<h3><span class="section-number">2.7.1. </span>実行時サービスアカウントとの違い<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>観点</p></th>
+<th class="head"><p>サービスエージェント</p></th>
+<th class="head"><p>実行時サービスアカウント</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>主体</p></td>
+<td><p>GCP マネージドサービス</p></td>
+<td><p>アプリケーション</p></td>
+</tr>
+<tr class="row-odd"><td><p>主な役割</p></td>
+<td><p>リソース作成・制御・管理</p></td>
+<td><p>API 呼び出し</p></td>
+</tr>
+<tr class="row-even"><td><p>使用者</p></td>
+<td><p>Google Cloud</p></td>
+<td><p>開発者が指定</p></td>
+</tr>
+<tr class="row-odd"><td><p>例</p></td>
+<td><p>VPC Connector 操作</p></td>
+<td><p>Pub/Sub, GCS へのアクセス</p></td>
+</tr>
+</tbody>
+</table>
+<p>インフラを「操作する」のはサービスエージェント、<br />
+データやAPIを「利用する」のが実行時サービスアカウント。</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">2.7.2. </span>サービスエージェントに権限付与が必要な代表的な箇所<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>以下は 実行時サービスアカウントでは解決しない 代表例。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>利用シーン</p></th>
+<th class="head text-left"><p>権限を付与する対象</p></th>
+<th class="head text-left"><p>付与先リソース</p></th>
+<th class="head text-left"><p>必要な代表的ロール</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Cloud Run / Cloud Functions が VPC Connector を利用</p></td>
+<td class="text-left"><p>各サービスのサービスエージェント</p></td>
+<td class="text-left"><p>VPC Connector または プロジェクト</p></td>
+<td class="text-left"><p>roles/vpcaccess.user</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cloud Run / Cloud Functions が Artifact Registry からイメージを pull</p></td>
+<td class="text-left"><p>各サービスのサービスエージェント</p></td>
+<td class="text-left"><p>Artifact Registry リポジトリ</p></td>
+<td class="text-left"><p>roles/artifactregistry.reader</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Cloud Scheduler が Pub/Sub に publish</p></td>
+<td class="text-left"><p>Cloud Scheduler サービスエージェント</p></td>
+<td class="text-left"><p>Pub/Sub トピック</p></td>
+<td class="text-left"><p>roles/pubsub.publisher</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cloud Scheduler が HTTP / Cloud Run を invoke</p></td>
+<td class="text-left"><p>Cloud Scheduler サービスエージェント</p></td>
+<td class="text-left"><p>Cloud Run サービス</p></td>
+<td class="text-left"><p>roles/run.invoker</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Cloud Build が GKE / Cloud Run にデプロイ</p></td>
+<td class="text-left"><p>Cloud Build サービスエージェント</p></td>
+<td class="text-left"><p>対象リソース</p></td>
+<td class="text-left"><p>roles/container.developer, roles/run.admin など</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Eventarc がイベントを配信</p></td>
+<td class="text-left"><p>Eventarc サービスエージェント</p></td>
+<td class="text-left"><p>Pub/Sub / Cloud Run</p></td>
+<td class="text-left"><p>roles/eventarc.eventReceiver 等</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>GKE Autopilot が LB や FW を自動作成</p></td>
+<td class="text-left"><p>GKE サービスエージェント</p></td>
+<td class="text-left"><p>プロジェクト</p></td>
+<td class="text-left"><p>roles/container.serviceAgent</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id9">
+<h3><span class="section-number">2.7.3. </span>なぜ実行時サービスアカウントではダメなのか<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<p>典型的な誤解：</p>
+<p>Cloud Run が VPC Connector を使う<br />
+→ Cloud Run の実行時サービスアカウントに権限が必要そう</p>
+<p>実際の構造：</p>
+<ul class="simple">
+<li><p>VPC Connector の作成・接続・管理は インフラ操作</p></li>
+<li><p>アプリケーション処理ではない</p></li>
+<li><p>GCP サービス自身が操作を行う</p></li>
+<li><p>操作主体は サービスエージェント</p></li>
+</ul>
+</section>
+</section>
 <section id="identity-aware-proxy-iap">
-<h2><span class="section-number">2.7. </span>Identity-Aware Proxy (IAP)<a class="headerlink" href="#identity-aware-proxy-iap" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">2.8. </span>Identity-Aware Proxy (IAP)<a class="headerlink" href="#identity-aware-proxy-iap" title="この見出しへのパーマリンク">¶</a></h2>
 <p>IAP は Google Cloud が提供する認証・認可プロキシである。
 アプリケーション自身にログイン処理や認証ロジックを実装しなくても、Google アカウント（Google Workspace 含む）を使った安全なアクセス制御を実現できます。
 Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できます。</p>
 <section id="iap">
-<h3><span class="section-number">2.7.1. </span>IAPの役割<a class="headerlink" href="#iap" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.8.1. </span>IAPの役割<a class="headerlink" href="#iap" title="この見出しへのパーマリンク">¶</a></h3>
 <p>IAP はアプリケーションの 前段（HTTP(S) ロードバランサ等）に配置され、次を担当します。</p>
 <ul class="simple">
 <li><p>ユーザー認証</p></li>
@@ -529,7 +649,7 @@ Identity-Aware Proxyにより、アプリケーションに直接認証ロジッ
 </ul>
 </section>
 <section id="iap-load-balancer">
-<h3><span class="section-number">2.7.2. </span>IAP と Load Balancer の関係<a class="headerlink" href="#iap-load-balancer" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">2.8.2. </span>IAP と Load Balancer の関係<a class="headerlink" href="#iap-load-balancer" title="この見出しへのパーマリンク">¶</a></h3>
 <p>IAP は 単体で通信を受けるサービスではない。
 必ず Cloud Load Balancing（HTTP(S) Load Balancer）と組み合わせて利用される。</p>
 <p>立ち位置の整理</p>
@@ -539,8 +659,8 @@ Identity-Aware Proxyにより、アプリケーションに直接認証ロジッ
 <li><p>クライアントは 必ず Load Balancer 経由で IAP を通過する</p></li>
 </ul>
 </section>
-<section id="id6">
-<h3><span class="section-number">2.7.3. </span>IAPの処理詳細<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id10">
+<h3><span class="section-number">2.8.3. </span>IAPの処理詳細<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
 <p>AP による認証が成功すると、IAP が署名した JWT がバックエンドに渡されます。</p>
 <ul class="simple">
 <li><p>処理イメージ</p>

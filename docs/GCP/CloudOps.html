@@ -91,7 +91,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id10">13.1.8. ログビュー</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ops">13.1.9. Opsエージェント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">13.1.9. 集約ログシンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ops">13.1.10. Opsエージェント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">13.1.11. エージェントポリシー</a></li>
 </ul>
 </li>
 </ul>
@@ -796,8 +798,19 @@ Cloud Logging に蓄積されたログは、Logs Router によって評価され
 </tbody>
 </table>
 </section>
+<section id="id11">
+<h3><span class="section-number">13.1.9. </span>集約ログシンク<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>集約ログシンクは、Cloud Logging において
+組織またはフォルダ配下の複数プロジェクトのログを一括でエクスポートするための仕組みである。</p>
+<p>シンクの作成場所を、以下のレベルで設定</p>
+<ul class="simple">
+<li><p>組織</p></li>
+<li><p>フォルダ</p></li>
+</ul>
+<p>配下に存在するすべての既存プロジェクト将来追加されるプロジェクトのログが自動的に対象になる。</p>
+</section>
 <section id="ops">
-<h3><span class="section-number">13.1.9. </span>Opsエージェント<a class="headerlink" href="#ops" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">13.1.10. </span>Opsエージェント<a class="headerlink" href="#ops" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Compute Engine「自体」の一部のログは自動で送られるが、VM 上で動く OS・アプリのログや詳細メトリクスは送られない。
 ログやメトリクスを収集し、Cloud LoggingやCloud Monitoringに送信するためのエージェントとしてOps Agentを利用する。</p>
 <p>OpsAgentはVMの中で、ログを集め、メトリクスを集め、Cloud LoggingやCloud Monitoringに送信する。</p>
@@ -847,6 +860,11 @@ Cloud Monitoring
 </tr>
 </tbody>
 </table>
+</section>
+<section id="id12">
+<h3><span class="section-number">13.1.11. </span>エージェントポリシー<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Ops Agentについて、どのような状態であるべきかについて宣言的に定義する仕組み。
+既存VMおよび将来新規作成されるすべてのVMを対象に設定可能。</p>
 </section>
 </section>
 </section>

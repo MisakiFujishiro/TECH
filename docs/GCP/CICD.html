@@ -64,7 +64,10 @@
 <li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Network.html">4. Network</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">5. CICD</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-build">5.1. Cloud Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-build">5.1. Cloud Build</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cloudstorage">5.1.1. CloudStorageを利用したビルドキャッシュ</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#artifactregistry">5.2. ArtifactRegistry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-deploy">5.3. Cloud Deploy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#binary-authorization">5.4. Binary Authorization</a></li>
@@ -228,6 +231,14 @@ Binary Authorization
 <li><p>Binary Authorization 用の attestation を生成可能</p></li>
 <li><p>Cloud Deploy を操作するコマンドを実行することはあるが、昇格判断は行わない</p></li>
 </ul>
+<section id="cloudstorage">
+<h3><span class="section-number">5.1.1. </span>CloudStorageを利用したビルドキャッシュ<a class="headerlink" href="#cloudstorage" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cloud Build では、Cloud Storage をビルドキャッシュとして利用できる。
+これは、ビルドステップで使用するディレクトリを GCS に保存・復元する仕組みである。
+Docker ビルドに限定されるレイヤキャッシュとは異なり、ビルドツール非依存で利用できる。
+Node.js、Java、Go など、各言語の依存関係キャッシュをそのまま再利用可能である。
+既存のビルド手順を大きく変更せずに導入できる点が特徴である。</p>
+</section>
 </section>
 <section id="artifactregistry">
 <h2><span class="section-number">5.2. </span>ArtifactRegistry<a class="headerlink" href="#artifactregistry" title="この見出しへのパーマリンク">¶</a></h2>
