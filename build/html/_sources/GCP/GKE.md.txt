@@ -3,6 +3,11 @@
 GKEのKSAでGoogleCloud IAM SAを利用する際の詳細はIAM側で解説。
 GSAを利用しつつ、GSAを代替利用することができる。
 
+## Config Connector
+Config Connectorとは、Kubernetes のアドオンであり、Kubernetes API を通じて Google Cloud リソースを宣言的に管理する機能。
+
+GCPのリソースについて宣言的な構成管理を実現し、リソースの現在の状態を監視し、宣言された構成との差異を検出すると自動的に調整を行う。これにより、構成ドリフトを防止し、インフラストラクチャが期待される状態に保たれます。
+
 ## Anthos Config Management
 Google Kubernetes Engine（GKE）では、単にアプリケーションを動かすだけでなく、
 - 構成の一貫性

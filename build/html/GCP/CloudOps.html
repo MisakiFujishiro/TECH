@@ -738,8 +738,19 @@ Cloud Logging に蓄積されたログは、Logs Router によって評価され
 </section>
 </section>
 <section id="id10">
-<h3>ログビュー<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
-<p>Cloud Loggingを誰に見せるかの制御は<code class="docutils literal notranslate"><span class="pre">ログビュー</span></code>で管理される。
+<h3>集約ログシンク<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>集約ログシンクは、Cloud Logging において
+組織またはフォルダ配下の複数プロジェクトのログのコピーを一括で<code class="docutils literal notranslate"><span class="pre">エクスポート</span></code>するための仕組みである。</p>
+<p>シンクの作成場所を、以下のレベルで設定</p>
+<ul class="simple">
+<li><p>組織</p></li>
+<li><p>フォルダ</p></li>
+</ul>
+<p>配下に存在するすべての既存プロジェクト将来追加されるプロジェクトのログが自動的に対象になる。</p>
+</section>
+<section id="id11">
+<h3>ログビュー<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cloud Loggingのログをを誰に見せるかの制御は<code class="docutils literal notranslate"><span class="pre">ログビュー</span></code>で管理される。
 ログビューは、フィルタリングおよびIMAの付与が可能で制御に向いている。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[ Logging Project ]
      └─ Log Bucket: _Default
@@ -768,16 +779,10 @@ Cloud Logging に蓄積されたログは、Logs Router によって評価され
 </tbody>
 </table>
 </section>
-<section id="id11">
-<h3>集約ログシンク<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
-<p>集約ログシンクは、Cloud Logging において
-組織またはフォルダ配下の複数プロジェクトのログを一括でエクスポートするための仕組みである。</p>
-<p>シンクの作成場所を、以下のレベルで設定</p>
-<ul class="simple">
-<li><p>組織</p></li>
-<li><p>フォルダ</p></li>
-</ul>
-<p>配下に存在するすべての既存プロジェクト将来追加されるプロジェクトのログが自動的に対象になる。</p>
+<section id="id12">
+<h3>メトリクススコープ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>メトリクススコープとは、Cloud Monitoringにおいて、複数のプロジェクトのメトリクスをまとめてみるための機能。
+メトリクスは、元のPJに残るが、複数のPJのメトリクスやアラートを一つのMonitoringUIで表示可能。</p>
 </section>
 <section id="ops">
 <h3>Opsエージェント<a class="headerlink" href="#ops" title="この見出しへのパーマリンク">¶</a></h3>
@@ -831,8 +836,8 @@ Cloud Monitoring
 </tbody>
 </table>
 </section>
-<section id="id12">
-<h3>エージェントポリシー<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id13">
+<h3>エージェントポリシー<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Ops Agentについて、どのような状態であるべきかについて宣言的に定義する仕組み。
 既存VMおよび将来新規作成されるすべてのVMを対象に設定可能。</p>
 </section>

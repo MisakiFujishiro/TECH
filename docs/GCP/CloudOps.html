@@ -90,12 +90,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#id9">13.1.7.3. 監査ログを閲覧するのに必要な権限</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">13.1.8. ログビュー</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">13.1.9. 集約ログシンク</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ops">13.1.10. Opsエージェント</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">13.1.11. エージェントポリシー</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">13.1.8. 集約ログシンク</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">13.1.9. ログビュー</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">13.1.10. メトリクススコープ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ops">13.1.11. Opsエージェント</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">13.1.12. エージェントポリシー</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#error-reporting">13.2. Error Reporting</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="DB.html">14. DB</a></li>
@@ -768,8 +770,19 @@ Cloud Logging に蓄積されたログは、Logs Router によって評価され
 </section>
 </section>
 <section id="id10">
-<h3><span class="section-number">13.1.8. </span>ログビュー<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
-<p>Cloud Loggingを誰に見せるかの制御は<code class="docutils literal notranslate"><span class="pre">ログビュー</span></code>で管理される。
+<h3><span class="section-number">13.1.8. </span>集約ログシンク<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>集約ログシンクは、Cloud Logging において
+組織またはフォルダ配下の複数プロジェクトのログのコピーを一括で<code class="docutils literal notranslate"><span class="pre">エクスポート</span></code>するための仕組みである。</p>
+<p>シンクの作成場所を、以下のレベルで設定</p>
+<ul class="simple">
+<li><p>組織</p></li>
+<li><p>フォルダ</p></li>
+</ul>
+<p>配下に存在するすべての既存プロジェクト将来追加されるプロジェクトのログが自動的に対象になる。</p>
+</section>
+<section id="id11">
+<h3><span class="section-number">13.1.9. </span>ログビュー<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cloud Loggingのログをを誰に見せるかの制御は<code class="docutils literal notranslate"><span class="pre">ログビュー</span></code>で管理される。
 ログビューは、フィルタリングおよびIMAの付与が可能で制御に向いている。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[ Logging Project ]
      └─ Log Bucket: _Default
@@ -798,19 +811,13 @@ Cloud Logging に蓄積されたログは、Logs Router によって評価され
 </tbody>
 </table>
 </section>
-<section id="id11">
-<h3><span class="section-number">13.1.9. </span>集約ログシンク<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
-<p>集約ログシンクは、Cloud Logging において
-組織またはフォルダ配下の複数プロジェクトのログを一括でエクスポートするための仕組みである。</p>
-<p>シンクの作成場所を、以下のレベルで設定</p>
-<ul class="simple">
-<li><p>組織</p></li>
-<li><p>フォルダ</p></li>
-</ul>
-<p>配下に存在するすべての既存プロジェクト将来追加されるプロジェクトのログが自動的に対象になる。</p>
+<section id="id12">
+<h3><span class="section-number">13.1.10. </span>メトリクススコープ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>メトリクススコープとは、Cloud Monitoringにおいて、複数のプロジェクトのメトリクスをまとめてみるための機能。
+メトリクスは、元のPJに残るが、複数のPJのメトリクスやアラートを一つのMonitoringUIで表示可能。</p>
 </section>
 <section id="ops">
-<h3><span class="section-number">13.1.10. </span>Opsエージェント<a class="headerlink" href="#ops" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">13.1.11. </span>Opsエージェント<a class="headerlink" href="#ops" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Compute Engine「自体」の一部のログは自動で送られるが、VM 上で動く OS・アプリのログや詳細メトリクスは送られない。
 ログやメトリクスを収集し、Cloud LoggingやCloud Monitoringに送信するためのエージェントとしてOps Agentを利用する。</p>
 <p>OpsAgentはVMの中で、ログを集め、メトリクスを集め、Cloud LoggingやCloud Monitoringに送信する。</p>
@@ -861,11 +868,32 @@ Cloud Monitoring
 </tbody>
 </table>
 </section>
-<section id="id12">
-<h3><span class="section-number">13.1.11. </span>エージェントポリシー<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id13">
+<h3><span class="section-number">13.1.12. </span>エージェントポリシー<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Ops Agentについて、どのような状態であるべきかについて宣言的に定義する仕組み。
 既存VMおよび将来新規作成されるすべてのVMを対象に設定可能。</p>
 </section>
+</section>
+<section id="error-reporting">
+<h2><span class="section-number">13.2. </span>Error Reporting<a class="headerlink" href="#error-reporting" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud Logging などから受け取った情報をもとに<br />
+アプリケーションエラーを抽出・集約し、Google Cloud Console 上で可視化するためのサービス。
+エラーを「意味的に同じ単位」でグルーピングし、  人間（運用者・SRE）がエラーの傾向や影響範囲を把握しやすくすることが目的</p>
+<p>Error Reportingにエラーを集約する方法は2つある</p>
+<ul class="simple">
+<li><p>Error Reporting API<br />
+アプリケーションから Error Reporting API の <code class="docutils literal notranslate"><span class="pre">report</span></code> メソッドを呼び出し</p></li>
+<li><p>Cloud Loggingから自動抽出<br />
+Cloud Logging に書き込まれたログのうちError Reporting が認識できる形式・内容を持つログエントリを自動的に検出・集約</p></li>
+</ul>
+<p>ReportedErrorEvent は、Error Reporting が理解できるエラーイベントの正式なデータ構造（JSON スキーマ）である。</p>
+<ul class="simple">
+<li><p>message: UI 上でエラーのタイトルとして表示される</p></li>
+<li><p>serviceContext: サービス名、バージョン</p></li>
+<li><p>reportLocation: ファイル名、行番号、関数名</p></li>
+<li><p>httpRequest: URL、メソッド、レスポンスコードなど</p></li>
+</ul>
+<p>この形式でエラー情報が渡されると、Error Reporting は確実にエラーとして認識・集約できる。</p>
 </section>
 </section>
 

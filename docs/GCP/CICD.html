@@ -66,6 +66,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">5. CICD</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-build">5.1. Cloud Build</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#cloudstorage">5.1.1. CloudStorageを利用したビルドキャッシュ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloudbuild">5.1.2. CloudBuild プライベートプール</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#artifactregistry">5.2. ArtifactRegistry</a></li>
@@ -238,6 +239,28 @@ Binary Authorization
 Docker ビルドに限定されるレイヤキャッシュとは異なり、ビルドツール非依存で利用できる。
 Node.js、Java、Go など、各言語の依存関係キャッシュをそのまま再利用可能である。
 既存のビルド手順を大きく変更せずに導入できる点が特徴である。</p>
+</section>
+<section id="cloudbuild">
+<h3><span class="section-number">5.1.2. </span>CloudBuild プライベートプール<a class="headerlink" href="#cloudbuild" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Cloud Buildを利用したCIのパイプラインにおいて、プライベートVPC内のリソースにアクセスしたいという要件に応えるためのサービスがCloud Buildのプライベートプールである。</p>
+<p>通常のCloudBuildは、GCP管理する共有ネットワーク上で実行されるため、ユーザーの管理するVPC外で実行されることとなる。</p>
+<p>Cloud Build プライベートプールでは、Cloud Build のビルド実行ワーカーを、指定した VPC ネットワーク内で実行する仕組みである。
+すなわち、実行プレーン(実態はCompute Engine)をVPC内に起動するイメージ</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[ ユーザー / Git / API ]
+        |
+        v
+┌────────────────────────┐
+│ Cloud Build Control     │  ← サービス（制御プレーン）
+│ Plane (API / Scheduler) │     ※ 常に Google 管理
+└────────────────────────┘
+        |
+        v
+┌────────────────────────┐
+│ Build Worker            │  ← 実行プレーン
+│ (VM 上で step 実行)     │
+└────────────────────────┘
+</pre></div>
+</div>
 </section>
 </section>
 <section id="artifactregistry">
