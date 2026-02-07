@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="10. ServiceMesh" href="ServiceMesh.html" />
-    <link rel="prev" title="8. コンテナ" href="Container.html" /> 
+    <link rel="next" title="11. ServiceMesh" href="ServiceMesh.html" />
+    <link rel="prev" title="Terraform" href="Terraform.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -91,24 +91,28 @@
 <li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナ</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">9. Kubernetes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id1">9.1. 主要なコンポーネント</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pod">9.1.1. Pod</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#node">9.1.2. Node</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#deployment">9.1.3. Deployment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#service">9.1.4. Service</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#namespace">9.1.5. namespace</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#rbac-role-based-access-control">9.1.5.1. 権限制御：RBAC（Role-Based Access Control）</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resourcequota">9.1.5.2. リソース制御：リソースクォータ（ResourceQuota）</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">9.1.5.3. 分離まとめ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#node">9.1.1. Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#namespace">9.1.2. namespace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#service">9.1.3. Service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment">9.1.4. Deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pod">9.1.5. Pod</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">9.1.6. 権限・リソースの制御</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rbac-role-based-access-control">9.1.6.1. 権限制御：RBAC（Role-Based Access Control）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resourcequota">9.1.6.2. リソース制御：リソースクォータ（ResourceQuota）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">9.1.6.3. 制御まとめ</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">9.1.6. Podの起動数の制御</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">9.1.7. Nodeの起動数制御</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">9.1.8. ヘルスチェック</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">9.1.7. 起動制御</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">9.1.7.1. Nodeの起動数制御</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">9.1.7.2. Podの起動数の制御</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">9.1.8. ヘルスチェック</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes-load-balancing">9.2. Kubernetes における通信と Load Balancing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id6">9.2.1. Service</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id7">9.2.1.1. Service の主な種類</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">9.2.1. Service</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">9.2.1.1. Service の主な種類</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#ingress">9.2.2. Ingress</a><ul>
@@ -120,29 +124,40 @@
 <li class="toctree-l3"><a class="reference internal" href="#gatewayclass-lb">9.2.4. GatewayClass による LB 種別の指定</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#manufest">9.3. マニュフェスト(Manufest)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#kubectl">9.4. kubectl</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id8">9.4.1. クラスターやノードへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pods">9.4.2. Podsへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#deploy">9.4.3. Deployへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">9.4.4. Serviceへの操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#configmap-secret">9.4.5. ConfigMap &amp; Secret の操作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">9.4.6. リソースの作成</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">9.3. 永続ストレージと容量管理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">9.3.1. ストレージを構成するレイヤ</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#k8s">9.4. k8sのデバッグ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#prometheus">9.5. Prometheus</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">9.6. 永続ストレージと容量管理</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id12">9.6.1. ストレージを構成するレイヤ</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#k8s">9.7. k8sのデバッグ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#istio">10. Istio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#virtualservice">10.1. VirtualService</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vs">10.1.1. VSの種類</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vs-for-igw">10.1.1.1. VS for IGW</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vs-for-pod">10.1.1.2. VS for Pod</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">10. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="NFS.html">11. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SaaS.html">12. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">13. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">10.1.2. VSの具体例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#destionationrule">10.2. DestionationRule</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dr">10.2.1. DRの例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#peerauthentication">10.3. PeerAuthentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pa">10.3.1. PAの具体例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">10.4. Istioの通信まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ServiceMesh.html">11. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">12. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">13. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">14. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">15. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -217,29 +232,29 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>Pod</p></td>
-<td class="text-left"><p>ECSのタスク</p></td>
-<td class="text-left"><p>コンテナをまとめて管理する単位（1つ以上のコンテナを含む）。</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Node</p></td>
+<tr class="row-even"><td class="text-left"><p>Node</p></td>
 <td class="text-left"><p>ECSのFargate/ECSインスタンス</p></td>
 <td class="text-left"><p>Podが実行されるホスト（EC2またはFargate上で動作）。</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>Deployment</p></td>
-<td class="text-left"><p>ECSのサービス</p></td>
-<td class="text-left"><p>Podの管理をする仕組み。スケーリングやローリングアップデートを管理。</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>StatefulSet</p></td>
-<td class="text-left"><p>-</p></td>
-<td class="text-left"><p>Pod に個体性（ID/ディスク）を持たせて管理</p></td>
+<tr class="row-odd"><td class="text-left"><p>Namespace</p></td>
+<td class="text-left"><p>1つの Kubernetes クラスタの中を論理的に区切るための「仮想的な区画」</p></td>
+<td class="text-left"><p></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>Service</p></td>
 <td class="text-left"><p>ECSのロードバランサ</p></td>
 <td class="text-left"><p>内部/外部向けにPodを公開し、負荷分散を提供。</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>Namespace</p></td>
-<td class="text-left"><p>1つの Kubernetes クラスタの中を論理的に区切るための「仮想的な区画」</p></td>
-<td class="text-left"><p></p></td>
+<tr class="row-odd"><td class="text-left"><p>Deployment</p></td>
+<td class="text-left"><p>ECSのサービス</p></td>
+<td class="text-left"><p>Podの管理をする仕組み。スケーリングやローリングアップデートを管理。</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Pod</p></td>
+<td class="text-left"><p>ECSのタスク</p></td>
+<td class="text-left"><p>コンテナをまとめて管理する単位（1つ以上のコンテナを含む）。</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>StatefulSet</p></td>
+<td class="text-left"><p>-</p></td>
+<td class="text-left"><p>Pod に個体性（ID/ディスク）を持たせて管理</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>ConfigMap/Secret</p></td>
 <td class="text-left"><p>ECSのタスク定義の環境変数管理</p></td>
@@ -247,47 +262,14 @@
 </tr>
 </tbody>
 </table>
-<section id="pod">
-<h3><span class="section-number">9.1.1. </span>Pod<a class="headerlink" href="#pod" title="この見出しへのパーマリンク">¶</a></h3>
-<p>複数コンテナが1つの Linux ネットワーク名前空間を共有している。</p>
-<p>そのため、PodでSQL Proxyを設定して、アプリ側でlocalhost:5432の通信をすると、Proxy側がlocalhost:5432としてlistenしており、結果としてSQLへの通信を代替してくれる。</p>
-</section>
 <section id="node">
-<h3><span class="section-number">9.1.2. </span>Node<a class="headerlink" href="#node" title="この見出しへのパーマリンク">¶</a></h3>
-<p>ノードには2種類存在し、MasterNode（コントロールプレーン）とWorkerNode（データプレーン）がある。</p>
-</section>
-<section id="deployment">
-<h3><span class="section-number">9.1.3. </span>Deployment<a class="headerlink" href="#deployment" title="この見出しへのパーマリンク">¶</a></h3>
-<p>Deploymentは、運用・スケール・自己修復の責務を担う</p>
-<p>以下の事柄が責任範囲</p>
-<ul class="simple">
-<li><p>何個のpodを動かすか</p></li>
-<li><p>podの自動修復</p></li>
-<li><p>ローリングアップデート</p></li>
-</ul>
-</section>
-<section id="service">
-<h3><span class="section-number">9.1.4. </span>Service<a class="headerlink" href="#service" title="この見出しへのパーマリンク">¶</a></h3>
-<p>Serviceとは、Pod の集合に対して、安定した到達手段を提供する</p>
-<p>Serviceは、ネットワーク・発見・安定アドレスの責務を担う</p>
-<ul class="simple">
-<li><p>pod群に対する固定IP/DNSの提供</p></li>
-<li><p>podの増減を隠蔽</p></li>
-<li><p>L4のロードバランシング</p></li>
-</ul>
-<p>具体的には、Service が 代表となる IP アドレスや DNS 名を持ち、その宛先に届いた通信を 内部の Pod 群のいずれかへ振り分けることで、呼び出し元から Pod の存在や入れ替わりを意識させない仕組みを提供する。</p>
+<h3><span class="section-number">9.1.1. </span>Node<a class="headerlink" href="#node" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Podが実行される実態。
+ノードには2種類存在し、MasterNode（コントロールプレーン）とWorkerNode（データプレーン）がある。</p>
 </section>
 <section id="namespace">
-<h3><span class="section-number">9.1.5. </span>namespace<a class="headerlink" href="#namespace" title="この見出しへのパーマリンク">¶</a></h3>
-<p>Namespace を使うと、同一クラスタ内で以下を分離できる。</p>
-<ul class="simple">
-<li><p>Pod</p></li>
-<li><p>Deployment</p></li>
-<li><p>Service</p></li>
-<li><p>ConfigMap / Secret</p></li>
-<li><p>RBAC（権限）</p></li>
-<li><p>ResourceQuota（使用量）</p></li>
-</ul>
+<h3><span class="section-number">9.1.2. </span>namespace<a class="headerlink" href="#namespace" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Namespaceは、クラスタの中を論理的に区切るための「仮想的な区画」であり、同一クラスタ内でリソースを分離できる。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cluster
  ├─ namespace: team-a
  │   ├─ deployment: api
@@ -297,14 +279,37 @@
  │   └─ service: api
 </pre></div>
 </div>
-<p>Namespace は 「置き場所を分ける」だけ であって：</p>
+</section>
+<section id="service">
+<h3><span class="section-number">9.1.3. </span>Service<a class="headerlink" href="#service" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Serviceとは、Pod の集合に対して、安定した到達手段を提供する</p>
+<p>Serviceは、ネットワーク・発見・安定アドレスの責務を担う</p>
 <ul class="simple">
-<li><p>誰が操作できるか</p></li>
-<li><p>どれだけリソースを使えるか</p></li>
+<li><p>pod群に対する固定IP/DNSの提供</p></li>
+<li><p>podの増減を隠蔽</p></li>
+<li><p>L4のロードバランシング</p></li>
 </ul>
-<p>は 別途設定が必要。</p>
+<p>具体的には、Service が 代表となる IP アドレスや DNS 名を持ち、その宛先に届いた通信を 内部の Pod 群のいずれかへ振り分けることで、呼び出し元から Pod の存在や入れ替わりを意識させない仕組みを提供する。</p>
+</section>
+<section id="deployment">
+<h3><span class="section-number">9.1.4. </span>Deployment<a class="headerlink" href="#deployment" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Deploymentは、運用・スケール・自己修復の責務を担う</p>
+<p>以下の事柄が責任範囲</p>
+<ul class="simple">
+<li><p>何個のpodを動かすか</p></li>
+<li><p>podの自動修復</p></li>
+<li><p>ローリングアップデート</p></li>
+</ul>
+</section>
+<section id="pod">
+<h3><span class="section-number">9.1.5. </span>Pod<a class="headerlink" href="#pod" title="この見出しへのパーマリンク">¶</a></h3>
+<p>複数コンテナが1つの Linux ネットワーク名前空間を共有している。</p>
+<p>そのため、PodでSQL Proxyを設定して、アプリ側でlocalhost:5432の通信をすると、Proxy側がlocalhost:5432としてlistenしており、結果としてSQLへの通信を代替してくれる。</p>
+</section>
+<section id="id2">
+<h3><span class="section-number">9.1.6. </span>権限・リソースの制御<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <section id="rbac-role-based-access-control">
-<h4><span class="section-number">9.1.5.1. </span>権限制御：RBAC（Role-Based Access Control）<a class="headerlink" href="#rbac-role-based-access-control" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">9.1.6.1. </span>権限制御：RBAC（Role-Based Access Control）<a class="headerlink" href="#rbac-role-based-access-control" title="この見出しへのパーマリンク">¶</a></h4>
 <p>「誰が」「どの名前空間で」「何をしていいか」を決める仕組み</p>
 <ul class="simple">
 <li><p>チーム A：</p>
@@ -322,7 +327,7 @@
 </ul>
 </section>
 <section id="resourcequota">
-<h4><span class="section-number">9.1.5.2. </span>リソース制御：リソースクォータ（ResourceQuota）<a class="headerlink" href="#resourcequota" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">9.1.6.2. </span>リソース制御：リソースクォータ（ResourceQuota）<a class="headerlink" href="#resourcequota" title="この見出しへのパーマリンク">¶</a></h4>
 <p>「この名前空間は、ここまでしか使ってはいけない」という上限</p>
 <ul class="simple">
 <li><p>1チームの暴走でクラスタ全体が遅くなるのを防ぐ</p></li>
@@ -335,8 +340,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id2">
-<h4><span class="section-number">9.1.5.3. </span>分離まとめ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id3">
+<h4><span class="section-number">9.1.6.3. </span>制御まとめ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h4>
 <p>K8sにおける分離の種別をまとめると以下</p>
 <table class="docutils align-default">
 <thead>
@@ -366,8 +371,21 @@
 </table>
 </section>
 </section>
-<section id="id3">
-<h3><span class="section-number">9.1.6. </span>Podの起動数の制御<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id4">
+<h3><span class="section-number">9.1.7. </span>起動制御<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id5">
+<h4><span class="section-number">9.1.7.1. </span>Nodeの起動数制御<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Cluster AutoscalerによりNodeの起動数を自動調整する。
+Pod の リソース要求（requests） に基づいて、</p>
+<ul class="simple">
+<li><p>Pod が載りきらない場合 → ノードを追加</p></li>
+<li><p>ノードが余っている場合 → ノードを削除</p></li>
+</ul>
+<p>これにより、Pod の需要に応じてノード数を自動調整できる。</p>
+<p>もう少し具体的に、スケールインについて、整理するとスケールアウトしたNodeB側に載っているPodを安全にNodeAに移すことができると判断した時点で、PodをNodeAに移動させる。</p>
+</section>
+<section id="id6">
+<h4><span class="section-number">9.1.7.2. </span>Podの起動数の制御<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>項目</p></th>
@@ -391,19 +409,9 @@
 </tbody>
 </table>
 </section>
-<section id="id4">
-<h3><span class="section-number">9.1.7. </span>Nodeの起動数制御<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
-<p>Cluster AutoscalerによりNodeの起動数を自動調整する。
-Pod の リソース要求（requests） に基づいて、</p>
-<ul class="simple">
-<li><p>Pod が載りきらない場合 → ノードを追加</p></li>
-<li><p>ノードが余っている場合 → ノードを削除</p></li>
-</ul>
-<p>これにより、Pod の需要に応じてノード数を自動調整できる。</p>
-<p>もう少し具体的に、スケールインについて、整理するとスケールアウトしたNodeB側に載っているPodを安全にNodeAに移すことができると判断した時点で、PodをNodeAに移動させる。</p>
 </section>
-<section id="id5">
-<h3><span class="section-number">9.1.8. </span>ヘルスチェック<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id7">
+<h3><span class="section-number">9.1.8. </span>ヘルスチェック<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
 <p>k8s におけるヘルスチェックでは以下が Pod に対して行われる。
 readinessProbe はトラフィック制御、livenessProbe は再起動制御を担う。
 startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐために必要な場合のみ追加する。</p>
@@ -444,15 +452,15 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 <p>Kubernetes では、Pod は直接外部から通信を受けることを想定していない。
 そのため、外部・内部からのアクセスは、Service / Ingress / Gateway API などの
 抽象リソースを通じて公開される。</p>
-<section id="id6">
-<h3><span class="section-number">9.2.1. </span>Service<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id8">
+<h3><span class="section-number">9.2.1. </span>Service<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Service は、Pod を論理的に束ねて安定したアクセス手段を提供する仕組みである。</p>
 <ul class="simple">
 <li><p>Pod の IP 変動を吸収する</p></li>
 <li><p>L4（TCP/UDP）レベルで負荷分散を行う</p></li>
 </ul>
-<section id="id7">
-<h4><span class="section-number">9.2.1.1. </span>Service の主な種類<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h4>
+<section id="id9">
+<h4><span class="section-number">9.2.1.1. </span>Service の主な種類<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>ClusterIP：クラスタ内部向け</p></li>
 <li><p>NodePort：ノードのポート経由で公開</p></li>
@@ -609,206 +617,12 @@ startupProbe は起動が遅いアプリで、liveness の誤検知を防ぐた�
 </table>
 </section>
 </section>
-<section id="manufest">
-<h2><span class="section-number">9.3. </span>マニュフェスト(Manufest)<a class="headerlink" href="#manufest" title="この見出しへのパーマリンク">¶</a></h2>
-<p>Kubernetesにおける主要なコンポーネントで解説したリソースたちはManufestと呼ばれるyamlファイルで管理する。</p>
-</section>
-<section id="kubectl">
-<h2><span class="section-number">9.4. </span>kubectl<a class="headerlink" href="#kubectl" title="この見出しへのパーマリンク">¶</a></h2>
-<p>Kubernetesについて実際に操作する際にはkubectlコマンドを利用する。</p>
-<section id="id8">
-<h3><span class="section-number">9.4.1. </span>クラスターやノードへの操作<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
-<th class="head text-left"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>kubectl cluster-info</p></td>
-<td class="text-left"><p>クラスタの情報を表示</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl get nodes</p></td>
-<td class="text-left"><p>クラスタ内のノード一覧を取得</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl describe node &lt;NODE_NAME&gt;</p></td>
-<td class="text-left"><p>指定したノードの詳細情報を表示</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl top node</p></td>
-<td class="text-left"><p>ノードのリソース使用状況を確認</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="pods">
-<h3><span class="section-number">9.4.2. </span>Podsへの操作<a class="headerlink" href="#pods" title="この見出しへのパーマリンク">¶</a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
-<th class="head text-left"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>kubectl get pods</p></td>
-<td class="text-left"><p>Pod の一覧を表示</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl get pods -o wide</p></td>
-<td class="text-left"><p>詳細な情報付きで Pod の一覧を表示</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl describe pod &lt;POD_NAME&gt;</p></td>
-<td class="text-left"><p>指定した Pod の詳細情報を表示</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl logs &lt;POD_NAME&gt;</p></td>
-<td class="text-left"><p>指定した Pod のログを表示</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl logs -f &lt;POD_NAME&gt;</p></td>
-<td class="text-left"><p>リアルタイムでログを監視</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl exec -it &lt;POD_NAME&gt; -- /bin/sh</p></td>
-<td class="text-left"><p>Pod 内のコンテナに入る（shがない場合は/bin/bash）</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl delete pod &lt;POD_NAME&gt;</p></td>
-<td class="text-left"><p>指定した Pod を削除</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="deploy">
-<h3><span class="section-number">9.4.3. </span>Deployへの操作<a class="headerlink" href="#deploy" title="この見出しへのパーマリンク">¶</a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
-<th class="head text-left"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>kubectl get deployments</p></td>
-<td class="text-left"><p>Deployment の一覧を取得</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl describe deployment &lt;DEPLOYMENT_NAME&gt;</p></td>
-<td class="text-left"><p>Deployment の詳細情報を表示</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl rollout status deployment &lt;DEPLOYMENT_NAME&gt;</p></td>
-<td class="text-left"><p>Deployment のデプロイ進行状況を確認</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl rollout history deployment &lt;DEPLOYMENT_NAME&gt;</p></td>
-<td class="text-left"><p>過去のデプロイ履歴を確認</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl rollout undo deployment &lt;DEPLOYMENT_NAME&gt;</p></td>
-<td class="text-left"><p>前のバージョンにロールバック</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl scale deployment &lt;DEPLOYMENT_NAME&gt; --replicas=5</p></td>
-<td class="text-left"><p>Pod のレプリカ数を変更</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl delete deployment &lt;DEPLOYMENT_NAME&gt;</p></td>
-<td class="text-left"><p>Deployment を削除</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="id9">
-<h3><span class="section-number">9.4.4. </span>Serviceへの操作<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
-<th class="head text-left"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>kubectl get services</p></td>
-<td class="text-left"><p>Service の一覧を取得</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl describe service &lt;SERVICE_NAME&gt;</p></td>
-<td class="text-left"><p>Service の詳細情報を表示</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl get service &lt;SERVICE_NAME&gt; -o yaml</p></td>
-<td class="text-left"><p>Service のYAMLを取得</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl delete service &lt;SERVICE_NAME&gt;</p></td>
-<td class="text-left"><p>Service を削除</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="configmap-secret">
-<h3><span class="section-number">9.4.5. </span>ConfigMap &amp; Secret の操作<a class="headerlink" href="#configmap-secret" title="この見出しへのパーマリンク">¶</a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
-<th class="head text-left"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>kubectl get configmaps</p></td>
-<td class="text-left"><p>ConfigMap の一覧を取得</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl describe configmap &lt;CONFIGMAP_NAME&gt;</p></td>
-<td class="text-left"><p>ConfigMap の詳細情報を表示</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl get secret</p></td>
-<td class="text-left"><p>Secret の一覧を取得</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl describe secret &lt;SECRET_NAME&gt;</p></td>
-<td class="text-left"><p>Secret の詳細情報を表示</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl delete configmap &lt;CONFIGMAP_NAME&gt;</p></td>
-<td class="text-left"><p>ConfigMap を削除</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl delete secret &lt;SECRET_NAME&gt;</p></td>
-<td class="text-left"><p>Secret を削除</p></td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="id10">
-<h3><span class="section-number">9.4.6. </span>リソースの作成<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>コマンド</p></th>
-<th class="head text-left"><p>説明</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>kubectl apply -f <FILE>.yaml</p></td>
-<td class="text-left"><p>YAMLファイルを適用（作成または更新）</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl create -f <FILE>.yaml</p></td>
-<td class="text-left"><p>YAMLファイルからリソースを作成</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>kubectl delete -f <FILE>.yaml</p></td>
-<td class="text-left"><p>YAMLファイルに記載されたリソースを削除</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>kubectl get all</p></td>
-<td class="text-left"><p>クラスタ内のすべてのリソースを一覧表示</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="prometheus">
-<h2><span class="section-number">9.5. </span>Prometheus<a class="headerlink" href="#prometheus" title="この見出しへのパーマリンク">¶</a></h2>
-<p>Prometheusとは、システムやアプリケーションの状態を数値（メトリクス）として収集・保存・検索・可視化するオープンソースの監視ツール。</p>
-<p>Prometheusは「Kubernetes上のどの メトリクスエンドポイント を、どの条件で収集するか」を定義・制御できる仕組みである。
-Cloudのモニタリング機能単体でも標準メトリクスは取得できるが、アプリやKubernetes内部の詳細なメトリクスは Prometheus 形式を使わないと扱えないものが多い。</p>
-<p>Prometheus はオープンソースの監視ツールであり、Kubernetes 専用ではないが、Kubernetes と非常に相性が良いため、K8s 環境で利用されることが多い。</p>
-<p>Kubernetes との相性の良さの本質は、Prometheus が Pull 型の監視方式を採用している点にある。</p>
-<p>Kubernetes 環境では、Pod やコンテナが頻繁に起動・停止（短命）を繰り返す。
-このような環境で Push 型の監視方式を採用すると、コンテナ側でメトリクス送信先の設定や登録処理が必要となり、登録後すぐにコンテナが停止した場合、登録解除や後処理を行えない という問題が発生する。</p>
-<p>一方、Pull 型である Prometheus では、Prometheus 自身が Kubernetes API を参照し、生存している Pod / コンテナの一覧を自動的に取得したうえで、メトリクスを収集する。</p>
-<p>そのため、</p>
-<ul class="simple">
-<li><p>コンテナ側は送信先や登録処理を意識する必要がない</p></li>
-<li><p>コンテナが停止すれば、自動的に収集対象から外れる</p></li>
-<li><p>登録・解除といったライフサイクル管理が不要</p></li>
-</ul>
-<p>という特性を持ち、短命で動的な Kubernetes 環境に自然に適合する監視方式となっている。</p>
-</section>
-<section id="id11">
-<h2><span class="section-number">9.6. </span>永続ストレージと容量管理<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">9.3. </span>永続ストレージと容量管理<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Kubernetes では、コンテナのライフサイクルとは独立してデータを保持するために、永続ストレージ（Persistent Storage） の仕組みが用意されている。</p>
 <p>この仕組みの特徴は、クラウドプロバイダが提供するディスクを直接扱わず、Kubernetes が抽象化したリソースを介して利用するという点にある。</p>
-<section id="id12">
-<h3><span class="section-number">9.6.1. </span>ストレージを構成するレイヤ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id11">
+<h3><span class="section-number">9.3.1. </span>ストレージを構成するレイヤ<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Kubernetes における永続ストレージは、以下のレイヤで構成される。</p>
 <ul class="simple">
 <li><p>Persistent Disk（PD）</p>
@@ -832,7 +646,7 @@ Cloudのモニタリング機能単体でも標準メトリクスは取得でき
 </section>
 </section>
 <section id="k8s">
-<h2><span class="section-number">9.7. </span>k8sのデバッグ<a class="headerlink" href="#k8s" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">9.4. </span>k8sのデバッグ<a class="headerlink" href="#k8s" title="この見出しへのパーマリンク">¶</a></h2>
 <p>kubectlのデバッグコマンドには3つのアプローチ方法がある</p>
 <ul class="simple">
 <li><p>Ephemeral Container: Podの中にEphemeral Containerを追加してデバグ対象のコンテナのツール不足を補う。基本的には参照権限のみがデフォルト。</p></li>
@@ -841,14 +655,541 @@ Cloudのモニタリング機能単体でも標準メトリクスは取得でき
 </ul>
 <p>Debug Profileとは、デバッグように作成されるコンテナに対して、どのような権限やリソースアクセスを許可するかを定義するプリセット。k8sでは、デフォルトでコンテナの権限が厳しく制限されているため、調査するために適切なプロフィールを選択するためのコマンド。</p>
 </section>
+<section id="prometheus">
+<h2><span class="section-number">9.5. </span>Prometheus<a class="headerlink" href="#prometheus" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Prometheusとは、システムやアプリケーションの状態を数値（メトリクス）として収集・保存・検索・可視化するオープンソースの監視ツール。</p>
+<p>Prometheusは「Kubernetes上のどの メトリクスエンドポイント を、どの条件で収集するか」を定義・制御できる仕組みである。
+Cloudのモニタリング機能単体でも標準メトリクスは取得できるが、アプリやKubernetes内部の詳細なメトリクスは Prometheus 形式を使わないと扱えないものが多い。</p>
+<p>Prometheus はオープンソースの監視ツールであり、Kubernetes 専用ではないが、Kubernetes と非常に相性が良いため、K8s 環境で利用されることが多い。</p>
+<p>Kubernetes との相性の良さの本質は、Prometheus が Pull 型の監視方式を採用している点にある。</p>
+<p>Kubernetes 環境では、Pod やコンテナが頻繁に起動・停止（短命）を繰り返す。
+このような環境で Push 型の監視方式を採用すると、コンテナ側でメトリクス送信先の設定や登録処理が必要となり、登録後すぐにコンテナが停止した場合、登録解除や後処理を行えない という問題が発生する。</p>
+<p>一方、Pull 型である Prometheus では、Prometheus 自身が Kubernetes API を参照し、生存している Pod / コンテナの一覧を自動的に取得したうえで、メトリクスを収集する。</p>
+<p>そのため、</p>
+<ul class="simple">
+<li><p>コンテナ側は送信先や登録処理を意識する必要がない</p></li>
+<li><p>コンテナが停止すれば、自動的に収集対象から外れる</p></li>
+<li><p>登録・解除といったライフサイクル管理が不要</p></li>
+</ul>
+<p>という特性を持ち、短命で動的な Kubernetes 環境に自然に適合する監視方式となっている。</p>
+</section>
+</section>
+<section id="istio">
+<h1><span class="section-number">10. </span>Istio<a class="headerlink" href="#istio" title="この見出しへのパーマリンク">¶</a></h1>
+<p>Istioとはk8s上で動くサービスメッシュの仕組み。Istioを利用することによってk8s上の通信をより高度に制御することが可能になる。</p>
+<p>Istioは、Envoyプロキシをサイドカーとして各Podに配置し、iptablesによってpodからの通信をEnvoyにリダイレクトする。
+EnvoyはIstioで定義されたVirtualServiceやDestinationRuleに基づき、トラフィック制御を行う。</p>
+<p>後述するが、<code class="docutils literal notranslate"><span class="pre">VirtualService</span> <span class="pre">が「行き先の名前」を決め、DestinationRule</span> <span class="pre">が「その名前の実体（Pod</span> <span class="pre">群）」を定義する</span></code></p>
+<section id="virtualservice">
+<h2><span class="section-number">10.1. </span>VirtualService<a class="headerlink" href="#virtualservice" title="この見出しへのパーマリンク">¶</a></h2>
+<p>VSは<code class="docutils literal notranslate"><span class="pre">namespaceに登録しておく送信先の看板</span></code>のイメージ。</p>
+<p>Envoyは、istiodから配布された設定の中から、通信先のhostに一致するVirtualServiceを参照する。
+一致するVSがない場合は通常通りの通信としてSVCに対して通信が行われるが、
+該当するVSがある場合は、VirtualServiceおよび関連するDestinationRuleの定義に従って、通信が制御される。</p>
+<section id="vs">
+<h3><span class="section-number">10.1.1. </span>VSの種類<a class="headerlink" href="#vs" title="この見出しへのパーマリンク">¶</a></h3>
+<p>VSは、IGW(IngressGateway)に関連する場合と、Pod間通信に関連する場合の２つに大別することができる。</p>
+<section id="vs-for-igw">
+<h4><span class="section-number">10.1.1.1. </span>VS for IGW<a class="headerlink" href="#vs-for-igw" title="この見出しへのパーマリンク">¶</a></h4>
+<p>IGWに関連する場合は、マニフェストでもspec.gatewaysを指定する。
+IGWに関連する場合、EnvoyはアプリケーションのPodのサイドカーとして通信を奪うという動きというよりも、送信を行う主体として動作する。</p>
+</section>
+<section id="vs-for-pod">
+<h4><span class="section-number">10.1.1.2. </span>VS for Pod<a class="headerlink" href="#vs-for-pod" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Pod間の通信に関連する場合は、上記のgatewaysの指定は不要。
+pod内のアプリケーションが、DNSの名前解決を行い、ClusterIPで通信を開始したタイミングでiptablesによりEnvoyに通信が流れる。
+Envoyは、通信の宛先情報（Hostヘッダやoriginal destination）をもとに、VirtualServiceのhostsと照合する。
+VirtualServiceおよびDestinationRuleの定義をもとに、Envoyが保持するService/Endpoint情報から実際の通信先Pod（IP）を選択する。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>観点</p></th>
+<th class="head text-left"><p>Ingress Gateway 関連</p></th>
+<th class="head text-left"><p>Pod間通信（mesh）</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>主な用途</p></td>
+<td class="text-left"><p>外部 → クラスタ内通信</p></td>
+<td class="text-left"><p>クラスタ内サービス間通信</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>spec.gateways</p></td>
+<td class="text-left"><p>明示的に指定（例: istio-system/my-gateway）</p></td>
+<td class="text-left"><p>指定しない（mesh が暗黙）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>通信を処理するEnvoy</p></td>
+<td class="text-left"><p>Ingress Gateway Pod の Envoy</p></td>
+<td class="text-left"><p>各Podのサイドカー Envoy</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>通信の流れ</p></td>
+<td class="text-left"><p>Gatewayが受信し送信主体として動作</p></td>
+<td class="text-left"><p>iptables によりサイドカーへリダイレクト</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>host の意味</p></td>
+<td class="text-left"><p>外部向けドメイン名</p></td>
+<td class="text-left"><p>Service の FQDN</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>主なユースケース</p></td>
+<td class="text-left"><p>外部公開、API Gateway</p></td>
+<td class="text-left"><p>カナリア、A/B、blue/green</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id12">
+<h3><span class="section-number">10.1.2. </span>VSの具体例<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h3>
+<p>以下に VirtualService の具体例を示す。
+今回の例は、blue/greenデプロイに利用される例であり、後続のDRの説明時でも同様の前提で具体例を記載する。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>大分類</p></th>
+<th class="head text-left"><p>小分類</p></th>
+<th class="head text-left"><p>フィールド</p></th>
+<th class="head text-left"><p>例</p></th>
+<th class="head text-left"><p>役割・意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>メタ情報</p></td>
+<td class="text-left"><p>おまじない</p></td>
+<td class="text-left"><p>apiVersion</p></td>
+<td class="text-left"><p>networking.istio.io/v1beta1</p></td>
+<td class="text-left"><p>VirtualService の API バージョン</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>メタ情報</p></td>
+<td class="text-left"><p>おまじない</p></td>
+<td class="text-left"><p>kind</p></td>
+<td class="text-left"><p>VirtualService</p></td>
+<td class="text-left"><p>リソース種別</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>メタ情報</p></td>
+<td class="text-left"><p>メタ定義</p></td>
+<td class="text-left"><p>metadata.name</p></td>
+<td class="text-left"><p>myapp</p></td>
+<td class="text-left"><p>VirtualService 名</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>メタ情報</p></td>
+<td class="text-left"><p>メタ定義</p></td>
+<td class="text-left"><p>metadata.namespace</p></td>
+<td class="text-left"><p>prod</p></td>
+<td class="text-left"><p>適用される Namespace</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>host設定</p></td>
+<td class="text-left"><p>spec.hosts</p></td>
+<td class="text-left"><p>myapp.example.com</p></td>
+<td class="text-left"><p>この VS が制御する宛先ホスト</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>gateway設定</p></td>
+<td class="text-left"><p>spec.gateways</p></td>
+<td class="text-left"><p>istio-system/myapp-gateway</p></td>
+<td class="text-left"><p>この VS を適用する入口（Ingress Gateway）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御</p></td>
+<td class="text-left"><p>spec.http</p></td>
+<td class="text-left"><p>―</p></td>
+<td class="text-left"><p>HTTP リクエスト単位の制御定義（上から順に評価）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / マッチ</p></td>
+<td class="text-left"><p>match.uri.prefix</p></td>
+<td class="text-left"><p>/green</p></td>
+<td class="text-left"><p>/green で始まるリクエストに一致</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / ルーティング時制御</p></td>
+<td class="text-left"><p>rewrite.uri</p></td>
+<td class="text-left"><p>/</p></td>
+<td class="text-left"><p>バックエンドへ送る際にパスを書き換え</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / 宛先host</p></td>
+<td class="text-left"><p>route.destination.host</p></td>
+<td class="text-left"><p>myapp.prod.svc.cluster.local</p></td>
+<td class="text-left"><p>転送先 Kubernetes Service</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / 宛先サブセット（DR）</p></td>
+<td class="text-left"><p>route.destination.subset</p></td>
+<td class="text-left"><p>green</p></td>
+<td class="text-left"><p>green バージョンの Pod 群を指す論理名</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / マッチ</p></td>
+<td class="text-left"><p>match.uri.prefix</p></td>
+<td class="text-left"><p>/blue</p></td>
+<td class="text-left"><p>/blue で始まるリクエストに一致</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / ルーティング時制御</p></td>
+<td class="text-left"><p>rewrite.uri</p></td>
+<td class="text-left"><p>/</p></td>
+<td class="text-left"><p>パスを書き換え</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / 宛先host</p></td>
+<td class="text-left"><p>route.destination.host</p></td>
+<td class="text-left"><p>myapp.prod.svc.cluster.local</p></td>
+<td class="text-left"><p>転送先 Kubernetes Service</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / 宛先サブセット（DR）</p></td>
+<td class="text-left"><p>route.destination.subset</p></td>
+<td class="text-left"><p>blue</p></td>
+<td class="text-left"><p>blue バージョンの Pod 群を指す論理名</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / デフォルト</p></td>
+<td class="text-left"><p>route.destination.host</p></td>
+<td class="text-left"><p>myapp.prod.svc.cluster.local</p></td>
+<td class="text-left"><p>上記に一致しない場合の転送先</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング定義</p></td>
+<td class="text-left"><p>HTTP制御 / デフォルト</p></td>
+<td class="text-left"><p>route.destination.subset</p></td>
+<td class="text-left"><p>blue</p></td>
+<td class="text-left"><p>デフォルトは blue</p></td>
+</tr>
+</tbody>
+</table>
+<p>マニュフェストの例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apiVersion</span><span class="p">:</span> <span class="n">networking</span><span class="o">.</span><span class="n">istio</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1beta1</span>
+<span class="n">kind</span><span class="p">:</span> <span class="n">VirtualService</span>
+<span class="n">metadata</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">myapp</span>
+  <span class="n">namespace</span><span class="p">:</span> <span class="n">prod</span>
+
+<span class="n">spec</span><span class="p">:</span>
+  <span class="c1"># このVirtualServiceが適用されるホスト</span>
+  <span class="n">hosts</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">myapp</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+
+  <span class="c1"># Ingress Gateway 経由の通信に適用</span>
+  <span class="n">gateways</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">istio</span><span class="o">-</span><span class="n">system</span><span class="o">/</span><span class="n">myapp</span><span class="o">-</span><span class="n">gateway</span>
+
+  <span class="n">http</span><span class="p">:</span>
+    <span class="c1"># /green へのリクエストは green にルーティング</span>
+    <span class="o">-</span> <span class="n">match</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">uri</span><span class="p">:</span>
+            <span class="n">prefix</span><span class="p">:</span> <span class="o">/</span><span class="n">green</span>
+      <span class="n">rewrite</span><span class="p">:</span>
+        <span class="n">uri</span><span class="p">:</span> <span class="o">/</span>
+      <span class="n">route</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">destination</span><span class="p">:</span>
+            <span class="n">host</span><span class="p">:</span> <span class="n">myapp</span><span class="o">.</span><span class="n">prod</span><span class="o">.</span><span class="n">svc</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">local</span>
+            <span class="n">subset</span><span class="p">:</span> <span class="n">green</span>
+
+    <span class="c1"># /blue へのリクエストは blue にルーティング</span>
+    <span class="o">-</span> <span class="n">match</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">uri</span><span class="p">:</span>
+            <span class="n">prefix</span><span class="p">:</span> <span class="o">/</span><span class="n">blue</span>
+      <span class="n">rewrite</span><span class="p">:</span>
+        <span class="n">uri</span><span class="p">:</span> <span class="o">/</span>
+      <span class="n">route</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">destination</span><span class="p">:</span>
+            <span class="n">host</span><span class="p">:</span> <span class="n">myapp</span><span class="o">.</span><span class="n">prod</span><span class="o">.</span><span class="n">svc</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">local</span>
+            <span class="n">subset</span><span class="p">:</span> <span class="n">blue</span>
+
+    <span class="c1"># それ以外のパスはデフォルトで blue</span>
+    <span class="o">-</span> <span class="n">route</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">destination</span><span class="p">:</span>
+            <span class="n">host</span><span class="p">:</span> <span class="n">myapp</span><span class="o">.</span><span class="n">prod</span><span class="o">.</span><span class="n">svc</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">local</span>
+            <span class="n">subset</span><span class="p">:</span> <span class="n">blue</span>
+
+</pre></div>
+</div>
+<p>サービスの例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apiVersion</span><span class="p">:</span> <span class="n">v1</span>
+<span class="n">kind</span><span class="p">:</span> <span class="n">Service</span>
+<span class="n">metadata</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">myapp</span>
+  <span class="n">namespace</span><span class="p">:</span> <span class="n">prod</span>
+<span class="n">spec</span><span class="p">:</span>
+  <span class="n">selector</span><span class="p">:</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">myapp</span>
+</pre></div>
+</div>
+<p>Service の name / namespace により
+myapp.prod.svc.cluster.local という Service FQDN が決まり、
+selector に一致する Pod 群が実際の通信先となる。</p>
+</section>
+</section>
+<section id="destionationrule">
+<h2><span class="section-number">10.2. </span>DestionationRule<a class="headerlink" href="#destionationrule" title="この見出しへのパーマリンク">¶</a></h2>
+<p>DR（DestinationRule）は、
+<code class="docutils literal notranslate"><span class="pre">Deploymentで定義されたPodの分類をVirtualServiceが利用できる形に整理するための橋渡し</span></code>というイメージ。</p>
+<p>DR（DestinationRule）は、k8s内の通信に対して、どの Pod 群（subset）をどのように扱うかを定義するリソースである。
+Deployment などで付与された Pod のラベルをもとに subsets を定義し、VirtualService から指定された subset に対応する Pod 群を Envoy が選択できるようにする。</p>
+<p>VirtualService は「どの subset に送るか」を決定し、
+DestinationRule は「その subset がどの Pod で構成されるか」を定義する。
+この 2 つを組み合わせることで、特定バージョンの Pod へのルーティング制御が可能になる。</p>
+<section id="dr">
+<h3><span class="section-number">10.2.1. </span>DRの例<a class="headerlink" href="#dr" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Blue GreenデプロイのDRの例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apiVersion</span><span class="p">:</span> <span class="n">networking</span><span class="o">.</span><span class="n">istio</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1beta1</span>
+<span class="n">kind</span><span class="p">:</span> <span class="n">DestinationRule</span>
+<span class="n">metadata</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">myapp</span>
+  <span class="n">namespace</span><span class="p">:</span> <span class="n">prod</span>
+
+<span class="n">spec</span><span class="p">:</span>
+  <span class="c1"># VS の destination.host と一致させる</span>
+  <span class="n">host</span><span class="p">:</span> <span class="n">myapp</span><span class="o">.</span><span class="n">prod</span><span class="o">.</span><span class="n">svc</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">local</span>
+
+  <span class="c1"># subset 名（blue/green）を Pod のラベル条件に紐付ける</span>
+  <span class="n">subsets</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">blue</span>
+      <span class="n">labels</span><span class="p">:</span>
+        <span class="n">version</span><span class="p">:</span> <span class="n">blue</span>
+
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">green</span>
+      <span class="n">labels</span><span class="p">:</span>
+        <span class="n">version</span><span class="p">:</span> <span class="n">green</span>
+</pre></div>
+</div>
+<p>デプロイメントで以下のように、labelsとしてversion: blueを定義しているからこそ、以下のDeploymentをターゲットとして通信することができる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apiVersion</span><span class="p">:</span> <span class="n">apps</span><span class="o">/</span><span class="n">v1</span>
+<span class="n">kind</span><span class="p">:</span> <span class="n">Deployment</span>
+<span class="n">metadata</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">myapp</span><span class="o">-</span><span class="n">blue</span>
+  <span class="n">namespace</span><span class="p">:</span> <span class="n">prod</span>
+<span class="n">spec</span><span class="p">:</span>
+  <span class="n">template</span><span class="p">:</span>
+    <span class="n">metadata</span><span class="p">:</span>
+      <span class="n">labels</span><span class="p">:</span>
+        <span class="n">app</span><span class="p">:</span> <span class="n">myapp</span>
+        <span class="n">version</span><span class="p">:</span> <span class="n">blue</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="peerauthentication">
+<h2><span class="section-number">10.3. </span>PeerAuthentication<a class="headerlink" href="#peerauthentication" title="この見出しへのパーマリンク">¶</a></h2>
+<p>PeerAuthentication は、Istio における mTLS（相互 TLS）の受信側ポリシーを定義するリソースである。
+namespace 全体、または特定の workload（Pod）単位で、通信を mTLS 必須にするかどうかを制御する。</p>
+<ul class="simple">
+<li><p>VirtualService / DestinationRule が「どこへ・どう流すか」を制御するのに対し、</p></li>
+<li><p>PeerAuthentication は「その通信を暗号化・認証必須にするか」を制御する。</p></li>
+</ul>
+<p>PeerAuthentication は 受信側（Server side）の Envoy に適用されるポリシーである。
+ただし、受信側で mTLS を必須（STRICT）に設定した場合、送信側の Envoy もその要件を満たすために mTLS で通信を行う。</p>
+<p>PAには以下の設定modeがある</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>mode</p></th>
+<th class="head text-left"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>STRICT</p></td>
+<td class="text-left"><p>mTLS のみ許可。平文通信は拒否</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>PERMISSIVE</p></td>
+<td class="text-left"><p>mTLS / 平文どちらも許可（移行期間向け）</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>DISABLE</p></td>
+<td class="text-left"><p>mTLS を無効化</p></td>
+</tr>
+</tbody>
+</table>
+<section id="pa">
+<h3><span class="section-number">10.3.1. </span>PAの具体例<a class="headerlink" href="#pa" title="この見出しへのパーマリンク">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apiVersion</span><span class="p">:</span> <span class="n">security</span><span class="o">.</span><span class="n">istio</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1beta1</span>
+<span class="n">kind</span><span class="p">:</span> <span class="n">PeerAuthentication</span>
+<span class="n">metadata</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">default</span>
+  <span class="n">namespace</span><span class="p">:</span> <span class="n">prod</span>
+<span class="n">spec</span><span class="p">:</span>
+  <span class="n">mtls</span><span class="p">:</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="n">STRICT</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id13">
+<h2><span class="section-number">10.4. </span>Istioの通信まとめ<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Ingress Gateway 経由</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>カテゴリ</p></th>
+<th class="head text-left"><p>観点</p></th>
+<th class="head text-left"><p>主体</p></th>
+<th class="head text-left"><p>参照リソース</p></th>
+<th class="head text-left"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>通信開始</p></td>
+<td class="text-left"><p>通信元</p></td>
+<td class="text-left"><p>外部クライアント</p></td>
+<td class="text-left"><p>―</p></td>
+<td class="text-left"><p>ブラウザや外部システムからリクエスト</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>入口</p></td>
+<td class="text-left"><p>受信ポイント</p></td>
+<td class="text-left"><p>Ingress Gateway（Envoy）</p></td>
+<td class="text-left"><p>Gateway</p></td>
+<td class="text-left"><p>外部通信の入口となる Envoy</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>入口</p></td>
+<td class="text-left"><p>適用VS判定</p></td>
+<td class="text-left"><p>Ingress Gateway（Envoy）</p></td>
+<td class="text-left"><p>VirtualService</p></td>
+<td class="text-left"><p>host / gateway が一致する VS を選択</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ルーティング</p></td>
+<td class="text-left"><p>条件判定</p></td>
+<td class="text-left"><p>Ingress Gateway（Envoy）</p></td>
+<td class="text-left"><p>VirtualService</p></td>
+<td class="text-left"><p>Path / Header などでルール評価</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング</p></td>
+<td class="text-left"><p>宛先決定</p></td>
+<td class="text-left"><p>Ingress Gateway（Envoy）</p></td>
+<td class="text-left"><p>VirtualService</p></td>
+<td class="text-left"><p>destination.host / subset を決定</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Pod選択</p></td>
+<td class="text-left"><p>subset解決</p></td>
+<td class="text-left"><p>Ingress Gateway（Envoy）</p></td>
+<td class="text-left"><p>DestinationRule</p></td>
+<td class="text-left"><p>subset 名を Pod ラベル条件に変換</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Pod選択</p></td>
+<td class="text-left"><p>候補抽出</p></td>
+<td class="text-left"><p>Ingress Gateway（Envoy）</p></td>
+<td class="text-left"><p>Service</p></td>
+<td class="text-left"><p>selector に一致する Pod を取得</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Pod選択</p></td>
+<td class="text-left"><p>最終選択</p></td>
+<td class="text-left"><p>Ingress Gateway（Envoy）</p></td>
+<td class="text-left"><p>Endpoint</p></td>
+<td class="text-left"><p>対象 Pod IP をロードバランシング</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>セキュリティ</p></td>
+<td class="text-left"><p>mTLS要否</p></td>
+<td class="text-left"><p>受信側 Pod</p></td>
+<td class="text-left"><p>PeerAuthentication</p></td>
+<td class="text-left"><p>mTLS 必須かを判定</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>セキュリティ</p></td>
+<td class="text-left"><p>通信方式</p></td>
+<td class="text-left"><p>Ingress Gateway（Envoy）</p></td>
+<td class="text-left"><p>PeerAuthentication</p></td>
+<td class="text-left"><p>受信側要件に従い mTLS で送信</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>実通信</p></td>
+<td class="text-left"><p>転送</p></td>
+<td class="text-left"><p>Ingress Gateway → Pod</p></td>
+<td class="text-left"><p>―</p></td>
+<td class="text-left"><p>選択された Pod へ通信</p></td>
+</tr>
+</tbody>
+</table>
+<p>Pod 間通信</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>カテゴリ</p></th>
+<th class="head text-left"><p>観点</p></th>
+<th class="head text-left"><p>主体</p></th>
+<th class="head text-left"><p>参照リソース</p></th>
+<th class="head text-left"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>通信開始</p></td>
+<td class="text-left"><p>通信元</p></td>
+<td class="text-left"><p>Pod 内アプリ</p></td>
+<td class="text-left"><p>―</p></td>
+<td class="text-left"><p>アプリケーションが通信を開始</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>通信開始</p></td>
+<td class="text-left"><p>名前解決</p></td>
+<td class="text-left"><p>Pod</p></td>
+<td class="text-left"><p>DNS / Service</p></td>
+<td class="text-left"><p>Service 名 → ClusterIP</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>入口</p></td>
+<td class="text-left"><p>通信奪取</p></td>
+<td class="text-left"><p>iptables</p></td>
+<td class="text-left"><p>―</p></td>
+<td class="text-left"><p>通信をサイドカー Envoy にリダイレクト</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>入口</p></td>
+<td class="text-left"><p>送信主体</p></td>
+<td class="text-left"><p>サイドカー Envoy</p></td>
+<td class="text-left"><p>―</p></td>
+<td class="text-left"><p>実際の送信を Envoy が担当</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング</p></td>
+<td class="text-left"><p>適用VS判定</p></td>
+<td class="text-left"><p>サイドカー Envoy</p></td>
+<td class="text-left"><p>VirtualService</p></td>
+<td class="text-left"><p>host が一致する VS（mesh）を選択</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ルーティング</p></td>
+<td class="text-left"><p>条件判定</p></td>
+<td class="text-left"><p>サイドカー Envoy</p></td>
+<td class="text-left"><p>VirtualService</p></td>
+<td class="text-left"><p>Path / Header などでルール評価</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>ルーティング</p></td>
+<td class="text-left"><p>宛先決定</p></td>
+<td class="text-left"><p>サイドカー Envoy</p></td>
+<td class="text-left"><p>VirtualService</p></td>
+<td class="text-left"><p>destination.host / subset を決定</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Pod選択</p></td>
+<td class="text-left"><p>subset解決</p></td>
+<td class="text-left"><p>サイドカー Envoy</p></td>
+<td class="text-left"><p>DestinationRule</p></td>
+<td class="text-left"><p>subset 名を Pod ラベル条件に変換</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Pod選択</p></td>
+<td class="text-left"><p>候補抽出</p></td>
+<td class="text-left"><p>サイドカー Envoy</p></td>
+<td class="text-left"><p>Service</p></td>
+<td class="text-left"><p>selector に一致する Pod を取得</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Pod選択</p></td>
+<td class="text-left"><p>最終選択</p></td>
+<td class="text-left"><p>サイドカー Envoy</p></td>
+<td class="text-left"><p>Endpoint</p></td>
+<td class="text-left"><p>対象 Pod IP をロードバランシング</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>セキュリティ</p></td>
+<td class="text-left"><p>mTLS要否</p></td>
+<td class="text-left"><p>受信側 Pod</p></td>
+<td class="text-left"><p>PeerAuthentication</p></td>
+<td class="text-left"><p>mTLS 必須かを判定</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>セキュリティ</p></td>
+<td class="text-left"><p>通信方式</p></td>
+<td class="text-left"><p>サイドカー Envoy</p></td>
+<td class="text-left"><p>PeerAuthentication</p></td>
+<td class="text-left"><p>受信側要件に従い mTLS で送信</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>実通信</p></td>
+<td class="text-left"><p>転送</p></td>
+<td class="text-left"><p>サイドカー → Pod</p></td>
+<td class="text-left"><p>―</p></td>
+<td class="text-left"><p>選択された Pod へ通信</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Container.html" class="btn btn-neutral float-left" title="8. コンテナ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ServiceMesh.html" class="btn btn-neutral float-right" title="10. ServiceMesh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Terraform.html" class="btn btn-neutral float-left" title="Terraform" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ServiceMesh.html" class="btn btn-neutral float-right" title="11. ServiceMesh" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

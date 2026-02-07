@@ -37,6 +37,11 @@ GKEやCompute Engineではよく利用される。
 
 権限としては、クライアント側のSAには`roles/cloudsql.client`を付与しておく。
 
+### Cloud SQL Admin API
+`Cloud SQL Admin API`は、Cloud SQL Language Connectors / Auth Proxy が「接続先 Cloud SQL の情報を取得し、安全な接続を確立するため」に必須
+
+PJで`Cloud SQL Admin API`を有効にしておく必要がある。
+
 ## AlloyDB
 2022年に登場したPostgreSQLの100%互換であり、エンタープライズ向けに性能・可用性を強化したフルマネージドサービス。要求の厳しいOLTP（オンライントランザクション処理）だけでなく、リアルタイム分析クエリにも高い性能を発揮するよう設計されている。ストレージとコンピュートの分離や独自のカラム型エンジン、機械学習による自動最適化などにより既存PostgreSQLを大きく強化しており、分析クエリ性能は標準PostgreSQLの最大100倍、トランザクション処理性能も4倍以上と発表されている。
 

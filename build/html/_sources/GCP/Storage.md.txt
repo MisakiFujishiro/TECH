@@ -50,6 +50,24 @@ Cloud Storageはディレクトリやフォルダという概念自体は存在�
 |IAM|プロジェクト/バケット単位で制御。大規模運用に向く|✅ 推奨|
 |オブジェクトACL|個別のオブジェクトごとに細かく制御できるが、管理が煩雑に|❌ 非推奨|
 
+#### オブジェクトを直接操作できるロール
+
+| ロール名 | 対象 | 主な権限 |
+|---|---|---|
+| roles/storage.objectViewer | オブジェクト | オブジェクトの取得（get, list） |
+| roles/storage.objectCreator | オブジェクト | オブジェクトの作成（upload）のみ |
+| roles/storage.objectAdmin | オブジェクト | 作成・取得・更新・削除すべて |
+| roles/storage.admin | バケット + オブジェクト | GCS のフル管理権限 |
+
+### オブジェクトを直接操作できないロール
+
+| ロール名 | 対象 | 制限内容 |
+|---|---|---|
+| roles/storage.bucketViewer | バケット | バケットのメタデータのみ閲覧可能 |
+| roles/storage.bucketCreator | バケット | バケット作成のみ（中身は触れない） |
+| roles/storage.legacyBucketReader | バケット（旧） | バケット一覧は見えるが IAM 推奨外 |
+| roles/storage.legacyObjectReader | オブジェクト（旧） | ACL 前提のため非推奨 |
+
 ### 署名付きURL
 署名付きURLとは、「このオブジェクトに対して、この操作を、この期限まで許可する」という条件付きリクエストをSAの秘密鍵で署名したもの。
 署名付きURLで許可されている権限については、HTTPメソッドで操作することができる。
@@ -136,3 +154,33 @@ IAMを利用して、「誰が複合して良いのか」を制御する。
       - base64 でエンコードされた暗号化鍵 
       - 暗号化鍵の SHA256 ハッシュ 
       - 同じ暗号化アルゴリズム（AES256） 
+
+
+### gsutil
+gsutilコマンドは、 Google Cloud Storage（GCS）を操作するための公式 CLI ツールであり、
+オブジェクトのアップロード・ダウンロードだけでなく、整合性検証、権限管理、ライフサイクル管理まで含めた
+「Cloud Storage 運用のための実践的ユーティリティ」。
+
+基本的なコマンド
+
+| コマンド | 用途 | 例 |
+|---|---|---|
+| gsutil cp | ファイルコピー（アップロード/ダウンロード） | gsutil cp file.txt gs://bucket/ |
+| gsutil -m cp | 並列コピー | gsutil -m cp *.log gs://bucket/ |
+| gsutil ls | オブジェクト一覧表示 | gsutil ls gs://bucket/ |
+| gsutil ls -L | メタデータ付き一覧表示 | gsutil ls -L gs://bucket/file |
+| gsutil rm | オブジェクト削除 | gsutil rm gs://bucket/file |
+
+同期・移行系
+
+| コマンド | 用途 | 例 |
+|---|---|---|
+| gsutil rsync | 差分同期 | gsutil -m rsync -r ./data gs://bucket/data |
+| gsutil mv | 移動（コピー＋削除） | gsutil mv file gs://bucket/ |
+
+整合性・検証系
+
+| コマンド | 用途 | 例 |
+|---|---|---|
+| gsutil hash | ローカルファイルのハッシュ計算 | gsutil hash -c file |
+| gsutil ls -L | GCS 側のハッシュ取得 | gsutil ls -L gs://bucket/file |

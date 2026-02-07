@@ -104,53 +104,57 @@ Shared VPC は通信経路の機能ではなく、「ネットワーク資産（
 
 PSC は “サービス単位で接続する仕組み”、Shared VPC は “ネットワークを中央集権で管理する枠組み” として位置づける。
 
+#### VPCピアリング
+異なる VPC 同士を 対等に直接接続する方式で、CIDR の重複が許されない点に注意が必要。
 
-### デフォルトネットワーク
-GCPでは、プロジェクトを作成した時点でdefaultという名前のVPCネットワークが作成されている。
-各リージョンにサブネットまで準備されており、ルーティング設定やFirewallについても準備できている。
-簡単な検証であればdefaultを利用して開始できる。
 
-### ネットワークの安全性
-#### VPC Service Contorls(VPC SC)
-Google Cloudのマネージドサービス（GCS/Firestore etc..）を論理的な境界で囲うことで外部へのデータ流出を防ぐ。
-具体的には、「誰か」という認証に加えて、「どこから」アクセスまで確認する。
+
+
+### ネットワーク内の安全性（VPCSC：VPC Service Contorls）
+VPC Service Controls は、BigQuery や Cloud Storage などの  
+Google Cloud マネージドサービスを「論理的な境界（Service Perimeter）」で囲い、  
+境界外へのデータ流出を防ぐためのセキュリティ機構である。
+
+IAM による「誰が（Who）」「何を（What）」という認証・認可に加え、  
+「どこから（Where）」そのリクエストが来たのかを評価対象に含める点が特徴。
+
 
 なぜ VPC Service Controls が必要なのかというとIAM だけでは、次のようなリスクを防げない。
 - 正しいユーザー・サービスアカウントが誤って、または悪意を持って社外・インターネット経由からデータにアクセスする
 - IAM は 認証・認可（Who / What） は制御できるが、
 - 通信経路（Where） までは制御できない。
 
- そこで VPC Service Controls を使う。
+そこで VPC Service Controls を使う。
 
-## Google Cloud における通信レイヤーの整理
-### VPC 内通信（VM / GKE）
+#### VPC SCの境界
+VPC Service Controls（VPC SC）の「境界」とは、
+Google マネージドサービスの API に対して適用される
+論理的なデータ境界（Service Perimeter）である。
+
+この境界は、ネットワークの物理的な線や VPC の境界ではなく、
+API 呼び出し時に評価されるルールの集合として定義される。
+
+VPC SC は、API 呼び出しごとに以下の観点で
+「このリクエストが境界内か」を評価する。
+
+- 対象サービスが Service Perimeter に含まれているか  
+  （例：BigQuery、Cloud Storage など）
+- 呼び出し元のプロジェクトが境界内に属しているか  
+  （Service Perimeter はプロジェクト単位で定義される）
+- アクセス元が境界内と認められた経路か  
+  - 境界内プロジェクトの VPC  
+  - Private Google Access 経由  
+  - 許可されたオンプレミス（VPN / Interconnect）
+- IAM の認証・認可を満たしているか  
+  （VPC SC は IAM を置き換えない）
+
+
+## GCPの通信整理（内→内・外→内・内→外）
+### 内→内：VPC 内通信（VM / GKE）
 - 通常の RFC1918 アドレス通信
 - firewall / routing がそのまま適用される
 
-
-### VPC内 → Google サービス
-VPC 内部（外部 IP を持たない VM や GKE ノード）から、Google のマネージドサービスにアクセスする場合の考え方を整理する。
-#### Private Google Access
-Private Google Access（PGA）は、外部 IP を持たない VM や GKE ノードから、Google APIs にアクセスできるようにする仕組みである。
-PGA は、一般的なインターネット通信ではなく、「Google APIs 向けの特例ルート」として位置づけられる。
-#### PGAの必要性
-通常、Cloud Storage API や BigQuery API などの Google APIs は、ネットワーク上では インターネット上のパブリック IP 宛の通信として見える。
-
-そのため、外部 IP を持たない VM、Cloud NAT を構成していない環境からは、Google APIs に到達できない。
-
-#### PGAの仕組み
-Private Google Access を有効にすると、Google APIs 宛の通信だけを対象に、インターネット通信として扱わずGoogle の内部バックボーン経由でルーティングするという 例外的な経路が VPC に追加される。
-
-これにより、外部 IP や Cloud NAT を持たない VPC 内リソースからでも、Google APIs へ安全にアクセスできるようになる。
-
-### VPC同士の通信
-#### 共有VPC
-ネットワークをホストプロジェクトに集約し、複数の Service Project から 同一 VPC を安全に共同利用する方式。
-
-#### VPCピアリング
-異なる VPC 同士を 対等に直接接続する方式で、CIDR の重複が許されない点に注意が必要。
-
-### VPC外 → VPC内
+### 外→内：VPC外のサーバレスサービス → VPC内
 #### Serverless実行環境と VPCの接続
 Cloud Run や Cloud Functions は、VPC の外で実行されるサーバレス環境である。
 そのため、VPC 内のリソース（Private IP）にはデフォルトでは到達できない。
@@ -168,7 +172,22 @@ Google内部バックボーン
 Cloud SQL
 ```
 
-### 外部サービスを VPC 内として扱う
+### 内→外：VPC内 → VPC外のGCS API
+VPC 内部（外部 IP を持たない VM や GKE ノード）から、Google のマネージドサービスにアクセスする場合の考え方を整理する。
+#### Private Google Access
+Private Google Access（PGA）は、外部 IP を持たない VM や GKE ノードから、Google APIs にアクセスできるようにする仕組みである。
+PGA は、一般的なインターネット通信ではなく、「Google APIs 向けの特例ルート」として位置づけられる。
+#### PGAの必要性
+通常、Cloud Storage API や BigQuery API などの Google APIs は、ネットワーク上では インターネット上のパブリック IP 宛の通信として見える。
+
+そのため、外部 IP を持たない VM、Cloud NAT を構成していない環境からは、Google APIs に到達できない。
+#### PGAの仕組み
+Private Google Access を有効にすると、Google APIs 宛の通信だけを対象に、インターネット通信として扱わずGoogle の内部バックボーン経由でルーティングするという 例外的な経路が VPC に追加される。
+
+これにより、外部 IP や Cloud NAT を持たない VPC 内リソースからでも、Google APIs へ安全にアクセスできるようになる。
+
+
+## VPC外部のサービスを内部として扱う
 GCP では「VPC の外に存在するものを、VPC 内リソースのように扱いたい」
 という要件に対して、役割の異なる 2 つの仕組みが用意されている。
 
@@ -179,10 +198,13 @@ GCP では「VPC の外に存在するものを、VPC 内リソースのよう�
 混同しないためには「何を VPC に引き込みたいのか」「どの境界を越えるのか」を先に考える必要がある。
 
 
-### Google 管理サービスを VPC 内として扱う
-#### Private Service Access（PSA）
-Private Service Access は、Cloud SQL などの Google 管理サービスを、
+### Private Service Access（PSA）
+Private Service Access は、Cloud SQL などの `Google 管理サービス`を、
 自分の VPC に Private IP で引き込むための仕組みである。
+
+PSA の本質は、  
+`Google 管理サービスを`VPC内として扱い、PrivateIPで通信する  
+点にある。
 
 例えば、Cloud SQL（Private IP）は、ユーザーの VPC の中に直接存在しているわけではなく、
 Google が管理するサービスとして別の管理ネットワーク上に存在している。
@@ -198,9 +220,9 @@ Google が管理するサービスとして別の管理ネットワーク上に�
 通信イメージは以下のようになる。
 ```
 自分の VPC
- ↓
+ 　↓
 Private Service Access
- ↓
+ 　↓
 Cloud SQL（Google 管理・Private IP）
 ```
 
@@ -209,17 +231,15 @@ PSA には重要な制約がある。
 - PSA は Google 管理サービス専用の接続であり、別 VPC / 別プロジェクトの一般リソースには利用できない。
 - 別プロジェクトや別 VPC のリソースには到達できない
 
-つまり、Cloud SQL を Private IP で利用する場合、PSA は前提条件だが、
-PSA だけでクロスプロジェクト接続はできない。
+つまり、Cloud SQL を Private IP で利用する場合、PSA は前提条件だが、PSA だけでクロスプロジェクト接続はできない。
 
 
-### 外部（別 VPC / 別プロジェクト）を VPC 内として扱う
-#### Private Service Connect（PSC）
-Private Service Connect は、別 VPC や別プロジェクト、外部サービスを、
+### Private Service Connect（PSC）
+Private Service Connect は、`別 VPC や別プロジェクト、外部サービス`を、
 自分の VPC に Private IP として出現させる仕組みである。
 
-PSC の本質は、
-「外部にあるサービスを、VPC 内の Private IP 宛通信として扱える」
+PSC の本質は、  
+`外部にあるサービスを`VPC 内の Private IP 宛通信として扱える  
 点にある。
 
 PSC の設計思想は以下。
@@ -235,8 +255,7 @@ PSC を使うことで、
 
 #### PSC の基本構造（仕組み目線）
 Producer 側
-- Cloud SQL、内部サービス、SaaS などを
-  PSC 経由で公開可能なサービスとして定義
+- Cloud SQL、内部サービス、SaaS などをPSC 経由で公開可能なサービスとして定義
 - この時点では Consumer 側の IP は存在しない
 
 Consumer 側
@@ -249,83 +268,61 @@ Consumer 側
 - firewall / routing 的にも VPC 内通信として扱える
 
 
-#### PSC の代表利用例（クロスプロジェクト）
-別プロジェクトに存在する Cloud SQL（Private IP）を
-Cloud Run から利用するケースを考える。
+## クロスプロジェクトの通信
+別プロジェクトに存在する Cloud SQL（Private IP）をCloud Run から利用するケースを考える。
+
+### パターン①：PSCを利用  
+Cloud SQL 側で Private Service Connect を有効化し、Cloud Run 側のVPCに PSC Endpoint（内部IP） を作ってそこへ接続する。
 ```
 Cloud Run
- ↓
-Serverless VPC Access
- ↓
-自分の VPC
- ↓
-PSC Endpoint（自分の VPC 内 IP）
- ↓
-Google 内部バックボーン
- ↓
-Cloud SQL（別プロジェクト）
+  ↓（Direct VPC egress または Serverless VPC Access）
+Consumer VPC（Cloud Run 側）
+  ↓
+PSC Endpoint（内部IP / forwarding rule）
+  ↓
+Service Attachment（Cloud SQL 側が提供）
+  ↓
+Cloud SQL（別PJ）
 ```
 
-この構成では、役割は次のように分かれる。
-- PSA  
-  Cloud SQL 側プロジェクトで既に利用されている前提  
-  Cloud SQL を Private IP 化するための仕組み
-- PSC  
-  別プロジェクト間の境界を越えるための仕組み
-- Serverless VPC Access  
-  Cloud Run を VPC に入れるための通路
-
-PSC は PSA の代替ではなく、越える境界が異なる別の仕組みである。
-
-
-### Cloud SQL 接続パターン整理
-Cloud SQL（Private IP）かつ同一プロジェクトの場合
-```
-Cloud Run
- ↓
-Serverless VPC Access
- ↓
-自分の VPC
- ↓
-Private Service Access
- ↓
-Cloud SQL
-```
-
-Cloud SQL（Private IP）かつ別VPCで、ピアリング等で繋がない/繋げない場合
-※さらに、両方のPJで`Cloud SQL Admin API`を有効にしておく必要がある。
-※`Cloud SQL Admin API`は、Cloud SQL Language Connectors / Auth Proxy が「接続先 Cloud SQL の情報を取得し、安全な接続を確立するため」に必須
+### パターン②：PSAとSharedVPCを利用
+プロジェクトは分かれていても ネットワークは同じVPC（Shared VPC）扱い にして、Cloud SQL の Private IP（=PSA） にそのまま到達する。
 
 ```
-Cloud Run
- ↓
-Serverless VPC Access
- ↓
-自分の VPC
- ↓
-Private Service Connect
- ↓
-Cloud SQL（別プロジェクト）
+Cloud Run（Service Project）
+  ↓（Direct VPC egress または Serverless VPC Access）
+Shared VPC（Host Project の VPC）
+  ↓
+（同一VPC内ルーティング）
+  ↓
+Cloud SQL Private IP（同一VPCのアドレス帯）
+  ↓
+PSA（service networking の VPC peering）
+  ↓
+Google 管理VPC（Producer 側）
+  ↓
+Cloud SQL instance（別PJでも可）
 ```
 
-
-
-Cloud SQL（Public IP）の場合
+### パターンC：PSAとVPCピアリングを利用
+Cloud SQL がいるVPC（PSAでPrivate IP運用しているVPC）と、Cloud Run 側VPCを VPC Peeringで直結して、Cloud SQL の Private IP に到達させる。
 ```
-Cloud Run
- ↓
-Internet（TLS + IAM）
- ↓
-Cloud SQL
+Cloud Run（Project A）
+  ↓（Direct VPC egress または Serverless VPC Access）
+VPC-A（Project A）
+  ↓
+VPC Peering（VPC-A ↔ VPC-B）
+  ↓
+VPC-B（Project B）
+  ↓
+Cloud SQL Private IP（VPC-B のアドレス帯）
+  ↓
+PSA（service networking の VPC peering）
+  ↓
+Google 管理VPC（Producer 側）
+  ↓
+Cloud SQL instance（Project B）
 ```
-この場合は以下が不要となる。
-- Private Service Access
-- Private Service Connect
-- Serverless VPC Access
-
-Cloud SQL Language Connector を用いて、安全に接続する。
-
-
 
 ## Cloud Load Balancing
 Cloud Load Balancing は、Google Cloud 上の Compute Engine や Cloud Storage などのバックエンドに対してトラフィックを自動で分散させるフルマネージドなサービスです。以下の特徴を持つ。

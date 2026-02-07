@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10. ServiceMesh &mdash; project  ドキュメント</title>
+  <title>11. ServiceMesh &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="11. NFS(Network File System)" href="NFS.html" />
+    <link rel="next" title="12. NFS(Network File System)" href="NFS.html" />
     <link rel="prev" title="9. Kubernetes" href="Kubernetes.html" /> 
 </head>
 
@@ -70,15 +70,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../GCP/GKE.html">9. GKE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/APIGW.html">10. API Gateway</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GCP/Storage.html">11. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudLogging.html">12. Cloud Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">13. DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">14. Workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">15. Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">16. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">17. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">18. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">19. MemoryStore</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">20. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DB.html">12. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Workflows.html">13. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/CloudScheduler.html">14. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Pub-Sub.html">15. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/DataAnalytics.html">16. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/AI.html">17. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/Redis.html">18. MemoryStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GCP/misc.html">19. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul class="current">
@@ -91,24 +90,25 @@
 <li class="toctree-l1"><a class="reference internal" href="kernel.html">7. カーネル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Kubernetes.html">9. Kubernetes</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">10. ServiceMesh</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">10.1. 用語</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#istio">10.1.1. Istio(制御レイヤ)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mtls">10.1.1.1. mTLS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#networkpolicy">10.1.1.2. NetworkPolicy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#authorizationpolicy">10.1.1.3. AuthorizationPolicy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">10.1.1.4. トラフィック制御</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Kubernetes.html#istio">10. Istio</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">11. ServiceMesh</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">11.1. 用語</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#istio">11.1.1. Istio(制御レイヤ)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mtls">11.1.1.1. mTLS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#networkpolicy">11.1.1.2. NetworkPolicy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#authorizationpolicy">11.1.1.3. AuthorizationPolicy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">11.1.1.4. トラフィック制御</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#envoy">10.1.2. Envoy（実働レイヤ）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#envoy">11.1.2. Envoy（実働レイヤ）</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="NFS.html">11. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SaaS.html">12. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">13. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFS.html">12. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SaaS.html">13. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">14. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%9D%9E%E6%A9%9F%E8%83%BD.html">15. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -159,7 +159,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">10. </span>ServiceMesh</li>
+      <li class="breadcrumb-item active"><span class="section-number">11. </span>ServiceMesh</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/ITBasic/ServiceMesh.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -170,14 +170,14 @@
            <div itemprop="articleBody">
              
   <section id="servicemesh">
-<h1><span class="section-number">10. </span>ServiceMesh<a class="headerlink" href="#servicemesh" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">11. </span>ServiceMesh<a class="headerlink" href="#servicemesh" title="この見出しへのパーマリンク">¶</a></h1>
 <p>サービスメッシュとは、マイクロサービス間通信をアプリケーションの外側で一元的に制御するためのアーキテクチャである。
 アプリケーションコードに通信制御を記載しないことで通信のルールを一元的に管理することができる。</p>
 <p>ポイントとしては、East-Westトラフィックと呼ばれ、クラスタ内部・サービス内部の通信を制御する。</p>
 <section id="id1">
-<h2><span class="section-number">10.1. </span>用語<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">11.1. </span>用語<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <section id="istio">
-<h3><span class="section-number">10.1.1. </span>Istio(制御レイヤ)<a class="headerlink" href="#istio" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.1.1. </span>Istio(制御レイヤ)<a class="headerlink" href="#istio" title="この見出しへのパーマリンク">¶</a></h3>
 <p>サービスメッシュを実現する代表的なOSSであり、通信ルールやポリシーを定義する。<br />
 コントロールプレーンであり、実際の通信は行わない。</p>
 <p>役割としては大きく以下</p>
@@ -196,21 +196,21 @@
 </li>
 </ul>
 <section id="mtls">
-<h4><span class="section-number">10.1.1.1. </span>mTLS<a class="headerlink" href="#mtls" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">11.1.1.1. </span>mTLS<a class="headerlink" href="#mtls" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>Pod 間通信を暗号化・相互認証</p></li>
 <li><p>STRICT で全通信必須化</p></li>
 </ul>
 </section>
 <section id="networkpolicy">
-<h4><span class="section-number">10.1.1.2. </span>NetworkPolicy<a class="headerlink" href="#networkpolicy" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">11.1.1.2. </span>NetworkPolicy<a class="headerlink" href="#networkpolicy" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>Pod 間通信の可否を制御</p></li>
 <li><p>URL 単位制御は不可</p></li>
 </ul>
 </section>
 <section id="authorizationpolicy">
-<h4><span class="section-number">10.1.1.3. </span>AuthorizationPolicy<a class="headerlink" href="#authorizationpolicy" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">11.1.1.3. </span>AuthorizationPolicy<a class="headerlink" href="#authorizationpolicy" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>HTTP path / method / source 単位で認可</p></li>
 <li><p>DENY が最優先</p></li>
@@ -218,7 +218,7 @@
 </ul>
 </section>
 <section id="id2">
-<h4><span class="section-number">10.1.1.4. </span>トラフィック制御<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">11.1.1.4. </span>トラフィック制御<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h4>
 <ul class="simple">
 <li><p>VirtualService：L7 ルーティング</p></li>
 <li><p>DestinationRule：接続・subset 定義</p></li>
@@ -226,7 +226,7 @@
 </section>
 </section>
 <section id="envoy">
-<h3><span class="section-number">10.1.2. </span>Envoy（実働レイヤ）<a class="headerlink" href="#envoy" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.1.2. </span>Envoy（実働レイヤ）<a class="headerlink" href="#envoy" title="この見出しへのパーマリンク">¶</a></h3>
 <p>高機能のL7プロキシであり、各podにサイドカーとして配置される。<br />
 データプレーンであり、実際の通信・ヘルスチェック・リトライを担当</p>
 <p>アプリコンテナの横に配置される補助コンテナであり、アプリ通信を横取りしてEnvoyに流す</p>
@@ -239,7 +239,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="Kubernetes.html" class="btn btn-neutral float-left" title="9. Kubernetes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="NFS.html" class="btn btn-neutral float-right" title="11. NFS(Network File System)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="NFS.html" class="btn btn-neutral float-right" title="12. NFS(Network File System)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

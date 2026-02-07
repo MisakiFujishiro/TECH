@@ -842,6 +842,27 @@ Cloud Monitoring
 既存VMおよび将来新規作成されるすべてのVMを対象に設定可能。</p>
 </section>
 </section>
+<section id="error-reporting">
+<h2>Error Reporting<a class="headerlink" href="#error-reporting" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud Logging などから受け取った情報をもとに<br />
+アプリケーションエラーを抽出・集約し、Google Cloud Console 上で可視化するためのサービス。
+エラーを「意味的に同じ単位」でグルーピングし、  人間（運用者・SRE）がエラーの傾向や影響範囲を把握しやすくすることが目的</p>
+<p>Error Reportingにエラーを集約する方法は2つある</p>
+<ul class="simple">
+<li><p>Error Reporting API<br />
+アプリケーションから Error Reporting API の <code class="docutils literal notranslate"><span class="pre">report</span></code> メソッドを呼び出し</p></li>
+<li><p>Cloud Loggingから自動抽出<br />
+Cloud Logging に書き込まれたログのうちError Reporting が認識できる形式・内容を持つログエントリを自動的に検出・集約</p></li>
+</ul>
+<p>ReportedErrorEvent は、Error Reporting が理解できるエラーイベントの正式なデータ構造（JSON スキーマ）である。</p>
+<ul class="simple">
+<li><p>message: UI 上でエラーのタイトルとして表示される</p></li>
+<li><p>serviceContext: サービス名、バージョン</p></li>
+<li><p>reportLocation: ファイル名、行番号、関数名</p></li>
+<li><p>httpRequest: URL、メソッド、レスポンスコードなど</p></li>
+</ul>
+<p>この形式でエラー情報が渡されると、Error Reporting は確実にエラーとして認識・集約できる。</p>
+</section>
 </section>
 
 

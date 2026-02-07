@@ -355,3 +355,25 @@ Cloud Monitoring
 ### エージェントポリシー
 Ops Agentについて、どのような状態であるべきかについて宣言的に定義する仕組み。
 既存VMおよび将来新規作成されるすべてのVMを対象に設定可能。
+
+## Error Reporting
+Cloud Logging などから受け取った情報をもとに  
+アプリケーションエラーを抽出・集約し、Google Cloud Console 上で可視化するためのサービス。
+エラーを「意味的に同じ単位」でグルーピングし、  人間（運用者・SRE）がエラーの傾向や影響範囲を把握しやすくすることが目的
+
+
+Error Reportingにエラーを集約する方法は2つある
+- Error Reporting API  
+    アプリケーションから Error Reporting API の `report` メソッドを呼び出し
+- Cloud Loggingから自動抽出  
+    Cloud Logging に書き込まれたログのうちError Reporting が認識できる形式・内容を持つログエントリを自動的に検出・集約
+
+
+ReportedErrorEvent は、Error Reporting が理解できるエラーイベントの正式なデータ構造（JSON スキーマ）である。
+
+- message: UI 上でエラーのタイトルとして表示される
+- serviceContext: サービス名、バージョン
+- reportLocation: ファイル名、行番号、関数名
+- httpRequest: URL、メソッド、レスポンスコードなど
+
+この形式でエラー情報が渡されると、Error Reporting は確実にエラーとして認識・集約できる。

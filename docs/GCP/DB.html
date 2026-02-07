@@ -75,6 +75,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">14. DB</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-sql">14.1. Cloud SQL</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#cloud-sql-auth-proxy">14.1.1. Cloud SQL Auth Proxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-admin-api">14.1.2. Cloud SQL Admin API</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#alloydb">14.2. AlloyDB</a></li>
@@ -110,11 +111,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">9. コンテナ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Terraform.html">10. Terraform</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">11. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">12. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">13. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">14. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">15. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">16. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html#istio">12. Istio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">13. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">14. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">15. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">16. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">17. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -226,6 +228,11 @@ MySQL・PostgreSQL・SQL Serverをサポートし、マシンタイプを選択�
 GKEやCompute Engineではよく利用される。
 ※ Cloud Run では、Cloud Run ではサイドカーを公式にサポートしておらず、単一コンテナ内でプロキシとアプリをまとめる構成はオーバーヘッドや可観測性の点で推奨されません。そのため、公式の Cloud SQL 連携機能が推奨されており、自前で Cloud SQL Auth Proxy を起動するケースは少ない。</p>
 <p>権限としては、クライアント側のSAには<code class="docutils literal notranslate"><span class="pre">roles/cloudsql.client</span></code>を付与しておく。</p>
+</section>
+<section id="cloud-sql-admin-api">
+<h3><span class="section-number">14.1.2. </span>Cloud SQL Admin API<a class="headerlink" href="#cloud-sql-admin-api" title="この見出しへのパーマリンク">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">SQL</span> <span class="pre">Admin</span> <span class="pre">API</span></code>は、Cloud SQL Language Connectors / Auth Proxy が「接続先 Cloud SQL の情報を取得し、安全な接続を確立するため」に必須</p>
+<p>PJで<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">SQL</span> <span class="pre">Admin</span> <span class="pre">API</span></code>を有効にしておく必要がある。</p>
 </section>
 </section>
 <section id="alloydb">
