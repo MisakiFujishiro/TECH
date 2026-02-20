@@ -96,8 +96,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#id8">16.6. 活用</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#looker">16.6.1. Looker</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#looker-studio">16.6.2. Looker Studio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">16.6.1. ビュー</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">16.6.1.1. 通常ビュー</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#authorized-view">16.6.1.2. 承認済みビュー（Authorized View）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#materialized-view">16.6.1.3. マテリアライズドビュー（Materialized View）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#looker">16.6.2. Looker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looker-studio">16.6.3. Looker Studio</a></li>
 </ul>
 </li>
 </ul>
@@ -117,11 +123,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">7. カーネル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">8. コンテナ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">9. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">10. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">11. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">12. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">13. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html#istio">10. Istio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">11. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">12. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">13. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">14. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">15. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -295,12 +302,71 @@ BigQuery上のデータに対しては、ユーザは標準的なSQL言語でク
 <p>最後の「活用」フェーズでは、分析の結果を人々が理解・利用しやすい形にして届ける段階である。蓄積・分析したデータから得られた知見も、それが経営層や現場の担当者に共有され、意思決定や業務改善に活かされなければ宝の持ち腐れになってしまう。</p>
 <p>GCPでは、この活用の部分を支援するBI（ビジネスインテリジェンス）ツールとして Looker と Looker Studio が提供されている</p>
 <p>LookerとLooker StudioはいずれもBigQueryなどの分析基盤と組み合わせて使われるが、その用途とスケールは異なる。一般に、エンタープライズ規模で厳密なデータ統制や高度な統合分析が必要な場合にはLookerが選択され、まずは簡易な可視化から始めたい場合や小規模チームでの利用にはLooker Studioが好適である。</p>
+<section id="id9">
+<h3><span class="section-number">16.6.1. </span>ビュー<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<p>BigQueryを使ったデータウェアハウス設計では、<br />
+「誰が・どのデータを・どこまで見られるか」をどう制御するかが非常に重要になる。</p>
+<p>BigQueryには、見た目は似ているが性質の異なる3つの概念が存在する。</p>
+<ul class="simple">
+<li><p>通常ビュー（Logical View）</p></li>
+<li><p>承認済みビュー（Authorized View）</p></li>
+<li><p>マテリアライズドビュー（Materialized View）</p></li>
+</ul>
+<section id="id10">
+<h4><span class="section-number">16.6.1.1. </span>通常ビュー<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h4>
+<p>通常ビューの特徴は以下</p>
+<ul class="simple">
+<li><p>保存されるのは SQL 定義のみ</p></li>
+<li><p>データの実体は保持しない</p></li>
+<li><p>実行時に元テーブルへクエリが実行される</p></li>
+<li><p>ストレージコストは発生しない</p></li>
+</ul>
+<p>通常ビューを参照するユーザーは、</p>
+<ul class="simple">
+<li><p>ビューの参照権限</p></li>
+<li><p>元テーブルの参照権限</p></li>
+</ul>
+<p>の両方が必要。ビューに対してSQLを実行して表示する</p>
+</section>
+<section id="authorized-view">
+<h4><span class="section-number">16.6.1.2. </span>承認済みビュー（Authorized View）<a class="headerlink" href="#authorized-view" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Authorized View はビューの種類ではなく、権限移譲設定。</p>
+<blockquote>
+<div><p>「このビューからのアクセスだけは、元データセットへの参照を許可する」</p>
+</div></blockquote>
+<p>という設定を行うことで、ユーザーはビューの参照権限のみあれば、承認済みビューを通じて認可された範囲のビューのみを確認することができる。</p>
+<p>以下の例で、raw_dataset にanalytics_dataset.customer_view をAuthorized View として登録する。
+これをやることで<code class="docutils literal notranslate"><span class="pre">ビューだけが</span> <span class="pre">raw_dataset</span> <span class="pre">のデータを読める</span></code>という特別な許可が与えられます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>raw_dataset
+ └── customer_table（PIIあり）
+        ↑
+        │ Authorized View 許可
+        │
+analytics_dataset
+ └── customer_view（PII除外）
+
+データサイエンスチーム
+   ↓
+customer_view だけアクセス可能
+</pre></div>
+</div>
+</section>
+<section id="materialized-view">
+<h4><span class="section-number">16.6.1.3. </span>マテリアライズドビュー（Materialized View）<a class="headerlink" href="#materialized-view" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>クエリ結果を物理データとして保存する</p></li>
+<li><p>高速なクエリが可能</p></li>
+<li><p>ストレージコストが発生する</p></li>
+<li><p>自動更新・制約条件あり</p></li>
+</ul>
+</section>
+</section>
 <section id="looker">
-<h3><span class="section-number">16.6.1. </span>Looker<a class="headerlink" href="#looker" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.6.2. </span>Looker<a class="headerlink" href="#looker" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Looker は、Google Cloudが提供するエンタープライズ向けのデータプラットフォームである。一般にはBIツールに分類されるが、単なるダッシュボード可視化ツールに留まらず、LookML と呼ばれる独自のモデリング言語を用いてデータのビジネス定義や指標を一元管理できる点に特徴がある。データアナリストがLookMLで「売上高」「顧客数」「利益率」などの指標や各種ディメンションの定義をコード化しモデルとして構築しておけば、組織内の誰もがその共通定義にもとづいてデータにアクセス・分析できるようになる。これにより、「部署によって数値の定義が違う」「計算方法が人によってバラバラ」といった事態を避け、全社で一貫した分析結果を得ることが可能となる。</p>
 </section>
 <section id="looker-studio">
-<h3><span class="section-number">16.6.2. </span>Looker Studio<a class="headerlink" href="#looker-studio" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.6.3. </span>Looker Studio<a class="headerlink" href="#looker-studio" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Looker Studio は、手軽に使えるクラウドベースのダッシュボードツールである。旧称を「データポータル」または「Google Data Studio」といい、2022年に名称がLookerブランドに統一され現在の名前になった。基本的に無料で利用でき、直感的なUI操作で美しい可視化レポートを作成できるのが特徴だ。Looker Studioでは、BigQueryをはじめGoogleスプレッドシートやGoogleアナリティクス、さらにはサードパーティのデータソースまで、多様なデータに接続してグラフや表を配置したレポートを作成できる。プログラミングやSQLの知識がなくても、ドラッグ＆ドロップでデータ項目をビジュアルに落とし込めるため、現場の担当者が自らデータを可視化して共有するといったセルフサービスBIにも向いている。</p>
 </section>
 </section>

@@ -7,30 +7,6 @@
 ====================================
 
 
-
-.. toctree::
-   :maxdepth: 1
-   :caption: AWS:
-   :numbered: 5
-
-   AWS/AWS.md
-   IAM
-   Network
-   Front
-   EC2
-   Container
-   S3
-   CloudFormation
-   CloudWatch
-   Storage
-   DB
-   SystemsManager
-   AWS/CloudTrail.md
-   AWS/EventBridge.md
-   AWS/AutoScaling.md
-   AWS/SES.md
-
-
 .. toctree::
    :maxdepth: 1
    :caption: GCP:
@@ -57,6 +33,30 @@
    GCP/AI.md
    GCP/Redis.md   
    GCP/misc.md
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: AWS:
+   :numbered: 5
+
+   AWS/AWS.md
+   IAM
+   Network
+   Front
+   EC2
+   Container
+   S3
+   CloudFormation
+   CloudWatch
+   Storage
+   DB
+   SystemsManager
+   AWS/CloudTrail.md
+   AWS/EventBridge.md
+   AWS/AutoScaling.md
+   AWS/SES.md
+
 
 .. toctree::
    :maxdepth: 1

@@ -38,26 +38,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
@@ -91,6 +72,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#gsutil">12.1.11. gsutil</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">12.1.12. データ移行</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#storage-transfer-service">12.1.12.1. Storage Transfer Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#transfer-appliance">12.1.12.2. Transfer Appliance</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -104,6 +90,25 @@
 <li class="toctree-l1"><a class="reference internal" href="AI.html">19. AIサービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">20. MemoryStore</a></li>
 <li class="toctree-l1"><a class="reference internal" href="misc.html">21. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
@@ -565,6 +570,49 @@ IAMを利用して、「誰が複合して良いのか」を制御する。</p>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="id14">
+<h3><span class="section-number">12.1.12. </span>データ移行<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="storage-transfer-service">
+<h4><span class="section-number">12.1.12.1. </span>Storage Transfer Service<a class="headerlink" href="#storage-transfer-service" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Storage Transfer Service は、ネットワーク経由（オンライン）での大規模データ転送に特化したマネージドサービスである。</p>
+<p>主な特徴は以下の通り。</p>
+<ul class="simple">
+<li><p>サードパーティのオブジェクトストレージから Cloud Storage への転送に対応</p></li>
+<li><p>大量データを並列に転送</p></li>
+<li><p>転送失敗時の自動再試行</p></li>
+<li><p>転送後の整合性チェック</p></li>
+<li><p>スケジュール実行が可能</p></li>
+<li><p>転送処理の運用をほぼ意識しなくてよい</p></li>
+</ul>
+<p>このサービスは、以下のようなケースを想定して設計されている。</p>
+<ul class="simple">
+<li><p>数 TB〜数十 TB 程度のデータ量</p></li>
+<li><p>ネットワーク帯域が十分に確保できる</p></li>
+<li><p>できるだけ早く移行したい</p></li>
+<li><p>人手によるコピーやスクリプト管理を避けたい</p></li>
+</ul>
+</section>
+<section id="transfer-appliance">
+<h4><span class="section-number">12.1.12.2. </span>Transfer Appliance<a class="headerlink" href="#transfer-appliance" title="この見出しへのパーマリンク">¶</a></h4>
+<p>Transfer Appliance は、物理デバイスを使ったオフラインデータ転送のためのサービスである。</p>
+<p>利用の流れは以下の通り。</p>
+<ol class="arabic simple">
+<li><p>Google から専用のアプライアンス（ストレージ機器）を取り寄せる</p></li>
+<li><p>オンプレミスや既存環境でデータを書き込む</p></li>
+<li><p>アプライアンスを Google に返送する</p></li>
+<li><p>Google が Cloud Storage にデータを取り込む</p></li>
+</ol>
+<p>この方式が想定しているのは、以下のようなケースである。</p>
+<ul class="simple">
+<li><p>数百 TB〜PB クラスの非常に大きなデータ量</p></li>
+<li><p>ネットワーク帯域が制限されている</p></li>
+<li><p>オンライン転送に現実的な時間がかかりすぎる</p></li>
+<li><p>物理輸送の方が総時間・総コストで有利</p></li>
+</ul>
+<p>Transfer Applianceによって、暗号化がされているのでCloudStorageに取り込んだ後に、
+Transfer Appliance Rehydratorによって、暗号化されたデータを復号する必要がある。</p>
+</section>
 </section>
 </section>
 </section>
