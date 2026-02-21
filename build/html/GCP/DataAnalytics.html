@@ -102,8 +102,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#materialized-view">16.6.1.3. マテリアライズドビュー（Materialized View）</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#looker">16.6.2. Looker</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#looker-studio">16.6.3. Looker Studio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">16.6.2. 権限</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looker">16.6.3. Looker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looker-studio">16.6.4. Looker Studio</a></li>
 </ul>
 </li>
 </ul>
@@ -361,12 +362,42 @@ customer_view だけアクセス可能
 </ul>
 </section>
 </section>
+<section id="id11">
+<h3><span class="section-number">16.6.2. </span>権限<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>BigQueryは 「実行権限」と「データ閲覧権限」が別に管理されている。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>ロール</p></th>
+<th class="head text-left"><p>付与先</p></th>
+<th class="head text-left"><p>できること</p></th>
+<th class="head text-left"><p>できないこと</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>BigQuery Job User</p></td>
+<td class="text-left"><p>プロジェクト</p></td>
+<td class="text-left"><p>クエリ実行</p></td>
+<td class="text-left"><p>データ閲覧</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>BigQuery Data Viewer</p></td>
+<td class="text-left"><p>データセット</p></td>
+<td class="text-left"><p>データ閲覧</p></td>
+<td class="text-left"><p>クエリ実行</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>BigQuery Data Editor</p></td>
+<td class="text-left"><p>データセット</p></td>
+<td class="text-left"><p>データ編集</p></td>
+<td class="text-left"><p>プロジェクト課金操作</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="looker">
-<h3><span class="section-number">16.6.2. </span>Looker<a class="headerlink" href="#looker" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.6.3. </span>Looker<a class="headerlink" href="#looker" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Looker は、Google Cloudが提供するエンタープライズ向けのデータプラットフォームである。一般にはBIツールに分類されるが、単なるダッシュボード可視化ツールに留まらず、LookML と呼ばれる独自のモデリング言語を用いてデータのビジネス定義や指標を一元管理できる点に特徴がある。データアナリストがLookMLで「売上高」「顧客数」「利益率」などの指標や各種ディメンションの定義をコード化しモデルとして構築しておけば、組織内の誰もがその共通定義にもとづいてデータにアクセス・分析できるようになる。これにより、「部署によって数値の定義が違う」「計算方法が人によってバラバラ」といった事態を避け、全社で一貫した分析結果を得ることが可能となる。</p>
 </section>
 <section id="looker-studio">
-<h3><span class="section-number">16.6.3. </span>Looker Studio<a class="headerlink" href="#looker-studio" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">16.6.4. </span>Looker Studio<a class="headerlink" href="#looker-studio" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Looker Studio は、手軽に使えるクラウドベースのダッシュボードツールである。旧称を「データポータル」または「Google Data Studio」といい、2022年に名称がLookerブランドに統一され現在の名前になった。基本的に無料で利用でき、直感的なUI操作で美しい可視化レポートを作成できるのが特徴だ。Looker Studioでは、BigQueryをはじめGoogleスプレッドシートやGoogleアナリティクス、さらにはサードパーティのデータソースまで、多様なデータに接続してグラフや表を配置したレポートを作成できる。プログラミングやSQLの知識がなくても、ドラッグ＆ドロップでデータ項目をビジュアルに落とし込めるため、現場の担当者が自らデータを可視化して共有するといったセルフサービスBIにも向いている。</p>
 </section>
 </section>

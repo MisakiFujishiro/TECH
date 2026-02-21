@@ -57,6 +57,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#cloud-sql">14.1. Cloud SQL</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#cloud-sql-auth-proxy">14.1.1. Cloud SQL Auth Proxy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cloud-sql-admin-api">14.1.2. Cloud SQL Admin API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">14.1.3. レプリケーション</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#alloydb">14.2. AlloyDB</a></li>
@@ -233,6 +234,32 @@ GKEやCompute Engineではよく利用される。
 <h3><span class="section-number">14.1.2. </span>Cloud SQL Admin API<a class="headerlink" href="#cloud-sql-admin-api" title="この見出しへのパーマリンク">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">SQL</span> <span class="pre">Admin</span> <span class="pre">API</span></code>は、Cloud SQL Language Connectors / Auth Proxy が「接続先 Cloud SQL の情報を取得し、安全な接続を確立するため」に必須</p>
 <p>PJで<code class="docutils literal notranslate"><span class="pre">Cloud</span> <span class="pre">SQL</span> <span class="pre">Admin</span> <span class="pre">API</span></code>を有効にしておく必要がある。</p>
+</section>
+<section id="id1">
+<h3><span class="section-number">14.1.3. </span>レプリケーション<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>CloudSQLではHA構成のレプリケーションと読み取り専用のReadReplicaだけでなく、一時的にオンプレなどの外部インスタンスを移行用に利用する外部マスター構成のレプリケーション機能が存在する。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-left"><p>用途</p></th>
+<th class="head text-left"><p>同期方式</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>HA構成</p></td>
+<td class="text-left"><p>可用性</p></td>
+<td class="text-left"><p>同期</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Read Replica</p></td>
+<td class="text-left"><p>読み取り分散</p></td>
+<td class="text-left"><p>非同期</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>外部マスター</p></td>
+<td class="text-left"><p>移行</p></td>
+<td class="text-left"><p>非同期</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 <section id="alloydb">
