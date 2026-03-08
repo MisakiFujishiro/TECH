@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>17. AIサービス &mdash; project  ドキュメント</title>
+  <title>19. AIサービス &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="18. MemoryStore" href="Redis.html" />
-    <link rel="prev" title="16. データ分析サービス" href="DataAnalytics.html" /> 
+    <link rel="next" title="20. MemoryStore" href="Redis.html" />
+    <link rel="prev" title="18. データ分析サービス" href="DataAnalytics.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +38,37 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">5. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Front.html">6. Load Balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">7. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">9. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">10. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIGW.html">11. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">12. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">13. CloudOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">14. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">15. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">16. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">17. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">18. データ分析サービス</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">19. AIサービス</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">19.1. AIインフラストラクチャー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vertex-ai">19.2. Vertex AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">19.3. AIソリューション</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gemini-for-google-cloud">19.4. Gemini for Google Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">20. MemoryStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">21. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
@@ -57,50 +87,25 @@
 <li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
-<li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Network.html">4. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">5. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">6. GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">7. コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Serverless.html">8. サーバーレスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GKE.html">9. GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="APIGW.html">10. API Gateway</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Storage.html">11. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DB.html">12. DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Workflows.html">13. Workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">14. Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">15. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">16. データ分析サービス</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">17. AIサービス</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">17.1. AIインフラストラクチャー</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vertex-ai">17.2. Vertex AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">17.3. AIソリューション</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gemini-for-google-cloud">17.4. Gemini for Google Cloud</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">18. MemoryStore</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">19. その他</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">3. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">4. SoftWareArchitecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html#id4">5. マイクロサービスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">6. サーバー</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">7. カーネル</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">8. コンテナ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">9. Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">10. ServiceMesh</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">11. NFS(Network File System)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">12. SaaS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">13. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">14. 非機能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SRE.html">3. SRE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">5. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html#id4">6. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">7. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">8. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">9. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Terraform.html">10. Terraform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">11. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html#istio">12. Istio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">13. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">14. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">15. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">16. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">17. 非機能</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Git:</span></p>
 <ul>
@@ -151,7 +156,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">17. </span>AIサービス</li>
+      <li class="breadcrumb-item active"><span class="section-number">19. </span>AIサービス</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/AI.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -162,25 +167,25 @@
            <div itemprop="articleBody">
              
   <section id="ai">
-<h1><span class="section-number">17. </span>AIサービス<a class="headerlink" href="#ai" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">19. </span>AIサービス<a class="headerlink" href="#ai" title="この見出しへのパーマリンク">¶</a></h1>
 <p>GCPのAIサービスは大きく分けて4つ</p>
 <section id="id1">
-<h2><span class="section-number">17.1. </span>AIインフラストラクチャー<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">19.1. </span>AIインフラストラクチャー<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>AIの開発やトレーニングを行うためのインフラを提供している。
 NVIDIA GPUを搭載した仮想マシンや、AIワークロードに特化したプロセッサとしてCloud TPUを提供している。</p>
 </section>
 <section id="vertex-ai">
-<h2><span class="section-number">17.2. </span>Vertex AI<a class="headerlink" href="#vertex-ai" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">19.2. </span>Vertex AI<a class="headerlink" href="#vertex-ai" title="この見出しへのパーマリンク">¶</a></h2>
 <p>フルマネージドなAI開発プラットフォームとしてVertex AIが提供されている。
 開発者自身で、モデルを構成したりカスタマイズが可能。MLOpsに必要な一連の環境が提供される。</p>
 <p>さらに生成AIを利用したアプリケーション開発の支援機能も含まれ、LAGの構成やAIエージェントを容易に構成することができる。</p>
 </section>
 <section id="id2">
-<h2><span class="section-number">17.3. </span>AIソリューション<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">19.3. </span>AIソリューション<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
 <p>特定の用途を対象にしたAIサービス群があり、事前トレーニングAPIを利用することで、すぐにAIを利用することができる。例えば翻訳サービスのTranslation APIや画像検出サービスのCloud Vision APIなどが挙げられる。</p>
 </section>
 <section id="gemini-for-google-cloud">
-<h2><span class="section-number">17.4. </span>Gemini for Google Cloud<a class="headerlink" href="#gemini-for-google-cloud" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">19.4. </span>Gemini for Google Cloud<a class="headerlink" href="#gemini-for-google-cloud" title="この見出しへのパーマリンク">¶</a></h2>
 <p>GCP上でのシステム開発を支援する精製AIサービスで、アプリケーションコードの生成や支援を行なってくれる。
 具体的には、GCP上のシステム開発におけるベストプラクティスをGCPのコンソール上からチャットベースで質問することができる。</p>
 </section>
@@ -190,8 +195,8 @@ NVIDIA GPUを搭載した仮想マシンや、AIワークロードに特化し�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="DataAnalytics.html" class="btn btn-neutral float-left" title="16. データ分析サービス" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Redis.html" class="btn btn-neutral float-right" title="18. MemoryStore" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="DataAnalytics.html" class="btn btn-neutral float-left" title="18. データ分析サービス" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Redis.html" class="btn btn-neutral float-right" title="20. MemoryStore" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
