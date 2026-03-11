@@ -417,6 +417,13 @@ PSC を使うことで、
 「どの VPC が、どのサービスに、どの IP で接続できるか」
 をネットワーク構造として明示的に制御できる。
 
+#### PSCの種類
+PCSには以下3つの種類がある。
+- PSC to producer service	SaaS / 他VPC
+- PSC published service	自分のサービス公開
+- PSC for Google APIs	Google API
+
+PSC for GOogle APIsはPGAと似た機能だが、特定のAPIのみをプライベートIPで通信したい時に利用できる。
 
 #### PSC の基本構造（仕組み目線）
 Producer 側
@@ -745,51 +752,6 @@ vm-1.us-central1-a.c.project-id.internal
 VMのDNS設定を独自DNSに変更すると解決できなくなる可能性がある。
 
 
-## Cloud Interconnect
-Cloud Interconnect は、オンプレミスと Google Cloud VPC を専用線で接続するサービス。
-
-構成要素は次のとおり。InterconnectがあってもVLANがないとVPCとは接続できない。
-
-1. 物理接続（Dedicated / Partner Interconnect）
-2. VLAN
-3. VLAN アタッチメント（Interconnect attachment）
-4. Cloud Router
-5. VPC
-
-データフローは以下のようになる。
-```
-オンプレ  
-↓  
-物理 Interconnect  
-↓  
-VLAN  
-↓  
-VLAN アタッチメント  
-↓  
-Cloud Router（BGP）  
-↓  
-VPC
-```
-
-### VLAN アタッチメント
-VLAN アタッチメントは、物理回線上の VLAN と VPC を結ぶ「論理的な接続口」。
-
-重要ポイント：
-- リージョンリソースである
-- 1つのリージョンに紐づく
-- そのリージョンがダウンすると利用できない
-
-
-### ASN
-VLANアタッチメントを設定する際に、Cloud Routerで使用する自律システム番号（ASN）のため、以下のASNは覚えておくと良い
-- Google ASN
-  - 15169  ← Google public internet
-  - 16550  ← Interconnect
-- Private ASN
-  - 64512 – 65534
-
-
-
 
 
 
@@ -855,6 +817,51 @@ Cloud Routerをリージョンに1つ作成し、VPCのDynamic routing modeをGl
 CloudRouterを複数リージョンに設定する。複数リージョンに配置することで、可用性やレイテンシの最適化に繋がる。
 
 
+## Cloud Interconnect
+Cloud Interconnect は、オンプレミスと Google Cloud VPC を専用線で接続するサービス。
+
+構成要素は次のとおり。InterconnectがあってもVLANがないとVPCとは接続できない。
+
+1. 物理接続（Dedicated / Partner Interconnect）
+2. VLAN
+3. VLAN アタッチメント（Interconnect attachment）
+4. Cloud Router
+5. VPC
+
+データフローは以下のようになる。
+```
+オンプレ  
+↓  
+物理 Interconnect  
+↓  
+VLAN  
+↓  
+VLAN アタッチメント  
+↓  
+Cloud Router（BGP）  
+↓  
+VPC
+```
+
+### VLAN アタッチメント
+VLAN アタッチメントは、物理回線上の VLAN と VPC を結ぶ「論理的な接続口」。
+
+重要ポイント：
+- リージョンリソースである
+- 1つのリージョンに紐づく
+- そのリージョンがダウンすると利用できない
+
+
+### ASN
+VLANアタッチメントを設定する際に、Cloud Routerで使用する自律システム番号（ASN）のため、以下のASNは覚えておくと良い
+- Google ASN
+  - 15169  ← Google public internet
+  - 16550  ← Interconnect
+- Private ASN
+  - 64512 – 65534
+
+
+
 
 
 
@@ -881,13 +888,15 @@ CloudRouterを複数リージョンに設定する。複数リージョンに配
 
 上記を考える時のポイントは以下3つ
 - VPC Peering は非遷移である
-- Spoke からオンプレミスへ行くには、Peering の route exchange が必要
-- オンプレミスから Spoke へ戻すには、Cloud Router の BGP 広告が必要
+- Spoke からオンプレミスへ通信したい
+- オンプレミスから Spoke へ通信したい
 
 ### 結論
 Hub-Spoke 構成で Spoke とオンプレミスを双方向接続したい場合は、次の設定をする。
-- Spoke からオンプレミスへ行くには、Hub 側で export custom routes、Spoke 側で import custom routes を有効にする
-- オンプレミスから Spoke へ戻すには、Cloud Router の広告設定を custom advertisement mode にして、Spoke の CIDR をオンプレミスへ広告する
+- Spoke からオンプレミス
+  - Spokeがオンプレへのカスタムルールを知るためにSpoke-HubでカスタムルートのExport・Importが必要
+- オンプレミスから Spoke
+  - オンプレがSpokeのルート知るためにCloudRouterでカスタムアドバタイズメントする
 
 ### 課題感
 VPC Peering は、接続された2つの VPC の間だけでルーティングを提供する。
@@ -903,7 +912,7 @@ Spoke1 --- Hub --- Spoke2
 - Spoke1 から Spoke2 に、Hub を経由して自動的に通信できるわけではない
 
 これが「非遷移」。
-そのため、Hub VPC があればその先のオンプレミスも Spoke から自動的に見えるはずだ、と誤解しやすくなる。
+Hub VPC があればその先のオンプレミスも Spoke から自動的に見えるはずだ、と誤解しないように注意。
 
 ### Spoke→オンプレ通信ルート
 VPC Peering の設定には、カスタムルートの import / export がある。
@@ -942,6 +951,8 @@ Cloud Router は BGP によってそれらを学習。
 
 つまり、Spoke 側にオンプレミス宛ての経路が見えるようになる。
 ```
+
+ちなみに、VPCピアリングで自動的にVPC内のルートは学習されるが、オンプレ側のルートなどはカスタムルートなので自動的に学習はされない。
 
 ### オンプレ→Spokeルート
 Cloud Router は、Google Cloud 側の経路をオンプレミスへ BGP で広告できます。
