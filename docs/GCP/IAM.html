@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="3. Google Cloud APIs" href="API.html" />
+    <link rel="next" title="4. Google Cloud APIs" href="API.html" />
     <link rel="prev" title="1. GCPについて" href="GCP.html" /> 
 </head>
 
@@ -75,33 +75,29 @@
 <li class="toctree-l3"><a class="reference internal" href="#id9">2.7.3. なぜ実行時サービスアカウントではダメなのか</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#identity-aware-proxy-iap">2.8. Identity-Aware Proxy (IAP)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#iap">2.8.1. IAPの役割</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iap-load-balancer">2.8.2. IAP と Load Balancer の関係</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">2.8.3. IAPの処理詳細</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Network.html">4. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">5. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Front.html">6. Load Balancing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">7. GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Serverless.html">9. サーバーレスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GKE.html">10. GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="APIGW.html">11. API Gateway</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Storage.html">12. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">13. CloudOps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DB.html">14. DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Workflows.html">15. Workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">16. Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">17. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">18. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AI.html">19. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">20. MemoryStore</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">21. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#access-context-manager">3. Access Context Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">4. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">6. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Front.html">7. Load Balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">8. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">9. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">10. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">11. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIGW.html">12. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">13. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">14. CloudOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">15. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">16. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">17. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">18. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">19. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">20. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">21. MemoryStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Security.html">22. セキュリティ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">23. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul>
@@ -635,69 +631,29 @@ Role：roles/iam.workloadIdentityUser
 </ul>
 </section>
 </section>
-<section id="identity-aware-proxy-iap">
-<h2><span class="section-number">2.8. </span>Identity-Aware Proxy (IAP)<a class="headerlink" href="#identity-aware-proxy-iap" title="この見出しへのパーマリンク">¶</a></h2>
-<p>IAP は Google Cloud が提供する認証・認可プロキシである。
-アプリケーション自身にログイン処理や認証ロジックを実装しなくても、Google アカウント（Google Workspace 含む）を使った安全なアクセス制御を実現できます。
-Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できます。</p>
-<section id="iap">
-<h3><span class="section-number">2.8.1. </span>IAPの役割<a class="headerlink" href="#iap" title="この見出しへのパーマリンク">¶</a></h3>
-<p>IAP はアプリケーションの 前段（HTTP(S) ロードバランサ等）に配置され、次を担当します。</p>
-<ul class="simple">
-<li><p>ユーザー認証</p></li>
-<li><p>Google アカウントでログイン</p></li>
-<li><p>アクセス認可</p></li>
-<li><p>IAM / Google グループでアクセス可否を判定</p></li>
-<li><p>認証済みリクエストのみをバックエンドへ転送</p></li>
-</ul>
 </section>
-<section id="iap-load-balancer">
-<h3><span class="section-number">2.8.2. </span>IAP と Load Balancer の関係<a class="headerlink" href="#iap-load-balancer" title="この見出しへのパーマリンク">¶</a></h3>
-<p>IAP は 単体で通信を受けるサービスではない。
-必ず Cloud Load Balancing（HTTP(S) Load Balancer）と組み合わせて利用される。</p>
-<p>立ち位置の整理</p>
+<section id="access-context-manager">
+<h1><span class="section-number">3. </span>Access Context Manager<a class="headerlink" href="#access-context-manager" title="この見出しへのパーマリンク">¶</a></h1>
+<p>アクセスの「条件」を定義する仕組み</p>
+<p>何を制御する？</p>
 <ul class="simple">
-<li><p>IAP は HTTP(S) Load Balancer の機能の一部として動作</p></li>
-<li><p>IAP は Backend Service に対して有効化される</p></li>
-<li><p>クライアントは 必ず Load Balancer 経由で IAP を通過する</p></li>
+<li><p>IPアドレス</p></li>
+<li><p>デバイスの状態</p></li>
+<li><p>ロケーション</p></li>
+<li><p>ユーザー属性</p></li>
 </ul>
-</section>
-<section id="id10">
-<h3><span class="section-number">2.8.3. </span>IAPの処理詳細<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
-<p>AP による認証が成功すると、IAP が署名した JWT がバックエンドに渡されます。</p>
-<ul class="simple">
-<li><p>処理イメージ</p>
-<ul>
-<li><p>ユーザーがアプリにアクセス</p></li>
-<li><p>IAP が Google アカウントで認証</p></li>
-<li><p>IAP がアクセス許可を判定</p></li>
-</ul>
-</li>
-<li><p>許可された場合のみ</p>
-<ul>
-<li><p>JWT を HTTP ヘッダに付与</p></li>
-<li><p>バックエンド（Compute Engine / GKE / Cloud Run 等）へ転送</p></li>
-</ul>
-</li>
-<li><p>アプリ側の役割</p>
-<ul>
-<li><p>JWT の 署名検証</p></li>
-<li><p>ユーザー情報（email / ID）を参照</p></li>
-<li><p>「認証済みユーザー」として処理する</p></li>
-</ul>
-</li>
-</ul>
-<p>結果として、アプリは「JWT を検証するだけ」ログイン画面・OAuth 実装は不要。</p>
-<p>IAP が付与する JWT には、例えば次の情報が含まれる。</p>
-<ul class="simple">
-<li><p>ユーザーの Google アカウント（email）</p></li>
-<li><p>IAP が発行者であること（issuer）</p></li>
-<li><p>対象アプリ（audience）</p></li>
-<li><p>有効期限</p></li>
-</ul>
-<p>これにより、アプリは「誰が」「どのアプリに」「正しく認証されて来たか」を安全に判定できる。</p>
-</section>
-</section>
+<p>つまり動的なアクセス制御（コンテキストベース）を可能とする。</p>
+<p>ACMはアクセス自体をブロックする機能であり、認可の中で条件を絞るIAM Contionsとは作用のレイヤーが違う。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>① Access Context Manager
+   → 社内IPか？ デバイスOKか？
+
+② IAM
+   → 権限あるか？
+
+③ IAM Condition
+   → 時間・条件OKか？
+</pre></div>
+</div>
 </section>
 
 
@@ -705,7 +661,7 @@ Identity-Aware Proxyにより、アプリケーションに直接認証ロジッ
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="GCP.html" class="btn btn-neutral float-left" title="1. GCPについて" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="API.html" class="btn btn-neutral float-right" title="3. Google Cloud APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="API.html" class="btn btn-neutral float-right" title="4. Google Cloud APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

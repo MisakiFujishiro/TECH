@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. Google Cloud APIs &mdash; project  ドキュメント</title>
+  <title>4. Google Cloud APIs &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="4. Network" href="Network.html" />
+    <link rel="next" title="5. Network" href="Network.html" />
     <link rel="prev" title="2. IAM" href="IAM.html" /> 
 </head>
 
@@ -44,32 +44,34 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Google Cloud APIs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#protobuf-protocol-buffers">3.1. Protobuf(Protocol Buffers)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#rpc">3.2. RPC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#grpc">3.3. gRPC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#google-cloud-sdk-grpc-rest">3.4. Google Cloud SDKにおける gRPC と REST の切り替え</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">3.5. フィーチャーフラグ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html#access-context-manager">3. Access Context Manager</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Google Cloud APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#protobuf-protocol-buffers">4.1. Protobuf(Protocol Buffers)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rpc">4.2. RPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grpc">4.3. gRPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#google-cloud-sdk-grpc-rest">4.4. Google Cloud SDKにおける gRPC と REST の切り替え</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">4.5. フィーチャーフラグ</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Network.html">4. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">5. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Front.html">6. Load Balancing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">7. GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Serverless.html">9. サーバーレスアーキテクチャ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GKE.html">10. GKE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="APIGW.html">11. API Gateway</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Storage.html">12. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">13. CloudOps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DB.html">14. DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Workflows.html">15. Workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">16. Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">17. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">18. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AI.html">19. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">20. MemoryStore</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">21. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">6. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Front.html">7. Load Balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">8. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">9. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">10. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">11. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIGW.html">12. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">13. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">14. CloudOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">15. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">16. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">17. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">18. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">19. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">20. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">21. MemoryStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Security.html">22. セキュリティ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">23. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul>
@@ -159,7 +161,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">3. </span>Google Cloud APIs</li>
+      <li class="breadcrumb-item active"><span class="section-number">4. </span>Google Cloud APIs</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/API.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -170,7 +172,7 @@
            <div itemprop="articleBody">
              
   <section id="google-cloud-apis">
-<h1><span class="section-number">3. </span>Google Cloud APIs<a class="headerlink" href="#google-cloud-apis" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">4. </span>Google Cloud APIs<a class="headerlink" href="#google-cloud-apis" title="この見出しへのパーマリンク">¶</a></h1>
 <p>Google Cloud APIsは、GCPが提供するAPI群が定義されている。</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://cloud.google.com/apis/docs/overview?hl=ja">Google Cloud APIS</a></p></li>
@@ -178,7 +180,7 @@
 <p>Google Cloud APIsは、gRPCをベースにして設計されている。<br />
 <code class="docutils literal notranslate"><span class="pre">gRPC</span></code>は、googleが開発した<code class="docutils literal notranslate"><span class="pre">Protocol</span> <span class="pre">Buffers</span></code>をベースとした、軽量・高速な<code class="docutils literal notranslate"><span class="pre">RPC(Remote</span> <span class="pre">Procedure</span> <span class="pre">Call)</span></code>フレームワークであり、通信の効率性と型安全性を重視した設計となっている。</p>
 <section id="protobuf-protocol-buffers">
-<h2><span class="section-number">3.1. </span>Protobuf(Protocol Buffers)<a class="headerlink" href="#protobuf-protocol-buffers" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.1. </span>Protobuf(Protocol Buffers)<a class="headerlink" href="#protobuf-protocol-buffers" title="この見出しへのパーマリンク">¶</a></h2>
 <p>ProtobufはGoogleが開発したデータ定義のフレームワークであり、<code class="docutils literal notranslate"><span class="pre">「APIで利用するデータ構造」と「そのインターフェース（RPC）」を宣言的に定義するフォーマット</span></code>。</p>
 <p>このフォーマットの最大の特徴は、単なるデータ形式（例：JSONやYAML）の代替ではなく、<code class="docutils literal notranslate"><span class="pre">定義されたスキーマ（.protoファイル）がなければ開発を始められないという点</span></code>。</p>
 <p>つまり、スキーマが仕様書であり、かつコードの出発点でもあるため、ドキュメント管理と開発実装が一体化されている。</p>
@@ -232,12 +234,12 @@
 </table>
 </section>
 <section id="rpc">
-<h2><span class="section-number">3.2. </span>RPC<a class="headerlink" href="#rpc" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.2. </span>RPC<a class="headerlink" href="#rpc" title="この見出しへのパーマリンク">¶</a></h2>
 <p>RPC(Remote Procedure Call)とは、離れた場所（リモート）にある関数を、ローカルの関数のように呼び出す仕組み。
 通信処理の実装を抽象化し、開発者はシンプルな関数呼び出しの形でAPIを利用できる。</p>
 </section>
 <section id="grpc">
-<h2><span class="section-number">3.3. </span>gRPC<a class="headerlink" href="#grpc" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.3. </span>gRPC<a class="headerlink" href="#grpc" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Googleが開発したRPC通信フレームワークであり、Protobufで定義されたAPI仕様に基づいて、Stubコードを自動生成して双方向通信を行う。</p>
 <p>開発者は .proto ファイルでサービスとメッセージの定義を行い、それをコンパイルして得られるStubコードを使ってAPIを呼び出す。
 .protoファイルを protoc コマンドでコンパイルすると、次のようなStubファイルが生成される。使用言語（Python、Go、Javaなど）に応じたコードを自動生成できる。）</p>
@@ -272,7 +274,7 @@
 <p>このコードでは、stub.GetUser(...) が関数呼び出しのように見えるが、実際には gRPC を通じてネットワーク越しのリモートAPIを呼び出している。</p>
 </section>
 <section id="google-cloud-sdk-grpc-rest">
-<h2><span class="section-number">3.4. </span>Google Cloud SDKにおける gRPC と REST の切り替え<a class="headerlink" href="#google-cloud-sdk-grpc-rest" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.4. </span>Google Cloud SDKにおける gRPC と REST の切り替え<a class="headerlink" href="#google-cloud-sdk-grpc-rest" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Google Cloud SDK のクライアントライブラリには、主に2種類のAPI層が存在しており、開発者は transport オプションを指定することで、gRPC通信かREST通信かを選択することができる。</p>
 <table class="docutils align-default">
 <thead>
@@ -329,7 +331,7 @@
 <p>デフォルトはサービスによって異なるが、性能重視ならgRPC、環境制約やデバッグ性重視ならRESTを選択することが多い。</p>
 </section>
 <section id="id1">
-<h2><span class="section-number">3.5. </span>フィーチャーフラグ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">4.5. </span>フィーチャーフラグ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
 <p>gRPC では、次のような変更が特にリスクになりやすい。</p>
 <ul class="simple">
 <li><p>レスポンス構造の変更</p></li>
@@ -357,7 +359,7 @@ feature_flag を評価
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="IAM.html" class="btn btn-neutral float-left" title="2. IAM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Network.html" class="btn btn-neutral float-right" title="4. Network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Network.html" class="btn btn-neutral float-right" title="5. Network" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

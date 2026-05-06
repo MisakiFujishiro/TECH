@@ -31,7 +31,8 @@
    GCP/Pub-Sub.md
    GCP/DataAnalytics.md
    GCP/AI.md
-   GCP/Redis.md   
+   GCP/Redis.md
+   GCP/Security.md
    GCP/misc.md
 
 

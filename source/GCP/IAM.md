@@ -295,51 +295,25 @@ Cloud Run が VPC Connector を使う
 - GCP サービス自身が操作を行う
 - 操作主体は サービスエージェント
 
-## Identity-Aware Proxy (IAP)
-IAP は Google Cloud が提供する認証・認可プロキシである。
-アプリケーション自身にログイン処理や認証ロジックを実装しなくても、Google アカウント（Google Workspace 含む）を使った安全なアクセス制御を実現できます。
-Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できます。
+# Access Context Manager
+アクセスの「条件」を定義する仕組み
 
+何を制御する？
+- IPアドレス
+- デバイスの状態
+- ロケーション
+- ユーザー属性
 
+つまり動的なアクセス制御（コンテキストベース）を可能とする。
 
-### IAPの役割
-IAP はアプリケーションの 前段（HTTP(S) ロードバランサ等）に配置され、次を担当します。
-- ユーザー認証
-- Google アカウントでログイン
-- アクセス認可
-- IAM / Google グループでアクセス可否を判定
-- 認証済みリクエストのみをバックエンドへ転送
+ACMはアクセス自体をブロックする機能であり、認可の中で条件を絞るIAM Contionsとは作用のレイヤーが違う。
+```
+① Access Context Manager
+   → 社内IPか？ デバイスOKか？
 
-### IAP と Load Balancer の関係
-IAP は 単体で通信を受けるサービスではない。
-必ず Cloud Load Balancing（HTTP(S) Load Balancer）と組み合わせて利用される。
+② IAM
+   → 権限あるか？
 
-立ち位置の整理
-- IAP は HTTP(S) Load Balancer の機能の一部として動作
-- IAP は Backend Service に対して有効化される
-- クライアントは 必ず Load Balancer 経由で IAP を通過する
-
-
-### IAPの処理詳細
-AP による認証が成功すると、IAP が署名した JWT がバックエンドに渡されます。
-- 処理イメージ
-  - ユーザーがアプリにアクセス
-  - IAP が Google アカウントで認証
-  - IAP がアクセス許可を判定
-- 許可された場合のみ
-  - JWT を HTTP ヘッダに付与
-  - バックエンド（Compute Engine / GKE / Cloud Run 等）へ転送
-- アプリ側の役割
-  - JWT の 署名検証
-  - ユーザー情報（email / ID）を参照
-  - 「認証済みユーザー」として処理する
-
-結果として、アプリは「JWT を検証するだけ」ログイン画面・OAuth 実装は不要。
-
-IAP が付与する JWT には、例えば次の情報が含まれる。
-- ユーザーの Google アカウント（email）
-- IAP が発行者であること（issuer）
-- 対象アプリ（audience）
-- 有効期限
-
-これにより、アプリは「誰が」「どのアプリに」「正しく認証されて来たか」を安全に判定できる。
+③ IAM Condition
+   → 時間・条件OKか？
+```

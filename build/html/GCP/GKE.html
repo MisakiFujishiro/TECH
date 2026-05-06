@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>10. GKE &mdash; project  ドキュメント</title>
+  <title>11. GKE &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="11. API Gateway" href="APIGW.html" />
-    <link rel="prev" title="9. サーバーレスアーキテクチャ" href="Serverless.html" /> 
+    <link rel="next" title="12. API Gateway" href="APIGW.html" />
+    <link rel="prev" title="10. サーバーレスアーキテクチャ" href="Serverless.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,46 +44,47 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
 <li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="API.html">3. Google Cloud APIs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Network.html">4. Network</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CICD.html">5. CICD</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Front.html">6. Load Balancing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GCE.html">7. GCE(Google Compute Engine)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Container.html">8. コンテナサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Serverless.html">9. サーバーレスアーキテクチャ</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">10. GKE</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#network">10.1. Network上の制約</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#node-ip">10.1.1. Node IP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pod-ip">10.1.2. Pod IP</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#service-ip">10.1.3. Service IP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html#access-context-manager">3. Access Context Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">4. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">6. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Front.html">7. Load Balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">8. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">9. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">10. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">11. GKE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#network">11.1. Network上の制約</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#node-ip">11.1.1. Node IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pod-ip">11.1.2. Pod IP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#service-ip">11.1.3. Service IP</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#workload-identity">10.2. Workload Identity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#config-connector">10.3. Config Connector</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#anthos-config-management">10.4. Anthos Config Management</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">10.4.1. Anthos Config Managementとは</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#config-sync">10.4.2. Config Sync</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#policy-controller">10.4.3. Policy Controller</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#opa-gatekeeper">10.4.4. OPA Gatekeeper</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#constrainttemplate">10.4.5. 制約テンプレート（ConstraintTemplate）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#constraint">10.4.6. ポリシーパラメータ（Constraint）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">10.4.7. それぞれの関係</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workload-identity">11.2. Workload Identity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-connector">11.3. Config Connector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#anthos-config-management">11.4. Anthos Config Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">11.4.1. Anthos Config Managementとは</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-sync">11.4.2. Config Sync</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#policy-controller">11.4.3. Policy Controller</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opa-gatekeeper">11.4.4. OPA Gatekeeper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constrainttemplate">11.4.5. 制約テンプレート（ConstraintTemplate）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#constraint">11.4.6. ポリシーパラメータ（Constraint）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">11.4.7. それぞれの関係</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#managed-service-for-prometheus">10.5. Managed Service for Prometheus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#managed-service-for-prometheus">11.5. Managed Service for Prometheus</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="APIGW.html">11. API Gateway</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Storage.html">12. ストレージ</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">13. CloudOps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DB.html">14. DB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Workflows.html">15. Workflows</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">16. Cloud Scheduler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">17. Pub/Sub</a></li>
-<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">18. データ分析サービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="AI.html">19. AIサービス</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">20. MemoryStore</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">21. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIGW.html">12. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">13. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">14. CloudOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">15. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">16. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">17. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">18. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">19. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">20. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">21. MemoryStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">22. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul>
@@ -173,7 +174,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">10. </span>GKE</li>
+      <li class="breadcrumb-item active"><span class="section-number">11. </span>GKE</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/GKE.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -184,9 +185,9 @@
            <div itemprop="articleBody">
              
   <section id="gke">
-<h1><span class="section-number">10. </span>GKE<a class="headerlink" href="#gke" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">11. </span>GKE<a class="headerlink" href="#gke" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="network">
-<h2><span class="section-number">10.1. </span>Network上の制約<a class="headerlink" href="#network" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">11.1. </span>Network上の制約<a class="headerlink" href="#network" title="この見出しへのパーマリンク">¶</a></h2>
 <p>GKE（VPCネイティブクラスタ）では、ネットワーク設計が重要。
 特に重要なのは「Pod」「Service」「Node」のIPがそれぞれ別のレンジから払い出されるという点。</p>
 <p>VPCネイティブクラスタでは、1つのサブネットに対して以下のIPが必要になります。</p>
@@ -246,7 +247,7 @@
 </table>
 <p>重要なのは、Pod用とService用は別のセカンダリレンジが必要な点。</p>
 <section id="node-ip">
-<h3><span class="section-number">10.1.1. </span>Node IP<a class="headerlink" href="#node-ip" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.1.1. </span>Node IP<a class="headerlink" href="#node-ip" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Node IPはシンプルにノード数=必要IP数</p>
 <table class="docutils align-default">
 <thead>
@@ -268,7 +269,7 @@
 </table>
 </section>
 <section id="pod-ip">
-<h3><span class="section-number">10.1.2. </span>Pod IP<a class="headerlink" href="#pod-ip" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.1.2. </span>Pod IP<a class="headerlink" href="#pod-ip" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Podはデフォルトでノードあたりに最大110IPを確保する必要がある。
 110以上のPodを起動させる場合は、ノードを増やすがmaxPodsを変更して1ノードあたりのPodを110以上にする必要がある。</p>
 <table class="docutils align-default">
@@ -294,7 +295,7 @@
 </table>
 </section>
 <section id="service-ip">
-<h3><span class="section-number">10.1.3. </span>Service IP<a class="headerlink" href="#service-ip" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.1.3. </span>Service IP<a class="headerlink" href="#service-ip" title="この見出しへのパーマリンク">¶</a></h3>
 <p>k8sで作成するサービスの数に合わせて提供するIPを決める</p>
 <table class="docutils align-default">
 <thead>
@@ -317,17 +318,17 @@
 </section>
 </section>
 <section id="workload-identity">
-<h2><span class="section-number">10.2. </span>Workload Identity<a class="headerlink" href="#workload-identity" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">11.2. </span>Workload Identity<a class="headerlink" href="#workload-identity" title="この見出しへのパーマリンク">¶</a></h2>
 <p>GKEのKSAでGoogleCloud IAM SAを利用する際の詳細はIAM側で解説。
 GSAを利用しつつ、GSAを代替利用することができる。</p>
 </section>
 <section id="config-connector">
-<h2><span class="section-number">10.3. </span>Config Connector<a class="headerlink" href="#config-connector" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">11.3. </span>Config Connector<a class="headerlink" href="#config-connector" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Config Connectorとは、Kubernetes のアドオンであり、Kubernetes API を通じて Google Cloud リソースを宣言的に管理する機能。</p>
 <p>GCPのリソースについて宣言的な構成管理を実現し、リソースの現在の状態を監視し、宣言された構成との差異を検出すると自動的に調整を行う。これにより、構成ドリフトを防止し、インフラストラクチャが期待される状態に保たれる。</p>
 </section>
 <section id="anthos-config-management">
-<h2><span class="section-number">10.4. </span>Anthos Config Management<a class="headerlink" href="#anthos-config-management" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">11.4. </span>Anthos Config Management<a class="headerlink" href="#anthos-config-management" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Google Kubernetes Engine（GKE）では、単にアプリケーションを動かすだけでなく、</p>
 <ul class="simple">
 <li><p>構成の一貫性</p></li>
@@ -337,7 +338,7 @@ GSAを利用しつつ、GSAを代替利用することができる。</p>
 <p>が求められる。</p>
 <p>これらを支える中核が<code class="docutils literal notranslate"><span class="pre">Anthos</span> <span class="pre">Config</span> <span class="pre">Management</span></code>を中心とした一連のコンポーネント群である。</p>
 <section id="id1">
-<h3><span class="section-number">10.4.1. </span>Anthos Config Managementとは<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.4.1. </span>Anthos Config Managementとは<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Anthos Config Management は、Kubernetes クラスターの構成とポリシーを Git リポジトリで一元管理し、自動同期する Google Cloud のマネージドサービスである。</p>
 <p>Git を唯一の正（Source of Truth）として、クラスターが定期的に Git を監視し、差分を自動適用手動で kubectl apply を実行する必要がない</p>
 <p>管理対象</p>
@@ -350,7 +351,7 @@ GSAを利用しつつ、GSAを代替利用することができる。</p>
 </ul>
 </section>
 <section id="config-sync">
-<h3><span class="section-number">10.4.2. </span>Config Sync<a class="headerlink" href="#config-sync" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.4.2. </span>Config Sync<a class="headerlink" href="#config-sync" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Config Sync は、Anthos Config Management の中核となる同期エンジンである。</p>
 <ul class="simple">
 <li><p>Git リポジトリを定期的にポーリング</p></li>
@@ -359,7 +360,7 @@ GSAを利用しつつ、GSAを代替利用することができる。</p>
 </ul>
 </section>
 <section id="policy-controller">
-<h3><span class="section-number">10.4.3. </span>Policy Controller<a class="headerlink" href="#policy-controller" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.4.3. </span>Policy Controller<a class="headerlink" href="#policy-controller" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Policy Controller は、Kubernetes リソース作成・更新時にポリシーを強制するための仕組みである。</p>
 <ul class="simple">
 <li><p>Kubernetes Admission Controller として動作</p></li>
@@ -368,7 +369,7 @@ GSAを利用しつつ、GSAを代替利用することができる。</p>
 </ul>
 </section>
 <section id="opa-gatekeeper">
-<h3><span class="section-number">10.4.4. </span>OPA Gatekeeper<a class="headerlink" href="#opa-gatekeeper" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.4.4. </span>OPA Gatekeeper<a class="headerlink" href="#opa-gatekeeper" title="この見出しへのパーマリンク">¶</a></h3>
 <p>OPA Gatekeeper は、Kubernetes 向けのポリシーエンジン（OSS）である。</p>
 <ul class="simple">
 <li><p>OPA（Open Policy Agent）を Kubernetes に統合</p></li>
@@ -377,7 +378,7 @@ GSAを利用しつつ、GSAを代替利用することができる。</p>
 </ul>
 </section>
 <section id="constrainttemplate">
-<h3><span class="section-number">10.4.5. </span>制約テンプレート（ConstraintTemplate）<a class="headerlink" href="#constrainttemplate" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.4.5. </span>制約テンプレート（ConstraintTemplate）<a class="headerlink" href="#constrainttemplate" title="この見出しへのパーマリンク">¶</a></h3>
 <p>制約テンプレートは、「どのようなポリシーを作れるか」を定義する設計図（型）である。</p>
 <ul class="simple">
 <li><p>Rego による検証ロジックを含む</p></li>
@@ -386,7 +387,7 @@ GSAを利用しつつ、GSAを代替利用することができる。</p>
 </ul>
 </section>
 <section id="constraint">
-<h3><span class="section-number">10.4.6. </span>ポリシーパラメータ（Constraint）<a class="headerlink" href="#constraint" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.4.6. </span>ポリシーパラメータ（Constraint）<a class="headerlink" href="#constraint" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ポリシーパラメータは、制約テンプレートに具体的な値を与えてポリシーを有効化するものである。</p>
 <ul class="simple">
 <li><p>環境ごとに値を変えられる</p></li>
@@ -395,7 +396,7 @@ GSAを利用しつつ、GSAを代替利用することができる。</p>
 </ul>
 </section>
 <section id="id2">
-<h3><span class="section-number">10.4.7. </span>それぞれの関係<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">11.4.7. </span>それぞれの関係<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <p>k8sにおいて、作成されるルールを統制するための仕組みの関係は以下</p>
 <p>git~ConstraintTemplate/Constraint</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Git Repository（正）
@@ -421,7 +422,7 @@ Kubernetes API Server
 </section>
 </section>
 <section id="managed-service-for-prometheus">
-<h2><span class="section-number">10.5. </span>Managed Service for Prometheus<a class="headerlink" href="#managed-service-for-prometheus" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">11.5. </span>Managed Service for Prometheus<a class="headerlink" href="#managed-service-for-prometheus" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Prometheus 互換のメトリクスをフルマネージドで扱える Google Cloud のサービスであり、Prometheusのストレージ管理や高可用性、スケーリングを意識せずに PromQL を利用できる。</p>
 <p>GKE 環境では、マニフェストにラベルやアノテーションを設定するだけで、Pod や Node のメトリクスを自動的に収集できる。</p>
 </section>
@@ -431,8 +432,8 @@ Kubernetes API Server
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Serverless.html" class="btn btn-neutral float-left" title="9. サーバーレスアーキテクチャ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="APIGW.html" class="btn btn-neutral float-right" title="11. API Gateway" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Serverless.html" class="btn btn-neutral float-left" title="10. サーバーレスアーキテクチャ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="APIGW.html" class="btn btn-neutral float-right" title="12. API Gateway" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

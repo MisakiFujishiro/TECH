@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>22. セキュリティ &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="23. その他" href="misc.html" />
+    <link rel="prev" title="21. MemoryStore" href="Redis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html#access-context-manager">3. Access Context Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">4. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">6. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Front.html">7. Load Balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">8. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">9. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">10. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">11. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIGW.html">12. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">13. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">14. CloudOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">15. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">16. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">17. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">18. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">19. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">20. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">21. MemoryStore</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">22. セキュリティ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">22.1. フェデレーション</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#workforce-identity-federation">22.1.1. Workforce Identity Federation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workload-identity-federation">22.1.2. Workload Identity Federation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-identity-sso">22.2. Cloud Identity SSO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identity-platform">22.3. Identity Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identity-aware-proxy-iap">22.4. Identity-Aware Proxy (IAP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iap">22.4.1. IAPの役割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iap-load-balancer">22.4.2. IAP と Load Balancer の関係</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">22.4.3. IAPの処理詳細</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">23. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SRE.html">3. SRE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">5. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html#id4">6. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">7. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">8. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">9. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Terraform.html">10. Terraform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">11. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html#istio">12. Istio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">13. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">14. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">15. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">16. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">17. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">22. </span>セキュリティ</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GCP/Security.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">22. </span>セキュリティ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="id2">
+<h2><span class="section-number">22.1. </span>フェデレーション<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GCPにおけるフェデレーションとは、
+Googleアカウントを発行せずに、外部のIDプロバイダー（IdP）を信頼して認証・認可を行う仕組みである。</p>
+<p>従来のようにGCP側でIDを管理するのではなく、
+外部IdPに認証を委任し、GCPはトークンを検証してアクセスを許可する。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>種類</p></th>
+<th class="head"><p>認証主体</p></th>
+<th class="head"><p>認証対象</p></th>
+<th class="head"><p>主な用途</p></th>
+<th class="head"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Workforce Identity Federation</p></td>
+<td><p>人（ユーザー）</p></td>
+<td><p>GCP（コンソール / CLI / API）</p></td>
+<td><p>社外ユーザー・パートナー</p></td>
+<td><p>Googleアカウント不要でログイン</p></td>
+</tr>
+<tr class="row-odd"><td><p>Workload Identity Federation</p></td>
+<td><p>マシン（アプリ）</p></td>
+<td><p>GCP API</p></td>
+<td><p>マルチクラウド・CI/CD</p></td>
+<td><p>鍵レス認証（SAキー不要）</p></td>
+</tr>
+<tr class="row-even"><td><p>Workload Identity（GKE）</p></td>
+<td><p>Pod</p></td>
+<td><p>GCP API</p></td>
+<td><p>Kubernetes内の認証</p></td>
+<td><p>KSA→GSAのマッピング</p></td>
+</tr>
+</tbody>
+</table>
+<p>フェデレーションのコア概念は以下：</p>
+<ul class="simple">
+<li><p>認証は外部IdPが実施</p></li>
+<li><p>GCPはトークンを信頼して検証</p></li>
+<li><p>IAMで最終的な認可を実施</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>外部IdP
+   ↓（認証）
+トークン発行（OIDC / SAML）
+   ↓
+GCP（STS / IAM）
+   ↓（認可）
+リソースアクセス
+</pre></div>
+</div>
+<section id="workforce-identity-federation">
+<h3><span class="section-number">22.1.1. </span>Workforce Identity Federation<a class="headerlink" href="#workforce-identity-federation" title="この見出しへのパーマリンク">¶</a></h3>
+<p>外部のID（Azure AD, Okta, SAML IdPなど）を使用して、
+人間ユーザーがGoogle Cloudにログインするための仕組み</p>
+<p>ユースケース</p>
+<ul class="simple">
+<li><p>パートナー企業</p></li>
+<li><p>委託業者</p></li>
+<li><p>外部監査人</p></li>
+</ul>
+<p>構成</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Workforce Identity Pool
+ ├── Provider (Azure AD)
+ ├── Provider (Okta)
+ └── Provider (SAML IdP)
+</pre></div>
+</div>
+<p>アクセスフロー</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ユーザー（ブラウザ）
+   ↓
+外部IdPで認証
+   ↓
+GCPがトークンを受け入れ
+   ↓
+IAMロールに基づきアクセス許可
+</pre></div>
+</div>
+</section>
+<section id="workload-identity-federation">
+<h3><span class="section-number">22.1.2. </span>Workload Identity Federation<a class="headerlink" href="#workload-identity-federation" title="この見出しへのパーマリンク">¶</a></h3>
+<p>外部環境（オンプレ / AWS / Azureなど）で実行されるアプリケーションが、
+サービスアカウントキーを使わずにGCPにアクセスする仕組み</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Workload Identity Pool
+ └── Provider（OIDC / AWS / Azure ADなど）
+        ↓
+   サービスアカウントへのなりすまし（Impersonation）
+</pre></div>
+</div>
+<p>アクセスフロー</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>アプリ（オンプレ / 他クラウド）
+   ↓
+外部IdPで認証
+   ↓
+Security Token Service（STS）でトークン交換
+   ↓
+サービスアカウントとして実行
+   ↓
+GCP APIアクセス
+</pre></div>
+</div>
+</section>
+</section>
+<section id="cloud-identity-sso">
+<h2><span class="section-number">22.2. </span>Cloud Identity SSO<a class="headerlink" href="#cloud-identity-sso" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Cloud Identity SSOとは、自社ユーザーがGoogleにログインする方法を、外部IdPに委ねる仕組み</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>社員（自社ユーザー）
+   ↓
+自社IdP（Okta / AD）
+   ↓
+Google Workspace / GCP
+</pre></div>
+</div>
+<p>ポイント</p>
+<ul class="simple">
+<li><p>対象は 自社ユーザー</p></li>
+<li><p>Googleアカウントは存在する（ここ重要）</p></li>
+<li><p>認証だけを外部IdPに任せる</p></li>
+</ul>
+</section>
+<section id="identity-platform">
+<h2><span class="section-number">22.3. </span>Identity Platform<a class="headerlink" href="#identity-platform" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Identity Platformは、Google Cloud の公式CIAM（Customer Identity and Access Management）サービス</p>
+<p>Identity Platform は以下をサポートしており、</p>
+<ul class="simple">
+<li><p>SAML 2.0</p></li>
+<li><p>OpenID Connect (OIDC)</p></li>
+</ul>
+<p>以下のように、アプリに対するログインでフェデレーション（自社ドメインでログイン）が可能</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>企業ユーザー
+  ↓
+自社IdP（Okta / Azure AD など）
+  ↓（フェデレーション）
+Identity Platform
+  ↓
+アプリ
+</pre></div>
+</div>
+<p>「顧客のログイン基盤（アプリ用）」</p>
+<p>対象：顧客（不特定多数）</p>
+<ul class="simple">
+<li><p>一般ユーザー（B2C）</p></li>
+<li><p>企業ユーザー（B2B）</p></li>
+<li><p>アクセス先：あなたのアプリ
+Googleアカウント：不要（あってもOK）</p></li>
+</ul>
+</section>
+<section id="identity-aware-proxy-iap">
+<h2><span class="section-number">22.4. </span>Identity-Aware Proxy (IAP)<a class="headerlink" href="#identity-aware-proxy-iap" title="この見出しへのパーマリンク">¶</a></h2>
+<p>IAP は Google Cloud が提供する認証・認可プロキシである。
+アプリケーション自身にログイン処理や認証ロジックを実装しなくても、Google アカウント（Google Workspace 含む）を使った安全なアクセス制御を実現できます。
+Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できます。</p>
+<section id="iap">
+<h3><span class="section-number">22.4.1. </span>IAPの役割<a class="headerlink" href="#iap" title="この見出しへのパーマリンク">¶</a></h3>
+<p>IAP はアプリケーションの 前段（HTTP(S) ロードバランサ等）に配置され、次を担当します。</p>
+<ul class="simple">
+<li><p>ユーザー認証</p></li>
+<li><p>Google アカウントでログイン</p></li>
+<li><p>アクセス認可</p></li>
+<li><p>IAM / Google グループでアクセス可否を判定</p></li>
+<li><p>認証済みリクエストのみをバックエンドへ転送</p></li>
+</ul>
+</section>
+<section id="iap-load-balancer">
+<h3><span class="section-number">22.4.2. </span>IAP と Load Balancer の関係<a class="headerlink" href="#iap-load-balancer" title="この見出しへのパーマリンク">¶</a></h3>
+<p>IAP は 単体で通信を受けるサービスではない。
+必ず Cloud Load Balancing（HTTP(S) Load Balancer）と組み合わせて利用される。</p>
+<p>立ち位置の整理</p>
+<ul class="simple">
+<li><p>IAP は HTTP(S) Load Balancer の機能の一部として動作</p></li>
+<li><p>IAP は Backend Service に対して有効化される</p></li>
+<li><p>クライアントは 必ず Load Balancer 経由で IAP を通過する</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3><span class="section-number">22.4.3. </span>IAPの処理詳細<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>AP による認証が成功すると、IAP が署名した JWT がバックエンドに渡されます。</p>
+<ul class="simple">
+<li><p>処理イメージ</p>
+<ul>
+<li><p>ユーザーがアプリにアクセス</p></li>
+<li><p>IAP が Google アカウントで認証</p></li>
+<li><p>IAP がアクセス許可を判定</p></li>
+</ul>
+</li>
+<li><p>許可された場合のみ</p>
+<ul>
+<li><p>JWT を HTTP ヘッダに付与</p></li>
+<li><p>バックエンド（Compute Engine / GKE / Cloud Run 等）へ転送</p></li>
+</ul>
+</li>
+<li><p>アプリ側の役割</p>
+<ul>
+<li><p>JWT の 署名検証</p></li>
+<li><p>ユーザー情報（email / ID）を参照</p></li>
+<li><p>「認証済みユーザー」として処理する</p></li>
+</ul>
+</li>
+</ul>
+<p>結果として、アプリは「JWT を検証するだけ」ログイン画面・OAuth 実装は不要。</p>
+<p>IAP が付与する JWT には、例えば次の情報が含まれる。</p>
+<ul class="simple">
+<li><p>ユーザーの Google アカウント（email）</p></li>
+<li><p>IAP が発行者であること（issuer）</p></li>
+<li><p>対象アプリ（audience）</p></li>
+<li><p>有効期限</p></li>
+</ul>
+<p>これにより、アプリは「誰が」「どのアプリに」「正しく認証されて来たか」を安全に判定できる。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Redis.html" class="btn btn-neutral float-left" title="21. MemoryStore" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="misc.html" class="btn btn-neutral float-right" title="23. その他" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

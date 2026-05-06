@@ -388,42 +388,73 @@ Direct PeeringとCarrier Peeringの比較
 |用途|Google APIs|Google APIs|
 
 
-## ネットワーク内の安全性（VPCSC：VPC Service Contorls）
-VPC Service Controls は、BigQuery や Cloud Storage などの  
-Google Cloud マネージドサービスを「論理的な境界（Service Perimeter）」で囲い、  
-境界外へのデータ流出を防ぐためのセキュリティ機構である。
+## ネットワーク内の安全性（Access Context Manager）
+Access Context Manager は、Google Cloud における「コンテキストベースのアクセス制御」を実現するための仕組みであり、
+VPC Service Controls（VPC SC）もこの中で定義される。
 
-IAM による「誰が（Who）」「何を（What）」という認証・認可に加え、  
-「どこから（Where）」そのリクエストが来たのかを評価対象に含める点が特徴。
+構造は以下の通り：
+```
+Access Context Manager
+ └─ Scoped Policy（適用範囲：フォルダ / プロジェクト単位）
+      └─ Access Policy（ポリシー定義の単位）
+           ├─ Access Levels（アクセス条件）
+           └─ Service Perimeters（VPC Service Controls の実体）
+                 └─ 制御対象サービス（BigQuery, Cloud Storage など）
+```
+VPC Service Controls は独立したサービスではなく、
+Access Context Manager の中で「Service Perimeter」として定義される。
 
-なぜ VPC Service Controls が必要なのかというとIAM だけでは、次のようなリスクを防げない。
-- 正しいユーザー・サービスアカウントが誤って、または悪意を持って社外・インターネット経由からデータにアクセスする
-- IAM は 認証・認可（Who / What） は制御できるが、
-- 通信経路（Where） までは制御できない。
+### VPC Service Controls とは何か
 
-そこで VPC Service Controls を使う。
+VPC Service Controls は、BigQuery や Cloud Storage などの
+Google Cloud のマネージドサービスに対して「論理的なセキュリティ境界（Service Perimeter）」を定義する仕組みである。
 
-### VPC SCの境界
-VPC Service Controls（VPC SC）の「境界」とは、
-Google マネージドサービスの API に対して適用される
-論理的なデータ境界（Service Perimeter）である。
+この境界により、データの外部流出を防止する。
 
-この境界は、ネットワークの物理的な線や VPC の境界ではなく、
-API 呼び出し時に評価されるルールの集合として定義される。
+VPC Service Controls は IAM を補完し、
+- 「どこから（Where）」アクセスしているか
+- 「どの境界内でデータが扱われているか」
 
-VPC SC は、API 呼び出しごとに以下の観点で
-「このリクエストが境界内か」を評価する。
+を評価することで、データの持ち出しを防ぐ。
 
-- 対象サービスが Service Perimeter に含まれているか  
-  （例：BigQuery、Cloud Storage など）
-- 呼び出し元のプロジェクトが境界内に属しているか  
-  （Service Perimeter はプロジェクト単位で定義される）
-- アクセス元が境界内と認められた経路か  
-  - 境界内プロジェクトの VPC  
-  - Private Google Access 経由  
-  - 許可されたオンプレミス（VPN / Interconnect）
-- IAM の認証・認可を満たしているか  
-  （VPC SC は IAM を置き換えない）
+### VPC Service Controlの評価
+VPC SC の「境界」は、ネットワークの物理的な境界ではなく、
+API リクエストごとに評価される論理的なポリシーである。
+
+つまり：
+- VPC の境界ではない
+- IPフィルタでもない
+- API レベルでの制御
+
+VPC Service Controls は、API 呼び出しごとに以下を評価する：
+
+1. 対象サービスが制御対象か
+   - 例：bigquery.googleapis.com
+
+2. 呼び出し元プロジェクトが境界内にあるか
+   - Service Perimeter はプロジェクト単位で定義
+
+3. アクセス元が許可された経路か
+   - 境界内の VPC
+   - Private Google Access
+   - VPN / Interconnect 経由のオンプレミス
+
+4. Access Levels の条件を満たしているか
+   - IPレンジ
+   - デバイス状態 など
+
+5. IAM の認可を満たしているか
+   - VPC SC は IAM を置き換えない（両方必要）
+
+### Scoped Policy の役割
+Scoped Policy は、
+Access Policy を「どこに適用するか」を制御する仕組みである。
+
+これにより：
+- フォルダ単位で VPC SC を適用できる
+- チーム単位でポリシー管理を委任できる
+- 組織全体への影響を防げる
+
 
 
 ## GCPの通信整理（内→内・外→内・内→外）
