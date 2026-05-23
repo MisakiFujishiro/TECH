@@ -33,6 +33,7 @@
    GCP/AI.md
    GCP/Redis.md
    GCP/Security.md
+   GCP/SecOps.md
    GCP/misc.md
 
 

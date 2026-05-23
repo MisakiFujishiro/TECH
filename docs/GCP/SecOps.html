@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>23. SecOps &mdash; project  ドキュメント</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="24. その他" href="misc.html" />
+    <link rel="prev" title="22. セキュリティ" href="Security.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">GCP:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GCP.html">1. GCPについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IAM.html#access-context-manager">3. Access Context Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">4. Google Cloud APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Network.html">5. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CICD.html">6. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Front.html">7. Load Balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GCE.html">8. GCE(Google Compute Engine)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Container.html">9. コンテナサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Serverless.html">10. サーバーレスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GKE.html">11. GKE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="APIGW.html">12. API Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Storage.html">13. ストレージ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudOps.html">14. CloudOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DB.html">15. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Workflows.html">16. Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">17. Cloud Scheduler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">18. Pub/Sub</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">19. データ分析サービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html">20. AIサービス</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">21. MemoryStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Security.html">22. セキュリティ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">23. SecOps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#udm">23.1. UDM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">23.1.1. UDMの考え方</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#entity">23.2. Entity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#entity-graph">23.2.1. Entity Graph</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#threat-intelligence">23.3. Threat Intelligence</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ioc">23.3.1. IOC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fusion-feed">23.3.2. Fusion Feed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#curated-detection">23.3.3. Curated Detection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#yara-l">23.4. YARA-L</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#outcomes">23.4.1. outcomes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#risk-score">23.5. Risk Score</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ueba">23.6. UEBA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#soar">23.7. SOAR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#playbook">23.7.1. Playbook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connector">23.7.2. Connector</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scc">23.8. SCC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#posture">23.8.1. Posture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#security-health-analytics">23.8.2. Security Health Analytics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#detection-prevention">23.9. Detection と Prevention</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#google-secops">23.10. Google SecOps 全体像</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">23.11. Google SecOpsで覚えるべき思想</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">23.11.1. 1. ログではなくUDMで見る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">23.11.2. 2. イベントではなくEntityで見る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ioccontext">23.11.3. 3. IOCだけでなくContextで見る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#risk">23.11.4. 4. 検出だけでなくRiskで見る</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">23.11.5. 5. 手作業ではなくSOARで対応する</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#managed">23.11.6. 6. カスタム実装よりManaged機能を優先する</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">23.12. 用語関係まとめ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">23.13. まとめ</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">24. その他</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AWS.html">1. AWSについて</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../IAM.html">2. IAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Network.html">3. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Front.html">4. Front</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EC2.html">5. EC2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Container.html">6. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../S3.html">7. S3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudFormation.html">8. CloudFormation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CloudWatch.html">9. CloudWatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Storage.html">10. Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DB.html">11. DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SystemsManager.html">12. SystemsManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/CloudTrail.html">13. CloudTrail</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/EventBridge.html">14. EventBridge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/AutoScaling.html">15. AutoScaling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AWS/SES.html">16. SES</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ITBasic:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%96%8B%E7%99%BA%E5%B7%A5%E7%A8%8B.html">1. V字モデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Agile.html">2. Agile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SRE.html">3. SRE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Network.html">4. Network</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html">5. SoftWareArchitecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SWA.html#id4">6. マイクロサービスアーキテクチャ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/server.html">7. サーバー</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/kernel.html">8. カーネル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Container.html">9. コンテナ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Terraform.html">10. Terraform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html">11. Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/Kubernetes.html#istio">12. Istio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/ServiceMesh.html">13. ServiceMesh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/NFS.html">14. NFS(Network File System)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/SaaS.html">15. SaaS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/CICD.html">16. CICD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ITBasic/%E9%9D%9E%E6%A9%9F%E8%83%BD.html">17. 非機能</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Git:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Git/basic.html">1. gitの基本知識</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/branch_strategy.html">2. ブランチ戦略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Git/starter.html">3. gitへの登録</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Security:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Security/cors.html">1. CORS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Security/SSL.html">2. セキュアな通信</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ProgramingCode:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/Excel.html">1. エクセル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ProgramingCode/shell.html">2. Shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Book:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Book/TryHackMe.html">1. 7日間でハッキングを始める本まとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Book/%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%81%AE%E5%A4%B1%E6%95%9742.html">2. ソフトウェア開発現場の「失敗」集めてみた</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">ドキュメント管理:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html">1. Sphinxとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id1">3. Sphinxの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Sphinx/sphinx.html#id9">4. Sphinxの基本的な利用方法</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html">1. Reveal.jsとは</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#note">2. note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id1">3. Reveal.jsの初期設定</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reveal/reveal.html#id6">4. Reveal.jsの基本的な利用方法</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">23. </span>SecOps</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GCP/SecOps.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="secops">
+<h1><span class="section-number">23. </span>SecOps<a class="headerlink" href="#secops" title="この見出しへのパーマリンク">¶</a></h1>
+<p>Google SecOpsとは、
+セキュリティログ、脅威インテリジェンス、エンティティ情報、検出ルール、SOARを統合して、
+脅威の検知・調査・対応を行うためのセキュリティ運用基盤である。</p>
+<p>単なるログ検索基盤ではなく、
+「大量のセキュリティデータを正規化し、コンテキストを付与し、リスクに基づいて優先順位付けする」
+ことを目的としている。</p>
+<p>Google SecOpsの中心思想は以下：</p>
+<ul class="simple">
+<li><p>ログをそのまま見るのではなく、UDMに正規化する</p></li>
+<li><p>イベント単体ではなく、Entityを中心に調査する</p></li>
+<li><p>IOCだけでなく、脅威インテリジェンスとの関係性を見る</p></li>
+<li><p>すべてのアラートを同じ重みで扱わず、risk scoreで優先順位を付ける</p></li>
+<li><p>手作業ではなく、SOARで対応を自動化する</p></li>
+</ul>
+<p>全体イメージ：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>各種ログ
+  ↓
+パーサー
+  ↓
+UDMに正規化
+  ↓
+Detection / Threat Intelligence / UEBA
+  ↓
+アラート
+  ↓
+ケース調査
+  ↓
+SOARで対応
+</pre></div>
+</div>
+<section id="udm">
+<h2><span class="section-number">23.1. </span>UDM<a class="headerlink" href="#udm" title="この見出しへのパーマリンク">¶</a></h2>
+<p>UDMとは、Unified Data Modelの略で、
+Google SecOpsに取り込まれたログを共通形式で扱うためのデータモデルである。</p>
+<p>製品ごとにログ形式は異なる。</p>
+<p>例：</p>
+<ul class="simple">
+<li><p>Firewallの送信元IP</p></li>
+<li><p>Proxyのclient IP</p></li>
+<li><p>DNSのquery</p></li>
+<li><p>EDRのprocess情報</p></li>
+</ul>
+<p>これらをそのまま扱うと、
+製品ごとに検索方法が変わってしまう。</p>
+<p>UDMでは、
+異なるログを共通の意味に変換する。</p>
+<p>例：</p>
+<ul class="simple">
+<li><p>principal.ip</p></li>
+<li><p>target.ip</p></li>
+<li><p>principal.user.userid</p></li>
+<li><p>target.hostname</p></li>
+<li><p>metadata.event_type</p></li>
+<li><p>network.dns.questions.name</p></li>
+</ul>
+<section id="id1">
+<h3><span class="section-number">23.1.1. </span>UDMの考え方<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>UDMは「ログ形式」ではなく、
+「そのイベントが何を意味するか」
+を表す。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>概念</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>principal</p></td>
+<td><p>行為をした主体</p></td>
+</tr>
+<tr class="row-odd"><td><p>target</p></td>
+<td><p>行為の対象</p></td>
+</tr>
+<tr class="row-even"><td><p>intermediary</p></td>
+<td><p>通信の中継点</p></td>
+</tr>
+<tr class="row-odd"><td><p>network</p></td>
+<td><p>通信情報</p></td>
+</tr>
+<tr class="row-even"><td><p>process</p></td>
+<td><p>実行されたプロセス</p></td>
+</tr>
+<tr class="row-odd"><td><p>file</p></td>
+<td><p>ファイル情報</p></td>
+</tr>
+<tr class="row-even"><td><p>metadata</p></td>
+<td><p>イベント種別や製品情報</p></td>
+</tr>
+</tbody>
+</table>
+<p>たとえば、ユーザーがサーバーへアクセスした場合：</p>
+<ul class="simple">
+<li><p>principal = アクセスしたユーザーや端末</p></li>
+<li><p>target = アクセスされたサーバー</p></li>
+<li><p>network = 通信情報</p></li>
+<li><p>metadata = イベント種別</p></li>
+</ul>
+<p>UDMの重要ポイント：</p>
+<ul class="simple">
+<li><p>製品依存のログを共通形式にする</p></li>
+<li><p>複数ログを横断検索できる</p></li>
+<li><p>検出ルールの土台になる</p></li>
+<li><p>Google SecOpsの中心概念である</p></li>
+</ul>
+</section>
+</section>
+<section id="entity">
+<h2><span class="section-number">23.2. </span>Entity<a class="headerlink" href="#entity" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Entityとは、
+セキュリティ調査における分析対象のことである。</p>
+<p>例：</p>
+<ul class="simple">
+<li><p>ユーザー</p></li>
+<li><p>端末</p></li>
+<li><p>IPアドレス</p></li>
+<li><p>ドメイン</p></li>
+<li><p>ファイルハッシュ</p></li>
+<li><p>サービスアカウント</p></li>
+<li><p>クラウドリソース</p></li>
+</ul>
+<p>セキュリティ調査では、
+単一ログだけでは全体像は分からない。</p>
+<p>たとえば：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ユーザー
+  ↓
+端末へログイン
+  ↓
+不審プロセス実行
+  ↓
+外部IPへ通信
+  ↓
+悪性ドメインへDNS問い合わせ
+</pre></div>
+</div>
+<p>このように攻撃は複数イベントにまたがる。</p>
+<p>そのためGoogle SecOpsでは、
+イベント単体ではなくEntityを中心に調査する。</p>
+<section id="entity-graph">
+<h3><span class="section-number">23.2.1. </span>Entity Graph<a class="headerlink" href="#entity-graph" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Entity Graphとは、
+ユーザー、端末、IP、ドメイン、ハッシュなどの関係性を表す仕組みである。</p>
+<p>例：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>user@example.com
+  ↓ 使用
+host-001
+  ↓ 実行
+powershell.exe
+  ↓ 通信
+malicious.example.com
+</pre></div>
+</div>
+<p>Entity Graphの目的：</p>
+<ul class="simple">
+<li><p>関連イベントをつなげる</p></li>
+<li><p>攻撃の流れを把握する</p></li>
+<li><p>過去の振る舞いを見る</p></li>
+<li><p>リスク分析に利用する</p></li>
+</ul>
+</section>
+</section>
+<section id="threat-intelligence">
+<h2><span class="section-number">23.3. </span>Threat Intelligence<a class="headerlink" href="#threat-intelligence" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Threat Intelligenceとは、
+既知の攻撃者、マルウェア、悪性IP、悪性ドメイン、攻撃インフラなどに関する脅威情報である。</p>
+<p>Google SecOpsでは、
+Google Threat IntelligenceやApplied Threat Intelligenceを利用して、
+ログ内の通信先やハッシュを既知脅威と照合できる。</p>
+<section id="ioc">
+<h3><span class="section-number">23.3.1. </span>IOC<a class="headerlink" href="#ioc" title="この見出しへのパーマリンク">¶</a></h3>
+<p>IOCとは、Indicator of Compromiseの略で、
+侵害の痕跡を示す情報である。</p>
+<p>例：</p>
+<ul class="simple">
+<li><p>悪性IP</p></li>
+<li><p>悪性ドメイン</p></li>
+<li><p>URL</p></li>
+<li><p>ファイルハッシュ</p></li>
+<li><p>メールアドレス</p></li>
+</ul>
+<p>IOCは、
+「この値が出てきたら怪しい」
+という点の情報である。</p>
+<p>イメージ：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ログ内のIP
+  ↓
+Threat Intelligenceと照合
+  ↓
+既知C2サーバーと一致
+  ↓
+アラート
+</pre></div>
+</div>
+<p>ただしIOCには限界がある。</p>
+<p>攻撃者はIPやドメインを変更できるため、
+IOC一致だけでは不十分な場合がある。</p>
+</section>
+<section id="fusion-feed">
+<h3><span class="section-number">23.3.2. </span>Fusion Feed<a class="headerlink" href="#fusion-feed" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Fusion Feedとは、
+Google Applied Threat Intelligenceが提供する脅威関連データである。</p>
+<p>単一IOCだけではなく、
+APTグループや攻撃インフラ同士の関係性を保持している。</p>
+<p>例：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>APT41
+  ↓
+関連ドメイン
+  ↓
+関連IP
+  ↓
+関連マルウェア
+  ↓
+関連インフラ
+</pre></div>
+</div>
+<p>重要なのは、
+「単一の悪性IP」
+ではなく、
+「攻撃グループ全体」
+を見ようとしている点である。</p>
+</section>
+<section id="curated-detection">
+<h3><span class="section-number">23.3.3. </span>Curated Detection<a class="headerlink" href="#curated-detection" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Curated Detectionとは、
+Googleが管理する事前定義済み検出ルールである。</p>
+<p>Google側が、
+脅威インテリジェンスや攻撃手法をもとに検出ロジックを管理する。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>種類</p></th>
+<th class="head"><p>意味</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>IOC</p></td>
+<td><p>脅威を示す値そのもの</p></td>
+</tr>
+<tr class="row-odd"><td><p>Curated Detection</p></td>
+<td><p>Google管理の検出ルール</p></td>
+</tr>
+<tr class="row-even"><td><p>Custom Rule</p></td>
+<td><p>ユーザー作成の検出ルール</p></td>
+</tr>
+</tbody>
+</table>
+<p>イメージ：</p>
+<ul class="simple">
+<li><p>IOC = 材料</p></li>
+<li><p>Curated Detection = Googleが作った検出レシピ</p></li>
+<li><p>Custom Rule = 自分で作る検出レシピ</p></li>
+</ul>
+</section>
+</section>
+<section id="yara-l">
+<h2><span class="section-number">23.4. </span>YARA-L<a class="headerlink" href="#yara-l" title="この見出しへのパーマリンク">¶</a></h2>
+<p>YARA-Lとは、
+Google SecOpsで検出ルールや検索を記述するためのルール言語である。</p>
+<p>UDMに正規化されたイベントを対象に、
+条件を指定して脅威を検出する。</p>
+<p>YARA-Lでできること：</p>
+<ul class="simple">
+<li><p>単一イベント検出</p></li>
+<li><p>複数イベント相関</p></li>
+<li><p>一定時間内集計</p></li>
+<li><p>Entity利用</p></li>
+<li><p>Risk Score付与</p></li>
+<li><p>Threat Intelligence利用</p></li>
+</ul>
+<section id="outcomes">
+<h3><span class="section-number">23.4.1. </span>outcomes<a class="headerlink" href="#outcomes" title="この見出しへのパーマリンク">¶</a></h3>
+<p>outcomesとは、
+YARA-Lルールで検出結果に付与する値を定義する部分である。</p>
+<p>たとえば：</p>
+<ul class="simple">
+<li><p>risk_score</p></li>
+<li><p>severity</p></li>
+<li><p>metadata</p></li>
+<li><p>Entity情報</p></li>
+</ul>
+<p>を保存できる。</p>
+<p>流れ：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>検出条件一致
+  ↓
+outcomesでrisk_score設定
+  ↓
+アラートへ付与
+  ↓
+後続分析で利用
+</pre></div>
+</div>
+<p>重要なのは、
+Google SecOpsでは
+「検出したか」
+だけではなく、
+「どれくらい危険か」
+を扱う点である。</p>
+</section>
+</section>
+<section id="risk-score">
+<h2><span class="section-number">23.5. </span>Risk Score<a class="headerlink" href="#risk-score" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Risk Scoreとは、
+Entityや検出結果に対して危険度を数値化する考え方である。</p>
+<p>SOCでは大量のアラートが発生するため、
+すべてを同じ優先度で見ることはできない。</p>
+<p>そのため、
+以下のような情報をもとに優先順位を付ける。</p>
+<ul class="simple">
+<li><p>Threat Intelligence一致</p></li>
+<li><p>重要アセットか</p></li>
+<li><p>過去にも不審活動があるか</p></li>
+<li><p>通常と異なる行動か</p></li>
+<li><p>複数検出が集中しているか</p></li>
+</ul>
+<p>イメージ：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>単発の低リスクイベント
+  ↓
+低優先度
+
+重要サーバー
+  ＋
+悪性IOC
+  ＋
+異常行動
+  ↓
+高優先度
+</pre></div>
+</div>
+<p>Risk Scoreは、
+Alert Fatigueを減らすための考え方でもある。</p>
+</section>
+<section id="ueba">
+<h2><span class="section-number">23.6. </span>UEBA<a class="headerlink" href="#ueba" title="この見出しへのパーマリンク">¶</a></h2>
+<p>UEBAとは、
+User and Entity Behavior Analyticsの略で、
+ユーザーやEntityの通常行動をもとに異常を検出する仕組みである。</p>
+<p>従来の検出は、
+「既知の悪いもの」
+を見る。</p>
+<p>UEBAは、
+「普段と違うか」
+を見る。</p>
+<p>例：</p>
+<ul class="simple">
+<li><p>普段より大量DL</p></li>
+<li><p>普段使わない国からログイン</p></li>
+<li><p>普段使わない端末</p></li>
+<li><p>深夜大量API実行</p></li>
+<li><p>初めて見るプロセス実行</p></li>
+</ul>
+<p>流れ：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>通常行動
+  ↓
+ベースライン化
+  ↓
+現在行動と比較
+  ↓
+異常なら検出
+</pre></div>
+</div>
+<p>UEBAが重要な理由：</p>
+<ul class="simple">
+<li><p>攻撃者が正規アカウントを使う</p></li>
+<li><p>ログイン成功だけでは不正か分からない</p></li>
+<li><p>IOCに一致しない攻撃を検出したい</p></li>
+</ul>
+</section>
+<section id="soar">
+<h2><span class="section-number">23.7. </span>SOAR<a class="headerlink" href="#soar" title="この見出しへのパーマリンク">¶</a></h2>
+<p>SOARとは、
+Security Orchestration, Automation and Responseの略で、
+セキュリティ対応を自動化する仕組みである。</p>
+<p>Google SecOps SOARでは、
+アラートやケースに対してPlaybookを実行できる。</p>
+<section id="playbook">
+<h3><span class="section-number">23.7.1. </span>Playbook<a class="headerlink" href="#playbook" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Playbookとは、
+セキュリティ対応手順を自動化したワークフローである。</p>
+<p>例：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>アラート発生
+  ↓
+Threat Intelligence照合
+  ↓
+重大度判定
+  ↓
+チケット作成
+  ↓
+Slack通知
+  ↓
+必要ならIPブロック
+</pre></div>
+</div>
+<p>Playbookの目的：</p>
+<ul class="simple">
+<li><p>手作業削減</p></li>
+<li><p>対応品質標準化</p></li>
+<li><p>初動高速化</p></li>
+<li><p>SOC負荷削減</p></li>
+</ul>
+</section>
+<section id="connector">
+<h3><span class="section-number">23.7.2. </span>Connector<a class="headerlink" href="#connector" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Connectorとは、
+外部システムからアラートやデータを取り込むための仕組みである。</p>
+<p>例：</p>
+<ul class="simple">
+<li><p>EDR</p></li>
+<li><p>SIEM</p></li>
+<li><p>メールセキュリティ</p></li>
+<li><p>チケットシステム</p></li>
+<li><p>クラウドサービス</p></li>
+</ul>
+<p>Connectorは、
+外部データをGoogle SecOps SOARで扱える形式へ変換する。</p>
+</section>
+</section>
+<section id="scc">
+<h2><span class="section-number">23.8. </span>SCC<a class="headerlink" href="#scc" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Security Command Centerとは、
+Google Cloud環境のセキュリティ状態を管理するサービスである。</p>
+<p>Google SecOpsが
+運用・検知・調査を担うのに対し、
+SCCはクラウド環境のセキュリティポスチャ管理を担う。</p>
+<section id="posture">
+<h3><span class="section-number">23.8.1. </span>Posture<a class="headerlink" href="#posture" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Postureとは、
+セキュリティ上の「姿勢」や「状態」を意味する。</p>
+<p>例：</p>
+<ul class="simple">
+<li><p>公開されてはいけないリソースが公開されていないか</p></li>
+<li><p>IAM権限が過剰ではないか</p></li>
+<li><p>脆弱な設定がないか</p></li>
+<li><p>監査ログが有効か</p></li>
+<li><p>暗号化機能が有効か</p></li>
+</ul>
+</section>
+<section id="security-health-analytics">
+<h3><span class="section-number">23.8.2. </span>Security Health Analytics<a class="headerlink" href="#security-health-analytics" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Security Health Analyticsとは、
+Google Cloudリソースの設定不備や脆弱構成を検出するSCC機能である。</p>
+<p>例：</p>
+<ul class="simple">
+<li><p>公開Cloud Storage</p></li>
+<li><p>過剰IAM権限</p></li>
+<li><p>暗号化設定不備</p></li>
+<li><p>Confidential Computing無効</p></li>
+<li><p>Firewall設定不備</p></li>
+</ul>
+<p>重要なのは、
+Findingを「ミュートする」のではなく、
+根本原因を修復することが本来の目的である点である。</p>
+</section>
+</section>
+<section id="detection-prevention">
+<h2><span class="section-number">23.9. </span>Detection と Prevention<a class="headerlink" href="#detection-prevention" title="この見出しへのパーマリンク">¶</a></h2>
+<p>セキュリティ対策には大きく2種類ある。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>種類</p></th>
+<th class="head"><p>意味</p></th>
+<th class="head"><p>例</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Detection</p></td>
+<td><p>起きたことを検出</p></td>
+<td><p>アラート、UEBA、ログ分析</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prevention</p></td>
+<td><p>起きる前に防ぐ</p></td>
+<td><p>IAM、Org Policy、VPC SC</p></td>
+</tr>
+</tbody>
+</table>
+<p>Google Cloudセキュリティでは、
+この2つを組み合わせることが重要である。</p>
+<p>流れ：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Prevention
+  ↓
+危険操作を防ぐ
+
+Detection
+  ↓
+異常を見つける
+
+Response
+  ↓
+SOARで対応
+</pre></div>
+</div>
+</section>
+<section id="google-secops">
+<h2><span class="section-number">23.10. </span>Google SecOps 全体像<a class="headerlink" href="#google-secops" title="この見出しへのパーマリンク">¶</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ログソース
+  ├ Firewall
+  ├ Proxy
+  ├ DNS
+  ├ EDR
+  ├ Cloud Audit Logs
+  └ IAM Logs
+
+          ↓
+
+Google SecOps
+  ├ UDM
+  ├ Entity Graph
+  ├ Threat Intelligence
+  ├ YARA-L
+  ├ UEBA
+  ├ Risk Score
+  └ SOAR
+
+          ↓
+
+SOC運用
+  ├ 検知
+  ├ 調査
+  ├ 優先順位付け
+  ├ 対応
+  └ 再発防止
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2><span class="section-number">23.11. </span>Google SecOpsで覚えるべき思想<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<section id="id3">
+<h3><span class="section-number">23.11.1. </span>1. ログではなくUDMで見る<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>製品ログではなく、
+共通意味モデルで見る。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">23.11.2. </span>2. イベントではなくEntityで見る<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>単発イベントではなく、
+関係性を見る。</p>
+</section>
+<section id="ioccontext">
+<h3><span class="section-number">23.11.3. </span>3. IOCだけでなくContextで見る<a class="headerlink" href="#ioccontext" title="この見出しへのパーマリンク">¶</a></h3>
+<p>悪性IP一致だけではなく、
+状況を見る。</p>
+</section>
+<section id="risk">
+<h3><span class="section-number">23.11.4. </span>4. 検出だけでなくRiskで見る<a class="headerlink" href="#risk" title="この見出しへのパーマリンク">¶</a></h3>
+<p>アラート有無ではなく、
+危険度を見る。</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">23.11.5. </span>5. 手作業ではなくSOARで対応する<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>通知、封じ込め、調査を自動化する。</p>
+</section>
+<section id="managed">
+<h3><span class="section-number">23.11.6. </span>6. カスタム実装よりManaged機能を優先する<a class="headerlink" href="#managed" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Curated Detection
+UEBA
+SCC
+Security Health Analytics
+など、
+Google提供機能を優先利用する。</p>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">23.12. </span>用語関係まとめ<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>用語</p></th>
+<th class="head"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>UDM</p></td>
+<td><p>ログ共通化</p></td>
+</tr>
+<tr class="row-odd"><td><p>Entity</p></td>
+<td><p>調査対象</p></td>
+</tr>
+<tr class="row-even"><td><p>Entity Graph</p></td>
+<td><p>Entity関係分析</p></td>
+</tr>
+<tr class="row-odd"><td><p>IOC</p></td>
+<td><p>既知侵害指標</p></td>
+</tr>
+<tr class="row-even"><td><p>Threat Intelligence</p></td>
+<td><p>脅威情報</p></td>
+</tr>
+<tr class="row-odd"><td><p>Curated Detection</p></td>
+<td><p>Google管理検出</p></td>
+</tr>
+<tr class="row-even"><td><p>YARA-L</p></td>
+<td><p>検出ルール言語</p></td>
+</tr>
+<tr class="row-odd"><td><p>outcomes</p></td>
+<td><p>検出結果付与情報</p></td>
+</tr>
+<tr class="row-even"><td><p>risk_score</p></td>
+<td><p>危険度</p></td>
+</tr>
+<tr class="row-odd"><td><p>UEBA</p></td>
+<td><p>行動異常分析</p></td>
+</tr>
+<tr class="row-even"><td><p>SOAR</p></td>
+<td><p>対応自動化</p></td>
+</tr>
+<tr class="row-odd"><td><p>Playbook</p></td>
+<td><p>自動対応フロー</p></td>
+</tr>
+<tr class="row-even"><td><p>SCC</p></td>
+<td><p>クラウドセキュリティ管理</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA</p></td>
+<td><p>設定不備検出</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id7">
+<h2><span class="section-number">23.13. </span>まとめ<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Google SecOpsは、
+単なるログ検索サービスではない。</p>
+<p>大量ログをUDMで正規化し、
+Entity Graphで関係性を把握し、
+Threat IntelligenceやUEBAで文脈を付与し、
+Risk Scoreで優先順位付けし、
+SOARで対応を自動化するための基盤である。</p>
+<p>中心となる流れ：</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>UDM
+  ↓
+Entity
+  ↓
+Context
+  ↓
+Detection
+  ↓
+Risk
+  ↓
+Response
+  ↓
+Automation
+</pre></div>
+</div>
+<p>この流れを理解すると、
+各機能が「なぜ存在するのか」を思い出しやすくなる。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Security.html" class="btn btn-neutral float-left" title="22. セキュリティ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="misc.html" class="btn btn-neutral float-right" title="24. その他" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
