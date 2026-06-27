@@ -51,6 +51,42 @@ CloudSQLではHA構成のレプリケーションと読み取り専用のReadRep
 |Read Replica|読み取り分散|非同期|
 |外部マスター|移行|非同期|
 
+### HA/Read Replicaまとめ
+
+|構成|目的|配置|書き込み可能|読み取り可能|主な用途|
+|:---|:---|:---|:---|:---|:---|
+|HA構成（High Availability）|可用性向上|同一リージョン内の複数ゾーン|○|○|ゾーン障害対策|
+|リードレプリカ|読み取り負荷分散|同一または別リージョン|×|○|読み取りスケールアウト|
+|カスケードレプリカ|大規模な読み取り分散|レプリカ配下に作成|×|○|多リージョン展開・大規模読込|
+
+HA構成
+```
+Primary (Zone A)
+      ↓
+Standby (Zone B)
+```
+
+リードレプリカ
+```
+Primary
+   ├─ Read Replica A
+   ├─ Read Replica B
+   └─ Read Replica C
+```
+
+
+カスケードレプリカ
+```
+Primary
+   ↓
+Replica A
+   ↓
+Replica B
+   ↓
+Replica C
+```
+リードレプリカでは全てのReplicaがPrimaryからの配信が必要だが、カスケードではその必要性がないためプライマリの負荷が軽減される。
+
 
 
 ## AlloyDB
