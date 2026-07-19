@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>20. AIサービス &mdash; project  ドキュメント</title>
+  <title>20. AI &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -61,11 +61,80 @@
 <li class="toctree-l1"><a class="reference internal" href="CloudScheduler.html">17. Cloud Scheduler</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">18. Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">19. データ分析サービス</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">20. AIサービス</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">20.1. AIインフラストラクチャー</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vertex-ai">20.2. Vertex AI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">20.3. AIソリューション</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gemini-for-google-cloud">20.4. Gemini for Google Cloud</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">20. AI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bigquery-ml">20.1. BigQuery ML</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">20.1.1. 設計思想</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">20.1.2. モデル開発の流れ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">20.1.3. 主なモデル</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">20.1.4. 前処理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">20.1.5. モデルの評価</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">20.1.6. 予測</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">20.1.7. モデルの説明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">20.1.8. 利用シーン</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#vertex-ai">20.2. Vertex AIによるモデル開発</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">20.2.1. 構成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">20.2.2. モデル開発の流れ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#automl">20.2.3. AutoML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vertex-ai-pipelines">20.2.4. Vertex AI Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vertex-ai-experiments">20.2.5. Vertex AI Experiments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vertex-ml-metadata">20.2.6. Vertex ML Metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tensorboard">20.2.7. TensorBoard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-registry">20.2.8. Model Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">20.2.9. 設計思想</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">20.3. モデルのデプロイ</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#endpoint">20.3.1. オンライン予測（Endpoint）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id13">20.3.1.1. 利用例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">20.3.1.2. Endpointの特徴</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#batch-prediction">20.3.2. Batch Prediction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id15">20.3.2.1. 利用例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#endpointbatch-prediction">20.3.3. EndpointとBatch Predictionの使い分け</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">20.3.4. モデルの更新</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">20.3.5. オートスケーリング</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">20.4. モデルの運用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model-monitoring">20.4.1. Model Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">20.4.2. 監視対象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">20.4.3. ドリフト</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">20.4.4. リクエスト・レスポンスログ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature-store">20.4.5. Feature Store</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">20.4.6. 再学習</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">20.4.7. 運用の流れ</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#explainable-ai">20.5. Explainable AI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id24">20.5.1. 説明の種類</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">20.5.2. 主な説明手法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shap">20.5.3. SHAP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integrated-gradients">20.5.4. Integrated Gradients</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sampled-shapley">20.5.5. Sampled Shapley</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vertex-ai-explainable-ai">20.5.6. Vertex AI Explainable AI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">20.5.7. 手法の使い分け</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id27">20.6. モデル評価指標</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#confusion-matrix">20.6.1. 混同行列（Confusion Matrix）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#precision">20.6.2. Precision</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id28">20.6.2.1. 重視するケース</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#recall">20.6.3. Recall</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id29">20.6.3.1. 重視するケース</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#precisionrecall">20.6.4. PrecisionとRecallの関係</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#threshold">20.6.5. 閾値（Threshold）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">20.6.6. 評価指標の選択</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Redis.html">21. MemoryStore</a></li>
@@ -161,7 +230,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">20. </span>AIサービス</li>
+      <li class="breadcrumb-item active"><span class="section-number">20. </span>AI</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/AI.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -172,27 +241,774 @@
            <div itemprop="articleBody">
              
   <section id="ai">
-<h1><span class="section-number">20. </span>AIサービス<a class="headerlink" href="#ai" title="この見出しへのパーマリンク">¶</a></h1>
-<p>GCPのAIサービスは大きく分けて4つ</p>
+<h1><span class="section-number">20. </span>AI<a class="headerlink" href="#ai" title="この見出しへのパーマリンク">¶</a></h1>
+<section id="bigquery-ml">
+<h2><span class="section-number">20.1. </span>BigQuery ML<a class="headerlink" href="#bigquery-ml" title="この見出しへのパーマリンク">¶</a></h2>
+<p>BigQuery MLは、BigQuery上のデータをそのまま利用して機械学習モデルを構築・利用できるサービスである。</p>
+<p>通常の機械学習では、データを分析基盤からPython環境へ取り出し、前処理・学習・評価・予測を行う必要がある。一方、BigQuery MLではこれらの処理をSQLのみで実行できるため、大量データを移動することなく迅速にモデルを開発できる。</p>
+<p>特に、データ分析担当者やSQLに慣れたエンジニアが機械学習を導入しやすいよう設計されている。</p>
 <section id="id1">
-<h2><span class="section-number">20.1. </span>AIインフラストラクチャー<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h2>
-<p>AIの開発やトレーニングを行うためのインフラを提供している。
-NVIDIA GPUを搭載した仮想マシンや、AIワークロードに特化したプロセッサとしてCloud TPUを提供している。</p>
-</section>
-<section id="vertex-ai">
-<h2><span class="section-number">20.2. </span>Vertex AI<a class="headerlink" href="#vertex-ai" title="この見出しへのパーマリンク">¶</a></h2>
-<p>フルマネージドなAI開発プラットフォームとしてVertex AIが提供されている。
-開発者自身で、モデルを構成したりカスタマイズが可能。MLOpsに必要な一連の環境が提供される。</p>
-<p>さらに生成AIを利用したアプリケーション開発の支援機能も含まれ、LAGの構成やAIエージェントを容易に構成することができる。</p>
+<h3><span class="section-number">20.1.1. </span>設計思想<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<p>BigQuery MLの目的は、「データウェアハウスの中で機械学習を完結させること」にある。
+一般的なML開発では、データ抽出・加工・学習環境への転送など、多くの工程が必要になる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>BigQuery
+    ↓
+CSV出力
+    ↓
+Python
+    ↓
+前処理
+    ↓
+学習
+    ↓
+予測
+</pre></div>
+</div>
+<p>BigQuery MLではこれらをBigQuery内で実行できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>BigQuery
+    ↓
+CREATE MODEL
+    ↓
+ML.EVALUATE
+    ↓
+ML.PREDICT
+</pre></div>
+</div>
+<p>データ移動が不要になることで、開発速度の向上や運用負荷の削減につながる。</p>
 </section>
 <section id="id2">
-<h2><span class="section-number">20.3. </span>AIソリューション<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
-<p>特定の用途を対象にしたAIサービス群があり、事前トレーニングAPIを利用することで、すぐにAIを利用することができる。例えば翻訳サービスのTranslation APIや画像検出サービスのCloud Vision APIなどが挙げられる。</p>
+<h3><span class="section-number">20.1.2. </span>モデル開発の流れ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<p>BigQuery MLでは、一般的に以下の流れでモデルを利用する。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>手順</p></th>
+<th class="head text-left"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>データ準備</p></td>
+<td class="text-left"><p>BigQueryテーブルを用意する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>モデル作成</p></td>
+<td class="text-left"><p>CREATE MODELで学習を実施</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>モデル評価</p></td>
+<td class="text-left"><p>ML.EVALUATEで性能を確認</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>予測</p></td>
+<td class="text-left"><p>ML.PREDICTで推論を実施</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>説明</p></td>
+<td class="text-left"><p>ML.EXPLAIN_PREDICTで特徴量の寄与を確認（対応モデルのみ）</p></td>
+</tr>
+</tbody>
+</table>
+<p>SQLだけで一連の処理を完結できることが特徴である。</p>
 </section>
-<section id="gemini-for-google-cloud">
-<h2><span class="section-number">20.4. </span>Gemini for Google Cloud<a class="headerlink" href="#gemini-for-google-cloud" title="この見出しへのパーマリンク">¶</a></h2>
-<p>GCP上でのシステム開発を支援する精製AIサービスで、アプリケーションコードの生成や支援を行なってくれる。
-具体的には、GCP上のシステム開発におけるベストプラクティスをGCPのコンソール上からチャットベースで質問することができる。</p>
+<section id="id3">
+<h3><span class="section-number">20.1.3. </span>主なモデル<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<p>BigQuery MLでは、多くの一般的な機械学習アルゴリズムを利用できる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>モデル</p></th>
+<th class="head text-left"><p>用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>線形回帰</p></td>
+<td class="text-left"><p>連続値の予測</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ロジスティック回帰</p></td>
+<td class="text-left"><p>二値分類</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Boosted Tree</p></td>
+<td class="text-left"><p>分類・回帰</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Random Forest</p></td>
+<td class="text-left"><p>分類・回帰</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>DNN</p></td>
+<td class="text-left"><p>分類・回帰</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>K-means</p></td>
+<td class="text-left"><p>クラスタリング</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>PCA</p></td>
+<td class="text-left"><p>次元削減</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ARIMA_PLUS</p></td>
+<td class="text-left"><p>時系列予測</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Matrix Factorization</p></td>
+<td class="text-left"><p>推薦システム</p></td>
+</tr>
+</tbody>
+</table>
+<p>目的に応じて、<code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">MODEL</span></code>時にモデルタイプを指定する。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">20.1.4. </span>前処理<a class="headerlink" href="#id4" title="この見出しへのパーマリンク">¶</a></h3>
+<p>BigQuery MLでは、モデル作成時に前処理をモデルへ組み込むことができる。</p>
+<p><code class="docutils literal notranslate"><span class="pre">TRANSFORM</span></code>句を利用することで、学習時と予測時で同じ前処理が自動的に適用される。</p>
+<p>代表的な利用例として、カテゴリ特徴量のOne-Hot Encodingがある。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TRANSFORM</span><span class="p">(</span>
+    <span class="n">ML</span><span class="o">.</span><span class="n">ONE_HOT_ENCODER</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>前処理をSQLへ統一することで、学習時と推論時の不整合を防ぐことができる。</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">20.1.5. </span>モデルの評価<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<p>学習したモデルは<code class="docutils literal notranslate"><span class="pre">ML.EVALUATE</span></code>によって評価できる。</p>
+<p>モデルの種類に応じて、Accuracy・Precision・Recall・RMSEなど適切な評価指標が自動的に出力される。</p>
+<p>学習データだけでなく評価データに対して実行することで、汎化性能を確認できる。</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">20.1.6. </span>予測<a class="headerlink" href="#id6" title="この見出しへのパーマリンク">¶</a></h3>
+<p>学習済みモデルは<code class="docutils literal notranslate"><span class="pre">ML.PREDICT</span></code>で利用する。</p>
+<p>新しいデータを入力するだけで予測結果が返されるため、追加のアプリケーションコードを書く必要がない。</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">20.1.7. </span>モデルの説明<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<p>対応するモデルでは<code class="docutils literal notranslate"><span class="pre">ML.EXPLAIN_PREDICT</span></code>を利用できる。</p>
+<p>これは各予測について、</p>
+<ul class="simple">
+<li><p>どの特徴量が予測へ影響したか</p></li>
+<li><p>どの程度寄与したか</p></li>
+</ul>
+<p>を確認できる機能であり、Explainable AIの一つである。</p>
+<p>特に金融や医療など、予測理由の説明が必要なシステムで利用される。</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">20.1.8. </span>利用シーン<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h3>
+<p>BigQuery MLは以下のようなケースで利用される。</p>
+<ul class="simple">
+<li><p>BigQueryにデータが蓄積されている</p></li>
+<li><p>SQL中心でモデルを構築したい</p></li>
+<li><p>迅速にPoCを実施したい</p></li>
+<li><p>シンプルな機械学習モデルで十分である</p></li>
+</ul>
+<p>一方で、独自アルゴリズムや複雑なディープラーニング、細かな学習制御が必要な場合はVertex AIの利用が適している。</p>
+</section>
+</section>
+<section id="vertex-ai">
+<h2><span class="section-number">20.2. </span>Vertex AIによるモデル開発<a class="headerlink" href="#vertex-ai" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Vertex AIは、Google Cloudで機械学習モデルの開発・管理・運用を統合的に行うためのプラットフォームである。</p>
+<p>BigQuery MLがSQL中心の機械学習サービスであるのに対し、Vertex AIはより柔軟なモデル開発やMLOpsを実現することを目的としている。</p>
+<p>機械学習では、モデルを作るだけではなく、データの前処理、学習、実験管理、モデル管理、デプロイまで多くの工程が存在する。Vertex AIでは、それらを一つのプラットフォーム上で管理できる。</p>
+<section id="id9">
+<h3><span class="section-number">20.2.1. </span>構成<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
+<p>モデル開発で利用する主要なサービスは以下で構成される。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>サービス</p></th>
+<th class="head text-left"><p>役割</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>AutoML</p></td>
+<td class="text-left"><p>コードを書かずにモデルを作成する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Vertex AI Pipelines</p></td>
+<td class="text-left"><p>MLワークフローを自動化する</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Vertex AI Experiments</p></td>
+<td class="text-left"><p>実験結果やハイパーパラメータを管理する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Vertex ML Metadata</p></td>
+<td class="text-left"><p>パイプラインやモデルのリネージを管理する</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>TensorBoard</p></td>
+<td class="text-left"><p>学習中の損失や精度などを可視化する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Model Registry</p></td>
+<td class="text-left"><p>学習済みモデルを管理する</p></td>
+</tr>
+</tbody>
+</table>
+<p>これらは独立したサービスではあるが、実際の開発では組み合わせて利用することが多い。</p>
+</section>
+<section id="id10">
+<h3><span class="section-number">20.2.2. </span>モデル開発の流れ<a class="headerlink" href="#id10" title="この見出しへのパーマリンク">¶</a></h3>
+<p>一般的なモデル開発は以下のような流れになる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>データ準備
+      ↓
+モデル学習
+      ↓
+実験結果の確認
+      ↓
+モデル登録
+      ↓
+デプロイ
+</pre></div>
+</div>
+<p>Vertex AIでは、それぞれの工程を専用サービスが担当する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>データ準備
+      ↓
+AutoML / Custom Training
+      ↓
+Experiments
+      ↓
+Model Registry
+      ↓
+Endpoint / Batch Prediction
+</pre></div>
+</div>
+<p>また、この一連の流れ全体をPipelinesで自動化できる。</p>
+</section>
+<section id="automl">
+<h3><span class="section-number">20.2.3. </span>AutoML<a class="headerlink" href="#automl" title="この見出しへのパーマリンク">¶</a></h3>
+<p>AutoMLは、機械学習アルゴリズムやハイパーパラメータを自動的に選択し、モデルを構築するサービスである。</p>
+<p>コードを書くことなく学習できるため、短期間でモデルを作成したい場合やPoCに適している。</p>
+<p>一方で、独自モデルや細かな学習制御はできない。</p>
+</section>
+<section id="vertex-ai-pipelines">
+<h3><span class="section-number">20.2.4. </span>Vertex AI Pipelines<a class="headerlink" href="#vertex-ai-pipelines" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Vertex AI Pipelinesは、機械学習ワークフローを自動化するサービスである。</p>
+<p>前処理・学習・評価・デプロイなどを一つのパイプラインとして定義できる。</p>
+<p>各処理はコンポーネントとして管理されるため、再利用や自動実行が容易になる。</p>
+<p>また、パイプライン実行時にはML Metadataへ情報が自動的に記録される。</p>
+</section>
+<section id="vertex-ai-experiments">
+<h3><span class="section-number">20.2.5. </span>Vertex AI Experiments<a class="headerlink" href="#vertex-ai-experiments" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Experimentsは、モデル開発時の実験結果を管理するサービスである。</p>
+<p>主に以下の情報を保存する。</p>
+<ul class="simple">
+<li><p>ハイパーパラメータ</p></li>
+<li><p>評価指標</p></li>
+<li><p>実験名</p></li>
+<li><p>実行結果</p></li>
+</ul>
+<p>複数回学習したモデルを比較し、最も性能の良いモデルを選択する際に利用される。</p>
+</section>
+<section id="vertex-ml-metadata">
+<h3><span class="section-number">20.2.6. </span>Vertex ML Metadata<a class="headerlink" href="#vertex-ml-metadata" title="この見出しへのパーマリンク">¶</a></h3>
+<p>ML Metadataは、モデル開発の履歴を管理するサービスである。</p>
+<p>データセット、モデル、パイプライン、予測などの関係を記録し、「どのデータからどのモデルが作られたのか」を追跡できる。</p>
+<p>このようなデータやモデルの系統情報をリネージ（Lineage）と呼ぶ。</p>
+<p>パイプラインを利用すると、多くの情報は自動的にMetadataへ登録される。</p>
+</section>
+<section id="tensorboard">
+<h3><span class="section-number">20.2.7. </span>TensorBoard<a class="headerlink" href="#tensorboard" title="この見出しへのパーマリンク">¶</a></h3>
+<p>TensorBoardは、機械学習の学習状況を可視化するツールである。</p>
+<p>主に以下の情報をグラフとして確認できる。</p>
+<ul class="simple">
+<li><p>Loss</p></li>
+<li><p>Accuracy</p></li>
+<li><p>Learning Rate</p></li>
+<li><p>エポックごとの学習状況</p></li>
+</ul>
+<p>ディープラーニングでは、学習が正常に進んでいるかを確認するためによく利用される。</p>
+</section>
+<section id="model-registry">
+<h3><span class="section-number">20.2.8. </span>Model Registry<a class="headerlink" href="#model-registry" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Model Registryは、学習済みモデルを一元管理するサービスである。</p>
+<p>モデル名、バージョン、説明などを管理でき、デプロイ対象となるモデルを明確に管理できる。</p>
+<p>新しいモデルを追加しても、既存モデルは保持されるため、過去のモデルへ戻すことも容易である。</p>
+</section>
+<section id="id11">
+<h3><span class="section-number">20.2.9. </span>設計思想<a class="headerlink" href="#id11" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Vertex AIでは、それぞれのサービスが一つの役割に特化している。</p>
+<ul class="simple">
+<li><p>モデルを作る</p></li>
+<li><p>実験を管理する</p></li>
+<li><p>履歴を管理する</p></li>
+<li><p>モデルを管理する</p></li>
+</ul>
+<p>これらを分離することで、大規模なチーム開発や継続的なモデル改善に対応できるよう設計されている。</p>
+<p>また、Pipelinesを中心に各サービスを連携させることで、MLOpsを実現しやすくなっている。</p>
+</section>
+</section>
+<section id="id12">
+<h2><span class="section-number">20.3. </span>モデルのデプロイ<a class="headerlink" href="#id12" title="この見出しへのパーマリンク">¶</a></h2>
+<p>機械学習モデルは、学習しただけでは利用できない。</p>
+<p>実際のシステムで予測を行うためには、学習済みモデルをデプロイし、予測リクエストを受け付けられる状態にする必要がある。</p>
+<p>Vertex AIでは、利用方法に応じて以下の2つの予測方法が提供されている。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>方式</p></th>
+<th class="head text-left"><p>用途</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Endpoint</p></td>
+<td class="text-left"><p>リアルタイムに予測を行う（オンライン予測）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Batch Prediction</p></td>
+<td class="text-left"><p>大量データをまとめて予測する（バッチ予測）</p></td>
+</tr>
+</tbody>
+</table>
+<section id="endpoint">
+<h3><span class="section-number">20.3.1. </span>オンライン予測（Endpoint）<a class="headerlink" href="#endpoint" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Endpointは、リアルタイムで予測を実行するためのサービスである。</p>
+<p>アプリケーションからリクエストを送信すると、デプロイされたモデルが即座に推論を実行し、結果を返す。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>アプリケーション
+        ↓
+    Endpoint
+        ↓
+      Model
+        ↓
+    Prediction
+</pre></div>
+</div>
+<p>APIとして利用されるため、ユーザー操作に対して即座に結果を返す必要があるシステムで利用される。</p>
+<section id="id13">
+<h4><span class="section-number">20.3.1.1. </span>利用例<a class="headerlink" href="#id13" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>商品レコメンド</p></li>
+<li><p>不正取引検知</p></li>
+<li><p>ローン審査</p></li>
+<li><p>チャットボット</p></li>
+<li><p>リアルタイム需要予測</p></li>
+</ul>
+</section>
+<section id="id14">
+<h4><span class="section-number">20.3.1.2. </span>Endpointの特徴<a class="headerlink" href="#id14" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>低遅延で予測できる</p></li>
+<li><p>オートスケーリングに対応</p></li>
+<li><p>複数モデルを同一Endpointへデプロイできる</p></li>
+<li><p>トラフィック分割による段階的なリリースが可能</p></li>
+</ul>
+</section>
+</section>
+<section id="batch-prediction">
+<h3><span class="section-number">20.3.2. </span>Batch Prediction<a class="headerlink" href="#batch-prediction" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Batch Predictionは、大量データを一括で予測するサービスである。</p>
+<p>入力データをCloud StorageやBigQueryから読み込み、予測結果をCloud StorageまたはBigQueryへ出力する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>BigQuery
+Cloud Storage
+      ↓
+Batch Prediction
+      ↓
+BigQuery
+Cloud Storage
+</pre></div>
+</div>
+<p>リアルタイム性はないが、大量データを効率的に処理できる。</p>
+<section id="id15">
+<h4><span class="section-number">20.3.2.1. </span>利用例<a class="headerlink" href="#id15" title="この見出しへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li><p>売上予測</p></li>
+<li><p>顧客スコアリング</p></li>
+<li><p>離反予測</p></li>
+<li><p>定期レポート作成</p></li>
+</ul>
+</section>
+</section>
+<section id="endpointbatch-prediction">
+<h3><span class="section-number">20.3.3. </span>EndpointとBatch Predictionの使い分け<a class="headerlink" href="#endpointbatch-prediction" title="この見出しへのパーマリンク">¶</a></h3>
+<p>両者の違いは、「いつ予測結果が必要になるか」である。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>項目</p></th>
+<th class="head text-left"><p>Endpoint</p></th>
+<th class="head text-left"><p>Batch Prediction</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>予測タイミング</p></td>
+<td class="text-left"><p>リクエスト時</p></td>
+<td class="text-left"><p>一括実行</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>応答速度</p></td>
+<td class="text-left"><p>数百ms〜数秒程度</p></td>
+<td class="text-left"><p>リアルタイムではない</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>処理対象</p></td>
+<td class="text-left"><p>少量データ</p></td>
+<td class="text-left"><p>大量データ</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>利用方法</p></td>
+<td class="text-left"><p>API経由</p></td>
+<td class="text-left"><p>ジョブ実行</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>主な用途</p></td>
+<td class="text-left"><p>Webサービス・アプリ</p></td>
+<td class="text-left"><p>分析・レポート・定期処理</p></td>
+</tr>
+</tbody>
+</table>
+<p>リアルタイム性が必要ならEndpoint、大量データをまとめて処理するならBatch Predictionを利用する。</p>
+</section>
+<section id="id16">
+<h3><span class="section-number">20.3.4. </span>モデルの更新<a class="headerlink" href="#id16" title="この見出しへのパーマリンク">¶</a></h3>
+<p>新しいモデルを学習した場合でも、既存システムへ影響を最小限にしながら切り替えることが重要になる。</p>
+<p>Vertex AIでは、一つのEndpointに複数のモデルを配置し、それぞれへ送るトラフィックの割合を設定できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Endpoint
+   ├── Model A（90%）
+   └── Model B（10%）
+</pre></div>
+</div>
+<p>これにより、新しいモデルへ少しずつリクエストを流し、安全性を確認しながら切り替えることができる。</p>
+<p>このような運用はカナリアデプロイメントと呼ばれる。</p>
+</section>
+<section id="id17">
+<h3><span class="section-number">20.3.5. </span>オートスケーリング<a class="headerlink" href="#id17" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Endpointは予測リクエスト数に応じて、自動的に推論ノードを増減できる。</p>
+<p>アクセスが少ない時間帯はノード数を減らし、アクセスが集中した場合には自動的にスケールアウトするため、コストと性能を両立できる。</p>
+<p>一方、急激なアクセス増加時には、新しいノードの起動時間によって一時的に応答時間が長くなる場合がある。</p>
+</section>
+</section>
+<section id="id18">
+<h2><span class="section-number">20.4. </span>モデルの運用<a class="headerlink" href="#id18" title="この見出しへのパーマリンク">¶</a></h2>
+<p>機械学習モデルは、デプロイした時点が完成ではない。</p>
+<p>現実のデータは時間とともに変化するため、モデルの精度は徐々に低下する可能性がある。そのため、本番環境ではモデルの性能や入力データを継続的に監視し、必要に応じて再学習を行うことが重要となる。</p>
+<p>Vertex AIでは、モデル運用を支援するサービスとしてModel MonitoringやFeature Storeが提供されている。</p>
+<section id="model-monitoring">
+<h3><span class="section-number">20.4.1. </span>Model Monitoring<a class="headerlink" href="#model-monitoring" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Model Monitoringは、本番環境で利用されているモデルを継続的に監視するサービスである。</p>
+<p>トレーニング時のデータと本番データを比較し、特徴量の分布や予測傾向に大きな変化がないかを監視できる。</p>
+<p>異常を検知した場合には通知を行い、モデルの再学習や調査のきっかけとなる。</p>
+</section>
+<section id="id19">
+<h3><span class="section-number">20.4.2. </span>監視対象<a class="headerlink" href="#id19" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Model Monitoringでは、主に以下の情報を監視できる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>監視対象</p></th>
+<th class="head text-left"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>特徴量（Feature）</p></td>
+<td class="text-left"><p>入力データの分布変化を監視する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>特徴量の重要度（Feature Attribution）</p></td>
+<td class="text-left"><p>予測に影響する特徴量の変化を監視する</p></td>
+</tr>
+</tbody>
+</table>
+<p>特徴量の重要度を監視することで、「入力データは変わっていないが、モデルの判断基準が変化している」といった問題も検知できる。</p>
+</section>
+<section id="id20">
+<h3><span class="section-number">20.4.3. </span>ドリフト<a class="headerlink" href="#id20" title="この見出しへのパーマリンク">¶</a></h3>
+<p>モデル運用では「ドリフト」が重要な考え方となる。</p>
+<p>ドリフトとは、学習時と本番環境でデータや予測傾向が変化する現象を指す。</p>
+<p>代表的なものは以下である。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-left"><p>内容</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Feature Drift</p></td>
+<td class="text-left"><p>入力特徴量の分布が変化する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Prediction Drift</p></td>
+<td class="text-left"><p>モデルの予測結果の分布が変化する</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Attribution Drift</p></td>
+<td class="text-left"><p>特徴量の重要度が変化する</p></td>
+</tr>
+</tbody>
+</table>
+<p>ドリフトが大きくなると、学習時には高かった精度が本番環境で維持できなくなる可能性がある。</p>
+</section>
+<section id="id21">
+<h3><span class="section-number">20.4.4. </span>リクエスト・レスポンスログ<a class="headerlink" href="#id21" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Model Monitoringでは、Endpointのリクエスト・レスポンスログを利用して監視を行う。</p>
+<p>そのため、Model Monitoringを利用する場合は、Endpointでリクエスト・レスポンスロギングを有効にしておく必要がある。</p>
+<p>これらのログは、監視だけでなくモデルの再学習データとして活用されることもある。</p>
+</section>
+<section id="feature-store">
+<h3><span class="section-number">20.4.5. </span>Feature Store<a class="headerlink" href="#feature-store" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Feature Storeは、特徴量を一元管理するサービスである。</p>
+<p>機械学習では、同じ特徴量を学習時と予測時で利用することが重要となる。</p>
+<p>Feature Storeを利用することで、特徴量の定義や管理を統一し、一貫した特徴量を利用できる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>データ
+   ↓
+特徴量生成
+   ↓
+Feature Store
+   ├── 学習
+   └── オンライン予測
+</pre></div>
+</div>
+<p>同じ特徴量を共有することで、学習時と推論時の不整合を防ぐことができる。</p>
+</section>
+<section id="id22">
+<h3><span class="section-number">20.4.6. </span>再学習<a class="headerlink" href="#id22" title="この見出しへのパーマリンク">¶</a></h3>
+<p>モデルはドリフトを検知したからといって、必ず再学習するわけではない。</p>
+<p>監視結果をもとに、</p>
+<ul class="simple">
+<li><p>ドリフトの大きさ</p></li>
+<li><p>モデル精度</p></li>
+<li><p>ビジネスへの影響</p></li>
+</ul>
+<p>などを総合的に判断して再学習を実施する。</p>
+<p>不要な再学習はコスト増加につながるため、適切なタイミングで実施することが重要である。</p>
+</section>
+<section id="id23">
+<h3><span class="section-number">20.4.7. </span>運用の流れ<a class="headerlink" href="#id23" title="この見出しへのパーマリンク">¶</a></h3>
+<p>モデル運用は一般的に以下の流れとなる。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>モデルをデプロイ
+        ↓
+リクエスト・レスポンスを記録
+        ↓
+Model Monitoringで監視
+        ↓
+ドリフトを検知
+        ↓
+必要に応じて再学習
+        ↓
+新しいモデルをデプロイ
+</pre></div>
+</div>
+<p>このサイクルを継続的に回すことで、本番環境でも高い予測性能を維持できる。</p>
+</section>
+</section>
+<section id="explainable-ai">
+<h2><span class="section-number">20.5. </span>Explainable AI<a class="headerlink" href="#explainable-ai" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Explainable AI（XAI）は、機械学習モデルが「なぜその予測を行ったのか」を人間が理解できる形で説明するための技術である。</p>
+<p>近年の機械学習モデル、特にディープラーニングは高い予測性能を持つ一方で、内部の判断過程が複雑であるためブラックボックスモデルと呼ばれることが多い。</p>
+<p>Explainable AIは、このブラックボックス性を補い、モデルの予測根拠を可視化することを目的としている。</p>
+<p>金融や医療など、予測理由の説明が求められる分野では特に重要となる。</p>
+<section id="id24">
+<h3><span class="section-number">20.5.1. </span>説明の種類<a class="headerlink" href="#id24" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Explainable AIには、大きく分けて2種類の説明がある。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>種類</p></th>
+<th class="head text-left"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Global Explanation</p></td>
+<td class="text-left"><p>モデル全体がどのような特徴を重視しているかを説明する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Local Explanation</p></td>
+<td class="text-left"><p>個々の予測に対して、どの特徴量がどれだけ影響したかを説明する</p></td>
+</tr>
+</tbody>
+</table>
+<p>例えば、</p>
+<ul class="simple">
+<li><p>「このモデルは年齢を重視している」はGlobal Explanation</p></li>
+<li><p>「この顧客は年収が高かったため承認された」はLocal Explanation</p></li>
+</ul>
+<p>となる。</p>
+</section>
+<section id="id25">
+<h3><span class="section-number">20.5.2. </span>主な説明手法<a class="headerlink" href="#id25" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Google Cloudや一般的な機械学習でよく利用される説明手法は以下の3つである。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>手法</p></th>
+<th class="head text-left"><p>主な対象</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>SHAP</p></td>
+<td class="text-left"><p>表形式データ・ツリーモデル</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Integrated Gradients</p></td>
+<td class="text-left"><p>ディープラーニング</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Sampled Shapley</p></td>
+<td class="text-left"><p>汎用モデル（Vertex AI）</p></td>
+</tr>
+</tbody>
+</table>
+<p>それぞれ、予測への寄与度を計算するという目的は同じだが、計算方法や得意なモデルが異なる。</p>
+</section>
+<section id="shap">
+<h3><span class="section-number">20.5.3. </span>SHAP<a class="headerlink" href="#shap" title="この見出しへのパーマリンク">¶</a></h3>
+<p>SHAP（SHapley Additive exPlanations）は、ゲーム理論のShapley値を応用した説明手法である。</p>
+<p>各特徴量が予測結果へどれだけ貢献したかを数値として表すことができる。</p>
+<p>ツリーベースモデルとの相性が良く、XGBoostやRandom Forestなどで広く利用されている。</p>
+<p>一方で、特徴量数やモデル規模が大きくなると計算コストが高くなる。</p>
+</section>
+<section id="integrated-gradients">
+<h3><span class="section-number">20.5.4. </span>Integrated Gradients<a class="headerlink" href="#integrated-gradients" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Integrated Gradientsは、ディープラーニング向けの説明手法である。</p>
+<p>入力データから基準値までの勾配を積分することで、各入力が予測へ与えた影響を求める。</p>
+<p>画像分類や自然言語処理など、TensorFlowを利用したニューラルネットワークで多く利用される。</p>
+<p>画像では、「どの部分を見て犬と判断したか」といった形で可視化されることが多い。</p>
+</section>
+<section id="sampled-shapley">
+<h3><span class="section-number">20.5.5. </span>Sampled Shapley<a class="headerlink" href="#sampled-shapley" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Sampled Shapleyは、Shapley値を近似計算するExplainable AI手法である。</p>
+<p>すべての特徴量の組み合わせを計算する代わりにサンプリングによって近似するため、大規模モデルでも現実的な時間で説明を生成できる。</p>
+<p>Vertex AI Explainable AIでは、この手法を利用してカスタムモデルの説明を行うことができる。</p>
+</section>
+<section id="vertex-ai-explainable-ai">
+<h3><span class="section-number">20.5.6. </span>Vertex AI Explainable AI<a class="headerlink" href="#vertex-ai-explainable-ai" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Vertex AIではExplainable AIが統合されており、モデルをデプロイする際に説明機能を有効化できる。</p>
+<p>予測結果と合わせて特徴量の寄与度も取得できるため、追加実装を最小限に抑えながら説明可能なモデルを構築できる。</p>
+<p>対応する説明手法はモデルによって異なるため、利用するモデルに応じて適切な手法を選択する必要がある。</p>
+</section>
+<section id="id26">
+<h3><span class="section-number">20.5.7. </span>手法の使い分け<a class="headerlink" href="#id26" title="この見出しへのパーマリンク">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>手法</p></th>
+<th class="head text-left"><p>特徴</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>SHAP</p></td>
+<td class="text-left"><p>表形式データやツリーモデルに適している</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Integrated Gradients</p></td>
+<td class="text-left"><p>ディープラーニングに適している</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Sampled Shapley</p></td>
+<td class="text-left"><p>Vertex AIで幅広いモデルに利用できる近似手法</p></td>
+</tr>
+</tbody>
+</table>
+<p>Explainable AIでは、どの手法が優れているかではなく、モデルの種類に応じて適切な手法を選択することが重要である。</p>
+</section>
+</section>
+<section id="id27">
+<h2><span class="section-number">20.6. </span>モデル評価指標<a class="headerlink" href="#id27" title="この見出しへのパーマリンク">¶</a></h2>
+<p>機械学習モデルは、学習後に性能を評価する必要がある。</p>
+<p>単純に「正解率が高いか」だけでは、実際の業務で利用できるモデルとは限らない。</p>
+<p>例えば、不正取引検知では正常な取引が圧倒的に多いため、すべてを「正常」と予測するだけでも高いAccuracyになる。しかし、不正取引を見逃してしまうため、このモデルは実用的ではない。</p>
+<p>そのため、機械学習では目的に応じて適切な評価指標を選択することが重要となる。</p>
+<section id="confusion-matrix">
+<h3><span class="section-number">20.6.1. </span>混同行列（Confusion Matrix）<a class="headerlink" href="#confusion-matrix" title="この見出しへのパーマリンク">¶</a></h3>
+<p>分類モデルの評価では、まず混同行列（Confusion Matrix）の考え方を理解することが重要である。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>実際＼予測</p></th>
+<th class="head text-center"><p>Positive</p></th>
+<th class="head text-center"><p>Negative</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Positive</p></td>
+<td class="text-center"><p>TP（True Positive）</p></td>
+<td class="text-center"><p>FN（False Negative）</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Negative</p></td>
+<td class="text-center"><p>FP（False Positive）</p></td>
+<td class="text-center"><p>TN（True Negative）</p></td>
+</tr>
+</tbody>
+</table>
+<p>それぞれの意味は以下の通り。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>用語</p></th>
+<th class="head text-left"><p>説明</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>TP</p></td>
+<td class="text-left"><p>正しい陽性予測</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>TN</p></td>
+<td class="text-left"><p>正しい陰性予測</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>FP</p></td>
+<td class="text-left"><p>誤って陽性と予測した</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>FN</p></td>
+<td class="text-left"><p>誤って陰性と予測した</p></td>
+</tr>
+</tbody>
+</table>
+<p>多くの評価指標は、この4つの値から計算される。</p>
+</section>
+<section id="precision">
+<h3><span class="section-number">20.6.2. </span>Precision<a class="headerlink" href="#precision" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Precision（適合率）は、予測したものの正確性（Precision）を表す。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Precision</span> <span class="o">=</span> <span class="n">TP</span> <span class="o">/</span> <span class="p">(</span><span class="n">TP</span> <span class="o">+</span> <span class="n">FP</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Precisionが高いほど、陽性と判断したものを誤る割合が少ない。</p>
+<section id="id28">
+<h4><span class="section-number">20.6.2.1. </span>重視するケース<a class="headerlink" href="#id28" title="この見出しへのパーマリンク">¶</a></h4>
+<p>誤検知（False Positive）のコストが高い場合に重視される。</p>
+<p>例</p>
+<ul class="simple">
+<li><p>スパムメール判定</p></li>
+<li><p>ローン審査</p></li>
+<li><p>医療検査（不要な精密検査を減らしたい場合）</p></li>
+</ul>
+</section>
+</section>
+<section id="recall">
+<h3><span class="section-number">20.6.3. </span>Recall<a class="headerlink" href="#recall" title="この見出しへのパーマリンク">¶</a></h3>
+<p>Recall（再現率）は、現実世界でどれだけ正解を回収（Recall）できたかを表す。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Recall</span> <span class="o">=</span> <span class="n">TP</span> <span class="o">/</span> <span class="p">(</span><span class="n">TP</span> <span class="o">+</span> <span class="n">FN</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Recallが高いほど、見逃し（False Negative）が少ない。</p>
+<section id="id29">
+<h4><span class="section-number">20.6.3.1. </span>重視するケース<a class="headerlink" href="#id29" title="この見出しへのパーマリンク">¶</a></h4>
+<p>見逃し（False Negative）のコストが高い場合に重視される。</p>
+<p>例</p>
+<ul class="simple">
+<li><p>がん検診</p></li>
+<li><p>不正アクセス検知</p></li>
+<li><p>故障予測</p></li>
+<li><p>災害検知</p></li>
+</ul>
+</section>
+</section>
+<section id="precisionrecall">
+<h3><span class="section-number">20.6.4. </span>PrecisionとRecallの関係<a class="headerlink" href="#precisionrecall" title="この見出しへのパーマリンク">¶</a></h3>
+<p>PrecisionとRecallは、多くの場合トレードオフの関係にある。</p>
+<p>例えば、陽性と判定する基準を緩くすると、多くの陽性を検出できるためRecallは向上するが、誤検知も増えるためPrecisionは低下する。</p>
+<p>逆に、判定基準を厳しくするとPrecisionは向上するが、見逃しが増えるためRecallは低下する。</p>
+<p>そのため、どちらを重視するかはビジネス要件によって決定する。</p>
+</section>
+<section id="threshold">
+<h3><span class="section-number">20.6.5. </span>閾値（Threshold）<a class="headerlink" href="#threshold" title="この見出しへのパーマリンク">¶</a></h3>
+<p>分類モデルは、多くの場合「陽性である確率」を出力している。</p>
+<p>最終的に陽性・陰性へ分類するためには、閾値（Threshold）を設定する。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>予測確率
+      ↓
+Threshold
+      ↓
+Positive / Negative
+</pre></div>
+</div>
+<p>一般的には0.5が利用されることが多いが、業務要件に応じて変更される。</p>
+<p>例えば、</p>
+<ul class="simple">
+<li><p>閾値を下げる</p>
+<ul>
+<li><p>Recallが向上しやすい</p></li>
+<li><p>Precisionは低下しやすい</p></li>
+</ul>
+</li>
+<li><p>閾値を上げる</p>
+<ul>
+<li><p>Precisionが向上しやすい</p></li>
+<li><p>Recallは低下しやすい</p></li>
+</ul>
+</li>
+</ul>
+<p>となる。</p>
+<p>そのため、モデルそのものだけではなく、閾値の調整も重要なモデル改善手法の一つである。</p>
+</section>
+<section id="id30">
+<h3><span class="section-number">20.6.6. </span>評価指標の選択<a class="headerlink" href="#id30" title="この見出しへのパーマリンク">¶</a></h3>
+<p>評価指標は、モデルの性能ではなく「ビジネスで何を重視するか」によって決まる。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>重視したいこと</p></th>
+<th class="head text-left"><p>主な指標</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>誤検知を減らしたい</p></td>
+<td class="text-left"><p>Precision</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>見逃しを減らしたい</p></td>
+<td class="text-left"><p>Recall</p></td>
+</tr>
+</tbody>
+</table>
+<p>機械学習では、最も高い指標を目指すのではなく、業務要件に適した指標を選択することが重要となる。</p>
+</section>
 </section>
 </section>
 
