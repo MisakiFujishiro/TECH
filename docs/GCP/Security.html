@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>22. セキュリティ &mdash; project  ドキュメント</title>
+  <title>23. セキュリティ &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="23. SecOps" href="SecOps.html" />
-    <link rel="prev" title="21. MemoryStore" href="Redis.html" /> 
+    <link rel="next" title="24. SecOps" href="SecOps.html" />
+    <link rel="prev" title="22. MemoryStore" href="Redis.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,25 +62,26 @@
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">18. Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">19. データ分析サービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AI.html">20. AI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">21. MemoryStore</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">22. セキュリティ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">22.1. フェデレーション</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#workforce-identity-federation">22.1.1. Workforce Identity Federation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#workload-identity-federation">22.1.2. Workload Identity Federation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html#googleai">21. Googleの生成AIサービスまとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">22. MemoryStore</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">23. セキュリティ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">23.1. フェデレーション</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#workforce-identity-federation">23.1.1. Workforce Identity Federation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workload-identity-federation">23.1.2. Workload Identity Federation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-identity-sso">22.2. Cloud Identity SSO</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#identity-platform">22.3. Identity Platform</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#identity-aware-proxy-iap">22.4. Identity-Aware Proxy (IAP)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#iap">22.4.1. IAPの役割</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iap-load-balancer">22.4.2. IAP と Load Balancer の関係</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">22.4.3. IAPの処理詳細</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-identity-sso">23.2. Cloud Identity SSO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identity-platform">23.3. Identity Platform</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#identity-aware-proxy-iap">23.4. Identity-Aware Proxy (IAP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#iap">23.4.1. IAPの役割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iap-load-balancer">23.4.2. IAP と Load Balancer の関係</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">23.4.3. IAPの処理詳細</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="SecOps.html">23. SecOps</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">24. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SecOps.html">24. SecOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">25. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul>
@@ -170,7 +171,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">22. </span>セキュリティ</li>
+      <li class="breadcrumb-item active"><span class="section-number">23. </span>セキュリティ</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/Security.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -181,9 +182,9 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1><span class="section-number">22. </span>セキュリティ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">23. </span>セキュリティ<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="id2">
-<h2><span class="section-number">22.1. </span>フェデレーション<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.1. </span>フェデレーション<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h2>
 <p>GCPにおけるフェデレーションとは、
 Googleアカウントを発行せずに、外部のIDプロバイダー（IdP）を信頼して認証・認可を行う仕組みである。</p>
 <p>従来のようにGCP側でIDを管理するのではなく、
@@ -234,7 +235,7 @@ GCP（STS / IAM）
 </pre></div>
 </div>
 <section id="workforce-identity-federation">
-<h3><span class="section-number">22.1.1. </span>Workforce Identity Federation<a class="headerlink" href="#workforce-identity-federation" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">23.1.1. </span>Workforce Identity Federation<a class="headerlink" href="#workforce-identity-federation" title="この見出しへのパーマリンク">¶</a></h3>
 <p>外部のID（Azure AD, Okta, SAML IdPなど）を使用して、
 人間ユーザーがGoogle Cloudにログインするための仕組み</p>
 <p>ユースケース</p>
@@ -262,7 +263,7 @@ IAMロールに基づきアクセス許可
 </div>
 </section>
 <section id="workload-identity-federation">
-<h3><span class="section-number">22.1.2. </span>Workload Identity Federation<a class="headerlink" href="#workload-identity-federation" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">23.1.2. </span>Workload Identity Federation<a class="headerlink" href="#workload-identity-federation" title="この見出しへのパーマリンク">¶</a></h3>
 <p>外部環境（オンプレ / AWS / Azureなど）で実行されるアプリケーションが、
 サービスアカウントキーを使わずにGCPにアクセスする仕組み</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Workload Identity Pool
@@ -286,7 +287,7 @@ GCP APIアクセス
 </section>
 </section>
 <section id="cloud-identity-sso">
-<h2><span class="section-number">22.2. </span>Cloud Identity SSO<a class="headerlink" href="#cloud-identity-sso" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.2. </span>Cloud Identity SSO<a class="headerlink" href="#cloud-identity-sso" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud Identity SSOとは、自社ユーザーがGoogleにログインする方法を、外部IdPに委ねる仕組み</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>社員（自社ユーザー）
    ↓
@@ -303,7 +304,7 @@ Google Workspace / GCP
 </ul>
 </section>
 <section id="identity-platform">
-<h2><span class="section-number">22.3. </span>Identity Platform<a class="headerlink" href="#identity-platform" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.3. </span>Identity Platform<a class="headerlink" href="#identity-platform" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Identity Platformは、Google Cloud の公式CIAM（Customer Identity and Access Management）サービス</p>
 <p>Identity Platform は以下をサポートしており、</p>
 <ul class="simple">
@@ -330,12 +331,12 @@ Googleアカウント：不要（あってもOK）</p></li>
 </ul>
 </section>
 <section id="identity-aware-proxy-iap">
-<h2><span class="section-number">22.4. </span>Identity-Aware Proxy (IAP)<a class="headerlink" href="#identity-aware-proxy-iap" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.4. </span>Identity-Aware Proxy (IAP)<a class="headerlink" href="#identity-aware-proxy-iap" title="この見出しへのパーマリンク">¶</a></h2>
 <p>IAP は Google Cloud が提供する認証・認可プロキシである。
 アプリケーション自身にログイン処理や認証ロジックを実装しなくても、Google アカウント（Google Workspace 含む）を使った安全なアクセス制御を実現できます。
 Identity-Aware Proxyにより、アプリケーションに直接認証ロジックを実装しなくても、Google アカウントを用いた認証およびアクセス制御を実現できます。</p>
 <section id="iap">
-<h3><span class="section-number">22.4.1. </span>IAPの役割<a class="headerlink" href="#iap" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">23.4.1. </span>IAPの役割<a class="headerlink" href="#iap" title="この見出しへのパーマリンク">¶</a></h3>
 <p>IAP はアプリケーションの 前段（HTTP(S) ロードバランサ等）に配置され、次を担当します。</p>
 <ul class="simple">
 <li><p>ユーザー認証</p></li>
@@ -346,7 +347,7 @@ Identity-Aware Proxyにより、アプリケーションに直接認証ロジッ
 </ul>
 </section>
 <section id="iap-load-balancer">
-<h3><span class="section-number">22.4.2. </span>IAP と Load Balancer の関係<a class="headerlink" href="#iap-load-balancer" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">23.4.2. </span>IAP と Load Balancer の関係<a class="headerlink" href="#iap-load-balancer" title="この見出しへのパーマリンク">¶</a></h3>
 <p>IAP は 単体で通信を受けるサービスではない。
 必ず Cloud Load Balancing（HTTP(S) Load Balancer）と組み合わせて利用される。</p>
 <p>立ち位置の整理</p>
@@ -357,7 +358,7 @@ Identity-Aware Proxyにより、アプリケーションに直接認証ロジッ
 </ul>
 </section>
 <section id="id3">
-<h3><span class="section-number">22.4.3. </span>IAPの処理詳細<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">23.4.3. </span>IAPの処理詳細<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>AP による認証が成功すると、IAP が署名した JWT がバックエンドに渡されます。</p>
 <ul class="simple">
 <li><p>処理イメージ</p>
@@ -398,8 +399,8 @@ Identity-Aware Proxyにより、アプリケーションに直接認証ロジッ
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Redis.html" class="btn btn-neutral float-left" title="21. MemoryStore" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="SecOps.html" class="btn btn-neutral float-right" title="23. SecOps" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Redis.html" class="btn btn-neutral float-left" title="22. MemoryStore" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="SecOps.html" class="btn btn-neutral float-right" title="24. SecOps" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

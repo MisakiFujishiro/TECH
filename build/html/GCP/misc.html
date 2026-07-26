@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>22. その他 &mdash; project  ドキュメント</title>
+  <title>23. その他 &mdash; project  ドキュメント</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -62,17 +62,18 @@
 <li class="toctree-l1"><a class="reference internal" href="Pub-Sub.html">18. Pub/Sub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="DataAnalytics.html">19. データ分析サービス</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AI.html">20. AI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">21. MemoryStore</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">22. その他</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#service-directory">22.1. Service Directory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-trace">22.2. Cloud Trace</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#workforce-identity-federation">22.3. workforce identity federation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-profiler">22.4. Cloud Profiler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-asset-inventory">22.5. Cloud Asset Inventory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#app-engine">22.6. App Engine</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#appengine">22.6.1. AppEngineの特徴</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">22.6.2. App Engineのタイプ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">22.6.3. App Engine のリリースモデル</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AI.html#googleai">21. Googleの生成AIサービスまとめ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">22. MemoryStore</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">23. その他</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#service-directory">23.1. Service Directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-trace">23.2. Cloud Trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workforce-identity-federation">23.3. workforce identity federation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-profiler">23.4. Cloud Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-asset-inventory">23.5. Cloud Asset Inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#app-engine">23.6. App Engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#appengine">23.6.1. AppEngineの特徴</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">23.6.2. App Engineのタイプ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">23.6.3. App Engine のリリースモデル</a></li>
 </ul>
 </li>
 </ul>
@@ -166,7 +167,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">22. </span>その他</li>
+      <li class="breadcrumb-item active"><span class="section-number">23. </span>その他</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/GCP/misc.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -177,9 +178,9 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1><span class="section-number">22. </span>その他<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
+<h1><span class="section-number">23. </span>その他<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h1>
 <section id="service-directory">
-<h2><span class="section-number">22.1. </span>Service Directory<a class="headerlink" href="#service-directory" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.1. </span>Service Directory<a class="headerlink" href="#service-directory" title="この見出しへのパーマリンク">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Service Directory は「サービス名 → 実体（URL / IP）を引くための台帳」
 </pre></div>
 </div>
@@ -227,23 +228,23 @@
 </ul>
 </section>
 <section id="cloud-trace">
-<h2><span class="section-number">22.2. </span>Cloud Trace<a class="headerlink" href="#cloud-trace" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.2. </span>Cloud Trace<a class="headerlink" href="#cloud-trace" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud Trace は Google Cloud が提供する分散トレースのバックエンドであり、
 OpenTelemetry で生成されたトレースデータを受信・保存・可視化できる。
 OpenTelemetry は計装の標準であり、Cloud Trace はその実行基盤である。</p>
 </section>
 <section id="workforce-identity-federation">
-<h2><span class="section-number">22.3. </span>workforce identity federation<a class="headerlink" href="#workforce-identity-federation" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.3. </span>workforce identity federation<a class="headerlink" href="#workforce-identity-federation" title="この見出しへのパーマリンク">¶</a></h2>
 <p>workforce identity federation は、Google Cloud Console に人間のユーザー（従業員）が外部 IdP のアカウントでシングルサインオンできるようにする機能です。
 これを用いると、ユーザーがコンソールにログインした際に、外部 IdP 側のユーザー情報（名前や写真など）を Google Cloud に渡すことができ、属性マッピングによりアカウントを紐づけて表示情報をパーソナライズできます。</p>
 </section>
 <section id="cloud-profiler">
-<h2><span class="section-number">22.4. </span>Cloud Profiler<a class="headerlink" href="#cloud-profiler" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.4. </span>Cloud Profiler<a class="headerlink" href="#cloud-profiler" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud Profiler は、Google Cloud が提供するプロファイリングツールで、Go を含む複数の言語をサポートします。
 CPU時間やメモリ使用量などを継続的にサンプリングし、フレームグラフ（Flame Graph）を提供してどの関数がどれだけリソースを使っているか可視化します。</p>
 </section>
 <section id="cloud-asset-inventory">
-<h2><span class="section-number">22.5. </span>Cloud Asset Inventory<a class="headerlink" href="#cloud-asset-inventory" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.5. </span>Cloud Asset Inventory<a class="headerlink" href="#cloud-asset-inventory" title="この見出しへのパーマリンク">¶</a></h2>
 <p>Cloud Asset Inventoryは、Google Cloudのリソースをまたがって、検索フィルタリストが可能。</p>
 <ul class="simple">
 <li><p>searchAllResources（または gcloud asset search-all-resources）で取得する</p></li>
@@ -251,11 +252,11 @@ CPU時間やメモリ使用量などを継続的にサンプリングし、フ�
 </ul>
 </section>
 <section id="app-engine">
-<h2><span class="section-number">22.6. </span>App Engine<a class="headerlink" href="#app-engine" title="この見出しへのパーマリンク">¶</a></h2>
+<h2><span class="section-number">23.6. </span>App Engine<a class="headerlink" href="#app-engine" title="この見出しへのパーマリンク">¶</a></h2>
 <p>App Engine は Google Cloud が提供するフルマネージドなサーバーレス PaaS であり、
 インフラ運用を極力意識せずにアプリケーションの開発・デプロイ・スケーリングを行える。</p>
 <section id="appengine">
-<h3><span class="section-number">22.6.1. </span>AppEngineの特徴<a class="headerlink" href="#appengine" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">23.6.1. </span>AppEngineの特徴<a class="headerlink" href="#appengine" title="この見出しへのパーマリンク">¶</a></h3>
 <p>App Engine は、Google Cloud が提供するフルマネージドな PaaS であり、
 アプリケーションを「どのインフラで動かすか」をほとんど意識せずに
 運用できることを目的としたサービスである。</p>
@@ -271,7 +272,7 @@ App Engine は「アプリケーションをどう運用するか」を中心に
 サービス・バージョンといった論理的な単位で管理される。</p>
 </section>
 <section id="id2">
-<h3><span class="section-number">22.6.2. </span>App Engineのタイプ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">23.6.2. </span>App Engineのタイプ<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h3>
 <ul class="simple">
 <li><p>Standard 環境は、Cloud Runに近いが、より制限が強いイメージ</p></li>
 <li><p>Flexible 環境は、ほぼGCEだけど、App Engineっぽく扱えるイメージ</p></li>
@@ -316,7 +317,7 @@ App Engine は「アプリケーションをどう運用するか」を中心に
 </table>
 </section>
 <section id="id3">
-<h3><span class="section-number">22.6.3. </span>App Engine のリリースモデル<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">23.6.3. </span>App Engine のリリースモデル<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>App Engine の最大の特徴の一つは、環境ではなく「バージョン」を軸にリリースを管理する点にある。</p>
 <p>一般的な構成は以下のようになる。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Application  

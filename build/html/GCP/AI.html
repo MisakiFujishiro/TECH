@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" />
-    <link rel="next" title="21. MemoryStore" href="Redis.html" />
+    <link rel="next" title="22. MemoryStore" href="Redis.html" />
     <link rel="prev" title="19. データ分析サービス" href="DataAnalytics.html" /> 
 </head>
 
@@ -137,8 +137,37 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Redis.html">21. MemoryStore</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">22. その他</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#googleai">21. Googleの生成AIサービスまとめ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#gemini">21.1. Gemini</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gemma">21.2. Gemma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#imagen">21.3. Imagen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#veo">21.4. Veo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#google-ai-studio">21.5. Google AI Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vertex-ai-studio">21.6. Vertex AI Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-garden">21.7. Model Garden</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notebooklm">21.8. NotebookLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rag">21.9. RAG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grounding">21.10. Grounding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vertex-ai-search">21.11. Vertex AI Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vertex-ai-agent-builder">21.12. Vertex AI Agent Builder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id31">21.13. AIエージェント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id32">21.14. マルチエージェント</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#agentspace">21.15. Agentspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conversational-agents">21.16. Conversational Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#agent-assist">21.17. Agent Assist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#google-cloud-contact-center-as-a-service">21.18. Google Cloud Contact Center as a Service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prompt-engineering">21.19. Prompt Engineering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#embedding">21.20. Embedding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#diffusion-model">21.21. Diffusion Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id33">21.22. データ依存性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id34">21.23. ハルシネーション</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adversarial-attack">21.24. 敵対的攻撃（Adversarial Attack）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#responsible-ai">21.25. Responsible AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id35">21.26. サービス選択早見表</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Redis.html">22. MemoryStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">23. その他</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">AWS:</span></p>
 <ul>
@@ -1009,13 +1038,279 @@ Positive / Negative
 </section>
 </section>
 </section>
+<section id="googleai">
+<h1><span class="section-number">21. </span>Googleの生成AIサービスまとめ<a class="headerlink" href="#googleai" title="この見出しへのパーマリンク">¶</a></h1>
+<p>Googleの生成AIサービスは、「AIを利用するサービス」と「AIを開発するサービス」に大きく分けられる。</p>
+<p>個人利用であればGeminiやNotebookLM、企業で生成AIを開発・運用する場合はVertex AIを利用するのが基本となる。</p>
+<p>サービス同士の役割を理解しておくと、どのサービスを選択すべきか判断しやすい。</p>
+<hr class="docutils" />
+<section id="gemini">
+<h2><span class="section-number">21.1. </span>Gemini<a class="headerlink" href="#gemini" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GeminiはGoogleの汎用的なマルチモーダル生成AIモデル。</p>
+<p>テキストだけでなく画像・音声・動画・コードなど複数のデータを扱うことができ、チャットや文章作成、要約など幅広い用途で利用される。</p>
+<p>Googleの生成AIサービスの多くは内部的にGeminiを利用している。</p>
+</section>
+<hr class="docutils" />
+<section id="gemma">
+<h2><span class="section-number">21.2. </span>Gemma<a class="headerlink" href="#gemma" title="この見出しへのパーマリンク">¶</a></h2>
+<p>GemmaはGoogleが公開しているオープンウェイトモデル。</p>
+<p>Geminiとは異なり、自分で環境を用意して実行・チューニングできるため、独自モデルとして利用しやすい。</p>
+<p>ローカル環境やオンプレミス環境で生成AIを利用したい場合にも選択肢となる。</p>
+</section>
+<hr class="docutils" />
+<section id="imagen">
+<h2><span class="section-number">21.3. </span>Imagen<a class="headerlink" href="#imagen" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Imagenは画像生成に特化した生成AIモデル。</p>
+<p>テキストから画像を生成するモデルであり、内部ではDiffusion Model（拡散モデル）が利用されている。</p>
+<p>イラストや広告画像、デザイン案の生成などに利用される。</p>
+</section>
+<hr class="docutils" />
+<section id="veo">
+<h2><span class="section-number">21.4. </span>Veo<a class="headerlink" href="#veo" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Veoは動画生成モデル。</p>
+<p>テキストや画像から動画を生成でき、映像コンテンツ制作を支援する。</p>
+<p>画像生成を担当するImagenに対し、動画生成を担当するモデルである。</p>
+</section>
+<hr class="docutils" />
+<section id="google-ai-studio">
+<h2><span class="section-number">21.5. </span>Google AI Studio<a class="headerlink" href="#google-ai-studio" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Google AI StudioはGeminiを素早く試すための開発環境。</p>
+<p>プロンプトの調整やモデル比較を行いながら、生成AIアプリケーションのアイデアを短時間で検証できる。</p>
+<p>本番環境向けではなく、プロトタイピングを目的としたサービスである。</p>
+</section>
+<hr class="docutils" />
+<section id="vertex-ai-studio">
+<h2><span class="section-number">21.6. </span>Vertex AI Studio<a class="headerlink" href="#vertex-ai-studio" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Vertex AI Studioは生成AIを本番運用するための統合開発環境。</p>
+<p>Google AI Studioで作成したプロトタイプを発展させ、モデル管理・評価・チューニング・デプロイなどを行える。</p>
+<p>企業向けの生成AI開発では中心となるサービスである。</p>
+</section>
+<hr class="docutils" />
+<section id="model-garden">
+<h2><span class="section-number">21.7. </span>Model Garden<a class="headerlink" href="#model-garden" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Model GardenはVertex AIから利用できるFoundation Modelのカタログ。</p>
+<p>Geminiだけではなく、Claude・Llama・Mistralなど様々なモデルを比較し、用途に応じて利用できる。</p>
+<p>Model Garden自体はモデルを実行するサービスではなく、利用するモデルを選択するための入口となる。</p>
+</section>
+<hr class="docutils" />
+<section id="notebooklm">
+<h2><span class="section-number">21.8. </span>NotebookLM<a class="headerlink" href="#notebooklm" title="この見出しへのパーマリンク">¶</a></h2>
+<p>NotebookLMは、アップロードしたドキュメントをAIに理解させて活用するサービス。</p>
+<p>PDFやGoogleドキュメントなどを読み込み、質問・要約・比較分析などを行うことができる。</p>
+<p>回答には引用元が表示されるため、論文や財務資料など事実を重視する分析に適している。</p>
+<p>内部ではRAGの仕組みが利用されている。</p>
+</section>
+<hr class="docutils" />
+<section id="rag">
+<h2><span class="section-number">21.9. </span>RAG<a class="headerlink" href="#rag" title="この見出しへのパーマリンク">¶</a></h2>
+<p>RAG（Retrieval-Augmented Generation）は、検索した情報を利用して回答を生成する仕組み。</p>
+<p>まず関連する文書を検索し、その内容をLLMへ渡して回答を生成することで、最新情報や社内文書を利用できる。</p>
+<p>ハルシネーションを抑える代表的な手法として利用される。</p>
+</section>
+<hr class="docutils" />
+<section id="grounding">
+<h2><span class="section-number">21.10. </span>Grounding<a class="headerlink" href="#grounding" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Groundingは、LLMが回答する際の根拠となる情報を外部から取得する仕組み。</p>
+<p>Google検索や社内文書、データベースなどを参照して回答を生成するため、学習済み知識だけでは対応できない最新情報にも対応できる。</p>
+<p>RAGはGroundingを実現する代表的な方法の一つである。</p>
+</section>
+<hr class="docutils" />
+<section id="vertex-ai-search">
+<h2><span class="section-number">21.11. </span>Vertex AI Search<a class="headerlink" href="#vertex-ai-search" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Vertex AI Searchは企業向けの検索・RAGサービス。</p>
+<p>Cloud StorageやGoogle Driveなどに保存されたデータを検索対象にし、生成AIによる自然言語検索を提供する。</p>
+<p>NotebookLMが個人利用向けなのに対し、Vertex AI Searchはアプリケーションへ組み込む用途を想定している。</p>
+</section>
+<hr class="docutils" />
+<section id="vertex-ai-agent-builder">
+<h2><span class="section-number">21.12. </span>Vertex AI Agent Builder<a class="headerlink" href="#vertex-ai-agent-builder" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Vertex AI Agent BuilderはAIエージェントを構築するためのサービス。</p>
+<p>RAGや外部API、ワークフローなどを組み合わせ、ユーザーの要求に応じて自律的に処理を行うエージェントを作成できる。</p>
+<p>複雑な業務を自動化する際に利用される。</p>
+</section>
+<hr class="docutils" />
+<section id="id31">
+<h2><span class="section-number">21.13. </span>AIエージェント<a class="headerlink" href="#id31" title="この見出しへのパーマリンク">¶</a></h2>
+<p>AIエージェントは、LLMが目的達成のために自律的に判断・行動する仕組み。</p>
+<p>単に文章を生成するだけではなく、ツールの利用や外部システムとの連携を行いながらタスクを遂行する。</p>
+<p>近年の生成AIアプリケーションでは中心的な考え方となっている。</p>
+</section>
+<hr class="docutils" />
+<section id="id32">
+<h2><span class="section-number">21.14. </span>マルチエージェント<a class="headerlink" href="#id32" title="この見出しへのパーマリンク">¶</a></h2>
+<p>マルチエージェントは、複数のAIエージェントが役割を分担して協調する構成。</p>
+<p>例えば「調査」「計画」「実装」「レビュー」などをそれぞれ別のエージェントが担当することで、複雑なタスクにも対応できる。</p>
+<p>単一エージェントより柔軟性や拡張性に優れる。</p>
+</section>
+<hr class="docutils" />
+<section id="agentspace">
+<h2><span class="section-number">21.15. </span>Agentspace<a class="headerlink" href="#agentspace" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Agentspaceは企業内データを横断検索するAIワークスペース。</p>
+<p>Google Driveだけでなく、SalesforceやSharePointなど複数システムを横断して検索できる。</p>
+<p>社内に分散した情報へ自然言語でアクセスできる環境を提供する。</p>
+</section>
+<hr class="docutils" />
+<section id="conversational-agents">
+<h2><span class="section-number">21.16. </span>Conversational Agents<a class="headerlink" href="#conversational-agents" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Conversational Agentsは対話型チャットボットを構築するサービス。</p>
+<p>FAQや予約システム、問い合わせ対応など、顧客との対話を自動化する用途で利用される。</p>
+<p>Dialogflowの後継サービスとして位置付けられている。</p>
+</section>
+<hr class="docutils" />
+<section id="agent-assist">
+<h2><span class="section-number">21.17. </span>Agent Assist<a class="headerlink" href="#agent-assist" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Agent Assistはコンタクトセンターのオペレーターを支援するAI。</p>
+<p>顧客との会話内容をリアルタイムに分析し、回答候補や関連ドキュメント、会話要約などを提示する。</p>
+<p>顧客と会話するAIではなく、担当者を支援するAIである。</p>
+</section>
+<hr class="docutils" />
+<section id="google-cloud-contact-center-as-a-service">
+<h2><span class="section-number">21.18. </span>Google Cloud Contact Center as a Service<a class="headerlink" href="#google-cloud-contact-center-as-a-service" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Google Cloud Contact Center as a Service（CCaaS）はクラウド型コンタクトセンターサービス。</p>
+<p>電話・チャット・メールなど複数チャネルを統合し、一貫した顧客対応を実現する。</p>
+<p>Agent Assistなどの生成AI機能とも連携できる。</p>
+</section>
+<hr class="docutils" />
+<section id="prompt-engineering">
+<h2><span class="section-number">21.19. </span>Prompt Engineering<a class="headerlink" href="#prompt-engineering" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Prompt Engineeringは、LLMから期待する回答を得るためにプロンプトを設計する技術。</p>
+<p>代表的な手法として以下がある。</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>手法</p></th>
+<th class="head text-left"><p>概要</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Zero-shot</p></td>
+<td class="text-left"><p>例を与えず質問する</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Few-shot</p></td>
+<td class="text-left"><p>回答例を提示する</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Role Prompt</p></td>
+<td class="text-left"><p>役割を与える</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Prompt Chaining</p></td>
+<td class="text-left"><p>複数のプロンプトを組み合わせる</p></td>
+</tr>
+</tbody>
+</table>
+<p>用途に応じて使い分けることで回答品質を向上できる。</p>
+</section>
+<hr class="docutils" />
+<section id="embedding">
+<h2><span class="section-number">21.20. </span>Embedding<a class="headerlink" href="#embedding" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Embeddingは文章や画像などをベクトルへ変換する技術。</p>
+<p>意味の近いデータ同士を数値的に比較できるようになり、RAG・類似検索・レコメンドなど様々な生成AIシステムで利用される。</p>
+<p>生成AIを支える基盤技術の一つである。</p>
+</section>
+<hr class="docutils" />
+<section id="diffusion-model">
+<h2><span class="section-number">21.21. </span>Diffusion Model<a class="headerlink" href="#diffusion-model" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Diffusion Model（拡散モデル）は画像生成で利用される代表的なモデル。</p>
+<p>完全なノイズから少しずつノイズを除去することで画像を生成する。</p>
+<p>Imagenなどの画像生成モデルで採用されている。</p>
+</section>
+<hr class="docutils" />
+<section id="id33">
+<h2><span class="section-number">21.22. </span>データ依存性<a class="headerlink" href="#id33" title="この見出しへのパーマリンク">¶</a></h2>
+<p>生成AIは学習データに大きく依存する。</p>
+<p>偏ったデータや古いデータで学習すると、そのまま回答品質や公平性へ影響する。</p>
+<p>生成AIではモデルだけではなく、データ品質も重要になる。</p>
+</section>
+<hr class="docutils" />
+<section id="id34">
+<h2><span class="section-number">21.23. </span>ハルシネーション<a class="headerlink" href="#id34" title="この見出しへのパーマリンク">¶</a></h2>
+<p>ハルシネーションは、もっともらしい誤った情報を生成してしまう現象。</p>
+<p>学習データ不足や曖昧な質問などが原因となる。</p>
+<p>GroundingやRAGを利用し、回答の根拠を明確にすることで発生を抑えられる。</p>
+</section>
+<hr class="docutils" />
+<section id="adversarial-attack">
+<h2><span class="section-number">21.24. </span>敵対的攻撃（Adversarial Attack）<a class="headerlink" href="#adversarial-attack" title="この見出しへのパーマリンク">¶</a></h2>
+<p>敵対的攻撃は、入力を意図的に操作して生成AIを誤動作させる攻撃。</p>
+<p>代表例としてプロンプトインジェクションなどがある。</p>
+<p>対策は入力検証だけではなく、設計・学習・評価・運用までライフサイクル全体で実施する必要がある。</p>
+</section>
+<hr class="docutils" />
+<section id="responsible-ai">
+<h2><span class="section-number">21.25. </span>Responsible AI<a class="headerlink" href="#responsible-ai" title="この見出しへのパーマリンク">¶</a></h2>
+<p>Responsible AIは、安全かつ公平にAIを利用するための考え方。</p>
+<p>生成AIでは性能だけではなく、</p>
+<ul class="simple">
+<li><p>公平性</p></li>
+<li><p>プライバシー</p></li>
+<li><p>セキュリティ</p></li>
+<li><p>説明可能性</p></li>
+<li><p>安全性</p></li>
+</ul>
+<p>なども重要な評価項目となる。</p>
+<p>Googleの生成AIサービスでもResponsible AIが設計の前提となっている。</p>
+</section>
+<hr class="docutils" />
+<section id="id35">
+<h2><span class="section-number">21.26. </span>サービス選択早見表<a class="headerlink" href="#id35" title="この見出しへのパーマリンク">¶</a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>やりたいこと</p></th>
+<th class="head text-left"><p>利用するサービス</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>チャットAIを利用する</p></td>
+<td class="text-left"><p>Gemini</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ドキュメントを分析する</p></td>
+<td class="text-left"><p>NotebookLM</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Geminiを試す</p></td>
+<td class="text-left"><p>Google AI Studio</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>生成AIを本番開発する</p></td>
+<td class="text-left"><p>Vertex AI Studio</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>利用可能なモデルを探す</p></td>
+<td class="text-left"><p>Model Garden</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>企業向けRAGを構築する</p></td>
+<td class="text-left"><p>Vertex AI Search</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>AIエージェントを開発する</p></td>
+<td class="text-left"><p>Vertex AI Agent Builder</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>社内システムを横断検索する</p></td>
+<td class="text-left"><p>Agentspace</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>チャットボットを構築する</p></td>
+<td class="text-left"><p>Conversational Agents</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>オペレーターを支援する</p></td>
+<td class="text-left"><p>Agent Assist</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>コンタクトセンターを構築する</p></td>
+<td class="text-left"><p>Google Cloud Contact Center as a Service</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>画像生成を行う</p></td>
+<td class="text-left"><p>Imagen</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>動画生成を行う</p></td>
+<td class="text-left"><p>Veo</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>オープンモデルを利用する</p></td>
+<td class="text-left"><p>Gemma</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="DataAnalytics.html" class="btn btn-neutral float-left" title="19. データ分析サービス" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Redis.html" class="btn btn-neutral float-right" title="21. MemoryStore" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Redis.html" class="btn btn-neutral float-right" title="22. MemoryStore" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
