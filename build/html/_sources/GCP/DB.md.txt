@@ -260,7 +260,7 @@ HAとDRは似ているように見えるが、守っている障害範囲が違�
 これがCloud SQLで覚えておきたい基本形。
 
 
-### HAとDRの違い
+#### HAとDRの違い
 
 ゾーン障害の場合。
 
@@ -304,7 +304,7 @@ Cross-region Read Replicaによる通常DR
 という違いがある。
 
 
-### PromoteはHA Failoverとは意味が違う
+#### PromoteはHA Failoverとは意味が違う
 
 HA Failoverでは、
 
@@ -341,7 +341,7 @@ HA Failoverでは、
 とはならない。
 
 
-### DR後に元リージョンへ戻す
+#### DR後に元リージョンへ戻す
 
 例えば元々、
 
@@ -383,7 +383,7 @@ FailoverだけでなくFailbackまで設計する
 必要がある。
 
 
-### Enterprise PlusのAdvanced DR
+#### Enterprise PlusのAdvanced DR
 
 現在のCloud SQL Enterprise Plusには、通常のRead Replica Promotionとは別にAdvanced DRがある。
 
@@ -429,7 +429,7 @@ Switchover
 というキーワードが出た場合はAdvanced DRを意識する。
 
 
-### DR構成の考え方
+#### DR構成の考え方
 
 Cloud SQLのDRでは、まずRTOとRPOを考える。
 
@@ -459,7 +459,7 @@ RPO
 と役割を分けて考える。
 
 
-### HA / Read Replica / DRまとめ
+#### HA / Read Replica / DRまとめ
 
 |構成|主目的|配置|Replication|自動切替|通常読み取り|
 |:----|:----|:----|:----|:----|:----|
@@ -557,7 +557,7 @@ Point-in-Time Recovery。
 のように事故直前へ復元できる。
 
 
-### CloneとPITR
+#### CloneとPITR
 
 Cloud SQLのCloneは、既存Instanceから別Instanceを作成する機能。
 
@@ -653,7 +653,7 @@ ProxyやCloud SQL Connector経由でCloud SQLへ接続するPrincipalには基�
 などの権限が含まれる。
 
 
-### Cloud SQL IAMとDB権限は別
+#### Cloud SQL IAMとDB権限は別
 
 Cloud SQLで特に混乱しやすいポイント。
 
@@ -687,7 +687,7 @@ Cloud SQLで特に混乱しやすいポイント。
 という層になっている。
 
 
-### Cloud SQL Admin API
+#### Cloud SQL Admin API
 
 Cloud SQL Admin APIはCloud SQL Instanceを管理するAPI。
 
@@ -873,7 +873,7 @@ AlloyDBには、
 となる。
 
 
-### Primary Instance
+#### Primary Instance
 
 Clusterには1つのPrimary Instanceが存在し、Read / Writeを担当する。
 
@@ -890,7 +890,7 @@ HA Primary Instanceでは、
 Active Nodeが利用できなくなればStandby Nodeへ自動Failoverする。
 
 
-### Read Pool Instance
+#### Read Pool Instance
 
 Read Poolは読み取り処理をPrimaryからオフロードするためのInstance。
 
@@ -1042,8 +1042,90 @@ Multi-region構成では複数RegionにReplicaを配置する。
 
 Region障害にも耐えられる一方、WriteではReplica間の合意が必要になるためRegional構成よりLatencyが増える。
 
+#### Leader-aware routing
 
-### LeaderとWrite Latency
+ここで重要になるのがLeader-aware routing。
+
+Leader-aware routingは、SpannerのClient LibraryがRead-write transactionをLeader Regionへ効率よくルーティングする仕組み。
+
+現在のSpannerでは、Dual-region / Multi-region構成においてLeader-aware routingがデフォルトで有効になっている。
+
+重要なのは、
+
+    Leader-aware routing
+        =
+    WriteをNon-leader Regionで処理する機能
+
+ではないということ。
+
+Writeそのものは依然としてLeader Replicaで処理される。
+
+Leader-aware routingが行うのは、
+
+    Client
+       |
+       v
+    Leader-aware routing
+       |
+       v
+    Leader Region
+       |
+       v
+    Leader Replica
+
+というように、ClientからSpannerへの最初のRoutingをLeader側へ寄せ、不要なNetwork Round Tripを減らすこと。
+
+
+##### Leader-aware routingがない場合
+
+ApplicationがNon-leader Regionにあるとする。
+
+    Application
+         |
+         v
+    Non-leader Region
+    Spanner API Frontend
+         |
+         | Network
+         v
+    Leader Region
+    Leader Replica
+
+Leader-aware routingが無効の場合、Applicationは自身のRegionにあるSpanner API Frontendへ接続した後、Leader Regionとの間で追加のNetwork Round Tripが発生する。
+
+Read-write transactionではTransactionの開始やCommitなど、Leader Regionとの通信が必要になる。
+
+そのためApplicationとLeader Regionが遠いほど、この追加RTTがLatencyへ影響する。
+
+
+##### Leader-aware routingを有効にした場合
+
+Leader-aware routingを有効にすると、Client LibraryがRead-write transactionをLeader RegionへRoutingする。
+
+概念的には、
+
+    Application
+         |
+         | Read-write transaction
+         v
+    Leader Region
+    Spanner API Frontend
+         |
+         v
+    Leader Replica
+         |
+         +---- Replica
+         |
+         +---- Replica
+
+となる。
+
+これによってNon-leader RegionのFrontendを経由してLeaderへ何度も往復する必要がなくなり、Read-write transactionのNetwork Round Tripを削減できる。
+
+Google Cloudの公式ドキュメントでは、Leader-aware routingを利用するとNon-leader RegionからのRead-write transactionについて、Leader Regionとの間のNetwork Round Tripを最大2回削減できると説明されている。
+
+
+#### LeaderとWrite Latency
 
 SpannerのWriteで重要なのがLeader。
 
@@ -1073,7 +1155,7 @@ Write時にはReplica間のConsensusが必要になる。
 というLatencyが追加される。
 
 
-### Multi-regionでWriteが遅い場合
+#### Multi-regionでWriteが遅い場合
 
 Regional Spannerでは速いのにMulti-regionでWriteが極端に遅くなった場合、まずApplicationとLeader Regionの距離を確認する。
 
@@ -1093,7 +1175,7 @@ Regional Spannerでは速いのにMulti-regionでWriteが極端に遅くなっ�
 のが重要。
 
 
-### Stale ReadではWriteは速くならない
+#### Stale ReadではWriteは速くならない
 
 SpannerではStalenessを指定したReadができる。
 
@@ -1117,7 +1199,7 @@ SpannerではStalenessを指定したReadができる。
 Multi-region Writeが遅い問題にStale Readを設定しても根本解決にはならない。
 
 
-### Read-only Replicaを増やしてもWrite Quorumは速くならない
+#### Read-only Replicaを増やしてもWrite Quorumは速くならない
 
 Read-only ReplicaはRead Scaleや地理的Read Latency改善には利用できる。
 
@@ -1133,25 +1215,6 @@ Read-only ReplicaはRead Scaleや地理的Read Latency改善には利用でき�
 とはならない。
 
 
-### Regional / Multi-region
-
-|構成|特徴|
-|:----|:----|
-|Regional|低いWrite Latency、Region内HA|
-|Dual-region|2Regionへ分散|
-|Multi-region|Global Availability、Region障害耐性|
-
-現在のSpannerではEditionとInstance Configurationによって利用できる構成やSLAが異なるため、
-
-「Spanner Multi-regionは必ず99.999%」
-
-という単純な暗記より、
-
-「Enterprise Plusなど対応構成では99.999%クラスのAvailabilityを提供する」
-
-と理解した方が現在のサービス体系に近い。
-
-
 ### Spannerと小規模スタート
 
 サービス開始時は1か国の小規模Pilotでも、
@@ -1162,14 +1225,7 @@ Read-only ReplicaはRead Scaleや地理的Read Latency改善には利用でき�
     Maintenance Downtimeを最小化
 
 という明確な要件があるなら、最終Architectureを見越してSpannerを選択する場合がある。
-
-ただし最初からMulti-regionにするとCostやWrite Latencyは増えるため、
-
-    Current Requirement
-    Future Requirement
-    Migration Cost
-
-のバランスで判断する。
+Spannerはリージョン構成を最初に選択し、その後拡張でマルチリージョンに変更することが可能。
 
 
 ## Firestore
@@ -1418,7 +1474,7 @@ Multi Cluster。
 Global 24 / 365 ApplicationやMission Critical WorkloadではMulti Cluster構成を検討する。
 
 
-### Bigtable ReplicationとConsistency
+#### Bigtable ReplicationとConsistency
 
 Bigtableで複数Clusterを使用すると、DataはCluster間でReplicationされる。
 
@@ -1453,7 +1509,7 @@ Replication完了後、
 ただし同じClusterにRead / WriteをRoutingすればRead-your-writes Consistencyを維持できる。
 
 
-### Bigtable App Profile
+#### Bigtable App Profile
 
 Bigtableでは1つのInstanceを複数Applicationから利用できる。
 
@@ -1614,9 +1670,3 @@ Oracleの巨大Databaseでは、
     OnVault
 
 などへ移して長期保存する。
-
-目的。
-
-    Low Cost
-    Long-term Retention
-

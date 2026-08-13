@@ -67,32 +67,36 @@
 <li class="toctree-l4"><a class="reference internal" href="#cross-region-read-replica">15.1.2.2. Cross-region Read Replica</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#cloud-sqlhadr">15.1.3. Cloud SQLのHAとDR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hadr">15.1.4. HAとDRの違い</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#promoteha-failover">15.1.5. PromoteはHA Failoverとは意味が違う</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dr">15.1.6. DR後に元リージョンへ戻す</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#enterprise-plusadvanced-dr">15.1.7. Enterprise PlusのAdvanced DR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">15.1.8. DR構成の考え方</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ha-read-replica-dr">15.1.9. HA / Read Replica / DRまとめ</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cascading-replica">15.1.10. Cascading Replica</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#backuppitr">15.1.11. BackupとPITR</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#backup">15.1.11.1. Backup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pitr">15.1.11.2. PITR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-sqlhadr">15.1.3. Cloud SQLのHAとDR</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hadr">15.1.3.1. HAとDRの違い</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#promoteha-failover">15.1.3.2. PromoteはHA Failoverとは意味が違う</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dr">15.1.3.3. DR後に元リージョンへ戻す</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enterprise-plusadvanced-dr">15.1.3.4. Enterprise PlusのAdvanced DR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">15.1.3.5. DR構成の考え方</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ha-read-replica-dr">15.1.3.6. HA / Read Replica / DRまとめ</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#clonepitr">15.1.12. CloneとPITR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-auth-proxy">15.1.13. Cloud SQL Auth Proxy</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">15.1.13.1. Cloud SQL Auth Proxyがしてくれること</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cascading-replica">15.1.4. Cascading Replica</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#backuppitr">15.1.5. BackupとPITR</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#backup">15.1.5.1. Backup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pitr">15.1.5.2. PITR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#clonepitr">15.1.5.3. CloneとPITR</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-client-role">15.1.14. Cloud SQL Client Role</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-iamdb">15.1.15. Cloud SQL IAMとDB権限は別</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-admin-api">15.1.16. Cloud SQL Admin API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-query-insights">15.1.17. Cloud SQL Query Insights</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#query-tags">15.1.17.1. Query Tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-auth-proxy">15.1.6. Cloud SQL Auth Proxy</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">15.1.6.1. Cloud SQL Auth Proxyがしてくれること</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">15.1.18. Cloud SQLのスケールアップ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-client-role">15.1.7. Cloud SQL Client Role</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cloud-sql-iamdb">15.1.7.1. Cloud SQL IAMとDB権限は別</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cloud-sql-admin-api">15.1.7.2. Cloud SQL Admin API</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-sql-query-insights">15.1.8. Cloud SQL Query Insights</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#query-tags">15.1.8.1. Query Tags</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">15.1.9. Cloud SQLのスケールアップ</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#database-migration-service">15.2. Database Migration Service</a><ul>
@@ -100,23 +104,27 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#alloydb">15.3. AlloyDB</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id4">15.3.1. AlloyDBの構成</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#primary-instance">15.3.2. Primary Instance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#read-pool-instance">15.3.3. Read Pool Instance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#storage-compute">15.3.4. Storage / Compute分離</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">15.3.5. Cloud SQLとの違い</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">15.3.1. AlloyDBの構成</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#primary-instance">15.3.1.1. Primary Instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#read-pool-instance">15.3.1.2. Read Pool Instance</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#storage-compute">15.3.2. Storage / Compute分離</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">15.3.3. Cloud SQLとの違い</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#spanner">15.4. Spanner</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id6">15.4.1. Spannerを使う理由</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#regional-spanner">15.4.2. Regional Spanner</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#multi-region-spanner">15.4.3. Multi-region Spanner</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#leaderwrite-latency">15.4.4. LeaderとWrite Latency</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#multi-regionwrite">15.4.5. Multi-regionでWriteが遅い場合</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stale-readwrite">15.4.6. Stale ReadではWriteは速くならない</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#read-only-replicawrite-quorum">15.4.7. Read-only Replicaを増やしてもWrite Quorumは速くならない</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#regional-multi-region">15.4.8. Regional / Multi-region</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">15.4.9. Spannerと小規模スタート</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-region-spanner">15.4.3. Multi-region Spanner</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#leader-aware-routing">15.4.3.1. Leader-aware routing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#leaderwrite-latency">15.4.3.2. LeaderとWrite Latency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multi-regionwrite">15.4.3.3. Multi-regionでWriteが遅い場合</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stale-readwrite">15.4.3.4. Stale ReadではWriteは速くならない</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#read-only-replicawrite-quorum">15.4.3.5. Read-only Replicaを増やしてもWrite Quorumは速くならない</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">15.4.4. Spannerと小規模スタート</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#firestore">15.5. Firestore</a><ul>
@@ -134,13 +142,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#time-series">15.6.1. Time Seriesとの相性</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bigtableinstance-cluster-node">15.6.2. BigtableのInstance / Cluster / Node</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bigtable-schema-design">15.6.3. Bigtable Schema Design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bigtable-multi-cluster">15.6.4. Bigtable Multi Cluster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bigtable-replicationconsistency">15.6.5. Bigtable ReplicationとConsistency</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bigtable-app-profile">15.6.6. Bigtable App Profile</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#app-profile">15.6.6.1. App Profileとは</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#single-cluster-routing">15.6.6.2. Single-Cluster Routing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#multi-cluster-routing">15.6.6.3. Multi-Cluster Routing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#routing">15.6.6.4. Routing比較</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bigtable-multi-cluster">15.6.4. Bigtable Multi Cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bigtable-replicationconsistency">15.6.4.1. Bigtable ReplicationとConsistency</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bigtable-app-profile">15.6.4.2. Bigtable App Profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#app-profile">15.6.4.3. App Profileとは</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#single-cluster-routing">15.6.4.4. Single-Cluster Routing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multi-cluster-routing">15.6.4.5. Multi-Cluster Routing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#routing">15.6.4.6. Routing比較</a></li>
 </ul>
 </li>
 </ul>
@@ -561,9 +569,8 @@ DR Replica &lt;------&gt; Standby
 </div>
 <p>とする。</p>
 <p>これがCloud SQLで覚えておきたい基本形。</p>
-</section>
 <section id="hadr">
-<h3><span class="section-number">15.1.4. </span>HAとDRの違い<a class="headerlink" href="#hadr" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.1.3.1. </span>HAとDRの違い<a class="headerlink" href="#hadr" title="この見出しへのパーマリンク">¶</a></h4>
 <p>ゾーン障害の場合。</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Region A
 
@@ -601,7 +608,7 @@ Replicaを意図的にPromote</p>
 <p>という違いがある。</p>
 </section>
 <section id="promoteha-failover">
-<h3><span class="section-number">15.1.5. </span>PromoteはHA Failoverとは意味が違う<a class="headerlink" href="#promoteha-failover" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.1.3.2. </span>PromoteはHA Failoverとは意味が違う<a class="headerlink" href="#promoteha-failover" title="この見出しへのパーマリンク">¶</a></h4>
 <p>HA Failoverでは、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Primary
    |
@@ -633,7 +640,7 @@ New Primary
 <p>とはならない。</p>
 </section>
 <section id="dr">
-<h3><span class="section-number">15.1.6. </span>DR後に元リージョンへ戻す<a class="headerlink" href="#dr" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.1.3.3. </span>DR後に元リージョンへ戻す<a class="headerlink" href="#dr" title="この見出しへのパーマリンク">¶</a></h4>
 <p>例えば元々、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Region A
 DB-1 Primary
@@ -667,7 +674,7 @@ New Replica
 <p>必要がある。</p>
 </section>
 <section id="enterprise-plusadvanced-dr">
-<h3><span class="section-number">15.1.7. </span>Enterprise PlusのAdvanced DR<a class="headerlink" href="#enterprise-plusadvanced-dr" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.1.3.4. </span>Enterprise PlusのAdvanced DR<a class="headerlink" href="#enterprise-plusadvanced-dr" title="この見出しへのパーマリンク">¶</a></h4>
 <p>現在のCloud SQL Enterprise Plusには、通常のRead Replica Promotionとは別にAdvanced DRがある。</p>
 <p>Cross-region Read ReplicaをDR Replicaとして指定しておくことで、Replica Failoverを実行できる。</p>
 <p>通常のPromotionとの大きな違いは、旧Primaryを新PrimaryのReplicaとして扱えること。</p>
@@ -704,7 +711,7 @@ Switchover</p>
 <p>というキーワードが出た場合はAdvanced DRを意識する。</p>
 </section>
 <section id="id1">
-<h3><span class="section-number">15.1.8. </span>DR構成の考え方<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.1.3.5. </span>DR構成の考え方<a class="headerlink" href="#id1" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Cloud SQLのDRでは、まずRTOとRPOを考える。</p>
 <p>RTO
 どれくらいの時間でサービスを復旧させる必要があるか</p>
@@ -727,7 +734,7 @@ Cross-region Replica
 <p>と役割を分けて考える。</p>
 </section>
 <section id="ha-read-replica-dr">
-<h3><span class="section-number">15.1.9. </span>HA / Read Replica / DRまとめ<a class="headerlink" href="#ha-read-replica-dr" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.1.3.6. </span>HA / Read Replica / DRまとめ<a class="headerlink" href="#ha-read-replica-dr" title="この見出しへのパーマリンク">¶</a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>構成</p></th>
@@ -789,8 +796,9 @@ Cross-region Replica
 </div>
 <p>とするとわかりやすい。</p>
 </section>
+</section>
 <section id="cascading-replica">
-<h3><span class="section-number">15.1.10. </span>Cascading Replica<a class="headerlink" href="#cascading-replica" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.1.4. </span>Cascading Replica<a class="headerlink" href="#cascading-replica" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Read Replicaの下にさらにReplicaを作る構成をCascading Replicaと呼ぶ。</p>
 <p>通常。</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Primary
@@ -818,7 +826,7 @@ Replica C
 <p>特に多数のReplicaや複数リージョンへ展開する場合に利用される。</p>
 </section>
 <section id="backuppitr">
-<h3><span class="section-number">15.1.11. </span>BackupとPITR<a class="headerlink" href="#backuppitr" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.1.5. </span>BackupとPITR<a class="headerlink" href="#backuppitr" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud SQLには主に、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Backup
 PITR
@@ -826,7 +834,7 @@ PITR
 </div>
 <p>という復旧方法がある。</p>
 <section id="backup">
-<h4><span class="section-number">15.1.11.1. </span>Backup<a class="headerlink" href="#backup" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">15.1.5.1. </span>Backup<a class="headerlink" href="#backup" title="この見出しへのパーマリンク">¶</a></h4>
 <p>ある時点で保存したバックアップからDBを復元する。</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Backup at 03:00
     |
@@ -837,7 +845,7 @@ Restore
 <p>というイメージ。</p>
 </section>
 <section id="pitr">
-<h4><span class="section-number">15.1.11.2. </span>PITR<a class="headerlink" href="#pitr" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">15.1.5.2. </span>PITR<a class="headerlink" href="#pitr" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Point-in-Time Recovery。</p>
 <p>トランザクションログを利用して特定時刻へDBを戻す。</p>
 <p>例えば、</p>
@@ -853,9 +861,8 @@ Restore
 </div>
 <p>のように事故直前へ復元できる。</p>
 </section>
-</section>
 <section id="clonepitr">
-<h3><span class="section-number">15.1.12. </span>CloneとPITR<a class="headerlink" href="#clonepitr" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.1.5.3. </span>CloneとPITR<a class="headerlink" href="#clonepitr" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Cloud SQLのCloneは、既存Instanceから別Instanceを作成する機能。</p>
 <p>開発環境や検証環境を作るときに利用できる。</p>
 <p>またPITRでは、過去時点のデータを新しいInstanceへ復元するという使い方もできる。</p>
@@ -869,8 +876,9 @@ Restore
 <p>「誤操作前の状態へ戻したい」のか</p>
 <p>で使い分ける。</p>
 </section>
+</section>
 <section id="cloud-sql-auth-proxy">
-<h3><span class="section-number">15.1.13. </span>Cloud SQL Auth Proxy<a class="headerlink" href="#cloud-sql-auth-proxy" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.1.6. </span>Cloud SQL Auth Proxy<a class="headerlink" href="#cloud-sql-auth-proxy" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud SQL Auth Proxyを一言で言うと、</p>
 <p>「IAMを利用してCloud SQLへの安全な接続経路を作るCloud SQL Connector」</p>
 <p>となる。</p>
@@ -900,7 +908,7 @@ Cloud SQL
 </div>
 <p>のように通常のDB接続として扱える。</p>
 <section id="id2">
-<h4><span class="section-number">15.1.13.1. </span>Cloud SQL Auth Proxyがしてくれること<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">15.1.6.1. </span>Cloud SQL Auth Proxyがしてくれること<a class="headerlink" href="#id2" title="この見出しへのパーマリンク">¶</a></h4>
 <p>主に次の2つ。</p>
 <p>接続認可
 IAMによって、そのPrincipalがCloud SQL Instanceへ接続してよいか確認する</p>
@@ -916,7 +924,7 @@ Cloud SQLとの通信をTLSで暗号化する</p>
 </section>
 </section>
 <section id="cloud-sql-client-role">
-<h3><span class="section-number">15.1.14. </span>Cloud SQL Client Role<a class="headerlink" href="#cloud-sql-client-role" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.1.7. </span>Cloud SQL Client Role<a class="headerlink" href="#cloud-sql-client-role" title="この見出しへのパーマリンク">¶</a></h3>
 <p>ProxyやCloud SQL Connector経由でCloud SQLへ接続するPrincipalには基本的に、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>roles/cloudsql.client
 </pre></div>
@@ -927,9 +935,8 @@ Cloud SQLとの通信をTLSで暗号化する</p>
 </pre></div>
 </div>
 <p>などの権限が含まれる。</p>
-</section>
 <section id="cloud-sql-iamdb">
-<h3><span class="section-number">15.1.15. </span>Cloud SQL IAMとDB権限は別<a class="headerlink" href="#cloud-sql-iamdb" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.1.7.1. </span>Cloud SQL IAMとDB権限は別<a class="headerlink" href="#cloud-sql-iamdb" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Cloud SQLで特に混乱しやすいポイント。</p>
 <p>例えばサービスアカウントに、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>roles/cloudsql.client
@@ -960,7 +967,7 @@ Table
 <p>という層になっている。</p>
 </section>
 <section id="cloud-sql-admin-api">
-<h3><span class="section-number">15.1.16. </span>Cloud SQL Admin API<a class="headerlink" href="#cloud-sql-admin-api" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.1.7.2. </span>Cloud SQL Admin API<a class="headerlink" href="#cloud-sql-admin-api" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Cloud SQL Admin APIはCloud SQL Instanceを管理するAPI。</p>
 <p>Cloud SQL Auth ProxyやLanguage Connectorも、安全な接続を確立するためにこのAPIを利用する。</p>
 <p>そのためCloud SQL Connector系を利用するときは、</p>
@@ -971,8 +978,9 @@ sqladmin.googleapis.com
 <p>を有効にする必要がある。</p>
 <p>Cloud RunからCloud SQLへ接続するときも、このAPIを利用する。</p>
 </section>
+</section>
 <section id="cloud-sql-query-insights">
-<h3><span class="section-number">15.1.17. </span>Cloud SQL Query Insights<a class="headerlink" href="#cloud-sql-query-insights" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.1.8. </span>Cloud SQL Query Insights<a class="headerlink" href="#cloud-sql-query-insights" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Query InsightsはCloud SQLのクエリパフォーマンスを分析する機能。</p>
 <p>例えば、</p>
 <ul class="simple">
@@ -983,7 +991,7 @@ sqladmin.googleapis.com
 </ul>
 <p>などを調査できる。</p>
 <section id="query-tags">
-<h4><span class="section-number">15.1.17.1. </span>Query Tags<a class="headerlink" href="#query-tags" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">15.1.8.1. </span>Query Tags<a class="headerlink" href="#query-tags" title="この見出しへのパーマリンク">¶</a></h4>
 <p>複数アプリケーションが1つのCloud SQLを利用している場合、</p>
 <p>「重いSQLはわかったが、どのアプリケーションが発行したのかわからない」</p>
 <p>という問題が起きる。</p>
@@ -1009,7 +1017,7 @@ Application
 </section>
 </section>
 <section id="id3">
-<h3><span class="section-number">15.1.18. </span>Cloud SQLのスケールアップ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.1.9. </span>Cloud SQLのスケールアップ<a class="headerlink" href="#id3" title="この見出しへのパーマリンク">¶</a></h3>
 <p>Cloud SQLはマシン構成を変更してCPUやメモリを増やせる。</p>
 <p>例えばCPU利用率が常時90%から100%なら、CPU不足が疑われる。</p>
 <p>Cloud SQLでは既存Instanceの設定を変更できるため、</p>
@@ -1127,9 +1135,8 @@ Node
 </pre></div>
 </div>
 <p>となる。</p>
-</section>
 <section id="primary-instance">
-<h3><span class="section-number">15.3.2. </span>Primary Instance<a class="headerlink" href="#primary-instance" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.3.1.1. </span>Primary Instance<a class="headerlink" href="#primary-instance" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Clusterには1つのPrimary Instanceが存在し、Read / Writeを担当する。</p>
 <p>HA Primary Instanceでは、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Zone A
@@ -1143,7 +1150,7 @@ Standby Node
 <p>Active Nodeが利用できなくなればStandby Nodeへ自動Failoverする。</p>
 </section>
 <section id="read-pool-instance">
-<h3><span class="section-number">15.3.3. </span>Read Pool Instance<a class="headerlink" href="#read-pool-instance" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.3.1.2. </span>Read Pool Instance<a class="headerlink" href="#read-pool-instance" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Read Poolは読み取り処理をPrimaryからオフロードするためのInstance。</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Application READ
      |
@@ -1156,8 +1163,9 @@ Node   Node   Node
 <p>Read Pool内部ではAlloyDBがNode間へクエリをLoad Balanceする。</p>
 <p>Cloud SQL Read Replicaではアプリケーション側でReplicaを選択する設計が必要になることが多いが、AlloyDB Read PoolではInstance Endpointの背後に複数Nodeを置ける点が特徴。</p>
 </section>
+</section>
 <section id="storage-compute">
-<h3><span class="section-number">15.3.4. </span>Storage / Compute分離<a class="headerlink" href="#storage-compute" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.3.2. </span>Storage / Compute分離<a class="headerlink" href="#storage-compute" title="この見出しへのパーマリンク">¶</a></h3>
 <p>AlloyDBではDatabase Engineを動かすCompute NodeとStorage Layerが分離されている。</p>
 <p>従来型DBでは、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>DB Server
@@ -1177,7 +1185,7 @@ Distributed Storage
 <p>これによってCompute側のFailoverやRead Poolの追加などを行いやすくしている。</p>
 </section>
 <section id="id5">
-<h3><span class="section-number">15.3.5. </span>Cloud SQLとの違い<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
+<h3><span class="section-number">15.3.3. </span>Cloud SQLとの違い<a class="headerlink" href="#id5" title="この見出しへのパーマリンク">¶</a></h3>
 <p>大まかには、</p>
 <p>Cloud SQL
 既存PostgreSQLをマネージドで使いたい</p>
@@ -1273,9 +1281,78 @@ Replica
 </pre></div>
 </div>
 <p>Region障害にも耐えられる一方、WriteではReplica間の合意が必要になるためRegional構成よりLatencyが増える。</p>
+<section id="leader-aware-routing">
+<h4><span class="section-number">15.4.3.1. </span>Leader-aware routing<a class="headerlink" href="#leader-aware-routing" title="この見出しへのパーマリンク">¶</a></h4>
+<p>ここで重要になるのがLeader-aware routing。</p>
+<p>Leader-aware routingは、SpannerのClient LibraryがRead-write transactionをLeader Regionへ効率よくルーティングする仕組み。</p>
+<p>現在のSpannerでは、Dual-region / Multi-region構成においてLeader-aware routingがデフォルトで有効になっている。</p>
+<p>重要なのは、</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Leader-aware routing
+    =
+WriteをNon-leader Regionで処理する機能
+</pre></div>
+</div>
+<p>ではないということ。</p>
+<p>Writeそのものは依然としてLeader Replicaで処理される。</p>
+<p>Leader-aware routingが行うのは、</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Client
+   |
+   v
+Leader-aware routing
+   |
+   v
+Leader Region
+   |
+   v
+Leader Replica
+</pre></div>
+</div>
+<p>というように、ClientからSpannerへの最初のRoutingをLeader側へ寄せ、不要なNetwork Round Tripを減らすこと。</p>
+<section id="id7">
+<h5><span class="section-number">15.4.3.1.1. </span>Leader-aware routingがない場合<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h5>
+<p>ApplicationがNon-leader Regionにあるとする。</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Application
+     |
+     v
+Non-leader Region
+Spanner API Frontend
+     |
+     | Network
+     v
+Leader Region
+Leader Replica
+</pre></div>
+</div>
+<p>Leader-aware routingが無効の場合、Applicationは自身のRegionにあるSpanner API Frontendへ接続した後、Leader Regionとの間で追加のNetwork Round Tripが発生する。</p>
+<p>Read-write transactionではTransactionの開始やCommitなど、Leader Regionとの通信が必要になる。</p>
+<p>そのためApplicationとLeader Regionが遠いほど、この追加RTTがLatencyへ影響する。</p>
+</section>
+<section id="id8">
+<h5><span class="section-number">15.4.3.1.2. </span>Leader-aware routingを有効にした場合<a class="headerlink" href="#id8" title="この見出しへのパーマリンク">¶</a></h5>
+<p>Leader-aware routingを有効にすると、Client LibraryがRead-write transactionをLeader RegionへRoutingする。</p>
+<p>概念的には、</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Application
+     |
+     | Read-write transaction
+     v
+Leader Region
+Spanner API Frontend
+     |
+     v
+Leader Replica
+     |
+     +---- Replica
+     |
+     +---- Replica
+</pre></div>
+</div>
+<p>となる。</p>
+<p>これによってNon-leader RegionのFrontendを経由してLeaderへ何度も往復する必要がなくなり、Read-write transactionのNetwork Round Tripを削減できる。</p>
+<p>Google Cloudの公式ドキュメントでは、Leader-aware routingを利用するとNon-leader RegionからのRead-write transactionについて、Leader Regionとの間のNetwork Round Tripを最大2回削減できると説明されている。</p>
+</section>
 </section>
 <section id="leaderwrite-latency">
-<h3><span class="section-number">15.4.4. </span>LeaderとWrite Latency<a class="headerlink" href="#leaderwrite-latency" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.4.3.2. </span>LeaderとWrite Latency<a class="headerlink" href="#leaderwrite-latency" title="この見出しへのパーマリンク">¶</a></h4>
 <p>SpannerのWriteで重要なのがLeader。</p>
 <p>Read-write Transactionの調整はLeader Regionが重要な役割を持つ。</p>
 <p>概念的には、</p>
@@ -1301,7 +1378,7 @@ Leader
 <p>というLatencyが追加される。</p>
 </section>
 <section id="multi-regionwrite">
-<h3><span class="section-number">15.4.5. </span>Multi-regionでWriteが遅い場合<a class="headerlink" href="#multi-regionwrite" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.4.3.3. </span>Multi-regionでWriteが遅い場合<a class="headerlink" href="#multi-regionwrite" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Regional Spannerでは速いのにMulti-regionでWriteが極端に遅くなった場合、まずApplicationとLeader Regionの距離を確認する。</p>
 <p>基本的な対策は、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Write Workload
@@ -1316,7 +1393,7 @@ Leader Regionの近くへ配置
 <p>のが重要。</p>
 </section>
 <section id="stale-readwrite">
-<h3><span class="section-number">15.4.6. </span>Stale ReadではWriteは速くならない<a class="headerlink" href="#stale-readwrite" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.4.3.4. </span>Stale ReadではWriteは速くならない<a class="headerlink" href="#stale-readwrite" title="この見出しへのパーマリンク">¶</a></h4>
 <p>SpannerではStalenessを指定したReadができる。</p>
 <p>例えば、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>15 seconds stale
@@ -1336,7 +1413,7 @@ Leader Regionの近くへ配置
 <p>Multi-region Writeが遅い問題にStale Readを設定しても根本解決にはならない。</p>
 </section>
 <section id="read-only-replicawrite-quorum">
-<h3><span class="section-number">15.4.7. </span>Read-only Replicaを増やしてもWrite Quorumは速くならない<a class="headerlink" href="#read-only-replicawrite-quorum" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.4.3.5. </span>Read-only Replicaを増やしてもWrite Quorumは速くならない<a class="headerlink" href="#read-only-replicawrite-quorum" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Read-only ReplicaはRead Scaleや地理的Read Latency改善には利用できる。</p>
 <p>しかしRead-only ReplicaはWrite Quorumへ参加しない。</p>
 <p>したがって、</p>
@@ -1348,34 +1425,9 @@ Write Faster
 </div>
 <p>とはならない。</p>
 </section>
-<section id="regional-multi-region">
-<h3><span class="section-number">15.4.8. </span>Regional / Multi-region<a class="headerlink" href="#regional-multi-region" title="この見出しへのパーマリンク">¶</a></h3>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>構成</p></th>
-<th class="head text-left"><p>特徴</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>Regional</p></td>
-<td class="text-left"><p>低いWrite Latency、Region内HA</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>Dual-region</p></td>
-<td class="text-left"><p>2Regionへ分散</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>Multi-region</p></td>
-<td class="text-left"><p>Global Availability、Region障害耐性</p></td>
-</tr>
-</tbody>
-</table>
-<p>現在のSpannerではEditionとInstance Configurationによって利用できる構成やSLAが異なるため、</p>
-<p>「Spanner Multi-regionは必ず99.999%」</p>
-<p>という単純な暗記より、</p>
-<p>「Enterprise Plusなど対応構成では99.999%クラスのAvailabilityを提供する」</p>
-<p>と理解した方が現在のサービス体系に近い。</p>
 </section>
-<section id="id7">
-<h3><span class="section-number">15.4.9. </span>Spannerと小規模スタート<a class="headerlink" href="#id7" title="この見出しへのパーマリンク">¶</a></h3>
+<section id="id9">
+<h3><span class="section-number">15.4.4. </span>Spannerと小規模スタート<a class="headerlink" href="#id9" title="この見出しへのパーマリンク">¶</a></h3>
 <p>サービス開始時は1か国の小規模Pilotでも、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>将来Global
 数百万人
@@ -1383,14 +1435,8 @@ Write Faster
 Maintenance Downtimeを最小化
 </pre></div>
 </div>
-<p>という明確な要件があるなら、最終Architectureを見越してSpannerを選択する場合がある。</p>
-<p>ただし最初からMulti-regionにするとCostやWrite Latencyは増えるため、</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Current Requirement
-Future Requirement
-Migration Cost
-</pre></div>
-</div>
-<p>のバランスで判断する。</p>
+<p>という明確な要件があるなら、最終Architectureを見越してSpannerを選択する場合がある。
+Spannerはリージョン構成を最初に選択し、その後拡張でマルチリージョンに変更することが可能。</p>
 </section>
 </section>
 <section id="firestore">
@@ -1594,9 +1640,8 @@ Cluster A
 </div>
 <p>各ClusterにTable DataがReplicationされる。</p>
 <p>Global 24 / 365 ApplicationやMission Critical WorkloadではMulti Cluster構成を検討する。</p>
-</section>
 <section id="bigtable-replicationconsistency">
-<h3><span class="section-number">15.6.5. </span>Bigtable ReplicationとConsistency<a class="headerlink" href="#bigtable-replicationconsistency" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.6.4.1. </span>Bigtable ReplicationとConsistency<a class="headerlink" href="#bigtable-replicationconsistency" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Bigtableで複数Clusterを使用すると、DataはCluster間でReplicationされる。</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Cluster A
    |
@@ -1627,7 +1672,7 @@ value = NEW
 <p>ただし同じClusterにRead / WriteをRoutingすればRead-your-writes Consistencyを維持できる。</p>
 </section>
 <section id="bigtable-app-profile">
-<h3><span class="section-number">15.6.6. </span>Bigtable App Profile<a class="headerlink" href="#bigtable-app-profile" title="この見出しへのパーマリンク">¶</a></h3>
+<h4><span class="section-number">15.6.4.2. </span>Bigtable App Profile<a class="headerlink" href="#bigtable-app-profile" title="この見出しへのパーマリンク">¶</a></h4>
 <p>Bigtableでは1つのInstanceを複数Applicationから利用できる。</p>
 <p>例えば、</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>API Server
@@ -1646,14 +1691,15 @@ Priority
 </div>
 <p>などの要件が異なる。</p>
 <p>そこでApplication単位の接続PolicyをApp Profileとして定義する。</p>
+</section>
 <section id="app-profile">
-<h4><span class="section-number">15.6.6.1. </span>App Profileとは<a class="headerlink" href="#app-profile" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">15.6.4.3. </span>App Profileとは<a class="headerlink" href="#app-profile" title="この見出しへのパーマリンク">¶</a></h4>
 <p>App Profileは、</p>
 <p>「ApplicationのRequestをどのClusterへRoutingするか」</p>
 <p>を定義する設定。</p>
 </section>
 <section id="single-cluster-routing">
-<h4><span class="section-number">15.6.6.2. </span>Single-Cluster Routing<a class="headerlink" href="#single-cluster-routing" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">15.6.4.4. </span>Single-Cluster Routing<a class="headerlink" href="#single-cluster-routing" title="この見出しへのパーマリンク">¶</a></h4>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Application
     |
     v
@@ -1674,7 +1720,7 @@ Cluster A
 <p>Consistencyを重視するWorkloadやBatchを特定Clusterに隔離したい場合に利用する。</p>
 </section>
 <section id="multi-cluster-routing">
-<h4><span class="section-number">15.6.6.3. </span>Multi-Cluster Routing<a class="headerlink" href="#multi-cluster-routing" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">15.6.4.5. </span>Multi-Cluster Routing<a class="headerlink" href="#multi-cluster-routing" title="この見出しへのパーマリンク">¶</a></h4>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Application
     |
     +---- Cluster A
@@ -1687,7 +1733,7 @@ Cluster A
 <p>そのため高可用性を重視するApplicationで利用される。</p>
 </section>
 <section id="routing">
-<h4><span class="section-number">15.6.6.4. </span>Routing比較<a class="headerlink" href="#routing" title="この見出しへのパーマリンク">¶</a></h4>
+<h4><span class="section-number">15.6.4.6. </span>Routing比較<a class="headerlink" href="#routing" title="この見出しへのパーマリンク">¶</a></h4>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Routing</p></th>
@@ -1784,11 +1830,6 @@ OnVault
 </pre></div>
 </div>
 <p>などへ移して長期保存する。</p>
-<p>目的。</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Low Cost
-Long-term Retention
-</pre></div>
-</div>
 </section>
 </section>
 </section>
